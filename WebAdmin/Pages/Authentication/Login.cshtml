@@ -1,0 +1,20 @@
+﻿@page
+@model WebAdmin.Pages.Authentication.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="text-center">
+    <h1>Login</h1>
+    <form method="post">
+        <div>
+            <label asp-for="Credential.Email"></label>
+            <input asp-for="Credential.Email" />
+        </div>
+        <div>
+            <label asp-for="Credential.Password"></label>
+            <input asp-for="Credential.Password" type="password" />
+        </div>
+        <button type="submit">Log in</button>
+    </form>
+</div>
