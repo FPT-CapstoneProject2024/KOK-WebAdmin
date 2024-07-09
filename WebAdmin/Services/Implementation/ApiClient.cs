@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
+using WebAdmin.DTOModels.Response;
 using WebAdmin.Services.Interfaces;
 
 namespace WebAdmin.Services.Implementation
