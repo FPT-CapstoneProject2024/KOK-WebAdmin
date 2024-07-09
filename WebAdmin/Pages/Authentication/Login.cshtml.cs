@@ -51,7 +51,7 @@ namespace WebAdmin.Pages.Authentication
 
                 if (loginResult != null && loginResult.Value != null)
                 {
-                    if (IsUserAllowed((AccountRole)loginResult.Value.Role!))
+                    if (IsUserAllowed((AccountRole)Enum.Parse(typeof(AccountRole), loginResult.Value.Role)!))
                     {
                         // User is admin or staff, access granted
                         // Store jwt token in cookie
@@ -62,7 +62,7 @@ namespace WebAdmin.Pages.Authentication
                             SameSite = SameSiteMode.Strict,
                         });
                         // Redirect to home page
-                        return RedirectToPage("/Index");
+                        return RedirectToPage("/Account/Index1");
                     }
                     else
                     {
@@ -81,8 +81,10 @@ namespace WebAdmin.Pages.Authentication
                 // Incorrect email or password
                 logger.LogError("Failed to login");
                 //return Page();
-                return RedirectToPage("/Index");
+                return RedirectToPage("/Account/Index1");
             }
+
+            return Page();
         }
 
         private bool IsUserAllowed(AccountRole accountRole)
