@@ -5,5 +5,6 @@
         public static readonly string BaseApiUrl = "https://localhost:7017/api";
         public static readonly string AccountResource = "accounts";
         public static readonly string AuthenticationResource = "authentication";
+        public static readonly string DashboardResource = "dashboards";
     }
 }
