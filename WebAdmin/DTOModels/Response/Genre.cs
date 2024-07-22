@@ -5,14 +5,10 @@ namespace WebAdmin.DTOModels.Response
 {
     public partial class Genre
     {
-        public Genre()
-        {
-            Songs = new HashSet<Song>();
-        }
 
-        public Guid GenreId { get; set; }
-        public string GenreName { get; set; } = null!;
+        public Guid? GenreId { get; set; }
+        public string? GenreName { get; set; }
 
-        public virtual ICollection<Song> Songs { get; set; }
+        public ICollection<SongGenre>? SongGernes { get; set; }
     }
 }

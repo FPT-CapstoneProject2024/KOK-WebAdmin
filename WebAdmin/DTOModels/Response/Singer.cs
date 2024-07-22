@@ -5,14 +5,10 @@ namespace WebAdmin.DTOModels.Response
 {
     public partial class Singer
     {
-        public Singer()
-        {
-            Songs = new HashSet<Song>();
-        }
 
-        public Guid SingerId { get; set; }
-        public string SingerName { get; set; } = null!;
+        public Guid? SingerId { get; set; }
+        public string? SingerName { get; set; }
 
-        public ICollection<Song> Songs { get; set; }
+        public ICollection<SongSinger>? SongSingers { get; set; }
     }
 }

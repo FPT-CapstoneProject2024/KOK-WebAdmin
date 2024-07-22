@@ -5,9 +5,9 @@ namespace WebAdmin.DTOModels.Response
 {
     public partial class LoginActivity
     {
-        public Guid LoginId { get; set; }
-        public DateTime LoginTime { get; set; }
+        public Guid? LoginId { get; set; }
+        public DateTime? LoginTime { get; set; }
         public string? LoginDevice { get; set; }
-        public Guid MemberId { get; set; }
+        public Guid? MemberId { get; set; }
     }
 }

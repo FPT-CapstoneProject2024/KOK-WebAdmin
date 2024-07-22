@@ -11,7 +11,7 @@ namespace WebAdmin.Pages.Item
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<Index1Model> logger;
+        private readonly ILogger<IndexModel> logger;
         private readonly IApiClient apiClient;
 
         [BindProperty]
@@ -23,7 +23,7 @@ namespace WebAdmin.Pages.Item
         [BindProperty]
         public static int TotalPage { get; set; } = 1;
 
-        public IndexModel(ILogger<Index1Model> logger, IApiClient apiClient)
+        public IndexModel(ILogger<IndexModel> logger, IApiClient apiClient)
         {
             this.logger = logger;
             this.apiClient = apiClient;
@@ -36,7 +36,7 @@ namespace WebAdmin.Pages.Item
             CurrentPage = (CurrentPage < 1) ? 1 : CurrentPage;
             CurrentPage = (CurrentPage > TotalPage) ? TotalPage : CurrentPage;
 
-            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.AccountResource;
+            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ItemResource;
 
             var response = await apiClient.GetAsync(uri + "?page=" + CurrentPage + filter);
 

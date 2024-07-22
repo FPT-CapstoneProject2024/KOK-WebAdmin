@@ -5,6 +5,7 @@ namespace WebAdmin.DTOModels.Response
 {
     public partial class Item
     {
+
         public Guid? ItemId { get; set; }
         public string? ItemCode { get; set; }
         public string? ItemName { get; set; }
@@ -15,16 +16,14 @@ namespace WebAdmin.DTOModels.Response
         public bool? CanStack { get; set; }
         public DateTime? CreatedDate { get; set; }
         public Guid? CreatorId { get; set; }
-        public string? CreatorMail { get; set; }
         public string? PrefabCode { get; set; }
-        public Guid? BuyerId { get; set; }
 
         public decimal? ItemBuyPrice { get; set; }
         public decimal? ItemSellPrice { get; set; }
-        
+
+
 
         public ICollection<InAppTransaction>? InAppTransactions { get; set; }
-        
         public ICollection<AccountItem>? AccountItems { get; set; }
     }
-}
+    }
