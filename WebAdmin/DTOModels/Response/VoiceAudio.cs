@@ -15,7 +15,5 @@ namespace WebAdmin.DTOModels.Response
         public Guid RecordingId { get; set; }
         public Guid MemberId { get; set; }
 
-        public virtual Account Member { get; set; } = null!;
-        public virtual Recording Recording { get; set; } = null!;
     }
 }

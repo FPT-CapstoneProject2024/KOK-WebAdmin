@@ -20,9 +20,7 @@ namespace WebAdmin.DTOModels.Response
         public Guid MemberId { get; set; }
         public int ObtainMethod { get; set; }
 
-        public virtual Item Item { get; set; } = null!;
-        public virtual Account Member { get; set; } = null!;
-        public virtual ICollection<Account> AccountCharacterItems { get; set; }
-        public virtual ICollection<Account> AccountRoomItems { get; set; }
+        public  ICollection<Account> AccountCharacterItems { get; set; }
+        public  ICollection<Account> AccountRoomItems { get; set; }
     }
 }

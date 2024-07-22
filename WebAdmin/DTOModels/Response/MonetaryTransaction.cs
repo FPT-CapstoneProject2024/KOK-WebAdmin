@@ -20,8 +20,6 @@ namespace WebAdmin.DTOModels.Response
         public Guid PackageId { get; set; }
         public Guid MemberId { get; set; }
 
-        public virtual Account Member { get; set; } = null!;
-        public virtual Package Package { get; set; } = null!;
         public virtual ICollection<InAppTransaction> InAppTransactions { get; set; }
     }
 }

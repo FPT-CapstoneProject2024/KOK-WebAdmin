@@ -12,7 +12,5 @@ namespace WebAdmin.DTOModels.Response
         public Guid MemberId { get; set; }
         public Guid PostId { get; set; }
 
-        public virtual Account Member { get; set; } = null!;
-        public virtual Post Post { get; set; } = null!;
     }
 }

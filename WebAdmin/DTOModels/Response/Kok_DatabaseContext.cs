@@ -45,7 +45,7 @@ namespace WebAdmin.DTOModels.Response
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=MSI\\SQLEXPRESS01;Uid=sa;Pwd=1234;Database=Kok_Database;TrustServerCertificate=true");
+                optionsBuilder.UseSqlServer("Server=MSI\\SQLEXPRESS01;Uid=sa;Pwd=1234;Database=Kok_Database;Trusted_Connection=True;MultipleActiveResultSets=true");
             }
         }
 

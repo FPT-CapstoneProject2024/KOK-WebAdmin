@@ -28,14 +28,13 @@ namespace WebAdmin.DTOModels.Response
         public Guid CreatorId { get; set; }
         public decimal Price { get; set; }
 
-        public virtual Account Creator { get; set; } = null!;
-        public virtual ICollection<InAppTransaction> InAppTransactions { get; set; }
-        public virtual ICollection<PurchasedSong> PurchasedSongs { get; set; }
-        public virtual ICollection<Recording> Recordings { get; set; }
+        public  ICollection<InAppTransaction> InAppTransactions { get; set; }
+        public  ICollection<PurchasedSong> PurchasedSongs { get; set; }
+        public  ICollection<Recording> Recordings { get; set; }
 
-        public virtual ICollection<Artist> Artists { get; set; }
-        public virtual ICollection<Genre> Genres { get; set; }
-        public virtual ICollection<Account> Members { get; set; }
-        public virtual ICollection<Singer> Singers { get; set; }
+        public  ICollection<Artist> Artists { get; set; }
+        public  ICollection<Genre> Genres { get; set; }
+        public  ICollection<Account> Members { get; set; }
+        public  ICollection<Singer> Singers { get; set; }
     }
 }

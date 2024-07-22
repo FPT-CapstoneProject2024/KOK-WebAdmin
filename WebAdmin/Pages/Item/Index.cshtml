@@ -1,0 +1,96 @@
+﻿@page
+@model WebAdmin.Pages.Item.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].ItemId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].ItemCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].PrefabCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].ItemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].ItemDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].CanExpire)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].CanStack)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].CreatorId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].ItemSellPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].ItemPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.data.Results)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrefabCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CanExpire)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CanStack)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatorId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemSellPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemPrice)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ItemId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ItemId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ItemId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

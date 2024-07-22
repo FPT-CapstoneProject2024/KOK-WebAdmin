@@ -16,8 +16,7 @@ namespace WebAdmin.DTOModels.Response
         public DateTime CreateTime { get; set; }
         public Guid CreatorId { get; set; }
 
-        public virtual Account Creator { get; set; } = null!;
-        public virtual ICollection<Recording> Recordings { get; set; }
-        public virtual ICollection<Report> Reports { get; set; }
+        public  ICollection<Recording> Recordings { get; set; }
+        public  ICollection<Report> Reports { get; set; }
     }
 }

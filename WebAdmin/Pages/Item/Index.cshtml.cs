@@ -3,17 +3,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using WebAdmin.Context;
 using WebAdmin.DTOModels.Response.Helpers;
+using WebAdmin.Pages.Account;
+using WebAdmin.Services.Implementation;
 using WebAdmin.Services.Interfaces;
 
-namespace WebAdmin.Pages.Account
+namespace WebAdmin.Pages.Item
 {
-    public class Index1Model : PageModel
+    public class IndexModel : PageModel
     {
         private readonly ILogger<Index1Model> logger;
         private readonly IApiClient apiClient;
 
         [BindProperty]
-        public DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Account> data { get; set; } = new DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Account>();
+        public DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Item> data { get; set; } = new DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Item>();
         [BindProperty]
         public int PageSzie { get; set; } = 3;
         [BindProperty]
@@ -21,7 +23,7 @@ namespace WebAdmin.Pages.Account
         [BindProperty]
         public static int TotalPage { get; set; } = 1;
 
-        public Index1Model(ILogger<Index1Model> logger, IApiClient apiClient)
+        public IndexModel(ILogger<Index1Model> logger, IApiClient apiClient)
         {
             this.logger = logger;
             this.apiClient = apiClient;
@@ -42,7 +44,7 @@ namespace WebAdmin.Pages.Account
 
             var jsonResponse = await response.Content.ReadAsStringAsync();
 #pragma warning disable CS8601 // Possible null reference assignment.
-            data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Account>>(jsonResponse);
+            data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Item>>(jsonResponse);
 #pragma warning restore CS8601 // Possible null reference assignment.
 
             if (data.Results is not null)
@@ -52,32 +54,6 @@ namespace WebAdmin.Pages.Account
             return Page();
         }
 
-
-        public async Task<IActionResult> OnGetInactive(string id)
-        {
-            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.AccountResource + "/" + id;
-
-            var response = await apiClient.DeleteAsync(uri);
-
-            var jsonResponse = await response.Content.ReadAsStringAsync();
-
-            var data = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Account>>(jsonResponse);
-
-            return await OnGet();
-        }
-
-        public async Task<IActionResult> OnGetActive(string id)
-        {
-            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.AccountResource + "/" + "active-account" + "/" + id;
-
-            var response = await apiClient.PutAsync<string>(uri, null);
-
-            var jsonResponse = await response.Content.ReadAsStringAsync();
-
-            var data = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Account>>(jsonResponse);
-
-            return await OnGet();
-        }
 
         public async Task<IActionResult> OnPostSearch()
         {

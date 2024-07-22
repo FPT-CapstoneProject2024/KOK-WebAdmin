@@ -1,3 +1,4 @@
+using ClassLibrary1.DTOModels;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 using WebAdmin;
@@ -9,6 +10,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddWebApplicationServices();
 
 builder.Services.AddRazorPages();
+
+#region database
+builder.Services.AddDbContext<KOKDatabaseContext>(options =>
+{
+
+    options.UseSqlServer("name=ConnectionStrings:database");
+});
+#endregion 
 
 var app = builder.Build();
 

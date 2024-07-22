@@ -9,7 +9,5 @@ namespace WebAdmin.DTOModels.Response
         public DateTime LoginTime { get; set; }
         public string? LoginDevice { get; set; }
         public Guid MemberId { get; set; }
-
-        public virtual Account Member { get; set; } = null!;
     }
 }

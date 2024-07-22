@@ -11,7 +11,5 @@ namespace WebAdmin.DTOModels.Response
         public Guid SenderId { get; set; }
         public Guid ConversationId { get; set; }
 
-        public virtual Conversation Conversation { get; set; } = null!;
-        public virtual Account Sender { get; set; } = null!;
     }
 }

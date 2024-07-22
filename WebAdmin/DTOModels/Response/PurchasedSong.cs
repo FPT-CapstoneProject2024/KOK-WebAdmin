@@ -11,8 +11,5 @@ namespace WebAdmin.DTOModels.Response
         public Guid SongId { get; set; }
         public Guid? InAppTransactionId { get; set; }
 
-        public virtual InAppTransaction? InAppTransaction { get; set; }
-        public virtual Account Member { get; set; } = null!;
-        public virtual Song Song { get; set; } = null!;
     }
 }

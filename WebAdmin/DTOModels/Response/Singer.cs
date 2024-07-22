@@ -13,6 +13,6 @@ namespace WebAdmin.DTOModels.Response
         public Guid SingerId { get; set; }
         public string SingerName { get; set; } = null!;
 
-        public virtual ICollection<Song> Songs { get; set; }
+        public ICollection<Song> Songs { get; set; }
     }
 }

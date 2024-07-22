@@ -16,8 +16,6 @@ namespace WebAdmin.DTOModels.Response
         public int Category { get; set; }
         public int Status { get; set; }
         public Guid SenderId { get; set; }
-
-        public virtual Account Sender { get; set; } = null!;
-        public virtual ICollection<Conversation> Conversations { get; set; }
+        public ICollection<Conversation> Conversations { get; set; }
     }
 }

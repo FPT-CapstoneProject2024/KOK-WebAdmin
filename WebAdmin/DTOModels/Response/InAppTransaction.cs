@@ -20,11 +20,6 @@ namespace WebAdmin.DTOModels.Response
         public decimal UpAmountBefore { get; set; }
         public Guid MonetaryTransactionId { get; set; }
         public decimal UpTotalAmount { get; set; }
-
-        public virtual Item Item { get; set; } = null!;
-        public virtual Account Member { get; set; } = null!;
-        public virtual MonetaryTransaction MonetaryTransaction { get; set; } = null!;
-        public virtual Song Song { get; set; } = null!;
-        public virtual ICollection<PurchasedSong> PurchasedSongs { get; set; }
+        public  ICollection<PurchasedSong> PurchasedSongs { get; set; }
     }
 }

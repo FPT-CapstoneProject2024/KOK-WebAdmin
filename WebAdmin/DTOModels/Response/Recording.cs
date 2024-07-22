@@ -22,11 +22,8 @@ namespace WebAdmin.DTOModels.Response
         public Guid OwnerId { get; set; }
         public Guid KaraokeRoomId { get; set; }
 
-        public virtual Account Host { get; set; } = null!;
-        public virtual KaraokeRoom KaraokeRoom { get; set; } = null!;
-        public virtual Account Owner { get; set; } = null!;
-        public virtual Song Song { get; set; } = null!;
-        public virtual ICollection<Post> Posts { get; set; }
-        public virtual ICollection<VoiceAudio> VoiceAudios { get; set; }
+
+        public  ICollection<Post> Posts { get; set; }
+        public  ICollection<VoiceAudio> VoiceAudios { get; set; }
     }
 }

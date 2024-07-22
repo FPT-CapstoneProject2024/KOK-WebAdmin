@@ -9,7 +9,5 @@ namespace WebAdmin.DTOModels.Response
         public Guid PostId { get; set; }
         public int Score { get; set; }
 
-        public virtual Account Member { get; set; } = null!;
-        public virtual Post Post { get; set; } = null!;
     }
 }

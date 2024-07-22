@@ -18,10 +18,6 @@ namespace WebAdmin.DTOModels.Response
         public Guid MemberId { get; set; }
         public Guid PostId { get; set; }
         public DateTime CreateTime { get; set; }
-
-        public virtual Account Member { get; set; } = null!;
-        public virtual PostComment? ParentComment { get; set; }
-        public virtual Post Post { get; set; } = null!;
-        public virtual ICollection<PostComment> InverseParentComment { get; set; }
+        public ICollection<PostComment> InverseParentComment { get; set; }
     }
 }

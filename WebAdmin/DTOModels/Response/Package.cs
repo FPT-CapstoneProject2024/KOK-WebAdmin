@@ -18,8 +18,6 @@ namespace WebAdmin.DTOModels.Response
         public int Status { get; set; }
         public DateTime CreatedDate { get; set; }
         public Guid CreatorId { get; set; }
-
-        public virtual Account Creator { get; set; } = null!;
         public virtual ICollection<MonetaryTransaction> MonetaryTransactions { get; set; }
     }
 }
