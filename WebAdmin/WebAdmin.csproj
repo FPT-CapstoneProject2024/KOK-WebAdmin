@@ -7,10 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\Item\Create.cshtml" />
     <Content Remove="wwwroot\js\login.js" />
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Item\Create.cshtml" />
     <_ContentIncludedByDefault Remove="wwwroot\css\index.css" />
     <_ContentIncludedByDefault Remove="wwwroot\js\login.js" />
   </ItemGroup>
@@ -36,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Pages\Item\Create.cshtml" />
     <None Include="wwwroot\img\icons\common\github.svg" />
     <None Include="wwwroot\img\icons\common\google.svg" />
     <None Include="wwwroot\js\login.js" />
@@ -1882,6 +1885,10 @@
     <None Include="wwwroot\scss\argon-dashboard\docs\_prism.scss" />
     <None Include="wwwroot\scss\argon-dashboard\docs\_sidebar.scss" />
     <None Include="wwwroot\scss\argon-dashboard\docs\_variables.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Item\Create.cshtml" />
   </ItemGroup>
 
 </Project>
