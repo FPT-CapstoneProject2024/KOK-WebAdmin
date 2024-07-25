@@ -1,25 +1,22 @@
 ﻿@page
-@model WebAdmin.Pages.Item.CreateModel
+@model WebAdmin.Pages.Item.Create1Model
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create1";
 }
-<h1>Create</h1>
 
-<h4>Item</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Item.ItemName" class="control-label"></label>
-                <input asp-for="Item.ItemName" class="form-control" required />
-                <span asp-validation-for="Item.ItemName" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="Item.ItemCode" class="control-label"></label>
-                <input asp-for="Item.ItemCode" class="form-control" required />
+                <input asp-for="Item.ItemCode" type="text" placeholder="Item Code" required class="form-control" />
                 <span asp-validation-for="Item.ItemCode" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Item.ItemName" class="control-label"></label>
+                <input asp-for="Item.ItemName" type="text" placeholder="Item Name" required class="form-control" />
+                <span asp-validation-for="Item.ItemName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Item.ItemDescription" class="control-label"></label>
@@ -41,7 +38,7 @@
                 <input asp-for="Item.ItemSellPrice" class="form-control" required />
                 <span asp-validation-for="Item.ItemSellPrice" class="text-danger"></span>
             </div>
-            
+
             <div class="form-group">
                 <label asp-for="Item.CanExpire" class="control-label"></label>
                 <input asp-for="Item.CanExpire" class="form-control" />
@@ -59,22 +56,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="Item.PrefabCode" class="control-label"></label>
-                <input asp-for="Item.PrefabCode" class="form-control" required/>
+                <input asp-for="Item.PrefabCode" class="form-control" required />
                 <span asp-validation-for="Item.PrefabCode" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <button asp-page-handler="Create" type="submit" class="form-control-sm btn-outline-primary">Submit</button>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
