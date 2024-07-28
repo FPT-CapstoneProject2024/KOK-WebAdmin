@@ -20,17 +20,21 @@ namespace WebAdmin.Pages.Dashboard
         public Dictionary<string, decimal>? DataMonth { get; set; }
         [BindProperty]
         public Dictionary<DateTime, decimal>? DataDate { get; set; }
+        [BindProperty]
+        public Dictionary<string, decimal>? DataMonthInApp { get; set; }
+        [BindProperty]
+        public Dictionary<DateTime, decimal>? DataDateInApp { get; set; }   
 
         public IndexModel(IApiClient apiClient)
         {
             _apiClient = apiClient;
         }
-        public async Task<IActionResult> OnGet()
+        public async Task<IActionResult> OnGet(string? Month = null)
         {
             try
             {
                 #region Month
-                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.DashboardResource + "/" + "get-month-transactions";
+                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.DashboardResource + "/" + "get-month-transactions?Month=" + Month;
 
                 var response = await _apiClient.GetAsync(uri);
                 var jsonResponse = await response.Content.ReadAsStringAsync();
@@ -46,12 +50,28 @@ namespace WebAdmin.Pages.Dashboard
 
                 DataDate = JsonConvert.DeserializeObject<DashboardResponse<DateTime>>(jsonResponseDate)?.Values;
                 #endregion
+
+                #region MonthInApp
+                var uriMonthApp = KokApiContext.BaseApiUrl + "/" + KokApiContext.DashboardResource + "/" + "get-month-game-transactions";
+
+                var responseMonthApp = await _apiClient.GetAsync(uriMonthApp);
+                var jsonResponseMonthApp = await responseMonthApp.Content.ReadAsStringAsync();
+
+                DataMonthInApp = JsonConvert.DeserializeObject<DashboardResponse<string>>(jsonResponseMonthApp)?.Values;
+                #endregion
             }
             catch (Exception)
             {
                 return RedirectToPage("../Error");
             }
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            string searchKeyword = Request.Form["txt_search_transaction"];
+
+            return await OnGet(searchKeyword);
         }
     }
 }
