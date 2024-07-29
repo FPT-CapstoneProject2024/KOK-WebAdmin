@@ -12,8 +12,8 @@ namespace WebAdmin.DTOModels.Response
         public string? ItemDescription { get; set; }
         public string? ItemType { get; set; }
         public string? ItemStatus { get; set; }
-        public bool? CanExpire { get; set; }
-        public bool? CanStack { get; set; }
+        public bool CanExpire { get; set; }
+        public bool CanStack { get; set; }
         public DateTime? CreatedDate { get; set; }
         public Guid? CreatorId { get; set; }
         public string? PrefabCode { get; set; }

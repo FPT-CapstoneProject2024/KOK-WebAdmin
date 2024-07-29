@@ -18,7 +18,7 @@ namespace WebAdmin.Pages.Item
         [BindProperty]
         public DTOModels.Response.Item Item { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(Guid? id)
         {
             try
             {
@@ -27,7 +27,7 @@ namespace WebAdmin.Pages.Item
                     return NotFound();
                 }
 
-                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ItemResource + "?accountId=" + id;
+                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ItemResource + "?ItemId=" + id;
                 var response = await apiClient.GetAsync(uri);
                 var responeJson = await response.Content.ReadAsStringAsync();
                 var data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Item>>(responeJson);
@@ -63,13 +63,13 @@ namespace WebAdmin.Pages.Item
                 var responeJson = await response.Content.ReadAsStringAsync();
                 var data = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Item>>(responeJson);
 
-                if (data != null)
+                if (!data.result.Value)
                 {
                     return BadRequest();
                 }
                 else
                 {
-                    Item = data.Value;
+                    //Item = data.Value;
                     return RedirectToPage("./Index");
                 }
             }

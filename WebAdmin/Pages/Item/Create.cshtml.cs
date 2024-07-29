@@ -7,13 +7,13 @@ using WebAdmin.Services.Interfaces;
 
 namespace WebAdmin.Pages.Item
 {
-    public class Create1Model : PageModel
+    public class CreateModel : PageModel
     {
         public IApiClient apiClient { get; set; }
 
         [BindProperty]
         public DTOModels.Response.Item Item { get; set; } = new DTOModels.Response.Item();
-        public Create1Model(IApiClient apiClient)
+        public CreateModel(IApiClient apiClient)
         {
             this.apiClient = apiClient;
         }

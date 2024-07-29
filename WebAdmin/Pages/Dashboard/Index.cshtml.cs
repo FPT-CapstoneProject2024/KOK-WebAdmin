@@ -67,7 +67,7 @@ namespace WebAdmin.Pages.Dashboard
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostSearchMonth()
         {
             string searchKeyword = Request.Form["txt_search_transaction"];
 
