@@ -56,8 +56,8 @@ namespace WebAdmin.Pages.Song
             try
             {
                 //_context.Attach(Item).State = EntityState.Modified;
-                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ItemResource + "/" + Item.ItemId;
-                var response = await _apiClient.PutAsync(uri, Item);
+                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.SongResource + "/" + Song.SongId;
+                var response = await _apiClient.PutAsync(uri, Song);
                 var responeJson = await response.Content.ReadAsStringAsync();
                 var item = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Item>>(responeJson);
 
