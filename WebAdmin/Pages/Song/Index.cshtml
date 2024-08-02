@@ -1,0 +1,107 @@
+﻿@page
+@model WebAdmin.Pages.Song.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+<div>
+    <!--Search-->
+@*     <div class="input-group">
+        <form method="post" class="input-group">
+            <input name="txt_search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+            <span class="input-group-text border-0" id="search-addon">
+                <select class="form-select" aria-label="account filter" name="txt_filter">
+                    <option value="UserName" selected>Username</option>
+                    <option value="Email">Email</option>
+                    <option value="Gender">Gender</option>
+                    <option value="Role">Role</option>
+                    <option value="IsOnline">Is Online</option>
+                    <option value="AccountStatus">Account Status</option>
+                </select>
+            </span>
+            <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
+
+        </form>
+    </div> *@
+    <!--End Search-->
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].SongName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].SongDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].SongUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].SongStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].UpdatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].SongCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].PublicDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+            @if(Model.data.Results != null)
+            {
+                @foreach (var item in Model.data.Results)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SongName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SongDescription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SongUrl)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SongStatus)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UpdatedDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SongCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PublicDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@item.SongId">Edit</a> |
+                            <a asp-page="./Details" asp-route-id="@item.SongId">Details</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.SongId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+
+    </tbody>
+</table>

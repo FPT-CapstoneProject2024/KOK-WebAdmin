@@ -1,0 +1,63 @@
+﻿@page
+@model WebAdmin.Pages.Song.EditModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Song</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Song.SongId" />
+            <div class="form-group">
+                <label asp-for="Song.SongName" class="control-label"></label>
+                <input asp-for="Song.SongName" class="form-control" />
+                <span asp-validation-for="Song.SongName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Song.SongDescription" class="control-label"></label>
+                <input asp-for="Song.SongDescription" class="form-control" />
+                <span asp-validation-for="Song.SongDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Song.SongUrl" class="control-label"></label>
+                <input asp-for="Song.SongUrl" class="form-control" />
+                <span asp-validation-for="Song.SongUrl" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Song.SongCode" class="control-label"></label>
+                <input asp-for="Song.SongCode" class="form-control" />
+                <span asp-validation-for="Song.SongCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Song.PublicDate" class="control-label"></label>
+                <input asp-for="Song.PublicDate" class="form-control" />
+                <span asp-validation-for="Song.PublicDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Song.Price" class="control-label"></label>
+                <input asp-for="Song.Price" class="form-control" />
+                <span asp-validation-for="Song.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

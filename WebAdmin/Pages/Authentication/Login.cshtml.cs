@@ -34,8 +34,9 @@ namespace WebAdmin.Pages.Authentication
             this.apiClient = apiClient;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            return Page();
         }
 
         public async Task<IActionResult> OnPost()
@@ -81,7 +82,7 @@ namespace WebAdmin.Pages.Authentication
                 // Incorrect email or password
                 logger.LogError("Failed to login");
                 //return Page();
-                return RedirectToPage("/Account/Index1");
+                return RedirectToPage("/Dashboard/Index");
             }
 
             return Page();
