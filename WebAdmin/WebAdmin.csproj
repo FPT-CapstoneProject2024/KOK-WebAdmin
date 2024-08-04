@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Pages\Shared\DashboardLayer.cshtml.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\css\index.css" />
     <_ContentIncludedByDefault Remove="wwwroot\js\login.js" />
   </ItemGroup>
@@ -1881,6 +1885,10 @@
     <None Include="wwwroot\scss\argon-dashboard\docs\_prism.scss" />
     <None Include="wwwroot\scss\argon-dashboard\docs\_sidebar.scss" />
     <None Include="wwwroot\scss\argon-dashboard\docs\_variables.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Pages\Shared\DashboardLayer.cshtml.css" />
   </ItemGroup>
 
 </Project>

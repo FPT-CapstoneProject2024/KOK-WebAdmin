@@ -1,543 +1,129 @@
 ﻿@page
 @model WebAdmin.Pages.Dashboard.IndexModel
 @{
-    Layout = null;
 }
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>
-        Argon Dashboard - Free Dashboard for Bootstrap 4 by Creative Tim
-    </title>
-    <!-- Favicon -->
-    <link href="/img/brand/favicon.png" rel="icon" type="image/png">
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-    <!-- Icons -->
-    <link href="/js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
-    <link href="/js/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
-    <!-- CSS Files -->
-    <link href="/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
+    <title>Overview</title>
 </head>
 
 <body class="">
-    <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
-        <div class="container-fluid">
-            <!-- Toggler -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- Brand -->
-            <a class="navbar-brand pt-0" href="./index.html">
-                <img src="/img/brand/blue.png" class="navbar-brand-img" alt="...">
-            </a>
-            <!-- User -->
-            <ul class="nav align-items-center d-md-none">
-                <li class="nav-item dropdown">
-                    <a class="nav-link nav-link-icon" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="ni ni-bell-55"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right" aria-labelledby="navbar-default_dropdown_1">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <div class="media align-items-center">
-                            <span class="avatar avatar-sm rounded-circle">
-                                <img alt="Image placeholder" src="/img/theme/team-1-800x800.jpg
-">
-                            </span>
-                        </div>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
-                        <div class=" dropdown-header noti-title">
-                            <h6 class="text-overflow m-0">Welcome!</h6>
-                        </div>
-                        <a href="./examples/profile.html" class="dropdown-item">
-                            <i class="ni ni-single-02"></i>
-                            <span>My profile</span>
-                        </a>
-                        <a href="./examples/profile.html" class="dropdown-item">
-                            <i class="ni ni-settings-gear-65"></i>
-                            <span>Settings</span>
-                        </a>
-                        <a href="./examples/profile.html" class="dropdown-item">
-                            <i class="ni ni-calendar-grid-58"></i>
-                            <span>Activity</span>
-                        </a>
-                        <a href="./examples/profile.html" class="dropdown-item">
-                            <i class="ni ni-support-16"></i>
-                            <span>Support</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a id="logoutButton" class="dropdown-item">
-                            <i class="ni ni-user-run"></i>
-                            <span>Logout</span>
-                        </a>
-                    </div>
-                </li>
-            </ul>
-            <!-- Collapse -->
-            <div class="collapse navbar-collapse" id="sidenav-collapse-main">
-                <!-- Collapse header -->
-                <div class="navbar-collapse-header d-md-none">
-                    <div class="row">
-                        <div class="col-6 collapse-brand">
-                            <a href="./index.html">
-                                <img src="/img/brand/blue.png">
-                            </a>
-                        </div>
-                        <div class="col-6 collapse-close">
-                            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
-                                <span></span>
-                                <span></span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Navigation -->
-                <ul class="navbar-nav">
-                    <li class="nav-item  active ">
-                        <a class="nav-link  active ">
-                            <i class="ni ni-tv-2 text-primary"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a asp-page="../Item/Index" class="nav-link ">
-                            <i class="ni ni-planet text-blue"></i> Items
-                        </a>
-                    </li>
-                     <li class="nav-item">
-                        <a asp-page="../Account/Index1" class="nav-link ">
-                            <i class="ni ni-pin-3 text-orange"></i> Accounts
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a asp-page="../Song/Index" class="nav-link ">
-                            <i class="ni ni-pin-3 text-orange"></i> Songs
-                        </a>
-                    </li>
-                    @*
-                    <li class="nav-item">
-                        <a class="nav-link " href="./examples/profile.html">
-                            <i class="ni ni-single-02 text-yellow"></i> User profile
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="./examples/tables.html">
-                            <i class="ni ni-bullet-list-67 text-red"></i> Tables
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./examples/login.html">
-                            <i class="ni ni-key-25 text-info"></i> Login
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./examples/register.html">
-                            <i class="ni ni-circle-08 text-pink"></i> Register
-                        </a>
-                    </li> *@
-                </ul>
-                <!-- Divider -->
-                <hr class="my-3">
-                <!-- Heading -->
-                <h6 class="navbar-heading text-muted">Documentation</h6>
-                <!-- Navigation -->
-                <ul class="navbar-nav mb-md-3">
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
-                            <i class="ni ni-spaceship"></i> Getting started
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
-                            <i class="ni ni-palette"></i> Foundation
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
-                            <i class="ni ni-ui-04"></i> Components
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item active active-pro">
-                        <a class="nav-link" href="./examples/upgrade.html">
-                            <i class="ni ni-send text-dark"></i> Upgrade to PRO
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
     <div class="main-content">
 
         <!--Phan chinh suwa-->
         <div class="row mt-5">
             <div class="col-xl-8 mb-5 mb-xl-0">
 
-                <!--Start table month-->
-                <br />
-                <br />
-                <br />
-                <br/>
-                <table class="table">
-                    <thead>
-                        <tr><h4 style="text-align:center; color:red">Monetary Transaction</h4></tr>
-                        <tr>
+                <div style="border-style:dashed; border-width:thin;  border-color:dimgray; width:130%; padding:20px;">
 
-                            <th>Month</th>
-                            <th>Value</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var transaction in Model.DataMonth)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(model => transaction.Key)
-                                </td>
-                                <td>
+                    <div style="30px;"></div>
+                    <!--Transaction new Model-->
 
-                                    @Html.DisplayFor(model => transaction.Value)
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                    <div class="container">
+                        
+                        <canvas id="transactionChart"></canvas>
+                    </div>
+                    <p><h4 style="align-content:center; top:75px;">Monetary Transaction</h4></p>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const ctx = document.getElementById('transactionChart').getContext('2d');
+                            const transactionChart = new Chart(ctx, {
+                                type: 'bar', // Bạn có thể thay đổi thành 'line' hoặc các loại biểu đồ khác của Chart.js
+                                data: {
+                                    labels: @Html.Raw(Json.Serialize(Model.DataMonth.Keys.ToList())),
+                                    datasets: [{
+                                        label: 'Số lượng giao dịch',
+                                        data: @Html.Raw(Json.Serialize(Model.DataMonth.Values.ToList())), // Dữ liệu mẫu, bạn có thể thay thế bằng dữ liệu thực tế
+                                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                        borderColor: 'rgba(54, 162, 235, 1)',
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    }
+                                }
+                            });
+                        });
+
+                    </script>
+
+
+
+                </div>
 
                 <div style="height:30px"></div>
-                <div>
-                    <table class="table">
-                        <thead>
-                            <tr><h4 style="text-align:center; color:red">In App Transaction</h4></tr>
-                            <tr>
+                <div style="border-style:dashed; border-width:thin;  border-color:dimgray; width:130%; padding:20px;">
 
-                                <th>Month</th>
-                                <th>Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var transaction in Model.DataMonthInApp)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(model => transaction.Key)
-                                    </td>
-                                    <td>
+                    <div style="30px;"></div>
 
-                                        @Html.DisplayFor(model => transaction.Value)
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                    <!--In App new Model-->
+
+                    <div class="container">
+                        <canvas id="transactionGameChart"></canvas>
+                    </div>
+                    <p><h4 style="align-content:center; top:75px;">In App Transaction</h4></p>
+
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <script src="script.js"></script>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const ctx = document.getElementById('transactionGameChart').getContext('2d');
+                            const transactionChart = new Chart(ctx, {
+                                type: 'bar', // Bạn có thể thay đổi thành 'line' hoặc các loại biểu đồ khác của Chart.js
+                                data: {
+                                    labels: @Html.Raw(Json.Serialize(Model.DataMonthInApp.Keys.ToList())),
+                                    datasets: [{
+                                        label: 'Số lượng giao dịch trong app',
+                                        data: @Html.Raw(Json.Serialize(Model.DataMonthInApp.Values.ToList())), // Dữ liệu mẫu, bạn có thể thay thế bằng dữ liệu thực tế
+                                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                        borderColor: 'rgba(54, 162, 235, 1)',
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    }
+                                }
+                            });
+                        });
+
+                    </script>
+
+                    <!--End In App new Model-->
+
                 </div>
                 <!--End table month-->
 
 
-
             </div>
 
+        </div>
         </div>
         <!--End Phan chinh sua-->
 
-        <!-- Navbar -->
-        <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
-            <div class="container-fluid">
-                <!-- Brand -->
-                <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./index.cshtml">Dashboard</a>
-                <!-- Form Search-->
-@*                 <form asp-page-handler="SearchMonth" method="post" class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-                    <div class="form-group mb-0">
-                        <div class="input-group input-group-alternative">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-search"></i></span>
-                            </div>
-                            <input asp-for="Month" class="form-control" type="number" min="1" max="12" placeholder="Search by month" style="color:black"><!--type="number" min="1" max="12"-->
-
-                            <button type="submit" class="btn btn-primary">Search</button>
-                        </div>
-                    </div> 
-                </form> *@
-
-                <!--Search-->
-                <div class="input-group">
-                    <form method="post" class="input-group">
-                        <input asp-for="Month" type="number" min="1" max="12" class="form-control rounded" placeholder="Search by month" aria-label="Search" aria-describedby="search-addon" />
-                        <span class="input-group-text border-0" id="search-addon"></span>
-                        <select class="form-select" name="seach_transaction">
-                            <option  value="in_app">In App Transaction</option>
-                            <option value="monetary">Monetary Transaction</option>
-                        </select>
-
-                        <button asp-page-handler="SearchMonth" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
-
-                    </form>
-                </div>
-                <!--End Search-->
-                <!-- User -->
-                <ul class="navbar-nav align-items-center d-none d-md-flex">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <div class="media align-items-center">
-                                <span class="avatar avatar-sm rounded-circle">
-                                    <img alt="Image placeholder" src="/img/theme/team-4-800x800.jpg">
-                                </span>
-                                <div class="media-body ml-2 d-none d-lg-block">
-                                    <span class="mb-0 text-sm  font-weight-bold">Jessica Jones</span>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
-                            <div class=" dropdown-header noti-title">
-                                <h6 class="text-overflow m-0">Welcome!</h6>
-                            </div>
-                            <a href="./examples/profile.html" class="dropdown-item">
-                                <i class="ni ni-single-02"></i>
-                                <span>My profile</span>
-                            </a>
-                            <a href="./examples/profile.html" class="dropdown-item">
-                                <i class="ni ni-settings-gear-65"></i>
-                                <span>Settings</span>
-                            </a>
-                            <a href="./examples/profile.html" class="dropdown-item">
-                                <i class="ni ni-calendar-grid-58"></i>
-                                <span>Activity</span>
-                            </a>
-                            <a href="./examples/profile.html" class="dropdown-item">
-                                <i class="ni ni-support-16"></i>
-                                <span>Support</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a asp- class="dropdown-item">
-                                <i class="ni ni-user-run"></i>
-                                <span>Logout</span>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <!-- End Navbar -->
-        <!-- Header -->
-        <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
-            <div class="container-fluid">
-                <div class="header-body">
-                    <!-- Card stats -->
-                    <div class="row">
-
-                        <!--Chart-->
-
-                        <div class="col-xl-8">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="header-title">Transactions Analytics</h4>
-                                    <script src="~/libs/chart-js/chart.js"></script>
-                                    <canvas id="myPieChart" height="350"></canvas>
-
-                                    <script>
-                                        // Lấy tham chiếu đến canvas
-                                        var ctx = document.getElementById('myPieChart').getContext('2d');
-                                        // Tạo dữ liệu cho biểu đồ tròn
-                                        var data = {
-                                            labels: @Html.Raw(Json.Serialize(Model.DataMonth.Keys.ToList())),
-                                            datasets: [{
-                                                label: 'My Dataset',
-                                                data: @Html.Raw(Json.Serialize(Model.DataMonth.Values.ToList())),
-                                                backgroundColor: [
-                                                    'rgba(255, 99, 132, 0.6)',
-                                                    'rgba(54, 162, 235, 0.6)',
-                                                    'rgba(255, 206, 86, 0.6)',
-                                                    'rgba(75, 192, 192, 0.6)',
-                                                    'rgba(153, 102, 255, 0.6)',
-                                                    'rgba(255, 159, 64, 0.6)'
-                                                ],
-                                                borderColor: [
-                                                    'rgba(255, 99, 132, 1)',
-                                                    'rgba(54, 162, 235, 1)',
-                                                    'rgba(255, 206, 86, 1)',
-                                                    'rgba(75, 192, 192, 1)',
-                                                    'rgba(153, 102, 255, 1)',
-                                                    'rgba(255, 159, 64, 1)'
-                                                ],
-                                                borderWidth: 1
-                                            }]
-                                        };
-
-                                        // Khởi tạo biểu đồ tròn
-                                        var myPieChart = new Chart(ctx, {
-                                            type: 'pie',
-                                            data: data,
-                                            options: {
-                                                // Cấu hình tùy chọn của biểu đồ tròn
-                                            }
-                                        });
-
-                                    </script>
 
 
-                                    <!-- #region MonthInApp -->
-
-                                    <h4 class="header-title">In App Transaction Analytics</h4>
-                                    <script src="~/libs/chart-js/chart.js"></script>
-                                    <canvas id="myPieChartMonthInApp" height="350"></canvas>
-
-                                    <script>
-                                        // Lấy tham chiếu đến canvas
-                                        var ctx = document.getElementById('myPieChartMonthInApp').getContext('2d');
-                                        // Tạo dữ liệu cho biểu đồ tròn
-                                        var data = {
-                                            labels: @Html.Raw(Json.Serialize(Model.DataMonthInApp.Keys.ToList())),
-                                            datasets: [{
-                                                label: 'My Dataset',
-                                                data: @Html.Raw(Json.Serialize(Model.DataMonthInApp.Values.ToList())),
-                                                backgroundColor: [
-                                                    'rgba(255, 99, 132, 0.6)',
-                                                    'rgba(54, 162, 235, 0.6)',
-                                                    'rgba(255, 206, 86, 0.6)',
-                                                    'rgba(75, 192, 192, 0.6)',
-                                                    'rgba(153, 102, 255, 0.6)',
-                                                    'rgba(255, 159, 64, 0.6)'
-                                                ],
-                                                borderColor: [
-                                                    'rgba(255, 99, 132, 1)',
-                                                    'rgba(54, 162, 235, 1)',
-                                                    'rgba(255, 206, 86, 1)',
-                                                    'rgba(75, 192, 192, 1)',
-                                                    'rgba(153, 102, 255, 1)',
-                                                    'rgba(255, 159, 64, 1)'
-                                                ],
-                                                borderWidth: 1
-                                            }]
-                                        };
-
-                                        // Khởi tạo biểu đồ tròn
-                                        var myPieChart = new Chart(ctx, {
-                                            type: 'pie',
-                                            data: data,
-                                            options: {
-                                                // Cấu hình tùy chọn của biểu đồ tròn
-                                            }
-                                        });
-
-                                    </script>
-                                    <!-- #endregion -->
 
 
-                                </div>
-                            </div>
-
-                            <!--End Chart-->
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br/>
-        <br/>
-        <br/>
-        <div class="container-fluid mt--7">
-            
-
-            <!-- Footer -->
-            <footer class="footer">
-                <div class="row align-items-center justify-content-xl-between">
-                    <div class="col-xl-6">
-                        <div class="copyright text-center text-xl-left text-muted">
-                            &copy; 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </footer>
-        </div>
-    </div>
-
-    <!--Logout-->
-        <!-- Popup Modal -->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Bạn có muốn đăng xuất không?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
-                        <button type="button" class="btn btn-primary" id="confirmLogoutButton">Có</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#logoutButton').click(function () {
-                    $('#logoutModal').modal('show');
-                });
-
-                $('#confirmLogoutButton').click(function () {
-                    window.location.href = '@Url.Action("OnGet", "../Authentication/Login")';
-                });
-            });
-        </script>
-    <!--End Logout-->
 
 
-    <!--   Core   -->
-    <script src="/js/plugins/jquery/dist/jquery.min.js"></script>
-    <script src="/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!--   Optional JS   -->
-    <script src="/js/plugins/chart.js/dist/Chart.min.js"></script>
-    <script src="/js/plugins/chart.js/dist/Chart.extension.js"></script>
-    <!--   Argon JS   -->
-    <script src="/js/argon-dashboard.min.js?v=1.1.2"></script>
-    <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
     <script type="text/javascript">
         var monthLabels = @Html.Raw(Json.Serialize(Model?.DataMonth?.Keys));
         var monthDatas = @Html.Raw(Json.Serialize(Model?.DataMonth?.Values));
     </script>
-    <script>
-        window.TrackJS &&
-          TrackJS.install({
-            token: "ee6fab19c5a04ac1a32a645abde4613a",
-            application: "argon-dashboard-free"
-          });
-    </script>
+
 </body>
 
 </html>

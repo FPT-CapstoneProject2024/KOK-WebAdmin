@@ -25,42 +25,24 @@ namespace WebAdmin.Pages.Dashboard
         public Dictionary<string, decimal>? DataMonthInApp { get; set; }
         //[BindProperty]
         public Dictionary<DateTime, decimal>? DataDateInApp { get; set; }
-        [BindProperty]
-        public string? Month { get; set; }
 
         public IndexModel(IApiClient apiClient)
         {
             _apiClient = apiClient;
         }
-        public async Task<IActionResult> OnGet(string? Month = null, string? searchType = null)
+        public async Task<IActionResult> OnGet()
         {
             try
             {
                 #region Month
-
-
                 string? uri = null;
 
-                if ((Month == null || Month.Equals("")) || (searchType == null || searchType.Equals("")))
-                {
-                    uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.DashboardResource + "/" + "get-month-transactions";
-
-
-                }
-                else
-                {
-                    if (searchType.Equals("monetary"))
-                    {
-                        uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.DashboardResource + "/" + "get-month-transactions?Month=" + Month;
-                    }
-                }
+                uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.DashboardResource + "/" + "get-month-transactions";
 
                 var response = await _apiClient.GetAsync(uri);
                 var jsonResponse = await response.Content.ReadAsStringAsync();
 
                 DataMonth = JsonConvert.DeserializeObject<DashboardResponse<string>>(jsonResponse)?.Values;
-
-
 
                 #endregion
 
@@ -77,18 +59,7 @@ namespace WebAdmin.Pages.Dashboard
 
                 uri = null;
 
-
-                if ((Month == null || Month.Equals("")) || (searchType == null || searchType.Equals("")))
-                {
-                    uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.DashboardResource + "/" + "get-month-game-transactions";
-                }
-                else
-                {
-                    if (searchType.Equals("in_app"))
-                    {
-                        uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.DashboardResource + "/" + "get-month-game-transactions?Month=" + Month;
-                    }
-                }
+                uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.DashboardResource + "/" + "get-month-game-transactions";
 
                 response = await _apiClient.GetAsync(uri);
                 jsonResponse = await response.Content.ReadAsStringAsync();
@@ -103,11 +74,5 @@ namespace WebAdmin.Pages.Dashboard
             return Page();
         }
 
-        public async Task<IActionResult> OnPostSearchMonth()
-        {
-            string? searchType = Request.Form["seach_transaction"];
-
-            return await OnGet(Month, searchType);
-        }
     }
 }
