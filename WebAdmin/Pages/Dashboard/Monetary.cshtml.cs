@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Globalization;
 using WebAdmin.Context;
@@ -9,7 +7,7 @@ using WebAdmin.Services.Interfaces;
 
 namespace WebAdmin.Pages.Dashboard
 {
-    public class GameModel : PageModel
+    public class MonetaryModel : PageModel
     {
         public class DashboardResponse<TEntity>
         {
@@ -27,7 +25,7 @@ namespace WebAdmin.Pages.Dashboard
         public static Dictionary<string, decimal>? DataMonth { get; set; }
         public static Dictionary<string, decimal>? DataMonthOrder { get; set; }
 
-        public GameModel(IApiClient apiClient)
+        public MonetaryModel(IApiClient apiClient)
         {
             _apiClient = apiClient;
         }
@@ -58,7 +56,7 @@ namespace WebAdmin.Pages.Dashboard
                 uri = null;
 
 
-                uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.DashboardResource + "/" + "get-month-game-transactions?StartMonth=" + month + "&EndMonth=" + endMonth + "&StartYear=" + year + "&EndYear=" + enYear;
+                uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.DashboardResource + "/" + "get-month-transactions?StartMonth=" + month + "&EndMonth=" + endMonth + "&StartYear=" + year + "&EndYear=" + enYear;
 
 
                 var response = await _apiClient.GetAsync(uri);

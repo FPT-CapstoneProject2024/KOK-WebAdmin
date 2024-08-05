@@ -1,5 +1,5 @@
 ﻿@page
-@model WebAdmin.Pages.Dashboard.GameModel
+@model WebAdmin.Pages.Dashboard.MonetaryModel
 @{
     int count = 0;
 
@@ -55,10 +55,10 @@
         document.addEventListener('DOMContentLoaded', () => {
             const ctx = document.getElementById('revenueChart').getContext('2d');
             const data = {
-                labels: @Html.Raw(Json.Serialize(GameModel.DataMonthOrder.Keys.Take(3).ToList())),
+                labels: @Html.Raw(Json.Serialize(MonetaryModel.DataMonthOrder.Keys.Take(3).ToList())),
                 datasets: [{
                     label: 'Revenue',
-                    data: @Html.Raw(Json.Serialize(GameModel.DataMonthOrder.Values.Take(3).ToList())),
+                    data: @Html.Raw(Json.Serialize(MonetaryModel.DataMonthOrder.Values.Take(3).ToList())),
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgb(73, 204, 144)',
@@ -129,9 +129,9 @@
 
             <div class="grade">
                 <div>
-                    <canvas id="transactionGameChart"></canvas>
+                    <canvas id="transactionChart"></canvas>
                 </div>
-                <p><h4 style="align-content:center; top:75px; color:#c2444d;">Giao Dịch Trong Ứng dụng</h4></p>
+                <p><h4 style="align-content:center; top:75px; color:#c2444d;">Các Giao Dịch</h4></p>
 
             </div>
 
@@ -140,14 +140,14 @@
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
-                    const ctx = document.getElementById('transactionGameChart').getContext('2d');
+                    const ctx = document.getElementById('transactionChart').getContext('2d');
                     const transactionChart = new Chart(ctx, {
                         type: 'bar', // Bạn có thể thay đổi thành 'line' hoặc các loại biểu đồ khác của Chart.js
                         data: {
-                            labels: @Html.Raw(Json.Serialize(GameModel.DataMonth.Keys.ToList())),
+                            labels: @Html.Raw(Json.Serialize(MonetaryModel.DataMonth.Keys.ToList())),
                             datasets: [{
                                 label: 'Số lượng giao dịch trong app',
-                                data: @Html.Raw(Json.Serialize(GameModel.DataMonth.Values.ToList())), // Dữ liệu mẫu, bạn có thể thay thế bằng dữ liệu thực tế
+                                data: @Html.Raw(Json.Serialize(MonetaryModel.DataMonth.Values.ToList())), // Dữ liệu mẫu, bạn có thể thay thế bằng dữ liệu thực tế
                                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                                 borderColor: 'rgba(54, 162, 235, 1)',
                                 borderWidth: 1
@@ -178,7 +178,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var transaction in GameModel.DataMonthInApp)
+                    @foreach (var transaction in MonetaryModel.DataMonthInApp)
                     {
                         <tr>
                             <td>@(count += 1)</td>
