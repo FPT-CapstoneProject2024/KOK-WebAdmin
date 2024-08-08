@@ -9,6 +9,8 @@ namespace WebAdmin
         {
             services.AddRazorPages();
 
+            services.AddControllersWithViews();
+
             services.AddHttpClient();
 
             services.AddHttpContextAccessor();

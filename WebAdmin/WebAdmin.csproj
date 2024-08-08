@@ -35,6 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="DTOModels\Request\Package\" />
     <Folder Include="Pages\Shared\Navigation\Annonymous\" />
   </ItemGroup>
 

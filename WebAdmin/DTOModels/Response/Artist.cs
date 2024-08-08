@@ -8,6 +8,7 @@ namespace WebAdmin.DTOModels.Response
 
         public Guid? ArtistId { get; set; }
         public string? ArtistName { get; set; }
+        public string? Image { get; set; }
 
         public  ICollection<SongArtist>? SongArtists { get; set; }
     }

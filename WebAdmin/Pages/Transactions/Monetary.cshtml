@@ -1,0 +1,102 @@
+﻿@page
+@model WebAdmin.Pages.Transactions.MonetaryModel
+@{
+}
+
+<!--Search-->
+<div class="input-group">
+    <form method="post" class="input-group">
+        <input name="txt_search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+        <span class="input-group-text border-0" id="search-addon">
+            <select class="form-control form-control-sm" aria-label="account filter" name="txt_filter">
+                <option value="PaymentType" selected>Payment Type</option>
+                <option value="PaymentCode">Payment Code</option>
+                <option value="MoneyAmount">Money Amount</option>
+                <option value="PackageMoneyAmount">Package Money Amount</option>
+                <option value="Currency">Currency</option>
+                <option value="Status">Status</option>
+                <option value="PackageName">Package Name</option>
+                <option value="Username">Username</option>
+            </select>
+        </span>
+        <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
+
+    </form>
+</div>
+<!--End Search-->
+
+
+<h1>Monetary</h1>
+
+<div class="table-container">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].PaymentType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].PaymentCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].MoneyAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].Currency)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].CreatedDate)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.data.Results != null)
+            {
+                int count = 0;
+                @foreach (var item in Model.data.Results)
+                {
+                    <tr>
+                        <td>@(count += 1)</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PaymentType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PaymentCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MoneyAmount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Currency)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        <td>
+                            <a asp-page="./Monetary/Details" asp-route-id="@item.MonetaryTransactionId">Details</a> 
+                        </td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+
+</div>
+
+
+<!--Paging-->
+<div class="pagination">
+    <li class="page-item"><a asp-route-number="@(Model.CurrentPage - 1)" class="page-link">&laquo;</a></li>
+    <li class="page-item active"><a asp-route-number="@Model.CurrentPage" class="page-link">@Model.CurrentPage</a></li>
+    <li class="page-item"><a asp-route-number="@(Model.CurrentPage + 1)" class="page-link">&raquo;</a></li>
+</div>
+<!--End Paging-->

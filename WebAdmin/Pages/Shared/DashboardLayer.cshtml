@@ -17,15 +17,19 @@
     <link href="/js/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link href="/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    @* <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> *@
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+
+    @* <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> *@
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    @* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> *@
+    @* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> *@
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
 
     <style>
         /* styles.css */
@@ -44,8 +48,8 @@
         .content {
             flex: 1;
             overflow-y: auto; /* Đảm bảo phần thân có thể cuộn được */
-            -ms-overflow-style:none;
-            scrollbar-width:none;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
         /* Footer styles */
@@ -53,20 +57,78 @@
             background-color: #3c3f41;
             text-align: center;
             width: 100%;
-            height:1vh;
+            height: 1vh;
             position: fixed;
             bottom: 0;
             left: 0;
-            z-index:2;
+            z-index: 2;
         }
 
         .wrapper {
             display: flex;
             flex-direction: column;
-            height:99vh;
+            height: 99vh;
+        }
+
+        .pagination{
+            position: fixed;
+            top:82vh;
+            width:100%;
+            padding: 10px 0;
+            border-top: 1px solid #dee2e6;
+        }
+
+/*         .container {
+            
+        } */
+
+        .table-container {
+            flex:1;
+            width: 100%;
+            height:60vh;
+            overflow: auto;
+        }
+
+        .form-check-input {
+            margin-left:10px;
+        }
+
+        .img-cell img {
+            width:8vw;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .div-cell {
+            border-style: solid;
+            border-color: darkslategrey;
+            border-width: 0.5px;
+        }
+
+        .div-cell img{
+            width : 8vw;
+            height: auto;
+            display: block;
+            margin 0 auto;
+        }
+
+        .form-container {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .search-results {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            height: 100%;
         }
 
     </style>
+
 </head>
 
 <body>
@@ -154,30 +216,60 @@
 
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="ni ni-tv-2 text-primary"></i> Dashboard
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" asp-page="../Dashboard/Index">Overview</a>
-                                <a class="dropdown-item" asp-page="../Dashboard/Monetary">Monetary Transaction</a>
-                                <a class="dropdown-item" asp-page="../Dashboard/Game">In App Transaction</a>
-                                <div class="dropdown-divider"></div>
+
+                            <div class="dropdown">
+                                <a class="nav-link dropdown-toggle" href="" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="ni ni-tv-2 text-primary"></i> Dashboard
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" asp-page="/Dashboard/Index">Overview</a>
+                                    <div class="dropdown-submenu">
+                                        <a class="dropdown-item dropdown-toggle" href="#" id="monetaryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Giao dịch tiền mặt</a>
+                                        <ul class="list-group">
+                                            <li class="list-group-item"><a class="dropdown-item" asp-page="/Dashboard/Monetary">Giao dịch trong tháng</a></li>
+                                            <li class="list-group-item"><a class="dropdown-item" asp-page="/Dashboard/Date/Monetary">Giao dịch trong ngày</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="dropdown-submenu">
+                                        <a class="dropdown-item dropdown-toggle" href="#" id="monetaryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Giao dịch ứng dụng</a>
+                                        <ul class="list-group">
+                                            <li class="list-group-item"><a class="dropdown-item" asp-page="/Dashboard/Game">Giao dịch trong tháng</a></li>
+                                            <li class="list-group-item"><a class="dropdown-item" asp-page="/Dashboard/Date/Game">Giao dịch trong ngày</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
+
+
                         </li>
 
 
+
+                        <li class="nav-item dropdown">
+
+                            <div class="dropdown">
+                                <a class="nav-link dropdown-toggle" href="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="ni ni-tv-2 text-primary"></i> Transaction
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" asp-page="/Transactions/Monetary">Monetary</a>
+                                </div>
+                            </div>
+                            </li>
+
                         <li class="nav-item">
-                            <a asp-page="../Item/Index" class="nav-link ">
+                            <a asp-page="/Item/Index" class="nav-link ">
                                 <i class="ni ni-planet text-blue"></i> Items
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-page="../Account/Index1" class="nav-link ">
+                            <a asp-page="/Account/Index1" class="nav-link ">
                                 <i class="ni ni-pin-3 text-orange"></i> Accounts
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-page="../Song/Index" class="nav-link ">
+                            <a asp-page="/Song/Index" class="nav-link ">
                                 <i class="ni ni-pin-3 text-orange"></i> Songs
                             </a>
                         </li>
@@ -249,99 +341,104 @@
 
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+            <div class="col-12">
+                @RenderBody()
+
+            </div>
         </main>
     </div>
 
 
-        <br />
-        <br />
-        <br />
+    <br />
+    <br />
+    <br />
     <!-- Footer -->
     <footer class="footer">
         <div style="background-color: #3c3f41;">
 
-                <div class="row align-items-center justify-content-xl-between">
-                    <div class="col-xl-6">
-                        <div class="copyright text-center text-xl-left text-muted">
+            <div class="row align-items-center justify-content-xl-between">
+                <div class="col-xl-6">
+                    <div class="copyright text-center text-xl-left text-muted">
                         &copy; 2018 <a href="#" class="font-weight-bold ml-1" target="_blank">KOK Application</a>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link" target="_blank">KOK Application</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link" target="_blank">About Us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link" target="_blank">Blog</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link" target="_blank">MIT License</a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
+                <div class="col-xl-6">
+                    <ul class="nav nav-footer justify-content-center justify-content-xl-end">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" target="_blank">KOK Application</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" target="_blank">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" target="_blank">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" target="_blank">MIT License</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
         </div>
     </footer>
 
 
-        <!--Logout-->
-        <!-- Popup Modal -->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Bạn có muốn đăng xuất không?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
-                        <button type="button" class="btn btn-primary" id="confirmLogoutButton">Có</button>
-                    </div>
+    <!--Logout-->
+    <!-- Popup Modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Bạn có muốn đăng xuất không?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+                    <button type="button" class="btn btn-primary" id="confirmLogoutButton">Có</button>
                 </div>
             </div>
         </div>
+    </div>
 
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#logoutButton').click(function () {
-                    $('#logoutModal').modal('show');
-                });
-
-                $('#confirmLogoutButton').click(function () {
-                    window.location.href = '@Url.Action("OnGet", "../Authentication/Login")';
-                });
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#logoutButton').click(function () {
+                $('#logoutModal').modal('show');
             });
-        </script>
-        <!--End Logout-->
-        <!--   Core   -->
-        <script src="/js/plugins/jquery/dist/jquery.min.js"></script>
-        <script src="/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <!--   Optional JS   -->
-        <script src="/js/plugins/chart.js/dist/Chart.min.js"></script>
-        <script src="/js/plugins/chart.js/dist/Chart.extension.js"></script>
-        <!--   Argon JS   -->
-        <script src="/js/argon-dashboard.min.js?v=1.1.2"></script>
-        <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-        <script>
-            window.TrackJS &&
-                TrackJS.install({
-                    token: "ee6fab19c5a04ac1a32a645abde4613a",
-                    application: "argon-dashboard-free"
-                });
-        </script>
+
+            $('#confirmLogoutButton').click(function () {
+                window.location.href = '@Url.Action("OnGet", "../Authentication/Login")';
+            });
+        });
+    </script>
+
+    <!--End Logout-->
+    <!--   Core   -->
+    <script src="/js/plugins/jquery/dist/jquery.min.js"></script>
+    <script src="/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!--   Optional JS   -->
+    <script src="/js/plugins/chart.js/dist/Chart.min.js"></script>
+    <script src="/js/plugins/chart.js/dist/Chart.extension.js"></script>
+    <!--   Argon JS   -->
+    <script src="/js/argon-dashboard.min.js?v=1.1.2"></script>
+    <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+    <script>
+        window.TrackJS &&
+            TrackJS.install({
+                token: "ee6fab19c5a04ac1a32a645abde4613a",
+                application: "argon-dashboard-free"
+            });
+    </script>
+
 </body>
 
 </html>

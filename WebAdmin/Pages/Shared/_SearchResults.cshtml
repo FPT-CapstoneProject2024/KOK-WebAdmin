@@ -1,0 +1,21 @@
+﻿@model WebAdmin.Pages.Item.CreateModel
+
+@if (Model.SearchResults != null && Model.SearchResults.Count > 0)
+{
+    <option></option>
+            @foreach (var result in Model.SearchResults)
+            {
+                <div class="div-cell">
+                    <input asp-for="Item.CreatorId" value="@result.AccountId" hidden/>
+                    <p>@result.Email</p>
+                    <p>@result.Fullname</p>
+                    <p>@result.Gender</p>
+                    <p><img src="@result.Image" alt="N/A"/></p>
+                </div>
+            }
+
+}
+else
+{
+    <p>No results found.</p>
+}

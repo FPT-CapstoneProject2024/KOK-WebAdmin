@@ -20,6 +20,7 @@ namespace WebAdmin.Pages.Account
         public int CurrentPage { get; set; }
         [BindProperty]
         public static int TotalPage { get; set; } = 1;
+        public static int? TotalData { get; set; }
 
         public Index1Model(ILogger<Index1Model> logger, IApiClient apiClient)
         {
@@ -47,6 +48,7 @@ namespace WebAdmin.Pages.Account
 
             if (data.Results is not null)
             {
+                TotalData = data.Metadata.Total;
                 TotalPage = (int)MathF.Ceiling((float)data.Metadata.Total / (float)data.Metadata.Size);
             }
             return Page();

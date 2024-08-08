@@ -4,63 +4,201 @@
 @{
     ViewData["Title"] = "Create";
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Form List</title>
+    <style>
 
-<h1>Create</h1>
+        .remove-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Create</h1>
 
-<h4>Song</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Song.SongName" class="control-label"></label>
-                <input asp-for="Song.SongName" class="form-control" />
-                <span asp-validation-for="Song.SongName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Song.SongDescription" class="control-label"></label>
-                <input asp-for="Song.SongDescription" class="form-control" />
-                <span asp-validation-for="Song.SongDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Song.SongUrl" class="control-label"></label>
-                <input asp-for="Song.SongUrl" class="form-control" />
-                <span asp-validation-for="Song.SongUrl" class="text-danger"></span>
-            </div>
+    <h4>Song</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Song.SongName" class="control-label"></label>
+                    <input asp-for="Song.SongName" class="form-control" />
+                    <span asp-validation-for="Song.SongName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Song.SongDescription" class="control-label"></label>
+                    <input asp-for="Song.SongDescription" class="form-control" />
+                    <span asp-validation-for="Song.SongDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Song.SongUrl" class="control-label"></label>
+                    <input asp-for="Song.SongUrl" class="form-control" />
+                    <span asp-validation-for="Song.SongUrl" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="Song.PublicDate" class="control-label"></label>
-                <input asp-for="Song.PublicDate" class="form-control" />
-                <span asp-validation-for="Song.PublicDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Song.CreatorId" class="control-label"></label>
-                <select asp-for="Song.CreatorId" class="form-control" asp-items="ViewBag.CreatorId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Song.Price" class="control-label"></label>
-                <input asp-for="Song.Price" class="form-control" />
-                <span asp-validation-for="Song.Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Song.Price" class="control-label"></label>
-                <input asp-for="Song.Price" class="form-control" />
-                <span asp-validation-for="Song.Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <label asp-for="Song.PublicDate" class="control-label"></label>
+                    <input asp-for="Song.PublicDate" class="form-control" />
+                    <span asp-validation-for="Song.PublicDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Song.CreatorId" class="control-label"></label>
+                    <input asp-for="Song.CreatorId" class="form-control"/>
+                    <span asp-validation-for="Song.CreatorId" class="text-danger"></span>
+                    <span asp-validation-for="Song.CreatorId" class="text-danger"></span>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="Song.Price" class="control-label"></label>
+                    <input asp-for="Song.Price" class="form-control" />
+                    <span asp-validation-for="Song.Price" class="text-danger"></span>
+                </div>
+                
+                
+                <div class="form-group">
+                    <label class="control-label">Tải lên hình ảnh</label>
+                    <input asp-for="Song.Price" class="form-control" />
+                    <span asp-validation-for="Song.Price" class="text-danger"></span>
+                </div>
+                
+
+                <div class="form-group">
+                    <div id="artistList">
+                        @for (int i = 0; i < Model.Song.SongArtists.Count; i++)
+                        {
+                            <div class="form-container">
+                                <label asp-for="Song.SongArtists.ElementAt(i).ArtistId">Artist ID:</label>
+                                <input type="text" asp-for="Song.SongArtists.ElementAt(i).ArtistId" required />
+                                <button type="button" class="remove-btn" onclick="removeArtist(this)">Remove</button>
+                            </div>
+                        }
+
+                    </div>
+                    <button type="button" id="addArtistButton">Add Artist</button>
+
+                </div>
+
+
+
+                <div class="form-group">
+                    <div id="singerList">
+                        @for (int i = 0; i < Model.Song.SongSingers.Count; i++)
+                        {
+                            <div class="form-container">
+                                <label asp-for="Song.SongSingers.ElementAt(i).SingerId">Singer ID:</label>
+                                <input type="text" asp-for="Song.SongSingers.ElementAt(i).SingerId" required />
+                                <button type="button" class="remove-btn" onclick="removeSinger(this)">Remove</button>
+                            </div>
+                        }
+
+                    </div>
+                    <button type="button" id="addSingerButton">Add Singer</button>
+
+                </div>
+                <div class="form-group">
+                    <div id="genreList">
+                        @for (int i = 0; i < Model.Song.SongGenres.Count; i++)
+                        {
+                            <div class="form-container">
+                                <label asp-for="Song.SongGenres.ElementAt(i).GenreId">Genre ID:</label>
+                                <input type="text" asp-for="Song.SongGenres.ElementAt(i).GenreId" required />
+                                <button type="button" class="remove-btn" onclick="removeGenre(this)">Remove</button>
+                            </div>
+                        }
+
+                    </div>
+                    <button type="button" id="addGenreButton">Add Genre</button>
+
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
+    <script>
+        //Artist
+        document.getElementById('addArtistButton').addEventListener('click', function () {
+            const artistList = document.getElementById('artistList');
+            const artistCount = artistList.childElementCount - 1;
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
+            const formContainer = document.createElement('div');
+            formContainer.className = 'form-container';
+
+            formContainer.innerHTML = `
+                        <label for="Song_SongArtists_${artistCount}__ArtistId">Artist ID:</label>
+                        <input type="text" name="Song.SongArtists[${artistCount}].ArtistId" required>
+                        <button type="button" class="remove-btn" onclick="removeArtist(this)">Remove</button>
+                    `;
+
+            artistList.appendChild(formContainer);
+        });
+
+        function removeArtist(button) {
+            const formContainer = button.parentElement;
+            formContainer.remove();
+        }
+        //Singer
+        document.getElementById('addSingerButton').addEventListener('click', function () {
+            const singerList = document.getElementById('singerList');
+            const singerCount = singerList.childElementCount - 1;
+
+            const formContainer = document.createElement('div');
+            formContainer.className = 'form-container';
+
+            formContainer.innerHTML = `
+                                <label for="Song_SongSingers_${singerCount}__SingerId">Singer ID:</label>
+                                <input type="text" name="Song.SongSingers[${singerCount}].SingerId" required>
+                        <button type="button" class="remove-btn" onclick="removeSinger(this)">Remove</button>
+                    `;
+
+            singerList.appendChild(formContainer);
+        });
+
+        function removeSinger(button) {
+            const formContainer = button.parentElement;
+            formContainer.remove();
+        }
+
+        //Genre
+
+        document.getElementById('addGenreButton').addEventListener('click', function () {
+            const genreList = document.getElementById('genreList');
+            const genreCount = genreList.childElementCount - 1;
+
+            const formContainer = document.createElement('div');
+            formContainer.className = 'form-container';
+
+            formContainer.innerHTML = `
+                                        <label for="Song_SongGenres_${genreCount}__GenreId">Genre ID:</label>
+                                        <input type="text" name="Song.SongGenres[${genreCount}].GerneId" required>
+                                <button type="button" class="remove-btn" onclick="removeGenre(this)">Remove</button>
+                            `;
+
+            genreList.appendChild(formContainer);
+        });
+
+        function removeGenre(button) {
+            const formContainer = button.parentElement;
+            formContainer.remove();
+        }
+    </script>
+
+    <div>
+        <a asp-page="Index">Back to List</a>
+    </div>
+
+</body>
+</html>

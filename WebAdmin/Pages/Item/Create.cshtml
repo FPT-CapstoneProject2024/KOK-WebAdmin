@@ -1,8 +1,6 @@
 ﻿@page
 @model WebAdmin.Pages.Item.CreateModel
 @{
-}@{
-    ViewData["Title"] = "Create";
 }
 
 <h1>Create</h1>
@@ -10,78 +8,101 @@
 <h4>Item</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Item.ItemCode" class="control-label"></label>
-                <input asp-for="Item.ItemCode" class="form-control" required />
-                <span asp-validation-for="Item.ItemCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.ItemName" class="control-label"></label>
-                <input asp-for="Item.ItemName" class="form-control" required/>
-                <span asp-validation-for="Item.ItemName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.ItemDescription" class="control-label"></label>
-                <input asp-for="Item.ItemDescription" class="form-control" />
-                <span asp-validation-for="Item.ItemDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.ItemType" class="control-label"></label>
-                @* <input asp-for="Item.ItemType" class="form-control" type="text"/> *@
-                <select asp-for="Item.ItemType" class="form-control">
-                    <option value="CHARACTER">Character</option>
-                    <option value="ROOM">Room</option>
-                    <option value="DEFAULT">Default</option>
-                </select>
-                <span asp-validation-for="Item.ItemType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.CanExpire" class="control-label"></label>
-                <input asp-for="Item.CanExpire" class="form-check-input" type="checkbox" />
-                <span asp-validation-for="Item.CanExpire" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.CanStack" class="control-label"></label>
-                <input asp-for="Item.CanStack" class="form-check-input" type="checkbox" />
-                <span asp-validation-for="Item.CanStack" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+
+    <div class="col-md-9">
+        <div class="form-container">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Item.ItemCode" class="control-label"></label>
+                    <input asp-for="Item.ItemCode" class="form-control" required />
+                    <span asp-validation-for="Item.ItemCode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Item.ItemName" class="control-label"></label>
+                    <input asp-for="Item.ItemName" class="form-control" required />
+                    <span asp-validation-for="Item.ItemName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Item.ItemDescription" class="control-label"></label>
+                    <input asp-for="Item.ItemDescription" class="form-control" />
+                    <span asp-validation-for="Item.ItemDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Item.ItemType" class="control-label"></label>
+                    @* <input asp-for="Item.ItemType" class="form-control" type="text"/> *@
+                    <select asp-for="Item.ItemType" class="form-control">
+                        <option value="CHARACTER">Character</option>
+                        <option value="ROOM">Room</option>
+                        <option value="DEFAULT">Default</option>
+                    </select>
+                    <span asp-validation-for="Item.ItemType" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Item.CanExpire" class="control-label"></label>
+                    <input asp-for="Item.CanExpire" class="form-check-input" type="checkbox" />
+                    <span asp-validation-for="Item.CanExpire" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Item.CanStack" class="control-label"></label>
+                    <input asp-for="Item.CanStack" class="form-check-input" type="checkbox" />
+                    <span asp-validation-for="Item.CanStack" class="text-danger"></span>
+                </div>
+                @*             <div class="form-group">
                 <label asp-for="Item.CreatorId" class="control-label"></label>
-                @* <select asp-for="Item.CreatorId" class="form-control"></select> *@
                 <input asp-for="Item.CreatorId" class="form-control" />
                 <span asp-validation-for="Item.CreatorId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.PrefabCode" class="control-label"></label>
-                <input asp-for="Item.PrefabCode" class="form-control" />
-                <span asp-validation-for="Item.PrefabCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.ItemBuyPrice" class="control-label"></label>
-                <input asp-for="Item.ItemBuyPrice" class="form-control" />
-                <span asp-validation-for="Item.ItemBuyPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.ItemSellPrice" class="control-label"></label>
-                <input asp-for="Item.ItemSellPrice" class="form-control" />
-                <span asp-validation-for="Item.ItemSellPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                </div> *@
+
+                <div class="form-group">
+                    <label>Creator</label>
+                    <input class="form-control" type="text" id="searchBox" placeholder="Search..." onkeyup="liveSearch()" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Item.PrefabCode" class="control-label"></label>
+                    <input asp-for="Item.PrefabCode" class="form-control" />
+                    <span asp-validation-for="Item.PrefabCode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Item.ItemBuyPrice" class="control-label"></label>
+                    <input asp-for="Item.ItemBuyPrice" class="form-control" />
+                    <span asp-validation-for="Item.ItemBuyPrice" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Item.ItemSellPrice" class="control-label"></label>
+                    <input asp-for="Item.ItemSellPrice" class="form-control" />
+                    <span asp-validation-for="Item.ItemSellPrice" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
     </div>
+
+    <div class="col-md-3">
+        <div id="searchResults" class="search-results"></div>
+    </div>
+
 </div>
 
 <div>
     <a asp-page="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+<script>
+    async function liveSearch(){
+        const query = document.getElementById('searchBox').value;
+        if (query.length < 1) {
+            document.getElementById('searchResults').innerHTML = '';
+            return;
+        }
+        const response = await fetch('./Create?handler=Search&query=' + query);
+
+        const data = await response.text();
+        document.getElementById('searchResults').innerHTML = data;
     }
-}
+</script>
+

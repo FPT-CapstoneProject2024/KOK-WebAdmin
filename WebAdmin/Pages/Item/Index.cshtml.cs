@@ -31,26 +31,33 @@ namespace WebAdmin.Pages.Item
 
         public async Task<IActionResult> OnGet(string? number = null, string? filter = null)
         {
+            try
+            {
+                CurrentPage = int.Parse(number ?? "1");
+                CurrentPage = (CurrentPage < 1) ? 1 : CurrentPage;
+                CurrentPage = (CurrentPage > TotalPage) ? TotalPage : CurrentPage;
 
-            CurrentPage = int.Parse(number ?? "1");
-            CurrentPage = (CurrentPage < 1) ? 1 : CurrentPage;
-            CurrentPage = (CurrentPage > TotalPage) ? TotalPage : CurrentPage;
+                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ItemResource;
 
-            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ItemResource;
-
-            var response = await apiClient.GetAsync(uri + "?page=" + CurrentPage + filter);
+                var response = await apiClient.GetAsync(uri + "?page=" + CurrentPage + filter);
 
 
 
-            var jsonResponse = await response.Content.ReadAsStringAsync();
+                var jsonResponse = await response.Content.ReadAsStringAsync();
 #pragma warning disable CS8601 // Possible null reference assignment.
-            data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Item>>(jsonResponse);
+                data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Item>>(jsonResponse);
 #pragma warning restore CS8601 // Possible null reference assignment.
 
-            if (data.Results is not null)
-            {
-                TotalPage = (int)MathF.Ceiling((float)data.Metadata.Total / (float)data.Metadata.Size);
+                if (data.Results is not null)
+                {
+                    TotalPage = (int)MathF.Ceiling((float)data.Metadata.Total / (float)data.Metadata.Size);
+                }
             }
+            catch (Exception)
+            {
+                return RedirectToPage("/Error");
+            }
+
             return Page();
         }
 

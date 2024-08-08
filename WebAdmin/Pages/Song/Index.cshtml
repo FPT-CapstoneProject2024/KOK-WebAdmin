@@ -3,70 +3,76 @@
 @{
     ViewData["Title"] = "Index";
 }
-<div>
-    <!--Search-->
-@*     <div class="input-group">
-        <form method="post" class="input-group">
-            <input name="txt_search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-            <span class="input-group-text border-0" id="search-addon">
-                <select class="form-select" aria-label="account filter" name="txt_filter">
-                    <option value="UserName" selected>Username</option>
-                    <option value="Email">Email</option>
-                    <option value="Gender">Gender</option>
-                    <option value="Role">Role</option>
-                    <option value="IsOnline">Is Online</option>
-                    <option value="AccountStatus">Account Status</option>
-                </select>
-            </span>
-            <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
+<!--Search-->
+<div class="input-group">
+    <form method="post" class="input-group">
+        <input name="txt_search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+        <span class="input-group-text border-0" id="search-addon">
+            <select class="form-control form-control-sm" aria-label="account filter" name="txt_filter">
+                <option value="SongId" selected>Song Id</option>
+                <option value="SongName">Song Name</option>
+                <option value="SongDescription">Song Description</option>
+                <option value="SongUrl">Song Url</option>
+                <option value="SongStatus">Song Status</option>
+                <option value="SongCode">Song Code</option>
+                <option value="CreatorId">Creator Id</option>
+                <option value="Price">Price</option>
+            </select>
+        </span>
+        <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
 
-        </form>
-    </div> *@
-    <!--End Search-->
-<h1>Index</h1>
+    </form>
+</div>
+<!--End Search-->
 
+<h1>Song</h1>
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<table class="table table-dark">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].SongName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].SongDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].SongUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].SongStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].UpdatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].SongCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].PublicDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].Price)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-            @if(Model.data.Results != null)
+<div class="table-container">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].SongName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].SongDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].SongUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].SongStatus)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].CreatedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].UpdatedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].SongCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].PublicDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].Price)
+                </th>
+                <th>@Html.DisplayNameFor(model => model.data.Results[0].Genre)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.data.Results != null)
             {
+                int count = 0;
                 @foreach (var item in Model.data.Results)
                 {
                     <tr>
+                        <td>@(count += 1)</td>
                         <td>
                             @Html.DisplayFor(modelItem => item.SongName)
                         </td>
@@ -94,6 +100,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Price)
                         </td>
+                        <td>@Html.DisplayFor(modelItem => item.Genre)</td>
                         <td>
                             <a asp-page="./Edit" asp-route-id="@item.SongId">Edit</a> |
                             <a asp-page="./Details" asp-route-id="@item.SongId">Details</a> |
@@ -103,5 +110,19 @@
                 }
             }
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
+
+</div>
+
+<div>
+
+    <!--End Table-->
+    <!--Paging-->
+    <div class="pagination">
+        <li class="page-item"><a asp-route-number="@(Model.CurrentPage - 1)" class="page-link">&laquo;</a></li>
+        <li class="page-item active"><a asp-route-number="@Model.CurrentPage" class="page-link">@Model.CurrentPage</a></li>
+        <li class="page-item"><a asp-route-number="@(Model.CurrentPage + 1)" class="page-link">&raquo;</a></li>
+    </div>
+    <!--End Paging-->
+</div>

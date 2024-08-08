@@ -13,13 +13,14 @@ namespace WebAdmin.Pages.Item
 
         [BindProperty]
         public DTOModels.Response.Item Item { get; set; } = new DTOModels.Response.Item();
+        public List<DTOModels.Response.Account>? SearchResults { get; set; }
+
         public CreateModel(IApiClient apiClient)
         {
             this.apiClient = apiClient;
         }
-        public IActionResult OnGet()
+        public void OnGet()
         {
-            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -46,6 +47,19 @@ namespace WebAdmin.Pages.Item
 
 
             return Page();
+        }
+
+        public IActionResult OnGetSearch(string query)
+        {
+            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.AccountResource + "?email=" + query;
+            var response = apiClient.GetAsync(uri).Result;
+            var jsonResponse = response.Content.ReadAsStringAsync().Result;
+
+            SearchResults = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Account>>(jsonResponse)?.Results;
+
+            return Partial("_SearchResults", this);
+
+           
         }
     }
 }

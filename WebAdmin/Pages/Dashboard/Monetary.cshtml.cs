@@ -9,14 +9,8 @@ namespace WebAdmin.Pages.Dashboard
 {
     public class MonetaryModel : PageModel
     {
-        public class DashboardResponse<TEntity>
-        {
-            public string? Message { get; set; }
-            public Dictionary<TEntity, decimal>? Values { get; set; }
-        }
         private readonly IApiClient _apiClient;
         public static Dictionary<string, decimal>? DataMonthInApp { get; set; }
-        public Dictionary<DateTime, decimal>? DataDateInApp { get; set; }
         [BindProperty]
         public string? StartMonth { get; set; }
         [BindProperty]
@@ -64,7 +58,7 @@ namespace WebAdmin.Pages.Dashboard
 
                 if (DataMonthInApp == null)
                 {
-                    DataMonthInApp = JsonConvert.DeserializeObject<DashboardResponse<string>>(jsonResponse)?.Values;
+                    DataMonthInApp = JsonConvert.DeserializeObject<DTOModels.Response.Helpers.DashboardResponse<string>>(jsonResponse)?.Values;
 
                     DataMonth = DataMonthInApp;
 
@@ -72,7 +66,7 @@ namespace WebAdmin.Pages.Dashboard
 
 
                 }
-                DataMonthInApp = JsonConvert.DeserializeObject<DashboardResponse<string>>(jsonResponse)?.Values;
+                DataMonthInApp = JsonConvert.DeserializeObject<DTOModels.Response.Helpers.DashboardResponse<string>>(jsonResponse)?.Values;
 
 
 
@@ -82,7 +76,7 @@ namespace WebAdmin.Pages.Dashboard
             }
             catch (Exception)
             {
-                return RedirectToPage("../Error");
+                return RedirectToPage("/Error");
             }
             return Page();
         }

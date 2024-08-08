@@ -5,45 +5,45 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Account</h4>
+    <h4>Item</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayFor(model => model.Item.ItemId)
+            @Html.DisplayNameFor(model => model.Item.ItemName)
         </dt>
 
         <dd class="col-sm-10">
-            @Html.DisplayNameFor(model => model.Item.ItemName)
+            @Html.DisplayFor(model => model.Item.ItemName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayFor(model => model.Item.ItemCode)
+            @Html.DisplayNameFor(model => model.Item.ItemCode)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayNameFor(model => model.Item.ItemDescription)
+            @Html.DisplayFor(model => model.Item.ItemDescription)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayFor(model => model.Item.ItemType)
+            @Html.DisplayNameFor(model => model.Item.ItemType)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayNameFor(model => model.Item.ItemStatus)
+            @Html.DisplayFor(model => model.Item.ItemStatus)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayFor(model => model.Item.CanExpire)
+            @Html.DisplayNameFor(model => model.Item.CanExpire)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayNameFor(model => model.Item.CanStack)
+            @Html.DisplayFor(model => model.Item.CanStack)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayFor(model => model.Item.CreatedDate)
+            @Html.DisplayNameFor(model => model.Item.CreatedDate)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayNameFor(model => model.Item.PrefabCode)
+            @Html.DisplayFor(model => model.Item.PrefabCode)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayFor(model => model.Item.ItemBuyPrice)
+            @Html.DisplayNameFor(model => model.Item.ItemBuyPrice)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayNameFor(model => model.Item.ItemSellPrice)
+            @Html.DisplayFor(model => model.Item.ItemSellPrice)
         </dd>
     </dl>
 </div>

@@ -3,106 +3,149 @@
 @{
     ViewData["Title"] = "Index";
 }
+<!--Search-->
+<div class="input-group">
+    <form method="post" class="input-group">
+        <input name="txt_search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+        <span class="input-group-text border-0" id="search-addon">
+            <select class="form-control form-control-sm" aria-label="account filter" name="txt_filter">
+                <option value="ItemId" selected>Item Id</option>
+                <option value="ItemCode">Item Code</option>
+                <option value="ItemName">Item Name</option>
+                <option value="ItemDescription">Item Description</option>
+                <option value="ItemType">Item Type</option>
+                <option value="CreatorId">Creator Id</option>
+                <option value="PrefabCode">Prefab Code</option>
+                <option value="ItemBuyPrice">Item Buy Price</option>
+                <option value="ItemSellPrice">Item Sell Price</option>
+            </select>
+        </span>
+        <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
 
-<h1>Index</h1>
+    </form>
+</div>
+<!--End Search-->
+@* <h1>Item</h1> *@
 
 <p>
     <a asp-page="./Create">Create New</a>
 </p>
-<table class="table table-dark">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].ItemId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].ItemCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].PrefabCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].ItemName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].ItemType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].ItemDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].CanExpire)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].CanStack)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].ItemStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].CreatorId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].ItemSellPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].ItemBuyPrice)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.data.Results)
-        {
+<div class="table-container">
+
+    <table class="table table-hover">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ItemId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ItemCode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PrefabCode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ItemName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ItemType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ItemDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CanExpire)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CanStack)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ItemStatus)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatorId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ItemSellPrice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ItemBuyPrice)
-                </td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.ItemId">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.ItemId">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.ItemId">Delete</a>
-                </td>
+                @*             <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].ItemId)
+                </th> *@
+                <th>#</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].ItemCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].PrefabCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].ItemName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].ItemType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].CreatedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].ItemDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].CanExpire)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].CanStack)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].ItemStatus)
+                </th>
+                @*             <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].CreatorId)
+                </th> *@
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].ItemSellPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].ItemBuyPrice)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @if (Model.data.Results != null)
+            {
+                int count = 0;
+                @foreach (var item in Model.data.Results)
+                {
+                    <tr>
+                        @*                 <td>
+                @Html.DisplayFor(modelItem => item.ItemId)
+                </td> *@
+                        <td>@(count += 1)</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PrefabCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemDescription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CanExpire)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CanStack)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemStatus)
+                        </td>
+                        @*                 <td>
+                @Html.DisplayFor(modelItem => item.CreatorId)
+                </td> *@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemSellPrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemBuyPrice)
+                        </td>
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@item.ItemId">Edit</a> |
+                            <a asp-page="./Details" asp-route-id="@item.ItemId">Details</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.ItemId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+</div>
+
+ <div>
+
+    <!--End Table-->
+    <!--Paging-->
+    <div class="pagination">
+        <li class="page-item"><a asp-route-number="@(Model.CurrentPage - 1)" class="page-link">&laquo;</a></li>
+        <li class="page-item active"><a asp-route-number="@Model.CurrentPage" class="page-link">@Model.CurrentPage</a></li>
+        <li class="page-item"><a asp-route-number="@(Model.CurrentPage + 1)" class="page-link">&raquo;</a></li>
+    </div>
+    <!--End Paging-->
+</div>

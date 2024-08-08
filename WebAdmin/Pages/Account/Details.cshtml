@@ -10,30 +10,83 @@
     <hr />
     <dl class="row">
 
-
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Account.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Account.PhoneNumber)
-        </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Account.UserName)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Account.Fullname)
+            @Html.DisplayFor(model => model.Account.UserName)
         </dd>
+@*         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Account.Password)
+        </dt> *@
+@*         <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Account.Password)
+        </dd> *@
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Account.AccountStatus)
+            @Html.DisplayNameFor(model => model.Account.Email)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Account.CreatedTime)
+            @Html.DisplayFor(model => model.Account.Email)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Account.Gender)
         </dt>
         <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Account.Gender)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Account.Role)
+        </dt>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Account.Role)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Account.IsOnline)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Account.IsOnline)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Account.Fullname)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Account.Fullname)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Account.Yob)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Account.Yob)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Account.IdentityCardNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Account.IdentityCardNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Account.PhoneNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Account.PhoneNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Account.CreatedTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Account.CreatedTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Account.AccountStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Account.AccountStatus)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Account.UpBalance)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Account.UpBalance)
         </dd>
     </dl>
 </div>

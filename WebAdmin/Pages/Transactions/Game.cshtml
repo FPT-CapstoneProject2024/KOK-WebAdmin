@@ -1,0 +1,85 @@
+﻿@page
+@model WebAdmin.Pages.Transactions.GameModel
+@{
+}
+
+
+<!--Search-->
+<div class="input-group">
+    <form method="post" class="input-group">
+        <input name="txt_search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+        <span class="input-group-text border-0" id="search-addon">
+            <select class="form-control form-control-sm" aria-label="account filter" name="txt_filter">
+                <option value="Status" selected>Status</option>
+                <option value="TransactionType">Transaction Type</option>
+                <option value="UpTotalAmount">Up Total Amount</option>
+                <option value="UpAmountBefore">Up Amount Before</option>
+            </select>
+        </span>
+        <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
+
+    </form>
+</div>
+<!--End Search-->
+
+
+<h1>Giao dịch trong Game</h1>
+<div class="table-container">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].CreatedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].TransactionType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].UpAmountBefore)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].UpTotalAmount)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.data.Results)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TransactionType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UpAmountBefore)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UpTotalAmount)
+                    </td>
+                    <td>
+                        <a asp-page="./Details" asp-route-id="@item.InAppTransactionId">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+
+<!--Paging-->
+<div class="pagination">
+    <li class="page-item"><a asp-route-number="@(Model.CurrentPage - 1)" class="page-link">&laquo;</a></li>
+    <li class="page-item active"><a asp-route-number="@Model.CurrentPage" class="page-link">@Model.CurrentPage</a></li>
+    <li class="page-item"><a asp-route-number="@(Model.CurrentPage + 1)" class="page-link">&raquo;</a></li>
+</div>
+<!--End Paging-->

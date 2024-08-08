@@ -10,11 +10,6 @@ namespace WebAdmin.Pages.Dashboard
 {
     public class IndexModel : PageModel
     {
-        public class DashboardResponse<TEntity>
-        {
-            public string? Message { get; set; }
-            public Dictionary<TEntity, decimal>? Values { get; set; }
-        }
         private readonly IApiClient _apiClient;
 
         //[BindProperty]
@@ -42,7 +37,7 @@ namespace WebAdmin.Pages.Dashboard
                 var response = await _apiClient.GetAsync(uri);
                 var jsonResponse = await response.Content.ReadAsStringAsync();
 
-                DataMonth = JsonConvert.DeserializeObject<DashboardResponse<string>>(jsonResponse)?.Values;
+                DataMonth = JsonConvert.DeserializeObject<DTOModels.Response.Helpers.DashboardResponse<string>>(jsonResponse)?.Values;
 
                 #endregion
 
@@ -52,7 +47,7 @@ namespace WebAdmin.Pages.Dashboard
                 response = await _apiClient.GetAsync(uri);
                 jsonResponse = await response.Content.ReadAsStringAsync();
 
-                DataDate = JsonConvert.DeserializeObject<DashboardResponse<DateTime>>(jsonResponse)?.Values;
+                DataDate = JsonConvert.DeserializeObject<DTOModels.Response.Helpers.DashboardResponse<DateTime>>(jsonResponse)?.Values;
                 #endregion
 
                 #region MonthInApp
@@ -64,7 +59,7 @@ namespace WebAdmin.Pages.Dashboard
                 response = await _apiClient.GetAsync(uri);
                 jsonResponse = await response.Content.ReadAsStringAsync();
 
-                DataMonthInApp = JsonConvert.DeserializeObject<DashboardResponse<string>>(jsonResponse)?.Values;
+                DataMonthInApp = JsonConvert.DeserializeObject<DTOModels.Response.Helpers.DashboardResponse<string>>(jsonResponse)?.Values;
                 #endregion
             }
             catch (Exception)

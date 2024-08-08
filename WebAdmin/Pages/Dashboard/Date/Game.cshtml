@@ -1,0 +1,180 @@
+﻿@page
+@model WebAdmin.Pages.Dashboard.Date.GameModel
+@{
+    int count = 0;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        .grade {
+            border-style: dashed;
+            border-width: thin;
+            border-color: forestgreen;
+            padding: 10px;
+            width: 100%;
+            max-width: auto;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        /* styles.css */
+
+        .chart-container {
+            width: 80%;
+            max-width: 600px;
+        }
+
+    </style>
+    <script>
+        // script.js
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+            const data = {
+                labels: @Html.Raw(Json.Serialize(GameModel.DataDateOrder.Keys.Take(3).ToList())),
+                datasets: [{
+                    label: 'Revenue',
+                    data: @Html.Raw(Json.Serialize(GameModel.DataDateOrder.Values.Take(3).ToList())),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgb(73, 204, 144)',
+                        'rgba(255, 206, 86, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgb(54, 153, 108)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const options = {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            };
+
+            const revenueChart = new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: options
+            });
+        });
+
+    </script>
+</head>
+<body>
+
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+        <div class="container-fluid">
+            <!-- Brand -->
+            <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./index.cshtml">Dashboard</a>
+
+            <div class="left" style="margin-bottom:20px;">
+                <form method="post" class="input-group ml-auto">
+                    <input asp-for="StartDate" type="date" class="form-control" />
+                    <input asp-for="EndDate" type="date" class="form-control" />
+                    <button asp-page-handler="SearchMonth" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!--End Search-->
+    <!--In App new Model-->
+    <div class="wrapper">
+        <div class="content">
+
+
+            <div class="grade">
+                <div>
+                    <canvas id="revenueChart"></canvas>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                </div>
+                <p><h5 style="color: #c2444d;">Top 3 Doanh Thu cao nhất</h5></p>
+            </div>
+
+            <div class="grade">
+                <div>
+                    <canvas id="transactionGameChart"></canvas>
+                </div>
+                <p><h4 style="align-content:center; top:75px; color:#c2444d;">Giao Dịch Trong Ứng dụng</h4></p>
+
+            </div>
+
+
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const ctx = document.getElementById('transactionGameChart').getContext('2d');
+                    const transactionChart = new Chart(ctx, {
+                        type: 'bar', // Bạn có thể thay đổi thành 'line' hoặc các loại biểu đồ khác của Chart.js
+                        data: {
+                            labels: @Html.Raw(Json.Serialize(GameModel.DataDate.Keys.ToList())),
+                            datasets: [{
+                                label: 'Số lượng giao dịch trong ứng dụng',
+                                data: @Html.Raw(Json.Serialize(GameModel.DataDate.Values.ToList())), // Dữ liệu mẫu, bạn có thể thay thế bằng dữ liệu thực tế
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                });
+
+            </script>
+
+
+
+            <!--End In App new Model-->
+
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Month</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if(GameModel.DataDateInApp != null)
+                    {
+                        @foreach (var transaction in GameModel.DataDateInApp)
+                        {
+                            <tr>
+                                <td>@(count += 1)</td>
+                                <td>
+                                    @Html.DisplayFor(model => transaction.Key)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => transaction.Value) VND
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    </div>
+
+</body>
+</html>
+
