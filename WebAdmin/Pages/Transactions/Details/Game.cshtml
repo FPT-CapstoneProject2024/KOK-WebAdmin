@@ -1,0 +1,46 @@
+﻿@page
+@model WebAdmin.Pages.Transactions.Details.GameModel
+@{
+}
+<h1>Details</h1>
+
+<div>
+    <h4>InAppTransaction</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InAppTransaction.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InAppTransaction.Status)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InAppTransaction.CreatedDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InAppTransaction.CreatedDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InAppTransaction.TransactionType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InAppTransaction.TransactionType)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InAppTransaction.UpAmountBefore)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InAppTransaction.UpAmountBefore)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InAppTransaction.UpTotalAmount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InAppTransaction.UpTotalAmount)
+        </dd>
+       
+    </dl>
+</div>
+<div>
+    <a asp-page="/Transactions/Game">Back to List</a>
+</div>

@@ -5,45 +5,45 @@ using WebAdmin.Context;
 using WebAdmin.DTOModels.Response.Helpers;
 using WebAdmin.Services.Interfaces;
 
-namespace WebAdmin.Pages.Transactions.Monetary
+namespace WebAdmin.Pages.Transactions.Details
 {
-    public class DetailsModel : PageModel
+    public class GameModel : PageModel
     {
-        private readonly ILogger<DetailsModel> logger;
+        private readonly ILogger<GameModel> logger;
         private readonly IApiClient apiClient;
 
-        public DetailsModel(ILogger<DetailsModel> logger, IApiClient apiClient)
+        public GameModel(ILogger<GameModel> logger, IApiClient apiClient)
         {
             this.logger = logger;
             this.apiClient = apiClient;
         }
 
         [BindProperty]
-        public DTOModels.Response.MonetaryTransaction MonetaryTransaction { get; set; } = default!;
+        public DTOModels.Response.InAppTransaction InAppTransaction { get; set; } = default!;
 
         public async Task<IActionResult> OnGet(string id)
         {
-            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.MonetaryResource;
+            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.GameTransactionResouce;
 
-            var response = await apiClient.GetAsync(uri + "?MonetaryTransactionId=" + id);
+            var response = await apiClient.GetAsync(uri + "?InAppTransactionId=" + id);
 
             var jsonResponse = await response.Content.ReadAsStringAsync();
 #pragma warning disable CS8601 // Possible null reference assignment.
-            var monetary = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.MonetaryTransaction>>(jsonResponse).Results.First();
+            var game = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.InAppTransaction>>(jsonResponse).Results.First();
 #pragma warning restore CS8601 // Possible null reference assignment.
 
-            if (id == null || monetary == null)
+            if (id == null || game == null)
             {
                 return NotFound();
             }
 
-            if (monetary == null)
+            if (game == null)
             {
                 return NotFound();
             }
             else
             {
-                MonetaryTransaction = monetary;
+                InAppTransaction = game;
             }
 
             return Page();
