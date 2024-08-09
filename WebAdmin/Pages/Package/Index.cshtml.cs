@@ -39,12 +39,9 @@ namespace WebAdmin.Pages.Package
 
                 var response = await apiClient.GetAsync(uri + "?page=" + CurrentPage + filter);
 
-
-
                 var jsonResponse = await response.Content.ReadAsStringAsync();
-#pragma warning disable CS8601 // Possible null reference assignment.
+
                 data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Package>>(jsonResponse);
-#pragma warning restore CS8601 // Possible null reference assignment.
 
                 if (data.Results is not null)
                 {
