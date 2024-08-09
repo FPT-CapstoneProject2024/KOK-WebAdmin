@@ -1,0 +1,67 @@
+﻿@page
+@model WebAdmin.Pages.Artist.IndexModel
+@{
+}
+<!--Search-->
+<div class="input-group">
+    <form method="post" class="input-group">
+        <input name="txt_search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+        <span class="input-group-text border-0" id="search-addon">
+            <select class="form-control form-control-sm" aria-label="account filter" name="txt_filter">
+                <option value="ArtistName" selected>Artist Name</option>
+                <option value="Image">Image</option>
+            </select>
+        </span>
+        <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
+
+    </form>
+</div>
+<!--End Search-->
+<h1>Artist</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<div class="table-container">
+
+    <table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.data.Results[0].ArtistName)
+            </th>
+            <th>@Html.DisplayNameFor(model => model.data.Results[0].Image)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model.data.Results != null)
+        {
+        @foreach (var item in Model.data.Results)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArtistName)
+                </td>
+                <td class="img-cell"><img src="@Html.DisplayFor(modelItem => item.Image)" alt="N/A"/></td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ArtistId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ArtistId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ArtistId">Delete</a>
+                </td>
+            </tr>
+        }
+        }
+
+    </tbody>
+</table>
+</div
+    <!--End Table-->
+    <!--Paging-->
+    <div class="pagination">
+        <li class="page-item"><a asp-route-number="@(Model.CurrentPage - 1)" class="page-link">&laquo;</a></li>
+        <li class="page-item active"><a asp-route-number="@Model.CurrentPage" class="page-link">@Model.CurrentPage</a></li>
+        <li class="page-item"><a asp-route-number="@(Model.CurrentPage + 1)" class="page-link">&raquo;</a></li>
+    </div>
+    <!--End Paging-->
+</div>

@@ -12,6 +12,7 @@ namespace WebAdmin.Pages.Authentication
     public class LoginModel : PageModel
     {
         private const string JwtAccessToken = "jwtAccessToken";
+        public static Guid? AccountId { get; set; } 
 
         public class LoginCredential
         {
@@ -62,6 +63,7 @@ namespace WebAdmin.Pages.Authentication
                             Secure = true,
                             SameSite = SameSiteMode.Strict,
                         });
+                        AccountId = loginResult.Value.AccountId;
                         // Redirect to home page
                         return RedirectToPage("/Dashboard/Index");
 

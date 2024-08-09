@@ -13,66 +13,61 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Item.ItemId" />
             <div class="form-group">
-                <label asp-for="Item.ItemCode" class="control-label"></label>
-                <input asp-for="Item.ItemCode" class="form-control" required />
-                <span asp-validation-for="Item.ItemCode" class="text-danger"></span>
+                <label asp-for="UpdateItem.ItemCode" class="control-label"></label>
+                <input asp-for="UpdateItem.ItemCode" class="form-control" required />
+                <span asp-validation-for="UpdateItem.ItemCode" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Item.ItemName" class="control-label"></label>
-                <input asp-for="Item.ItemName" class="form-control" required />
-                <span asp-validation-for="Item.ItemName" class="text-danger"></span>
+                <label asp-for="UpdateItem.ItemName" class="control-label"></label>
+                <input asp-for="UpdateItem.ItemName" class="form-control" required />
+                <span asp-validation-for="UpdateItem.ItemName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Item.ItemDescription" class="control-label"></label>
-                <input asp-for="Item.ItemDescription" class="form-control" />
-                <span asp-validation-for="Item.ItemDescription" class="text-danger"></span>
+                <label asp-for="UpdateItem.ItemDescription" class="control-label"></label>
+                <input asp-for="UpdateItem.ItemDescription" class="form-control" />
+                <span asp-validation-for="UpdateItem.ItemDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Item.ItemType" class="control-label"></label>
-                <select asp-for="Item.ItemType" class="form-control">
+                <label asp-for="UpdateItem.ItemType" class="control-label"></label>
+                <select asp-for="UpdateItem.ItemType" class="form-control">
                     <option value="CHARACTER">Character</option>
                     <option value="ROOM">Room</option>
                     <option value="DEFAULT">Default</option>
                 </select>
-                <span asp-validation-for="Item.ItemType" class="text-danger"></span>
+                <span asp-validation-for="UpdateItem.ItemType" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Item.ItemStatus" class="control-label"></label>
-                <select asp-for="Item.ItemStatus" class="form-control">
+                <label asp-for="UpdateItem.ItemStatus" class="control-label"></label>
+                <select asp-for="UpdateItem.ItemStatus" class="form-control">
                     <option value="ENABLE">Enable</option>
                     <option value="PENDING">Pending</option>
                 </select>
-                <span asp-validation-for="Item.ItemType" class="text-danger"></span>
+                <span asp-validation-for="UpdateItem.ItemType" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Item.CanExpire" class="control-label"></label>
-                <input asp-for="Item.CanExpire" class="form-check-input" type="checkbox"/>
-                <span asp-validation-for="Item.CanExpire" class="text-danger"></span>
+                <label asp-for="UpdateItem.CanExpire" class="control-label"></label>
+                <input asp-for="UpdateItem.CanExpire" class="form-check-input" type="checkbox" />
+                <span asp-validation-for="UpdateItem.CanExpire" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Item.CanStack" class="control-label"></label>
-                <input asp-for="Item.CanStack" class="form-check-input" type="checkbox"/>
-                <span asp-validation-for="Item.CanStack" class="text-danger"></span>
+                <label asp-for="UpdateItem.CanStack" class="control-label"></label>
+                <input asp-for="UpdateItem.CanStack" class="form-check-input" type="checkbox" />
+                <span asp-validation-for="UpdateItem.CanStack" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Item.CreatorId" class="control-label"></label>
-                <input asp-for="Item.CreatorId" class="form-control" required/>
-                <span asp-validation-for="Item.CreatorId" class="text-danger"></span>
+                <label asp-for="UpdateItem.PrefabCode" class="control-label"></label>
+                <input asp-for="UpdateItem.PrefabCode" class="form-control" required />
+                <span asp-validation-for="UpdateItem.PrefabCode" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Item.PrefabCode" class="control-label"></label>
-                <input asp-for="Item.PrefabCode" class="form-control" required />
-                <span asp-validation-for="Item.PrefabCode" class="text-danger"></span>
+                <label asp-for="UpdateItem.ItemBuyPrice" class="control-label"></label>
+                <input asp-for="UpdateItem.ItemBuyPrice" class="form-control" required />
+                <span asp-validation-for="UpdateItem.ItemBuyPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Item.ItemBuyPrice" class="control-label"></label>
-                <input asp-for="Item.ItemBuyPrice" class="form-control" required />
-                <span asp-validation-for="Item.ItemBuyPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.ItemSellPrice" class="control-label"></label>
-                <input asp-for="Item.ItemSellPrice" class="form-control" required />
-                <span asp-validation-for="Item.ItemSellPrice" class="text-danger"></span>
+                <label asp-for="UpdateItem.ItemSellPrice" class="control-label"></label>
+                <input asp-for="UpdateItem.ItemSellPrice" class="form-control" required />
+                <span asp-validation-for="UpdateItem.ItemSellPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

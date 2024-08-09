@@ -1,10 +1,14 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using WebAdmin.Context;
+using WebAdmin.DTOModels.Request.Item;
+using WebAdmin.DTOModels.Response;
 using WebAdmin.DTOModels.Response.Helpers;
+using WebAdmin.Pages.Authentication;
 using WebAdmin.Services.Implementation;
 using WebAdmin.Services.Interfaces;
 
@@ -13,12 +17,16 @@ namespace WebAdmin.Pages.Item
     public class EditModel : PageModel
     {
         private readonly IApiClient _apiClient;
+        private readonly IMapper _mapper;
 
-        public EditModel(IApiClient apiClient)
+        public EditModel(IApiClient apiClient, IMapper mapper)
         {
             _apiClient = apiClient;
+            _mapper = mapper;
         }
 
+        [BindProperty]
+        public DTOModels.Request.Item.UpdateItemRequestModel UpdateItem { get; set; } = default!;
         [BindProperty]
         public DTOModels.Response.Item Item { get; set; } = default!;
 
@@ -30,7 +38,7 @@ namespace WebAdmin.Pages.Item
                 return NotFound();
             }
 
-
+            
             var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ItemResource + "?ItemId=" + id;
             var response = await _apiClient.GetAsync(uri);
             var responeJson = await response.Content.ReadAsStringAsync();
@@ -41,6 +49,7 @@ namespace WebAdmin.Pages.Item
                 return NotFound();
             }
             Item = item.Results.First();
+            UpdateItem = _mapper.Map<UpdateItemRequestModel>(Item);
             return Page();
         }
 
@@ -57,9 +66,10 @@ namespace WebAdmin.Pages.Item
 
             try
             {
+                UpdateItem.CreatorId = LoginModel.AccountId;
                 //_context.Attach(Item).State = EntityState.Modified;
                 var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ItemResource + "/" + Item.ItemId;
-                var response = await _apiClient.PutAsync(uri, Item);
+                var response = await _apiClient.PutAsync(uri, UpdateItem);
                 var responeJson = await response.Content.ReadAsStringAsync();
                 var item = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Item>>(responeJson);
 
