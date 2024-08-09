@@ -1,0 +1,43 @@
+﻿@page
+@model WebAdmin.Pages.Singer.CreateModel
+@{
+}
+<h1>Create</h1>
+
+<h4>Singer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Singer.SingerName" class="control-label"></label>
+                <input asp-for="Singer.SingerName" class="form-control" />
+                <span asp-validation-for="Singer.SingerName" class="text-danger"></span>
+            </div>
+@*             <div class="form-group">
+                <label asp-for="Singer.Image" class="control-label"></label>
+                <input asp-for="Singer.Image" class="form-control" />
+                <span asp-validation-for="Singer.Image" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <input type="file" name="file" class="form-control" />
+            </div>
+            <div id="result">
+                @if (ViewBag.ImageUrl != null)
+                {
+                    <p>Upload successful!</p>
+                    <img src="@ViewBag.ImageUrl" alt="Uploaded Image" width="200" />
+                    <p>Image URL: <a href="@ViewBag.ImageUrl" target="_blank">@ViewBag.ImageUrl</a></p>
+                }
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>

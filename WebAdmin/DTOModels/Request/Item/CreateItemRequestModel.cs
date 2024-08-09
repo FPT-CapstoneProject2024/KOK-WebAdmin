@@ -13,7 +13,9 @@ namespace WebAdmin.DTOModels.Request.Item
         public string ItemDescription { get; set; } = null!;
         public ItemType ItemType { get; set; }
         [RegularExpression(Constraints.VALIDATE_AMOUNT, ErrorMessage = Constraints.VALIDATE_AMOUNT)]
-        public decimal ItemPrice { get; set; }
+        public decimal ItemBuyPrice { get; set; }
+        [RegularExpression(Constraints.VALIDATE_AMOUNT, ErrorMessage = Constraints.VALIDATE_AMOUNT)]
+        public decimal ItemSellPrice { get; set; }
         public bool CanExpire { get; set; }
         public bool CanStack { get; set; }
         public Guid? CreatorId { get; set; }

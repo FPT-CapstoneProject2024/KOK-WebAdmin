@@ -1,4 +1,5 @@
-﻿using WebAdmin.Services.Implementation;
+﻿using WebAdmin.Helpers;
+using WebAdmin.Services.Implementation;
 using WebAdmin.Services.Interfaces;
 
 namespace WebAdmin
@@ -7,6 +8,8 @@ namespace WebAdmin
     {
         public static IServiceCollection AddWebApplicationServices(this IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(AutoMapperResolver));
+
             services.AddRazorPages();
 
             services.AddControllersWithViews();

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace WebAdmin.Pages.Shared
 {
-    public class _SearchResultsModel : PageModel
+    public class _SearchArtistResultsModel : PageModel
     {
         public void OnGet()
         {

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using WebAdmin.Context;
 using WebAdmin.DTOModels.Response.Helpers;
+using WebAdmin.Pages.Authentication;
 using WebAdmin.Services.Interfaces;
 
 namespace WebAdmin.Pages.Item
@@ -12,8 +13,8 @@ namespace WebAdmin.Pages.Item
         public IApiClient apiClient { get; set; }
 
         [BindProperty]
-        public DTOModels.Response.Item Item { get; set; } = new DTOModels.Response.Item();
-        public List<DTOModels.Response.Account>? SearchResults { get; set; }
+        public DTOModels.Request.Item.CreateItemRequestModel Item { get; set; } = new DTOModels.Request.Item.CreateItemRequestModel();
+        //public List<DTOModels.Response.Account>? SearchResults { get; set; }
 
         public CreateModel(IApiClient apiClient)
         {
@@ -27,6 +28,11 @@ namespace WebAdmin.Pages.Item
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return Page();
+                }
+                Item.CreatorId = LoginModel.AccountId;
                 var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ItemResource;
 
                 var response = await apiClient.PostAsync(uri, Item);
@@ -47,19 +53,6 @@ namespace WebAdmin.Pages.Item
 
 
             return Page();
-        }
-
-        public IActionResult OnGetSearch(string query)
-        {
-            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.AccountResource + "?email=" + query;
-            var response = apiClient.GetAsync(uri).Result;
-            var jsonResponse = response.Content.ReadAsStringAsync().Result;
-
-            SearchResults = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Account>>(jsonResponse)?.Results;
-
-            return Partial("_SearchResults", this);
-
-           
         }
     }
 }

@@ -4,27 +4,33 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using WebAdmin.Context;
-using WebAdmin.DTOModels.Request.Song;
+using WebAdmin.DTOModels.Request.Genre;
+using WebAdmin.DTOModels.Request.Singer;
 using WebAdmin.DTOModels.Response.Helpers;
+using WebAdmin.Helpers;
 using WebAdmin.Services.Interfaces;
 
-namespace WebAdmin.Pages.Song
+namespace WebAdmin.Pages.Genre
 {
     public class EditModel : PageModel
     {
         private readonly IApiClient _apiClient;
         private readonly IMapper _mapper;
+        private readonly IHttpClientFactory _clientFactory;
 
-        public EditModel(IApiClient apiClient, IMapper mapper)
+        private static string? imageUrl { get; set; }
+
+        public EditModel(IApiClient apiClient, IMapper mapper, IHttpClientFactory clientFactory)
         {
             _apiClient = apiClient;
             _mapper = mapper;
+            _clientFactory = clientFactory;
         }
 
         [BindProperty]
-        public DTOModels.Response.Song Song { get; set; } = default!;
+        public DTOModels.Request.Genre.GenreRequestModel UpdateGenre { get; set; } = default!;
         [BindProperty]
-        public DTOModels.Request.Song.UpdateSongRequestModel UpdateSong { get; set; } = default!;
+        public DTOModels.Response.Genre Genre { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -33,37 +39,52 @@ namespace WebAdmin.Pages.Song
             {
                 return NotFound();
             }
-            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.SongResource + "?songId=" + id;
+
+
+            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.GenreResource + "?GenreId=" + id;
             var response = await _apiClient.GetAsync(uri);
             var responeJson = await response.Content.ReadAsStringAsync();
-            var song = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Song>>(responeJson);
+            var gerne = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Genre>>(responeJson);
 
-            if (song.Results == null)
+            if (gerne.Results == null)
             {
                 return NotFound();
             }
-            Song = song.Results.First();
-
-            UpdateSong = _mapper.Map<UpdateSongRequestModel>(Song);
+            Genre = gerne.Results.First();
+            UpdateGenre = _mapper.Map<GenreRequestModel>(Genre);
             return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(IFormFile file)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
+            var dataImage = await SupportingFeature.Instance.UploadImage(_clientFactory, file, KokApiContext.ImgurClientId);
+
+            if (!dataImage.Item1)
+            {
+                ViewData["Message"] = dataImage.Item2;
+                return Page();
+            }
+            else
+            {
+                ViewData["ImageUrl"] = dataImage.Item2;
+                imageUrl = dataImage.Item2;
+            }
+
+            UpdateGenre.Image = imageUrl;
+
             try
             {
-                //_context.Attach(Item).State = EntityState.Modified;
-                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.SongResource + "/" + Song.SongId;
-                var response = await _apiClient.PutAsync(uri, UpdateSong);
+                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.GenreResource + "/" + Genre.GenreId;
+                var response = await _apiClient.PutAsync(uri, UpdateGenre);
                 var responeJson = await response.Content.ReadAsStringAsync();
-                var item = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Song>>(responeJson);
+                var item = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Genre>>(responeJson);
 
                 if (item.result.Value == false)
                 {

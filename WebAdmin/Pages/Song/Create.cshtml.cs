@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using WebAdmin.Context;
 using WebAdmin.DTOModels.Response.Helpers;
 using WebAdmin.Helpers;
+using WebAdmin.Pages.Authentication;
 using WebAdmin.Services.Interfaces;
 namespace WebAdmin.Pages.Song
 {
@@ -15,6 +16,9 @@ namespace WebAdmin.Pages.Song
 
         [BindProperty]
         public DTOModels.Request.Song.CreateSongRequestModel Song { get; set; } = new DTOModels.Request.Song.CreateSongRequestModel();
+        public List<DTOModels.Response.Artist> SearchArtistResults { get; set; } = new List<DTOModels.Response.Artist>();
+        [BindProperty]
+        public DTOModels.Response.Artist Artist { get; set; } = new DTOModels.Response.Artist();
 
 
         public CreateModel(IApiClient apiClient, IHttpClientFactory clientFactory)
@@ -31,11 +35,11 @@ namespace WebAdmin.Pages.Song
         {
             try
             {
-                await UploadImage(file);
-                if(imageUrl == null)
+                if(!ModelState.IsValid)
                 {
                     return Page();
                 }
+                Song.CreatorId = LoginModel.AccountId.Value;
 
                 var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.SongResource;
 
@@ -56,20 +60,17 @@ namespace WebAdmin.Pages.Song
             return Page();
         }
 
-
-        public async Task UploadImage(IFormFile file)
+        public IActionResult OnGetSearchAritst(string query)
         {
-            var rs = await SupportingFeature.Instance.UploadImage(_clientFactory, file, KokApiContext.ImgurClientId);
-            if (!rs.Item1)
-            {
-                ViewData["Message"] = rs.Item2;
-            }
-            else
-            {
-                ViewData["ImageUrl"] = rs.Item2;
-                imageUrl = rs.Item2;
-                
-            }
+            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.AccountResource + "?email=" + query;
+            var response = apiClient.GetAsync(uri).Result;
+            var jsonResponse = response.Content.ReadAsStringAsync().Result;
+
+            SearchArtistResults = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Artist>>(jsonResponse)?.Results;
+
+            return Partial("_SearchArtistResults", this);
+
+
         }
 
     }
