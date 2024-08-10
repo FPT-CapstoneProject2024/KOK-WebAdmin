@@ -9,27 +9,19 @@
                 <input asp-for="SelectedSingerId" value="@result.SingerId" type="hidden" />
                 <p>@result.SingerName</p>
                 <img src="@result.Image" alt="N/A" />
-                <input value="Thêm ca sĩ" type="submit" class="btn btn-danger"/>
+                @if (!Song.CreateModel.SingerIds.Any(a => a.SingerId == result.SingerId))
+                {
+                    <input value="Thêm ca sĩ" type="submit" name="submit"  class="btn btn-danger"/>
+                }
+                else
+                {
+                    <input value="Bỏ chọn" type="submit" name="submit" class="btn btn-danger" />
+                }
             }
         </form>
 
     </div>
 
-
-@*     <ul id="selectedSingers">
- *@        <!-- List of selected artists -->
-        @if (Song.CreateModel.SingerIds != null)
-        {
-            foreach (var id in Song.CreateModel.SingerIds)
-            {
-                <div class="img-cell">
-                    <p>@id.SingerName</p>
-                    <p>@id.Image</p>
-                </div>
-            }
-        }
-@*        </ul>
- *@
 }
 else
 {

@@ -70,47 +70,72 @@
             height: 99vh;
         }
 
-        .pagination{
+        .pagination {
             position: fixed;
-            top:82vh;
-            width:100%;
+            top: 82vh;
+            width: 100%;
             padding: 10px 0;
             border-top: 1px solid #dee2e6;
         }
 
-/*         .container {
-            
-        } */
+        /*         .container {
+
+                } */
 
         .table-container {
-            flex:1;
+            flex: 1;
             width: 100%;
-            height:60vh;
+            height: 60vh;
             overflow: auto;
         }
 
         .form-check-input {
-            margin-left:10px;
+            margin-left: 10px;
         }
 
         .img-cell img {
-            width:8vw;
+            width: 8vw;
             height: auto;
             display: block;
             margin: 0 auto;
+            border-style: solid;
+            border-color: saddlebrown;
+            object-fit: cover; /* Đảm bảo hình ảnh vừa với khung */
+            border-radius: 10%; /* Tạo thành hình tròn */
+            margin: 10px;
+            transition: transform 0.3s ease; /* Tạo hiệu ứng mượt khi phóng to */
         }
+
+        video{
+            border-radius:5%;
+
+        }
+
+        .img-cell:hover img {
+            transform: scale(2.5) translateX(-30px) translateY(-30px); /* Phóng to ảnh lên 1.5 lần khi di chuột vào */
+            z-index: 10;
+        }
+
+        .img-cell p {
+            font-family: "Brush Script MT", sans-serif; /* Chọn font chữ */
+            font-size: 16px; /* Cỡ chữ */
+            font-weight: bold; /* In đậm */
+            font-style: italic; /* In nghiêng */
+            color: #1C5253; /* Màu sắc */
+        }
+
         .div-cell {
             border-style: solid;
             border-color: darkslategrey;
             border-width: 0.5px;
         }
 
-        .div-cell img{
-            width : 8vw;
-            height: auto;
-            display: block;
-            margin 0 auto;
-        }
+            .div-cell img {
+                width: 8vw;
+                height: auto;
+                display: block;
+                margin 0 auto;
+            }
 
         .form-container {
             padding: 20px;
@@ -260,7 +285,7 @@
 
 
                             </div>
-                            </li>
+                        </li>
 
                         <li class="nav-item">
                             <a asp-page="/Item/Index" class="nav-link ">
@@ -276,19 +301,19 @@
                             <a asp-page="/Song/Index" class="nav-link ">
                                 <i class="ni ni-pin-3 text-orange"></i> Songs
                             </a>
-                        </li> 
+                        </li>
                         <li class="nav-item">
                             <a asp-page="/Singer/Index" class="nav-link ">
                                 <i class="ni ni-pin-3 text-orange"></i> Singers
                             </a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a asp-page="/Genre/Index" class="nav-link ">
                                 <i class="ni ni-pin-3 text-orange"></i> Genres
                             </a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a asp-page="/Artist/Index" class="nav-link ">
                                 <i class="ni ni-pin-3 text-orange"></i> Artists

@@ -70,7 +70,7 @@ namespace WebAdmin.Pages.Song
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 var data = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Song>>(jsonResponse);
 
-                Song = new DTOModels.Request.Song.CreateSongRequestModel();
+                Song = new CreateSongRequestModel();
 
                 if (data.result.Value)
                 {
@@ -125,30 +125,44 @@ namespace WebAdmin.Pages.Song
 
         public IActionResult OnPostAddArtist()
         {
-            // Add the selected artist ID to ListArtist
-            SongIds.Add(new DTOModels.Response.SongArtist() { ArtistId = SelectedArtistId });
 
-            // Remove the artist from the SearchArtistResults list if you want to reflect the change in the UI
+            string value = Request.Form["submit"];
+            if (value.Equals("Bỏ chọn"))
+            {
+                GenreIds.Remove(GenreIds.Find(x => x.GenreId == SelectedArtistId));
+
+                return Page();
+            }
+            SongIds.Add(new SongArtist() { ArtistId = SelectedArtistId });
+
             SearchArtistResults.RemoveAll(a => a.ArtistId == SelectedArtistId);
             return Page();
         }
         
         public IActionResult OnPostAddSinger()
         {
-            // Add the selected artist ID to ListArtist
-            SingerIds.Add(new DTOModels.Response.SongSinger() { SingerId = SelectedSingerId });
+            string value = Request.Form["submit"];
+            if(value.Equals("Bỏ chọn"))
+            {
+                SingerIds.Remove(SingerIds.Find(x => x.SingerId == SelectedSingerId));
 
-            // Remove the artist from the SearchArtistResults list if you want to reflect the change in the UI
-            SearchSingerResults.RemoveAll(a => a.SingerId == SelectedSingerId);
+                return Page();
+            }
+            SingerIds.Add(new SongSinger() { SingerId = SelectedSingerId });
             return Page();
         }
         
         public IActionResult OnPostAddGerne()
         {
-            // Add the selected artist ID to ListArtist
+            string value = Request.Form["submit"];
+            if (value.Equals("Bỏ chọn"))
+            {
+                GenreIds.Remove(GenreIds.Find(x => x.GenreId == SelectedGenreId));
+
+                return Page();
+            }
             GenreIds.Add(new DTOModels.Response.SongGenre() { GenreId = SelectedGenreId });
 
-            // Remove the artist from the SearchArtistResults list if you want to reflect the change in the UI
             SearchGenreResults.RemoveAll(a => a.GenreId == SelectedGenreId);
             return Page();
         }
