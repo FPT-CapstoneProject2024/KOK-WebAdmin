@@ -26,7 +26,9 @@
             @Html.DisplayNameFor(model => model.Song.SongUrl)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Song.SongUrl)
+            <video width="320" height="240" controls>
+                <source src="@Html.DisplayFor(model => model.Song.SongUrl)" type="video/mp4" />
+            </video>
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Song.SongStatus)

@@ -17,6 +17,9 @@ namespace WebAdmin.Helpers
             CreateMap<SingerRequestModel, Singer>().ReverseMap();
             CreateMap<GenreRequestModel, Genre>().ReverseMap();
             CreateMap<ArtistRequestModel, Artist>().ReverseMap();
+            CreateMap<SongArtistRequestModel, SongArtist>().ReverseMap();
+            CreateMap<SongGenreRequestModel, SongGenre>().ReverseMap();
+            CreateMap<SongSingerRequestModel, SongSinger>().ReverseMap();
 
         }
     }

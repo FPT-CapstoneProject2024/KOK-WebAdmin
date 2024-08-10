@@ -2,33 +2,27 @@
 
 @if (Model.SearchArtistResults != null && Model.SearchArtistResults.Count > 0)
 {
-    @foreach (var result in Model.SearchArtistResults)
-    {
-        <div class="div-cell">
-            <input asp-for="Artist.ArtistId" value="@result.ArtistId" hidden />
-            <p>@result.ArtistName</p>
-            <p>@result.Image</p>
-            <p><img src="@result.Image" alt="N/A" /></p>
-        </div>
-    }
+    <div id="artistSelect" class="img-cell">
+        <form asp-page-handler="AddArtist" method="post">
+            @foreach (var result in Model.SearchArtistResults)
+            {
+
+                <input asp-for="SelectedArtistId" value="@result.ArtistId" type="hidden" />
+                <p>@result.ArtistName</p>
+                <img src="@result.Image" alt="N/A" />
+                <input value="Thêm tác giả" type="submit" class="btn btn-danger" />
+            }
+        </form>
+
+    </div>
+
+
+    <ul id="selectedArtists">
+        <!-- List of selected artists -->
+    </ul>
 
 }
 else
 {
     <p>No results found.</p>
 }
-
-
-<script>
-    async function liveSearchArtistArtist() {
-        const query = document.getElementById('searchBox').value;
-        if (query.length < 1) {
-            document.getElementById('addListArtist').innerHTML = '';
-            return;
-        }
-        const response = await fetch('./Create?handler=AddListAritst&query=' + query);
-
-        const data = await response.text();
-        document.getElementById('searchArtistResults').innerHTML = data;
-    }
-</script>
