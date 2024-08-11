@@ -20,8 +20,11 @@
 <h1>Artist</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createArtistModal">
+        Create New
+    </button>
 </p>
+
 <div class="table-container">
 
     <table class="table table-hover">
@@ -65,3 +68,63 @@
     </div>
     <!--End Paging-->
 </div>
+
+        <!-- Create Modal -->
+<div class="modal fade" id="createArtistModal" tabindex="-1" role="dialog" aria-labelledby="createArtistModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createArtistModalLabel">Create New Artist</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- The content of the Create page will be loaded here -->
+                
+            </div>            
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editArtistModal" tabindex="-1" role="dialog" aria-labelledby="editArtistModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editArtistModalLabel">Edit Artist</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="edit-modal-body">
+                <!-- The content of the Edit page will be loaded here -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#createArtistModal').on('show.bs.modal', function (e) {
+        var modal = $(this);
+        // Load only the form content from the Create page
+        $.get('@Url.Page("./Create")', function (data) {
+            var formContent = $(data).find('form');
+            modal.find('.modal-body').html(formContent);
+        });
+    });
+
+    //Load Edit form content into the modal
+    $('#editArtistModal').on('show.bs.modal', function (e) {
+        var button = $(e.relatedTarget);
+        var artistId = button.data('id');
+        var modal = $(this);
+
+        //Load the edit form from the Edit page
+        $.get('@Url.Page("./Edit", new { id = "__ID__" })'.replace('__ID__', artistId), function (data) {
+            var formContent = $(data).find('form');
+            modal.find('.edit-modal-body').html(formContent);
+        });
+    });
+</script>

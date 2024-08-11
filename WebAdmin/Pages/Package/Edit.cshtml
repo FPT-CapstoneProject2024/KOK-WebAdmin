@@ -1,0 +1,59 @@
+﻿@page
+@model WebAdmin.Pages.Package.EditModel
+@{
+}
+
+<h1>Edit</h1>
+
+<h4>Package</h4>
+<hr />
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="form-container">
+            <form method="post" asp-page="./Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Package.PackageId" />
+                <div class="form-group">
+                    <label asp-for="UpdatePackage.PackageName" class="control-label">Package Name</label>
+                    <input asp-for="UpdatePackage.PackageName" class="form-control" required />
+                    <span asp-validation-for="Package.PackageName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="UpdatePackage.Description" class="control-label"></label>
+                    <input asp-for="UpdatePackage.Description" class="form-control" />
+                    <span asp-validation-for="Package.Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="UpdatePackage.MoneyAmount" class="control-label">Money Amount</label>
+                    <input asp-for="UpdatePackage.MoneyAmount" class="form-control" />
+                    <span asp-validation-for="Package.MoneyAmount" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="UpdatePackage.StarNumber" class="control-label">Star Number</label>
+                    <input asp-for="UpdatePackage.StarNumber" class="form-control" />
+                    <span asp-validation-for="Package.StarNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UpdatePackage.Status" class="control-label"></label>
+                    <select asp-for="UpdatePackage.Status" class="form-control">
+                        <option value="INACTIVE">Inactive</option>
+                        <option value="ACTIVE">Active</option>
+                    </select>
+                    
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Edit" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
