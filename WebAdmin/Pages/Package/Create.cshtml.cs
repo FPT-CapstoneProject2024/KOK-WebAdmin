@@ -29,7 +29,7 @@ namespace WebAdmin.Pages.Package
             try
             {
                 var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.PackageResource;
-
+                Package.CreatorId = LoginModel.AccountId;
                 var response = await apiClient.PostAsync(uri, Package);
 
                 var jsonResponse = await response.Content.ReadAsStringAsync();

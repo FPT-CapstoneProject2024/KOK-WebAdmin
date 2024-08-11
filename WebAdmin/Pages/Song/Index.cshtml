@@ -26,8 +26,11 @@
 
 <h1>Song</h1>
 <p>
-    <a asp-page="Create">Create New</a>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createPackageModal">
+        Create New
+    </button>
 </p>
+
 <div class="table-container">
     <table class="table table-hover">
         <thead>
@@ -123,3 +126,63 @@
     </div>
     <!--End Paging-->
 </div>
+
+<!-- Create Modal -->
+<div class="modal fade" id="createSongModal" tabindex="-1" role="dialog" aria-labelledby="createSongModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createSongModalLabel">Create New Song</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- The content of the Create page will be loaded here -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editSongModal" tabindex="-1" role="dialog" aria-labelledby="editSongModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editSongModalLabel">Edit Song</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="edit-modal-body">
+                <!-- The content of the Edit page will be loaded here -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#createSongModal').on('show.bs.modal', function (e) {
+        var modal = $(this);
+        // Load only the form content from the Create page
+        $.get('@Url.Page("./Create")', function (data) {
+            var formContent = $(data).find('form');
+            modal.find('.modal-body').html(formContent);
+        });
+    });
+
+    //Load Edit form content into the modal
+    $('#editSongModal').on('show.bs.modal', function (e) {
+        var button = $(e.relatedTarget);
+        var songId = button.data('id');
+        var modal = $(this);
+
+        //Load the edit form from the Edit page
+        $.get('@Url.Page("./Edit", new { id = "__ID__" })'.replace('__ID__', songId), function (data) {
+            var formContent = $(data).find('form');
+            modal.find('.edit-modal-body').html(formContent);
+        });
+    });
+</script>

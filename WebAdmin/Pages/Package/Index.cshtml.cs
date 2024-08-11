@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using WebAdmin.Context;
 using WebAdmin.DTOModels.Response.Helpers;
+using WebAdmin.Pages.Authentication;
 using WebAdmin.Services.Interfaces;
 
 namespace WebAdmin.Pages.Package
@@ -62,8 +63,6 @@ namespace WebAdmin.Pages.Package
             string? filter = Request.Form["txt_filter"];
             string? search = Request.Form["txt_search"];
             return await OnGet(filter: "&" + filter + "=" + search);
-
         }
-
     }
 }

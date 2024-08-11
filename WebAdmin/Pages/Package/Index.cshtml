@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Index";
 }
+
 <!-- Search -->
 <div class="input-group">
     <form method="post" class="input-group">
@@ -22,7 +23,9 @@
 <!-- End Search -->
 
 <p>
-    <a asp-page="./Create">Create New</a>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createPackageModal">
+        Create New
+    </button>
 </p>
 
 <div class="table-container">
@@ -30,12 +33,12 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>@Html.DisplayNameFor(model => model.data.Results[0].PackageName)</th>
-                <th>@Html.DisplayNameFor(model => model.data.Results[0].Description)</th>
-                <th>@Html.DisplayNameFor(model => model.data.Results[0].MoneyAmount)</th>
-                <th>@Html.DisplayNameFor(model => model.data.Results[0].StarNumber)</th>
-                <th>@Html.DisplayNameFor(model => model.data.Results[0].Status)</th>
-                <th>@Html.DisplayNameFor(model => model.data.Results[0].CreatedDate)</th>
+                <th>Package Name</th>
+                <th>Description</th>
+                <th>Money Amount</th>
+                <th>Star Number</th>
+                <th>Status</th>
+                <th>Created Date</th>
                 <th></th>
             </tr>
         </thead>
@@ -54,7 +57,8 @@
                         <td>@Html.DisplayFor(modelItem => package.Status)</td>
                         <td>@Html.DisplayFor(modelItem => package.CreatedDate)</td>
                         <td>
-                            <a asp-page="./Edit" asp-route-id="@package.PackageId">Edit</a> |
+                            @* <a asp-page="./Edit" asp-route-id="@package.PackageId">Edit</a> | *@
+                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editPackageModal" data-id="@package.PackageId">Edit</button>
                             <a asp-page="./Details" asp-route-id="@package.PackageId">Details</a> |
                             <a asp-page="./Delete" asp-route-id="@package.PackageId">Delete</a>
                         </td>
@@ -74,3 +78,63 @@
     </div>
     <!-- End Paging -->
 </div>
+
+<!-- Create Modal -->
+<div class="modal fade" id="createPackageModal" tabindex="-1" role="dialog" aria-labelledby="createPackageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createPackageModalLabel">Create New Package</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- The content of the Create page will be loaded here -->
+                
+            </div>            
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editPackageModal" tabindex="-1" role="dialog" aria-labelledby="editPackageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editPackageModalLabel">Edit Package</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="edit-modal-body">
+                <!-- The content of the Edit page will be loaded here -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#createPackageModal').on('show.bs.modal', function (e) {
+        var modal = $(this);
+        // Load only the form content from the Create page
+        $.get('@Url.Page("./Create")', function (data) {
+            var formContent = $(data).find('form');
+            modal.find('.modal-body').html(formContent);
+        });
+    });
+
+    //Load Edit form content into the modal
+    $('#editPackageModal').on('show.bs.modal', function (e) {
+        var button = $(e.relatedTarget);
+        var packageId = button.data('id');
+        var modal = $(this);
+
+        //Load the edit form from the Edit page
+        $.get('@Url.Page("./Edit", new { id = "__ID__" })'.replace('__ID__', packageId), function (data) {
+            var formContent = $(data).find('form');
+            modal.find('.edit-modal-body').html(formContent);
+        });
+    });
+</script>
