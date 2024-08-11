@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
@@ -76,12 +76,15 @@ namespace WebAdmin.Pages.Authentication
                 }
                 else
                 {
+
+                    ViewData["Message"] = "Vui lòng đăng nhập lại!";
                     logger.LogError("Login success but result is null!");
                     return Page();
                 }
             }
             else
             {
+                ViewData["Message"] = "Đăng Nhập thất bại!";
                 // Incorrect email or password
                 logger.LogError("Failed to login");
                 //return Page();

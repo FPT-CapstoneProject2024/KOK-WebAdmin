@@ -1,0 +1,29 @@
+﻿@model WebAdmin.Pages.Song.CreateModel
+@if (Model.SearchSingerResults != null && Model.SearchSingerResults.Count > 0)
+{
+    <div id="artistSelect" class="img-cell">
+        <form asp-page-handler="AddSinger" method="post">
+            @foreach (var result in Model.SearchSingerResults)
+            {
+
+                <input asp-for="SelectedSingerId" value="@result.SingerId" type="hidden" />
+                <p>@result.SingerName</p>
+                <img src="@result.Image" alt="N/A" />
+                @if (!Song.CreateModel.SingerIds.Any(a => a.SingerId == result.SingerId))
+                {
+                    <input value="Thêm ca sĩ" type="submit" name="submit"  class="btn btn-danger"/>
+                }
+                else
+                {
+                    <input value="Bỏ chọn" type="submit" name="submit" class="btn btn-danger" />
+                }
+            }
+        </form>
+
+    </div>
+
+}
+else
+{
+    <p>No results found.</p>
+}

@@ -6,5 +6,6 @@
         public Guid? SingerId { get; set; }
         public string? SongName { get; set; }
         public string? SingerName { get; set; }
+        public string? Image { get; set; }
     }
 }

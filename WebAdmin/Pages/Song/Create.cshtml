@@ -60,41 +60,22 @@
 
 
                     <div class="form-group">
-                        <label>Creator</label>
-                        <input class="form-control" type="text" id="searchBox" placeholder="Search Tên nghệ sĩ" onkeyup="liveSearchArtist()" />
+                        <label>Tác giả</label>
+                        <input class="form-control" type="text" id="searchBox" placeholder="Tìm kiếm tác giả" onkeyup="liveSearchArtist()" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Ca sĩ</label>
+                        <input class="form-control" type="text" id="searchSingerBox" placeholder="Tìm kiếm tên ca sĩ" onkeyup="liveSearchSinger()" />
+                    </div>
+                    
+                    
+                    <div class="form-group">
+                        <label>Thể loại</label>
+                        <input class="form-control" type="text" id="searchGenreBox" placeholder="Tìm kiếm thể loại" onkeyup="liveSearchGenre()" />
                     </div>
                     
 
-                    <div class="form-group">
-                        <div id="singerList">
-                            @for (int i = 0; i < Model.Song.SongSingers.Count; i++)
-                            {
-                                <div class="form-container">
-                                    <label asp-for="Song.SongSingers.ElementAt(i).SingerId">Singer ID:</label>
-                                    <input type="text" asp-for="Song.SongSingers.ElementAt(i).SingerId" required />
-                                    <button type="button" class="remove-btn" onclick="removeSinger(this)">Remove</button>
-                                </div>
-                            }
-
-                        </div>
-                        <button type="button" id="addSingerButton">Add Singer</button>
-
-                    </div>
-                    <div class="form-group">
-                        <div id="genreList">
-                            @for (int i = 0; i < Model.Song.SongGenres.Count; i++)
-                            {
-                                <div class="form-container">
-                                    <label asp-for="Song.SongGenres.ElementAt(i).GenreId">Genre ID:</label>
-                                    <input type="text" asp-for="Song.SongGenres.ElementAt(i).GenreId" required />
-                                    <button type="button" class="remove-btn" onclick="removeGenre(this)">Remove</button>
-                                </div>
-                            }
-
-                        </div>
-                        <button type="button" id="addGenreButton">Add Genre</button>
-
-                    </div>
 
                     <div class="form-group">
                         <input type="submit" value="Create" class="btn btn-primary" />
@@ -103,27 +84,67 @@
             </div>
 
         </div>
+        <div class="col-md-3">
+            <div>
+                <div>
+                    <label>Ca sĩ</label>
+                    <div style="margin-bottom:30px;" id="searchSingerResults" class="search-results"></div>
+                </div>
+
+                <div>
+                    <label>Thể loại</label>
+                    <div style="margin-bottom:30px;" id="searchGenreResults" class="search-results"></div>
+                </div>
+                <div>
+                    <label>Tác giả</label>
+                    <div style="margin-bottom:30px;" id="searchArtistResults" class="search-results"></div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="col-md-3">
-        <div id="searchArtistResults" class="search-results"></div>
-    </div>
 
     <div>
         <a asp-page="Index">Back to List</a>
     </div>
 
     <script>
-        async function liveSearchArtistArtist() {
+        async function liveSearchArtist() {
             const query = document.getElementById('searchBox').value;
             if (query.length < 1) {
                 document.getElementById('searchArtistResults').innerHTML = '';
                 return;
             }
-            const response = await fetch('./Create?handler=SearchAritst&query=' + query);
+            const response = await fetch('./Create?handler=SearchArtist&query=' + query);
 
             const data = await response.text();
             document.getElementById('searchArtistResults').innerHTML = data;
+        }
+        
+        async function liveSearchSinger() {
+            const query = document.getElementById('searchSingerBox').value;
+            if (query.length < 1) {
+                document.getElementById('searchSingerResults').innerHTML = '';
+                return;
+            }
+            const response = await fetch('./Create?handler=SearchSinger&query=' + query);
+
+            const data = await response.text();
+            document.getElementById('searchSingerResults').innerHTML = data;
+        }
+        
+        async function liveSearchGenre() {
+            const query = document.getElementById('searchGenreBox').value;
+            if (query.length < 1) {
+                document.getElementById('searchGenreResults').innerHTML = '';
+                return;
+            }
+            const response = await fetch('./Create?handler=SearchGenre&query=' + query);
+
+            const data = await response.text();
+            document.getElementById('searchGenreResults').innerHTML = data;
         }
     </script>
 

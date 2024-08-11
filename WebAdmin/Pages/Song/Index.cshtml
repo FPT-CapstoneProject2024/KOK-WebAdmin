@@ -47,21 +47,15 @@
                     @Html.DisplayNameFor(model => model.data.Results[0].SongStatus)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.data.Results[0].CreatedDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.data.Results[0].UpdatedDate)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.data.Results[0].SongCode)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.data.Results[0].PublicDate)
-                </th>
+      
                 <th>
                     @Html.DisplayNameFor(model => model.data.Results[0].Price)
                 </th>
                 <th>@Html.DisplayNameFor(model => model.data.Results[0].Genre)</th>
+                <th>@Html.DisplayNameFor(model => model.data.Results[0].Singer)</th>
+                <th>@Html.DisplayNameFor(model => model.data.Results[0].Artist)</th>
                 <th></th>
             </tr>
         </thead>
@@ -80,27 +74,17 @@
                             @Html.DisplayFor(modelItem => item.SongDescription)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.SongUrl)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.SongStatus)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CreatedDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UpdatedDate)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.SongCode)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.PublicDate)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.Price)
                         </td>
                         <td>@Html.DisplayFor(modelItem => item.Genre)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Singer)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Artist)</td>
                         <td>
                             <a asp-page="./Edit" asp-route-id="@item.SongId">Edit</a> |
                             <a asp-page="./Details" asp-route-id="@item.SongId">Details</a> |

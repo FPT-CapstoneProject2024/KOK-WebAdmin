@@ -1,0 +1,34 @@
+﻿@model WebAdmin.Pages.Song.CreateModel
+@if (Model.SearchGenreResults != null && Model.SearchGenreResults.Count > 0)
+{
+    <div id="artistSelect" class="img-cell">
+        <form asp-page-handler="AddGenre" method="post">
+            @foreach (var result in Model.SearchGenreResults)
+            {
+
+                <input asp-for="SelectedGenreId" value="@result.GenreId" type="hidden" />
+                <p>@result.GenreName</p>
+                <img src="@result.Image" alt="N/A" />
+                @if (!Song.CreateModel.GenreIds.Any(a => a.GenreId == result.GenreId))
+                {
+                    <input value="Thêm thể loại" type="submit" name="submit" class="btn btn-danger" />
+                }
+                else
+                {
+                    <input value="Bỏ chọn" type="submit" name="submit" class="btn btn-danger" />
+                }
+            }
+        </form>
+
+    </div>
+
+
+    <ul id="selectedGenres">
+        <!-- List of selected artists -->
+    </ul>
+
+}
+else
+{
+    <p>No results found.</p>
+}
