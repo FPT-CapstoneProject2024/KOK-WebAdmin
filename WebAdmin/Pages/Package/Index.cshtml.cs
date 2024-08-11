@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using WebAdmin.Context;
 using WebAdmin.DTOModels.Response.Helpers;
+using WebAdmin.Pages.Authentication;
 using WebAdmin.Services.Interfaces;
 
 namespace WebAdmin.Pages.Package
@@ -39,12 +40,9 @@ namespace WebAdmin.Pages.Package
 
                 var response = await apiClient.GetAsync(uri + "?page=" + CurrentPage + filter);
 
-
-
                 var jsonResponse = await response.Content.ReadAsStringAsync();
-#pragma warning disable CS8601 // Possible null reference assignment.
+
                 data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Package>>(jsonResponse);
-#pragma warning restore CS8601 // Possible null reference assignment.
 
                 if (data.Results is not null)
                 {
@@ -65,8 +63,6 @@ namespace WebAdmin.Pages.Package
             string? filter = Request.Form["txt_filter"];
             string? search = Request.Form["txt_search"];
             return await OnGet(filter: "&" + filter + "=" + search);
-
         }
-
     }
 }
