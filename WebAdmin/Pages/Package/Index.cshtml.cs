@@ -36,7 +36,7 @@ namespace WebAdmin.Pages.Package
                 CurrentPage = (CurrentPage < 1) ? 1 : CurrentPage;
                 CurrentPage = (CurrentPage > TotalPage) ? TotalPage : CurrentPage;
 
-                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.PackageResource;
+                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.PackageResource + "/" + "get-packages";
 
                 var response = await apiClient.GetAsync(uri + "?page=" + CurrentPage + filter);
 
@@ -60,9 +60,9 @@ namespace WebAdmin.Pages.Package
 
         public async Task<IActionResult> OnPostSearch()
         {
-            string? filter = Request.Form["txt_filter"];
+            //string? filter = Request.Form["txt_filter"];
             string? search = Request.Form["txt_search"];
-            return await OnGet(filter: "&" + filter + "=" + search);
+            return await OnGet(filter: "&filter" + "=" + search);
         }
     }
 }

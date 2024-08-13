@@ -6,9 +6,9 @@
 <!--Search-->
 <div class="input-group">
     <form method="post" class="input-group">
-        <input name="txt_search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+        <input name="txt_search" type="search" class="form-control rounded" placeholder="Search..." aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
-            <select class="form-control form-control-sm" aria-label="account filter" name="txt_filter">
+@*             <select class="form-control form-control-sm" aria-label="account filter" name="txt_filter">
                 <option value="ItemId" selected>Item Id</option>
                 <option value="ItemCode">Item Code</option>
                 <option value="ItemName">Item Name</option>
@@ -18,7 +18,7 @@
                 <option value="PrefabCode">Prefab Code</option>
                 <option value="ItemBuyPrice">Item Buy Price</option>
                 <option value="ItemSellPrice">Item Sell Price</option>
-            </select>
+            </select> *@
         </span>
         <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
 

@@ -35,7 +35,7 @@ namespace WebAdmin.Pages.Artist
                 CurrentPage = (CurrentPage < 1) ? 1 : CurrentPage;
                 CurrentPage = (CurrentPage > TotalPage) ? TotalPage : CurrentPage;
 
-                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ArtistResource;
+                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ArtistResource + "/" + "get-artists";
 
                 var response = await apiClient.GetAsync(uri + "?page=" + CurrentPage + filter);
 
@@ -62,9 +62,9 @@ namespace WebAdmin.Pages.Artist
 
         public async Task<IActionResult> OnPostSearch()
         {
-            string? filter = Request.Form["txt_filter"];
+            //string? filter = Request.Form["txt_filter"];
             string? search = Request.Form["txt_search"];
-            return await OnGet(filter: "&" + filter + "=" + search);
+            return await OnGet(filter: "&filter" + "=" + search);
 
         }
 
