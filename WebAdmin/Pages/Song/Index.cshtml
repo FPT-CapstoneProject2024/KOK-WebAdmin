@@ -55,14 +55,30 @@
                 {
                     <tr>
                         <td>@(count += 1)</td>
-                        <td>Song Name</td>
-                        <td>Song Description</td>
-                        <td>Song Status</td>
-                        <td>SongCode</td>
-                        <td>Price</td>
-                        <td>Genre</td>
-                        <td>Singer</td>
-                        <td>Artist</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SongName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SongDescription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SongStatus)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SongCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Genre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Singer)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Artist)
+                        </td>
                         <td>
                             @* <a asp-page="./Edit" asp-route-id="@item.SongId">Edit</a> |
                             <a asp-page="./Details" asp-route-id="@item.SongId">Details</a> |
