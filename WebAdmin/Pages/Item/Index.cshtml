@@ -38,46 +38,18 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                @*             <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].ItemId)
-                </th> *@
                 <th>#</th>
-                <th>
-                    @Html.DisplayNameFor(model => model.data.Results[0].ItemCode)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.data.Results[0].PrefabCode)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.data.Results[0].ItemName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.data.Results[0].ItemType)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.data.Results[0].CreatedDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.data.Results[0].ItemDescription)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.data.Results[0].CanExpire)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.data.Results[0].CanStack)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.data.Results[0].ItemStatus)
-                </th>
-                @*             <th>
-                @Html.DisplayNameFor(model => model.data.Results[0].CreatorId)
-                </th> *@
-                <th>
-                    @Html.DisplayNameFor(model => model.data.Results[0].ItemSellPrice)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.data.Results[0].ItemBuyPrice)
-                </th>
+                <th>Item Code</th>
+                <th>Prefab Code</th>
+                <th>Item Name</th>
+                <th>Item Type</th>
+                <th>Created Date</th>
+                <th>Item Description</th>
+                <th>Can Expire</th>
+                <th>Can Stack</th>
+                <th>Item Status</th>
+                <th>Item Sell Price</th>
+                <th>Item Buy Price</th>
                 <th></th>
             </tr>
         </thead>
@@ -129,9 +101,12 @@
                             @Html.DisplayFor(modelItem => item.ItemBuyPrice)
                         </td>
                         <td>
-                            <a asp-page="./Edit" asp-route-id="@item.ItemId">Edit</a> |
+                            @* <a asp-page="./Edit" asp-route-id="@item.ItemId">Edit</a> |
                             <a asp-page="./Details" asp-route-id="@item.ItemId">Details</a> |
-                            <a asp-page="./Delete" asp-route-id="@item.ItemId">Delete</a>
+                            <a asp-page="./Delete" asp-route-id="@item.ItemId">Delete</a> *@
+                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editItemModal" data-id="@item.ItemId">Edit</button>
+                            <button type="button" class="btn btn-link" onclick="location.href='@Url.Page("./Details", new { id = item.ItemId })'">Details</button>
+                            <button type="button" class="btn btn-link" onclick="location.href='@Url.Page("./Delete", new { id = item.ItemId })'">Delete</button>
                         </td>
                     </tr>
                 }
@@ -173,8 +148,8 @@
 
 <!-- Edit Modal -->
 <div class="modal fade" id="editItemModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
+    <div class="modal-dialog modal-lg-custom" role="document">
+        <div class="modal-content edit-modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editItemModalLabel">Edit Item</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -212,3 +187,13 @@
         });
     });
 </script>
+
+<style>
+    .modal-dialog.modal-lg-custom {
+        max-width: 500px;
+    }
+
+    .edit-modal-content {
+        padding: 20px;
+    }
+</style>

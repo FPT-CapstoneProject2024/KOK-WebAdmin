@@ -36,26 +36,14 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>
-                    @Html.DisplayNameFor(model => model.data.Results[0].SongName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.data.Results[0].SongDescription)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.data.Results[0].SongStatus)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.data.Results[0].SongCode)
-                </th>
-      
-                <th>
-                    @Html.DisplayNameFor(model => model.data.Results[0].Price)
-                </th>
-                <th>@Html.DisplayNameFor(model => model.data.Results[0].Genre)</th>
-                <th>@Html.DisplayNameFor(model => model.data.Results[0].Singer)</th>
-                <th>@Html.DisplayNameFor(model => model.data.Results[0].Artist)</th>
+                <th>Song Name</th>
+                <th>Song Description</th>
+                <th>Song Status</th>
+                <th>Song Code</th>     
+                <th>Price</th>
+                <th>Genre</th>
+                <th>Singer</th>
+                <th>Artist</th>
                 <th></th>
             </tr>
         </thead>
@@ -67,28 +55,21 @@
                 {
                     <tr>
                         <td>@(count += 1)</td>
+                        <td>Song Name</td>
+                        <td>Song Description</td>
+                        <td>Song Status</td>
+                        <td>SongCode</td>
+                        <td>Price</td>
+                        <td>Genre</td>
+                        <td>Singer</td>
+                        <td>Artist</td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.SongName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SongDescription)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SongStatus)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SongCode)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Price)
-                        </td>
-                        <td>@Html.DisplayFor(modelItem => item.Genre)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Singer)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Artist)</td>
-                        <td>
-                            <a asp-page="./Edit" asp-route-id="@item.SongId">Edit</a> |
+                            @* <a asp-page="./Edit" asp-route-id="@item.SongId">Edit</a> |
                             <a asp-page="./Details" asp-route-id="@item.SongId">Details</a> |
-                            <a asp-page="./Delete" asp-route-id="@item.SongId">Delete</a>
+                            <a asp-page="./Delete" asp-route-id="@item.SongId">Delete</a> *@
+                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editSongModal" data-id="@item.SongId">Edit</button>
+                            <button type="button" class="btn btn-link" onclick="location.href='@Url.Page("./Details", new { id = item.SongId })'">Details</button>
+                            <button type="button" class="btn btn-link" onclick="location.href='@Url.Page("./Delete", new { id = item.SongId })'">Delete</button>
                         </td>
                     </tr>
                 }
@@ -131,8 +112,8 @@
 
 <!-- Edit Modal -->
 <div class="modal fade" id="editSongModal" tabindex="-1" role="dialog" aria-labelledby="editSongModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
+    <div class="modal-dialog modal-lg-custom" role="document">
+        <div class="modal-content edit-modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editSongModalLabel">Edit Song</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -170,3 +151,13 @@
         });
     });
 </script>
+
+<style>
+    .modal-dialog.modal-lg-custom {
+        max-width: 500px;
+    }
+
+    .edit-modal-content {
+        padding: 20px;
+    }
+</style>
