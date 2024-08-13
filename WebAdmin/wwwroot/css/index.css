@@ -162,6 +162,7 @@ nav {
 .property-card {
     display: flex;
     border-radius: 20px;
+    align-items: center;
     overflow: hidden;
     margin-bottom: 20px;
     background-color: whitesmoke; /* Change background color to light gray */

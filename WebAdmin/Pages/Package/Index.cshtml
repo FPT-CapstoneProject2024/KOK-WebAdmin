@@ -57,10 +57,12 @@
                         <td>@Html.DisplayFor(modelItem => package.Status)</td>
                         <td>@Html.DisplayFor(modelItem => package.CreatedDate)</td>
                         <td>
-                            @* <a asp-page="./Edit" asp-route-id="@package.PackageId">Edit</a> | *@
-                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editPackageModal" data-id="@package.PackageId">Edit</button>
+                            @* <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editPackageModal" data-id="@package.PackageId">Edit</button>
                             <a asp-page="./Details" asp-route-id="@package.PackageId">Details</a> |
-                            <a asp-page="./Delete" asp-route-id="@package.PackageId">Delete</a>
+                            <a asp-page="./Delete" asp-route-id="@package.PackageId">Delete</a> *@
+                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editPackageModal" data-id="@package.PackageId">Edit</button>
+                            <button type="button" class="btn btn-link" onclick="location.href='@Url.Page("./Details", new { id = package.PackageId })'">Details</button>
+                            <button type="button" class="btn btn-link" onclick="location.href='@Url.Page("./Delete", new { id = package.PackageId })'">Delete</button>
                         </td>
                     </tr>
                 }
@@ -99,8 +101,8 @@
 
 <!-- Edit Modal -->
 <div class="modal fade" id="editPackageModal" tabindex="-1" role="dialog" aria-labelledby="editPackageModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
+    <div class="modal-dialog modal-lg-custom" role="document">
+        <div class="modal-content edit-modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editPackageModalLabel">Edit Package</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -138,3 +140,13 @@
         });
     });
 </script>
+
+<style>
+    .modal-dialog.modal-lg-custom {
+        max-width: 500px;
+    }
+
+    .edit-modal-content {
+        padding: 20px;
+    }
+</style>
