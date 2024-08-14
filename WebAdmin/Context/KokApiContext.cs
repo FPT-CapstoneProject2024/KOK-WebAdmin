@@ -7,6 +7,7 @@
         public static readonly string ItemResource = "items";
         public static readonly string SongResource = "songs";
         public static readonly string PackageResource = "packages";
+        public static readonly string ReportResource = "reports";
         public static readonly string SingerResource = "singers";
         public static readonly string GenreResource = "genres";
         public static readonly string ArtistResource = "artists";
