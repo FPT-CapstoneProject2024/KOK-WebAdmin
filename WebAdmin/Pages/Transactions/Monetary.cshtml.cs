@@ -35,7 +35,7 @@ namespace WebAdmin.Pages.Transactions
                 CurrentPage = (CurrentPage < 1) ? 1 : CurrentPage;
                 CurrentPage = (CurrentPage > TotalPage) ? TotalPage : CurrentPage;
 
-                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.MonetaryResource;
+                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.MonetaryResource + "/" + "get-transactions";
 
                 var response = await apiClient.GetAsync(uri + "?page=" + CurrentPage + filter);
 
@@ -49,6 +49,9 @@ namespace WebAdmin.Pages.Transactions
                 if (data.Results is not null)
                 {
                     TotalPage = (int)MathF.Ceiling((float)data.Metadata.Total / (float)data.Metadata.Size);
+
+                    ViewData["TotalAmount"] = data.Results.Sum(x => x.MoneyAmount);
+                    ViewData["TotalTransaction"] = data.Metadata.Total; 
                 }
             }
             catch (Exception)
@@ -62,9 +65,22 @@ namespace WebAdmin.Pages.Transactions
 
         public async Task<IActionResult> OnPostSearch()
         {
-            string? filter = Request.Form["txt_filter"];
+            //string? filter = Request.Form["txt_filter"];
             string? search = Request.Form["txt_search"];
-            return await OnGet(filter: "&" + filter + "=" + search);
+
+
+            if (DateTime.TryParse(search, out DateTime result))
+            {
+                ViewData["filter_date"] = search;
+            }
+            else
+            {
+                ViewData["filter_search"] = search;
+            }
+
+
+
+            return await OnGet(filter: "&filter"  + "=" + search);
 
         }
 

@@ -57,6 +57,7 @@ namespace WebAdmin.Pages.Song
         {
             //string? filter = Request.Form["txt_filter"];
             string? search = Request.Form["txt_search"];
+            ViewData["filter_search"] = search;
             return await OnGet(filter: "&filter" + "=" + search);
 
         }
