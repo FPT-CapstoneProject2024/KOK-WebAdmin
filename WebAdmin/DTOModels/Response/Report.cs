@@ -16,6 +16,9 @@ namespace WebAdmin.DTOModels.Response
         public Guid? CommentId { get; set; }
         public Guid? PostId { get; set; }
         public Guid? RoomId { get; set; }
+        public string? Comment { get; set; }
+        public string? RoomLog { get; set; }
+        public string? PostCaption { get; set; }
 
     }
 }

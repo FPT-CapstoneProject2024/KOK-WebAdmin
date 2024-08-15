@@ -15,15 +15,13 @@
 <br />
 <br />
 <p>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createPackageModal">
-        Create New
-    </button>
 </p>
 
 <div class="table-container">
     <table class="table">
         <thead>
             <tr>
+                <th>#</th>
                 <th>
                     @Html.DisplayNameFor(model => model.data.Results[0].ReportCategory)
                 </th>
@@ -33,11 +31,13 @@
                 <th>
                     @Html.DisplayNameFor(model => model.data.Results[0].Reason)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.data.Results[0].CreateTime)
-                </th>
+
                 <th>
                     @Html.DisplayNameFor(model => model.data.Results[0].ReportType)
+                </th>
+                
+                <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].PostCaption)
                 </th>
                 @*                 <th>
                 @Html.DisplayNameFor(model => model.data.Results[0].CommentId)
@@ -48,9 +48,11 @@
         <tbody>
             @if (Model.data.Results != null)
             {
+                int count = 1;
                 @foreach (var item in Model.data.Results)
                 {
                     <tr>
+                        <td>@(count += 1 )</td>
                         <td>
                             @Html.DisplayFor(modelItem => item.ReportCategory)
                         </td>
@@ -60,11 +62,13 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Reason)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CreateTime)
-                        </td>
+
                         <td>
                             @Html.DisplayFor(modelItem => item.ReportType)
+                        </td>
+                        
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PostCaption)
                         </td>
                         @*                         <td>
                 @Html.DisplayFor(modelItem => item.CommentId)
