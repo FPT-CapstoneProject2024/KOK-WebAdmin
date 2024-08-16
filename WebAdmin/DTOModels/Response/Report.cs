@@ -5,6 +5,7 @@ namespace WebAdmin.DTOModels.Response
 {
     public partial class Report
     {
+
         public Guid? ReportId { get; set; }
         public Guid? ReporterId { get; set; }
         public Guid? ReportedAccountId { get; set; }
@@ -19,6 +20,8 @@ namespace WebAdmin.DTOModels.Response
         public string? Comment { get; set; }
         public string? RoomLog { get; set; }
         public string? PostCaption { get; set; }
+
+
 
     }
 }

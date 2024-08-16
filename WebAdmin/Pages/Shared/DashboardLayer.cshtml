@@ -104,6 +104,7 @@
             border-radius: 10%; /* Tạo thành hình tròn */
             margin: 10px;
             transition: transform 0.3s ease; /* Tạo hiệu ứng mượt khi phóng to */
+            border-width:1px;
         }
 
         video{
@@ -151,6 +152,47 @@
             background-color: #f9f9f9;
             height: 100%;
         }
+
+        /* Ẩn form xác nhận ban đầu */
+        #confirmLogout {
+            display: none; /* Ẩn form khi không cần hiển thị */
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            width: 300px;
+            height: 195px;
+        }
+
+        /* Hiển thị form khi cần */
+        .modal {
+            /* display: block; */
+        }
+
+        /* Thiết kế nội dung form */
+        .modal-content {
+            text-align: center;
+        }
+
+            /* Thiết kế nút trong form */
+            .modal-content button {
+                margin: 5px;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 30%;
+                background-color: #cc7f88;
+                color: white;
+                cursor: pointer;
+            }
+
+                .modal-content button:hover {
+                    background-color: #0056b3;
+                }
+
 
     </style>
 
@@ -210,10 +252,13 @@
                                 <span>Support</span>
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a id="logoutButton" class="dropdown-item">
+ @*                            <a id="logoutButton" class="dropdown-item">
                                 <i class="ni ni-user-run"></i>
                                 <span>Logout</span>
-                            </a>
+                            </a> *@
+
+
+
                         </div>
                     </li>
                 </ul>
@@ -380,10 +425,11 @@
                                 <span>Support</span>
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a asp- class="dropdown-item">
+                            <a id ="logoutButton" class="dropdown-item">
                                 <i class="ni ni-user-run"></i>
-                                <span>Logout</span>
+                                <span>Đăng xuất</span>
                             </a>
+
                         </div>
                     </li>
                 </ul>
@@ -396,8 +442,16 @@
 
 
     <div class="container">
-        <main role="main" class="pb-3">
+
+        <main role="main" class="pb-0">
             <div class="col-12">
+                <div id="confirmLogout" class="modal">
+                    <div class="modal-content">
+                        <p>Xác nhận thoát?</p>
+                        <button id="confirmYes">Có</button>
+                        <button id="confirmNo">Không</button>
+                    </div>
+                </div>
                 @RenderBody()
 
             </div>
@@ -440,42 +494,31 @@
     </footer>
 
 
+
     <!--Logout-->
     <!-- Popup Modal -->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Bạn có muốn đăng xuất không?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
-                    <button type="button" class="btn btn-primary" id="confirmLogoutButton">Có</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#logoutButton').click(function () {
-                $('#logoutModal').modal('show');
-            });
 
-            $('#confirmLogoutButton').click(function () {
-                window.location.href = '@Url.Action("OnGet", "../Authentication/Login")';
-            });
+    <script>
+        document.getElementById('logoutButton').addEventListener('click', function () {
+            // Hiển thị form xác nhận
+            document.getElementById('confirmLogout').style.display = 'block';
         });
+
+        document.getElementById('confirmYes').addEventListener('click', function () {
+            // Điều hướng đến trang login
+            window.location.href = '/Authentication/Login';
+        });
+
+        document.getElementById('confirmNo').addEventListener('click', function () {
+            // Ẩn form xác nhận và quay lại trang hiện tại
+            document.getElementById('confirmLogout').style.display = 'none';
+        });
+
     </script>
+
 
     <!--End Logout-->
     <!--   Core   -->
@@ -494,6 +537,7 @@
                 application: "argon-dashboard-free"
             });
     </script>
+
 
 </body>
 
