@@ -59,7 +59,7 @@ namespace WebAdmin.Pages.Artist
         {
             if (!ModelState.IsValid)
             {
-                return Page();
+                return new JsonResult(new { success = false });
             }
 
             var dataImage = await SupportingFeature.Instance.UploadImage(_clientFactory, file, KokApiContext.ImgurClientId);
@@ -67,7 +67,7 @@ namespace WebAdmin.Pages.Artist
             if (!dataImage.Item1)
             {
                 ViewData["Message"] = dataImage.Item2;
-                return Page();
+                return new JsonResult(new { success = false });
             }
             else
             {
@@ -85,9 +85,9 @@ namespace WebAdmin.Pages.Artist
                 var responeJson = await response.Content.ReadAsStringAsync();
                 var item = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Artist>>(responeJson);
 
-                if (item.result.Value == false)
+                if (item.result.Value)
                 {
-                    return Page();
+                    return new JsonResult(new { success = true });
                 }
 
             }
@@ -101,10 +101,10 @@ namespace WebAdmin.Pages.Artist
                 //{
                 //    throw;
                 //}
-                return RedirectToPage("./Error");
+                return new JsonResult(new { success = false });
             }
 
-            return RedirectToPage("./Index");
+            return new JsonResult(new { success = false });
         }
 
         //private bool ItemExists(Guid id)

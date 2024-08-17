@@ -2,6 +2,12 @@
 @model WebAdmin.Pages.Singer.IndexModel
 @{
 }
+
+<head>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
 <!--Search-->
 <div class="input-group">
     <form method="post" class="input-group">
@@ -107,27 +113,142 @@
 </div>
 
 <script>
+    $(document).ready(function () {
     $('#createSingerModal').on('show.bs.modal', function (e) {
         var modal = $(this);
         // Load only the form content from the Create page
         $.get('@Url.Page("./Create")', function (data) {
             var formContent = $(data).find('form');
             modal.find('.modal-body').html(formContent);
+
+            // Attach an event listener to the form submit event
+            modal.find('form').on('submit', function (e) {
+                e.preventDefault(); // Prevent normal form submission
+
+                // Use AJAX to submit the form data
+                $.ajax({
+                    type: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            // Close the modal and remove the backdrop
+                            modal.modal('hide');
+                            $('.modal-backdrop').remove(); // Ensure the backdrop is removed
+
+                            // Show the success popup
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'The singer was created successfully.',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // Reload the page when the user presses OK
+                                    location.reload();
+                                }
+                            });
+                        } else {
+                            // Handle the failure case
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'There was a problem creating the singer.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+
+                            // Close the modal and remove the backdrop
+                            modal.modal('hide');
+                            $('.modal-backdrop').remove();
+                        }
+                    },
+                    error: function () {
+                        // Close the modal and remove the backdrop in case of an error
+                        modal.modal('hide');
+                        $('.modal-backdrop').remove();
+
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'There was a problem with the request.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            });
         });
     });
+});
 
-    //Load Edit form content into the modal
-    $('#editSingerModal').on('show.bs.modal', function (e) {
-        var button = $(e.relatedTarget);
-        var singerId = button.data('id');
-        var modal = $(this);
+// Load Edit form content into the modal
+$('#editSingerModal').on('show.bs.modal', function (e) {
+    var button = $(e.relatedTarget);
+    var singerId = button.data('id');
+    var modal = $(this);
 
-        //Load the edit form from the Edit page
-        $.get('@Url.Page("./Edit", new { id = "__ID__" })'.replace('__ID__', singerId), function (data) {
-            var formContent = $(data).find('form');
-            modal.find('.edit-modal-body').html(formContent);
+    // Load the edit form from the Edit page
+    $.get('@Url.Page("./Edit", new { id = "__ID__" })'.replace('__ID__', singerId), function (data) {
+        var formContent = $(data).find('form');
+        modal.find('.edit-modal-body').html(formContent);
+
+        // Attach an event listener to the form submit event
+        modal.find('form').on('submit', function (e) {
+            e.preventDefault(); // Prevent normal form submission
+
+            // Use AJAX to submit the form data
+            $.ajax({
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function (response) {
+                    if (response.success) {
+                        // Close the modal and remove the backdrop
+                        modal.modal('hide');
+                        $('.modal-backdrop').remove(); // Ensure the backdrop is removed
+
+                        // Show the success popup
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'The singer was edited successfully.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Reload the page when the user presses OK
+                                location.reload();
+                            }
+                        });
+                    } else {
+                        // Handle the failure case
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'There was a problem creating the singer.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+
+                        // Close the modal and remove the backdrop
+                        modal.modal('hide');
+                        $('.modal-backdrop').remove();
+                    }
+                },
+                error: function () {
+                    // Close the modal and remove the backdrop in case of an error
+                    modal.modal('hide');
+                    $('.modal-backdrop').remove();
+
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'There was a problem with the request.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
         });
     });
+});
+
 </script>
 
 <style>
