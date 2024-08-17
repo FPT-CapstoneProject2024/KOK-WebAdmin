@@ -1,4 +1,4 @@
-﻿@page
+﻿@* @page
 @model WebAdmin.Pages.Song.CreateModel
 
 @{
@@ -63,18 +63,18 @@
                         <label>Tác giả</label>
                         <input class="form-control" type="text" id="searchBox" placeholder="Tìm kiếm tác giả" onkeyup="liveSearchArtist()" />
                     </div>
-                    
+
                     <div class="form-group">
                         <label>Ca sĩ</label>
                         <input class="form-control" type="text" id="searchSingerBox" placeholder="Tìm kiếm tên ca sĩ" onkeyup="liveSearchSinger()" />
                     </div>
-                    
-                    
+
+
                     <div class="form-group">
                         <label>Thể loại</label>
                         <input class="form-control" type="text" id="searchGenreBox" placeholder="Tìm kiếm thể loại" onkeyup="liveSearchGenre()" />
                     </div>
-                    
+
 
 
                     <div class="form-group">
@@ -122,7 +122,7 @@
             const data = await response.text();
             document.getElementById('searchArtistResults').innerHTML = data;
         }
-        
+
         async function liveSearchSinger() {
             const query = document.getElementById('searchSingerBox').value;
             if (query.length < 1) {
@@ -134,7 +134,7 @@
             const data = await response.text();
             document.getElementById('searchSingerResults').innerHTML = data;
         }
-        
+
         async function liveSearchGenre() {
             const query = document.getElementById('searchGenreBox').value;
             if (query.length < 1) {
@@ -147,6 +147,171 @@
             document.getElementById('searchGenreResults').innerHTML = data;
         }
     </script>
+
+</body>
+</html> *@
+
+        @page
+@model WebAdmin.Pages.Song.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Form List</title>
+    <style>
+
+        .remove-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Create</h1>
+
+    <h4>Song</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-9">
+            <div class="form-container">
+                <form method="post" asp-page="./Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Song.SongName" class="control-label"></label>
+                        <input asp-for="Song.SongName" class="form-control" />
+                        <span asp-validation-for="Song.SongName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Song.SongDescription" class="control-label"></label>
+                        <input asp-for="Song.SongDescription" class="form-control" />
+                        <span asp-validation-for="Song.SongDescription" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Song.SongUrl" class="control-label"></label>
+                        <input asp-for="Song.SongUrl" class="form-control" />
+                        <span asp-validation-for="Song.SongUrl" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Song.PublicDate" class="control-label"></label>
+                        <input asp-for="Song.PublicDate" class="form-control" />
+                        <span asp-validation-for="Song.PublicDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Song.Price" class="control-label"></label>
+                        <input asp-for="Song.Price" class="form-control" />
+                        <span asp-validation-for="Song.Price" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Tác giả</label>
+                        <input class="form-control" type="text" id="searchBox" placeholder="Tìm kiếm tác giả" onkeyup="liveSearchArtist(searchBox)" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ca sĩ</label>
+                        <input class="form-control" type="text" id="searchSingerBox" placeholder="Tìm kiếm tên ca sĩ" onkeyup="liveSearchSinger(searchSingerBox)" />
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Thể loại</label>
+                        <input class="form-control" type="text" id="searchGenreBox" placeholder="Tìm kiếm thể loại" onkeyup="liveSearchGenre(searchGenreBox)" />
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <div>
+                <div>
+                    <label>Ca sĩ</label>
+                    <div style="margin-bottom:30px;" id="searchSingerResults" class="search-results"></div>
+                </div>
+
+                <div>
+                    <label>Thể loại</label>
+                    <div style="margin-bottom:30px;" id="searchGenreResults" class="search-results"></div>
+                </div>
+                <div>
+                    <label>Tác giả</label>
+                    <div style="margin-bottom:30px;" id="searchArtistResults" class="search-results"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div>
+        <a asp-page="Index">Back to List</a>
+    </div>
+
+    <script>
+        async function liveSearchArtist() {
+            const query = document.getElementById('searchBox').value;
+            if (query.length < 1) {
+                document.getElementById('searchArtistResults').innerHTML = '';
+                return;
+            }
+            console.log('./Create?handler=SearchArtist&query=' + query);
+            const response = await fetch('./Create?handler=SearchArtist&query=' + query);
+            console.log(response);
+            const data = await response.text();
+            document.getElementById('searchArtistResults').innerHTML = data;
+
+            // Trigger the modal
+            $('#liveSearchModal').modal('show');
+            document.getElementById('liveSearchResults').innerHTML = data;
+        }
+
+        async function liveSearchSinger() {
+            const query = document.getElementById('searchSingerBox').value;
+            if (query.length < 1) {
+                document.getElementById('searchSingerResults').innerHTML = '';
+                return;
+            }
+            const response = await fetch('./Create?handler=SearchSinger&query=' + query);
+            const data = await response.text();
+            document.getElementById('searchSingerResults').innerHTML = data;
+
+            // Trigger the modal
+            $('#liveSearchModal').modal('show');
+            document.getElementById('liveSearchResults').innerHTML = data;
+        }
+
+        async function liveSearchGenre() {
+            const query = document.getElementById('searchGenreBox').value;
+            if (query.length < 1) {
+                document.getElementById('searchGenreResults').innerHTML = '';
+                return;
+            }
+            const response = await fetch('./Create?handler=SearchGenre&query=' + query);
+            const data = await response.text();
+            document.getElementById('searchGenreResults').innerHTML = data;
+
+            // Trigger the modal
+            $('#liveSearchModal').modal('show');
+            document.getElementById('liveSearchResults').innerHTML = data;
+        }
+    </script>
+
 
 </body>
 </html>

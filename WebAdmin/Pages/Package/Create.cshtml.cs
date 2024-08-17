@@ -24,7 +24,7 @@ namespace WebAdmin.Pages.Package
         {
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        /*public async Task<IActionResult> OnPostAsync()
         {
             try
             {
@@ -46,6 +46,30 @@ namespace WebAdmin.Pages.Package
             }
 
             return Page();
+        }*/
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            try
+            {
+                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.PackageResource;
+                Package.CreatorId = LoginModel.AccountId;
+                var response = await apiClient.PostAsync(uri, Package);
+
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Package>>(jsonResponse);
+
+                if (data.result.Value)
+                {
+                    return new JsonResult(new { success = true });
+                }
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new { success = false });
+            }
+
+            return new JsonResult(new { success = false });
         }
     }
 }
