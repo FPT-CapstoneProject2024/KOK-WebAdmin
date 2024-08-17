@@ -30,7 +30,7 @@ namespace WebAdmin.Pages.Item
             {
                 if (!ModelState.IsValid)
                 {
-                    return Page();
+                    return new JsonResult(new { success = false });
                 }
                 Item.CreatorId = LoginModel.AccountId;
                 var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ItemResource;
@@ -42,17 +42,15 @@ namespace WebAdmin.Pages.Item
 
                 if (data.result.Value)
                 {
-                    return RedirectToPage("./Index");
+                    return new JsonResult(new { success = true });
                 }
             }
             catch (Exception)
             {
-                return RedirectToPage("/Error");
+                return new JsonResult(new { success = false });
             }
 
-
-
-            return Page();
+            return new JsonResult(new { success = false });
         }
     }
 }

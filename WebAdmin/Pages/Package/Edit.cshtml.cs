@@ -55,7 +55,7 @@ namespace WebAdmin.Pages.Package
         {
             if (!ModelState.IsValid)
             {
-                return Page();
+                return new JsonResult(new { success = false });
             }
 
             try
@@ -66,17 +66,17 @@ namespace WebAdmin.Pages.Package
                 var responseJson = await response.Content.ReadAsStringAsync();
                 var package = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Package>>(responseJson);
 
-                if (package.result.Value == false)
+                if (package.result.Value)
                 {
-                    return Page();
+                    return new JsonResult(new { success = true });
                 }
             }
             catch (DbUpdateConcurrencyException)
             {
-                return RedirectToPage("./Error");
+                return new JsonResult(new { success = false });
             }
 
-            return RedirectToPage("./Index");
+            return new JsonResult(new { success = false });
         }
     }
 }

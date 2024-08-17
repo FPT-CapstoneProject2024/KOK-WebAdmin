@@ -54,7 +54,7 @@ namespace WebAdmin.Pages.Song
         {
             if (!ModelState.IsValid)
             {
-                return Page();
+                return new JsonResult(new { success = false });
             }
 
             try
@@ -65,9 +65,9 @@ namespace WebAdmin.Pages.Song
                 var responeJson = await response.Content.ReadAsStringAsync();
                 var item = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Song>>(responeJson);
 
-                if (item.result.Value == false)
+                if (item.result.Value)
                 {
-                    return Page();
+                    return new JsonResult(new { success = true });
                 }
 
             }
@@ -81,10 +81,10 @@ namespace WebAdmin.Pages.Song
                 //{
                 //    throw;
                 //}
-                return RedirectToPage("./Error");
+                return new JsonResult(new { success = false });
             }
 
-            return RedirectToPage("./Index");
+            return new JsonResult(new { success = false });
         }
 
         //private bool ItemExists(Guid id)
