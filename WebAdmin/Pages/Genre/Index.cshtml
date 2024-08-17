@@ -13,10 +13,6 @@
     <form method="post" class="input-group">
         <input name="txt_search" type="search" class="form-control rounded" placeholder="Search..." value="@ViewBag.filter_search" aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
-@*             <select class="form-control form-control-sm" aria-label="account filter" name="txt_filter">
-                <option value="GenreName" selected>Genre Name</option>
-                <option value="Image">Image</option>
-            </select> *@
         </span>
         <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
 
@@ -25,11 +21,12 @@
 <!--End Search-->
 
 <div class="table-container">
-    <h1>Genre</h1>
+
+<br/>
 
 <p>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createGenreModal">
-        Create New
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createGenreModal">
+        Tạo Thể Loại Mới
     </button>
 </p>
 
@@ -54,12 +51,9 @@
                 </td>
                 <td class="img-cell"><img src="@Html.DisplayFor(modelItem => item.Image)" alt="N/A"/></td>
                 <td>
-                    @* <a asp-page="./Edit" asp-route-id="@item.GenreId">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.GenreId">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.GenreId">Delete</a> *@
-                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editGenreModal" data-id="@item.GenreId">Edit</button>
-                    <button type="button" class="btn btn-link" onclick="location.href='@Url.Page("./Details", new { id = item.GenreId })'">Details</button>
-                    <button type="button" class="btn btn-link" onclick="location.href='@Url.Page("./Delete", new { id = item.GenreId })'">Delete</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editGenreModal" data-id="@item.GenreId">Chỉnh Sửa</button>
+                    <button type="button" class="btn btn-dark" onclick="location.href='@Url.Page("./Details", new { id = item.GenreId })'">Chi tiết</button>
+                    <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = item.GenreId })'">Xóa</button>
                 </td>
             </tr>
         }

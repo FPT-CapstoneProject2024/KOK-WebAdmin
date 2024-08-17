@@ -13,10 +13,6 @@
     <form method="post" class="input-group">
         <input name="txt_search" type="search" class="form-control rounded" placeholder="Search..." value="@ViewBag.filter_search" aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
-@*             <select class="form-control form-control-sm" aria-label="account filter" name="txt_filter">
-                <option value="SingerName" selected>Singer Name</option>
-                <option value="Image">Image</option>
-            </select> *@
         </span>
         <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
 
@@ -26,11 +22,10 @@
 
 
 <div class="table-container">
-    <h1>Singer</h1>
-
+<br/>
 <p>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createSingerModal">
-        Create New
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createSingerModal">
+        Tạo Ca Sĩ Mới
     </button>
 </p>
     <table class="table table-hover">
@@ -52,12 +47,9 @@
                 </td>
                 <td class="img-cell"><img src="@Html.DisplayFor(modelItem => item.Image)" alt="N/A"/></td>
                 <td>
-                    @* <a asp-page="./Edit" asp-route-id="@item.SingerId">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.SingerId">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.SingerId">Delete</a> *@
-                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editSingerModal" data-id="@item.SingerId">Edit</button>
-                    <button type="button" class="btn btn-link" onclick="location.href='@Url.Page("./Details", new { id = item.SingerId })'">Details</button>
-                    <button type="button" class="btn btn-link" onclick="location.href='@Url.Page("./Delete", new { id = item.SingerId })'">Delete</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editSingerModal" data-id="@item.SingerId">Chỉnh sửa</button>
+                    <button type="button" class="btn btn-dark" onclick="location.href='@Url.Page("./Details", new { id = item.SingerId })'">Chi tiết</button>
+                    <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = item.SingerId })'">Xóa</button>
                 </td>
             </tr>
         }
