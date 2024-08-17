@@ -108,19 +108,29 @@
     <!--End Paging-->
 </div>
 
-<!-- Create Modal -->
-<div class="modal fade" id="createSongModal" tabindex="-1" role="dialog" aria-labelledby="createSongModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="createSongModalLabel">Create New Song</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- The content of the Create page will be loaded here -->
+<div class="modal-container">
+    <!-- Create Modal -->
+    <div class="modal fade" id="createSongModal" tabindex="-1" role="dialog" aria-labelledby="createSongModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createSongModalLabel">Create New Song</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
+                <div class="modal-body">
+                    <!-- Form for creating new song -->
+                    <div class="create-form">
+                        <!-- The content of the Create page will be loaded here -->
+                    </div>
+
+                    <!-- Live search section -->
+                    <div class="modal-body-search">
+                        <div id="liveSearchResults" class="search-results"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -150,7 +160,7 @@
         // Load only the form content from the Create page
         $.get('@Url.Page("./Create")', function (data) {
             var formContent = $(data).find('form');
-            modal.find('.modal-body').html(formContent);
+            modal.find('.create-form').html(formContent);
         });
     });
 
@@ -168,7 +178,126 @@
     });
 </script>
 
+<script>
+    async function liveSearchArtist(searchBox) {
+        const query = searchBox.value;
+        console.log(query);
+        if (query.length < 1) {
+            document.getElementById('searchArtistResults').innerHTML = '';
+            return;
+        }
+        //const response = await fetch('./Index?handler=SearchArtist&query=' + query);
+        const response = await fetch('./Song/Index?handler=SearchArtist&query=' + query);
+        const data = await response.text();
+
+        // Trigger the modal
+        $('#liveSearchModal').modal('show');
+        document.getElementById('liveSearchResults').innerHTML = data;
+    }
+
+    async function liveSearchSinger(searchBox) {
+        const query = searchBox.value;
+        console.log(query);
+        if (query.length < 1) {
+            document.getElementById('searchSingerResults').innerHTML = '';
+            return;
+        }
+        //const response = await fetch('./Index?handler=SearchSinger&query=' + query);
+        const response = await fetch('./Song/Index?handler=SearchSinger&query=' + query);
+        const data = await response.text();
+
+        // Trigger the modal
+        $('#liveSearchModal').modal('show');
+        document.getElementById('liveSearchResults').innerHTML = data;
+    }
+
+
+    async function liveSearchGenre(searchBox) {
+        const query = searchBox.value;
+        console.log(query);
+        if (query.length < 1) {
+            document.getElementById('searchGenreResults').innerHTML = '';
+            return;
+        }
+        //const response = await fetch('./Index?handler=SearchGenre&query=' + query);
+        const response = await fetch('./Song/Index?handler=SearchGenre&query=' + query);
+        const data = await response.text();
+
+        // Trigger the modal
+        $('#liveSearchModal').modal('show');
+        document.getElementById('liveSearchResults').innerHTML = data;
+    }
+
+    $(document).ready(function () {
+        // Handle form submissions with class 'artist-form'
+        $(document).on('submit', 'form[asp-page-handler="AddArtist"]', function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            var $form = $(this);
+            var url = $form.attr('action'); // Adjust the URL as needed
+            var formData = $form.serialize();
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    // Update the content of #artistSelect with the response
+                    $('#artistSelect').html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error('AJAX error:', error);
+                }
+            });
+        });
+    });
+</script>
+
+
 <style>
+    /* Ensure the modal is properly positioned and has a custom width */
+    .modal-dialog {
+        max-width: 80vw; /* Set the maximum width to 80% of viewport width */
+    }
+
+    /* Style for the modal body to make the create form wider */
+    .modal-body {
+        display: flex; /* Arrange items horizontally */
+        gap: 20px; /* Space between the form and search results */
+        width: 100%; /* Ensure it takes the full width of the modal */
+    }
+
+    /* Style for form section */
+    .create-form {
+        flex: 2; /* Take up more space horizontally */
+        max-height: 80vh; /* Limit the height to avoid overflow */
+        overflow-y: auto; /* Add vertical scrollbar if needed */
+        padding: 10px; /* Optional: Add padding to the form section */
+        width: 70%; /* Make the create form section wider */
+    }
+
+    /* Style for search results section */
+    .modal-body-search {
+        display: grid;
+        grid-template-columns: 1fr;
+        flex: 1; /* Take up remaining space horizontally */
+        max-height: 80vh; /* Limit the height to avoid overflow */
+        overflow-y: auto; /* Add vertical scrollbar if needed */
+        padding: 10px; /* Optional: Add padding to the search results section */
+    }
+
+    /* Optional: Style for search results */
+    .search-results {
+        width: 100%; /* Take full width of the modal body */
+        max-width: 600px; /* Maximum width for the search results */
+        margin: 0 auto; /* Center horizontally if not using flex */
+        text-align: center; /* Center text content inside */
+
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
     .modal-dialog.modal-lg-custom {
         max-width: 500px;
     }

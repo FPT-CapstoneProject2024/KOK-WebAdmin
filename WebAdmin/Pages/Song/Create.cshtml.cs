@@ -58,8 +58,11 @@ namespace WebAdmin.Pages.Song
                 {
                     return Page();
                 }
-                Song.CreatorId = LoginModel.AccountId.Value;
-                Song.SongArtists = _mapper.Map<ICollection<SongArtistRequestModel>> (SongIds);
+                SongIds = IndexModel.SongIds;
+                SingerIds = IndexModel.SingerIds;
+                GenreIds = IndexModel.GenreIds;
+                Song.CreatorId = LoginModel.AccountId.Value;                
+                Song.SongArtists = _mapper.Map<ICollection<SongArtistRequestModel>>(SongIds);
                 Song.SongSingers = _mapper.Map<ICollection<SongSingerRequestModel>>(SingerIds);
                 Song.SongGenres = _mapper.Map<ICollection<SongGenreRequestModel>>(GenreIds);
 
@@ -81,7 +84,7 @@ namespace WebAdmin.Pages.Song
             {
                 return RedirectToPage("/Error");
             }
-            return Page();
+            return null;
         }
 
         public IActionResult OnGetSearchArtist(string query)
@@ -123,48 +126,99 @@ namespace WebAdmin.Pages.Song
 
         }
 
-        public IActionResult OnPostAddArtist()
+        /*public void OnPostAddArtist()
         {
-
             string value = Request.Form["submit"];
             if (value.Equals("Bỏ chọn"))
             {
                 GenreIds.Remove(GenreIds.Find(x => x.GenreId == SelectedArtistId));
-
-                return Page();
             }
-            SongIds.Add(new SongArtist() { ArtistId = SelectedArtistId });
+            else
+            {
+                SongIds.Add(new SongArtist() { ArtistId = SelectedArtistId });
 
-            SearchArtistResults.RemoveAll(a => a.ArtistId == SelectedArtistId);
-            return Page();
+                SearchArtistResults.RemoveAll(a => a.ArtistId == SelectedArtistId);
+            }
         }
         
-        public IActionResult OnPostAddSinger()
+        public void OnPostAddSinger()
         {
             string value = Request.Form["submit"];
             if(value.Equals("Bỏ chọn"))
             {
                 SingerIds.Remove(SingerIds.Find(x => x.SingerId == SelectedSingerId));
-
-                return Page();
             }
-            SingerIds.Add(new SongSinger() { SingerId = SelectedSingerId });
-            return Page();
+            else
+            {
+                SingerIds.Add(new SongSinger() { SingerId = SelectedSingerId });
+
+                SearchSingerResults.RemoveAll(a => a.SingerId == SelectedSingerId);
+            }
         }
         
+        public void OnPostAddGerne()
+        {
+            string value = Request.Form["submit"];
+            if (value.Equals("Bỏ chọn"))
+            {
+                GenreIds.Remove(GenreIds.Find(x => x.GenreId == SelectedGenreId));
+            }
+            else
+            {
+                GenreIds.Add(new DTOModels.Response.SongGenre() { GenreId = SelectedGenreId });
+
+                SearchGenreResults.RemoveAll(a => a.GenreId == SelectedGenreId);
+            }
+        }*/
+        public IActionResult OnPostAddArtist()
+        {
+            string value = Request.Form["submit"];
+            if (value.Equals("Bỏ chọn"))
+            {
+                GenreIds.Remove(GenreIds.Find(x => x.GenreId == SelectedArtistId));
+            }
+            else
+            {
+                SongIds.Add(new SongArtist() { ArtistId = SelectedArtistId });
+                SearchArtistResults.RemoveAll(a => a.ArtistId == SelectedArtistId);
+            }
+
+            // Return JSON response
+            return new JsonResult(new { success = true, message = "Artist added/removed successfully." });
+        }
+
+        public IActionResult OnPostAddSinger()
+        {
+            string value = Request.Form["submit"];
+            if (value.Equals("Bỏ chọn"))
+            {
+                SingerIds.Remove(SingerIds.Find(x => x.SingerId == SelectedSingerId));
+            }
+            else
+            {
+                SingerIds.Add(new SongSinger() { SingerId = SelectedSingerId });
+                SearchSingerResults.RemoveAll(a => a.SingerId == SelectedSingerId);
+            }
+
+            // Return JSON response
+            return new JsonResult(new { success = true, message = "Singer added/removed successfully." });
+        }
+
         public IActionResult OnPostAddGerne()
         {
             string value = Request.Form["submit"];
             if (value.Equals("Bỏ chọn"))
             {
                 GenreIds.Remove(GenreIds.Find(x => x.GenreId == SelectedGenreId));
-
-                return Page();
             }
-            GenreIds.Add(new DTOModels.Response.SongGenre() { GenreId = SelectedGenreId });
+            else
+            {
+                GenreIds.Add(new DTOModels.Response.SongGenre() { GenreId = SelectedGenreId });
+                SearchGenreResults.RemoveAll(a => a.GenreId == SelectedGenreId);
+            }
 
-            SearchGenreResults.RemoveAll(a => a.GenreId == SelectedGenreId);
-            return Page();
+            // Return JSON response
+            return new JsonResult(new { success = true, message = "Genre added/removed successfully." });
         }
 
     }

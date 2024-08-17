@@ -4,6 +4,11 @@
     ViewData["Title"] = "Index";
 }
 
+<head>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
 <!-- Search -->
 <div class="input-group">
     <form method="post" class="input-group">
@@ -119,14 +124,83 @@
 </div>
 
 <script>
-    $('#createPackageModal').on('show.bs.modal', function (e) {
-        var modal = $(this);
-        // Load only the form content from the Create page
-        $.get('@Url.Page("./Create")', function (data) {
-            var formContent = $(data).find('form');
-            modal.find('.modal-body').html(formContent);
+    // $('#createPackageModal').on('show.bs.modal', function (e) {
+    //     var modal = $(this);
+    //     // Load only the form content from the Create page
+    //     $.get('@Url.Page("./Create")', function (data) {
+    //         var formContent = $(data).find('form');
+    //         modal.find('.modal-body').html(formContent);
+    //     });
+    // });
+
+    $(document).ready(function () {
+        $('#createPackageModal').on('show.bs.modal', function (e) {
+            var modal = $(this);
+            // Load only the form content from the Create page
+            $.get('@Url.Page("./Create")', function (data) {
+                var formContent = $(data).find('form');
+                modal.find('.modal-body').html(formContent);
+
+                // Attach an event listener to the form submit event
+                modal.find('form').on('submit', function (e) {
+                    e.preventDefault(); // Prevent normal form submission
+
+                    // Use AJAX to submit the form data
+                    $.ajax({
+                        type: $(this).attr('method'),
+                        url: $(this).attr('action'),
+                        data: $(this).serialize(),
+                        success: function (response) {
+                            if (response.success) {
+                                // Close the modal and remove the backdrop
+                                modal.modal('hide');
+                                $('.modal-backdrop').remove(); // Ensure the backdrop is removed
+
+                                // Show the success popup
+                                Swal.fire({
+                                    title: 'Success!',
+                                    text: 'The package was created successfully.',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        // Reload the page when the user presses OK
+                                        location.reload();
+                                    }
+                                });
+                            } else {
+                                // Handle the failure case
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: 'There was a problem creating the package.',
+                                    icon: 'error',
+                                    confirmButtonText: 'OK'
+                                });
+
+                                // Close the modal and remove the backdrop
+                                modal.modal('hide');
+                                $('.modal-backdrop').remove();
+                            }
+                        },
+                        error: function () {
+                            // Close the modal and remove the backdrop in case of an error
+                            modal.modal('hide');
+                            $('.modal-backdrop').remove();
+
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'There was a problem with the request.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    });
+                });
+            });
         });
     });
+
+
 
     //Load Edit form content into the modal
     $('#editPackageModal').on('show.bs.modal', function (e) {
