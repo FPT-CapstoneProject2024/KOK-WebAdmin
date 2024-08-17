@@ -8,17 +8,6 @@
     <form method="post" class="input-group">
         <input name="txt_search" type="search" class="form-control rounded" placeholder="Search..." value="@ViewBag.filter_search" aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
-@*             <select class="form-control form-control-sm" aria-label="account filter" name="txt_filter">
-                <option value="ItemId" selected>Item Id</option>
-                <option value="ItemCode">Item Code</option>
-                <option value="ItemName">Item Name</option>
-                <option value="ItemDescription">Item Description</option>
-                <option value="ItemType">Item Type</option>
-                <option value="CreatorId">Creator Id</option>
-                <option value="PrefabCode">Prefab Code</option>
-                <option value="ItemBuyPrice">Item Buy Price</option>
-                <option value="ItemSellPrice">Item Sell Price</option>
-            </select> *@
         </span>
         <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
 
@@ -29,11 +18,10 @@
 
 <div class="table-container">
     <br />
-    <h1>Item</h1>
-
++
     <p>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createItemModal">
-            Create New
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createItemModal">
+            Tạo Vật Phẩm Mới
         </button>
     </p>
     <table class="table table-hover">
@@ -102,12 +90,9 @@
                             @Html.DisplayFor(modelItem => item.ItemBuyPrice)
                         </td>
                         <td>
-                            @* <a asp-page="./Edit" asp-route-id="@item.ItemId">Edit</a> |
-                            <a asp-page="./Details" asp-route-id="@item.ItemId">Details</a> |
-                            <a asp-page="./Delete" asp-route-id="@item.ItemId">Delete</a> *@
-                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#editItemModal" data-id="@item.ItemId">Edit</button>
-                            <button type="button" class="btn btn-link" onclick="location.href='@Url.Page("./Details", new { id = item.ItemId })'">Details</button>
-                            <button type="button" class="btn btn-link" onclick="location.href='@Url.Page("./Delete", new { id = item.ItemId })'">Delete</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editItemModal" data-id="@item.ItemId">Chỉnh sửa</button>
+                            <button type="button" class="btn btn-dark" onclick="location.href='@Url.Page("./Details", new { id = item.ItemId })'">Chi tiết</button>
+                            <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = item.ItemId })'">Xóa</button>
                         </td>
                     </tr>
                 }

@@ -28,7 +28,7 @@
     <div class="table-container">
         <br />
 
-        <a href="Create" class="btn btn-google-plus">Tạo tài khoản nhân viên</a>
+        <a href="Create" class="btn btn-success">Tạo tài khoản nhân viên</a>
         <br />
         <!--Table list Account-->
         <table class="table table-hover" style="margin-top:20px;">
@@ -60,8 +60,8 @@
                         <td>@e.Role</td>
                         <td>@e.IsOnline</td>
                         <td>@e.AccountStatus</td>
-                        <td><a asp-page-handler="Inactive" asp-route-id="@e.AccountId"  class="btn btn-dribbble" >Inactive</a> | <a asp-page-handler="Active" asp-route-id="@e.AccountId" class="btn btn-warning">Active</a></td>
-                        <td><a asp-page="./Details" asp-route-id="@e.AccountId" class="btn btn-dark">Details</a> </td>
+                        <td><a asp-page-handler="Inactive" asp-route-id="@e.AccountId"  class="btn btn-dribbble" >Ẩn</a> | <a asp-page-handler="Active" asp-route-id="@e.AccountId" class="btn btn-warning">Kích hoạt</a></td>
+                        <td><a asp-page="./Details" asp-route-id="@e.AccountId" class="btn btn-dark">Chi tiết</a> </td>
                     </tr>
 
                 }
