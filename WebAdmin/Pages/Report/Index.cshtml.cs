@@ -3,10 +3,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using WebAdmin.Context;
 using WebAdmin.DTOModels.Response.Helpers;
-using WebAdmin.Pages.Authentication;
 using WebAdmin.Services.Interfaces;
 
-namespace WebAdmin.Pages.Package
+namespace WebAdmin.Pages.Report
 {
     public class IndexModel : PageModel
     {
@@ -14,7 +13,7 @@ namespace WebAdmin.Pages.Package
         private readonly IApiClient apiClient;
 
         [BindProperty]
-        public DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Package> data { get; set; } = new DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Package>();
+        public DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Report> data { get; set; } = new DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Report>();
         [BindProperty]
         public int PageSzie { get; set; } = 3;
         [BindProperty]
@@ -36,13 +35,13 @@ namespace WebAdmin.Pages.Package
                 CurrentPage = (CurrentPage < 1) ? 1 : CurrentPage;
                 CurrentPage = (CurrentPage > TotalPage) ? TotalPage : CurrentPage;
 
-                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.PackageResource + "/" + "get-packages";
+                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ReportResource + "/" + "get-reports";
 
                 var response = await apiClient.GetAsync(uri + "?page=" + CurrentPage + filter);
 
                 var jsonResponse = await response.Content.ReadAsStringAsync();
 
-                data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Package>>(jsonResponse);
+                data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Report>>(jsonResponse);
 
                 if (data.Results is not null)
                 {
@@ -66,4 +65,5 @@ namespace WebAdmin.Pages.Package
             return await OnGet(filter: "&filter" + "=" + search);
         }
     }
+
 }

@@ -55,9 +55,9 @@ namespace WebAdmin.Pages.Song
             CurrentPage = (CurrentPage < 1) ? 1 : CurrentPage;
             CurrentPage = (CurrentPage > TotalPage) ? TotalPage : CurrentPage;
 
-            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.SongResource;
+            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.SongResource + "/" + "get-songs";
 
-            var response = await apiClient.GetAsync(uri + "?page=" + CurrentPage + filter);
+            var response = await apiClient.GetAsync(uri + "?page=" + CurrentPage  + filter);
 
 
 
@@ -76,9 +76,10 @@ namespace WebAdmin.Pages.Song
 
         public async Task<IActionResult> OnPostSearch()
         {
-            string? filter = Request.Form["txt_filter"];
+            //string? filter = Request.Form["txt_filter"];
             string? search = Request.Form["txt_search"];
-            return await OnGet(filter: "&" + filter + "=" + search);
+            ViewData["filter_search"] = search;
+            return await OnGet(filter: "&filter" + "=" + search);
 
         }
 

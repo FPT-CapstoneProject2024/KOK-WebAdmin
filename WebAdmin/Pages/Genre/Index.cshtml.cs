@@ -35,7 +35,7 @@ namespace WebAdmin.Pages.Genre
                 CurrentPage = (CurrentPage < 1) ? 1 : CurrentPage;
                 CurrentPage = (CurrentPage > TotalPage) ? TotalPage : CurrentPage;
 
-                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.GenreResource;
+                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.GenreResource + "/" + "get-genres";
 
                 var response = await apiClient.GetAsync(uri + "?page=" + CurrentPage + filter);
 
@@ -62,9 +62,12 @@ namespace WebAdmin.Pages.Genre
 
         public async Task<IActionResult> OnPostSearch()
         {
-            string? filter = Request.Form["txt_filter"];
+            //string? filter = Request.Form["txt_filter"];
             string? search = Request.Form["txt_search"];
-            return await OnGet(filter: "&" + filter + "=" + search);
+
+            ViewData["filter_search"] = search;
+
+            return await OnGet(filter: "&filter" + "=" + search);
 
         }
 

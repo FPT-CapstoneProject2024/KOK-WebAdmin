@@ -7,14 +7,8 @@
 <!--Search-->
 <div class="input-group">
     <form method="post" class="input-group">
-        <input name="txt_search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+        <input name="txt_search" type="search" class="form-control rounded" value="@ViewBag.filter_search" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
-            <select class="form-control form-control-sm" aria-label="account filter" name="txt_filter">
-                <option value="Status" selected>Status</option>
-                <option value="TransactionType">Transaction Type</option>
-                <option value="UpTotalAmount">Up Total Amount</option>
-                <option value="UpAmountBefore">Up Amount Before</option>
-            </select>
         </span>
         <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
 
@@ -22,9 +16,12 @@
 </div>
 <!--End Search-->
 
-
-<h1>Giao dịch trong Game</h1>
 <div class="table-container">
+    <div class="input-group" style="margin:20px 0 25px 0;">
+        <form asp-page-handler="Search" method="post" class="input-group" id="searchForm">
+            <input name="txt_search" type="date" value="@ViewBag.filter_date" class="form-control-sm" aria-label="Search" aria-describedby="search-addon" onchange="this.form.submit()" />
+        </form>
+    </div>
     <table class="table table-hover">
         <thead>
             <tr>
@@ -47,31 +44,47 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.data.Results)
+            @if(Model.data.Results != null)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreatedDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TransactionType)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UpAmountBefore)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UpTotalAmount)
-                    </td>
-                    <td>
-                        <a asp-page="./Details/Game" asp-route-id="@item.InAppTransactionId">Details</a>
-                    </td>
-                </tr>
+                @foreach (var item in Model.data.Results)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TransactionType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UpAmountBefore)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UpTotalAmount)
+                        </td>
+                        <td>
+                            <a asp-page="./Details/Game" asp-route-id="@item.InAppTransactionId">Details</a>
+                        </td>
+                    </tr>
+                }
             }
+
         </tbody>
     </table>
+
+    <br />
+    <br />
+    <div>
+        <label style="color: red;">Tổng Tiền: </label>
+            <p style="color:black;">@ViewBag.TotalAmount VMD</p>
+    </div>
+    <div>
+        <label style="color: red;">Tổng giao dịch: </label>
+        <p>@ViewBag.TotalTransaction</p>
+
+    </div>
 
 </div>
 

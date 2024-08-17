@@ -5,27 +5,27 @@
 <!--Search-->
 <div class="input-group">
     <form method="post" class="input-group">
-        <input name="txt_search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+        <input name="txt_search" type="search" class="form-control rounded" placeholder="Search..." value="@ViewBag.filter_search" aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
-            <select class="form-control form-control-sm" aria-label="account filter" name="txt_filter">
+@*             <select class="form-control form-control-sm" aria-label="account filter" name="txt_filter">
                 <option value="ArtistName" selected>Artist Name</option>
                 <option value="Image">Image</option>
-            </select>
+            </select> *@
         </span>
         <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
 
     </form>
 </div>
 <!--End Search-->
-<h1>Artist</h1>
+
+<div class="table-container">
+    <h1>Artist</h1>
 
 <p>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createArtistModal">
         Create New
     </button>
 </p>
-
-<div class="table-container">
 
     <table class="table table-hover">
     <thead>

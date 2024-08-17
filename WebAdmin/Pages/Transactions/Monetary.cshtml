@@ -6,9 +6,9 @@
 <!--Search-->
 <div class="input-group">
     <form method="post" class="input-group">
-        <input name="txt_search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+        <input name="txt_search" type="search" class="form-control rounded" placeholder="Search" value="@ViewBag.filter_search" aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
-            <select class="form-control form-control-sm" aria-label="account filter" name="txt_filter">
+@*             <select class="form-control form-control-sm" aria-label="account filter" name="txt_filter">
                 <option value="PaymentType" selected>Payment Type</option>
                 <option value="PaymentCode">Payment Code</option>
                 <option value="MoneyAmount">Money Amount</option>
@@ -17,7 +17,7 @@
                 <option value="Status">Status</option>
                 <option value="PackageName">Package Name</option>
                 <option value="Username">Username</option>
-            </select>
+            </select> *@
         </span>
         <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
 
@@ -26,9 +26,12 @@
 <!--End Search-->
 
 
-<h1>Monetary</h1>
-
 <div class="table-container">
+    <div class="input-group" style="margin:20px 0 25px 0;">
+        <form asp-page-handler="Search" method="post" class="input-group" id="searchForm">
+            <input name="txt_search" type="date" value="@ViewBag.filter_date" class="form-control-sm" aria-label="Search" aria-describedby="search-addon" onchange="this.form.submit()" />
+        </form>
+    </div>
     <table class="table table-hover">
         <thead>
             <tr>
@@ -90,6 +93,17 @@
         </tbody>
     </table>
 
+    <br />
+    <br />
+    <div>
+        <label style="color: red;">Tổng Tiền: </label>
+        <p>@ViewBag.TotalAmount VMD</p>
+    </div>
+    <div>
+        <label style="color: red;">Tổng giao dịch: </label>
+        <p>@ViewBag.TotalTransaction</p>
+
+    </div>
 </div>
 
 
