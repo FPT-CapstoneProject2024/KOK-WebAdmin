@@ -18,10 +18,100 @@
             <input name="txt_search" type="search" class="form-control rounded" placeholder="Search..." value="@ViewBag.filter_search" aria-label="Search" aria-describedby="search-addon" />
             <span class="input-group-text border-0" id="search-addon">
             </span>
-            <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
+            <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Tìm Kiếm</button>
 
         </form>
+        <div style="margin-top:20px;">
+            <button class="btn btn-outline-info" id="advancedSearchBtn" data-mdb-ripple-init>Tìm Kiếm Nâng Cao</button>
+        </div>
+
     </div>
+
+    <div id="advancedSearchModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="formAdvanced">
+                <form asp-page-handler="SearchAdvanced" method="post" class="input-group">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @* <div class="form-group"> *@
+                    <div>
+                        <label class="control-label">Email</label>
+                        <input asp-for="filter.Email" class="form-control-sm" />
+                        <span asp-validation-for="filter.Email" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label class="control-label">Tên Tài Khoản</label>
+                        <input asp-for="filter.UserName" class="form-control-sm" />
+                        <span asp-validation-for="filter.UserName" clas="text-danger"></span>
+                    </div>
+                    @* </div> *@
+
+                    <div>
+                        <label class="control-label">Vai Trò</label>
+                        <select asp-for="filter.Role">
+                            <option value="ADMIN">Admin</option>
+                            <option value="STAFF">Nhân Viên</option>
+                            <option value="MEMBER">Người Chơi</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="control-label">Giới Tính</label>
+                        <select asp-for="filter.Gender">
+                            <option value="MALE">Đàn Ông</option>
+                            <option value="FEMALE">Phụ Nữ</option>
+                            <option value="ORTHER">Khác</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="control-label">Trạng Thái</label>
+                        <select asp-for="filter.AccountStatus">
+                            <option value="NOT_VERIFY">Chưa Được Kích Hoạt</option>
+                            <option value="ACTIVE">Hoạt Động</option>
+                            <option value="INACTIVE">Không Hoạt Động</option>
+                        </select>
+                    </div>
+
+                    @* <div class="form-group"> *@
+                        <div>
+                            <label class="form-label">Số Tiền Trong Tài Khoản</label>
+                            <input asp-for="filter.UpBalance" class="form-control-sm" />
+                            <span asp-validation-for="filter.UpBalance" class="text-danger"></span>
+                        </div>
+
+                        <div>
+                            <label class="control-label">Họ Tên</label>
+                            <input asp-for="filter.Fullname" class="form-control-sm" />
+                            <span asp-validation-for="filter.Fullname" class="text-danger"></span>
+                        </div>
+                    @* </div> *@
+
+                    @* <div class="form-group"> *@
+                        <div>
+                            <label class="form-label">Năm Sinh</label>
+                            <input asp-for="filter.Yob" class="form-control-sm" />
+                            <span asp-validation-for="filter.Yob" class="text-danger"></span>
+                        </div>
+
+                        <div>
+                            <label class="control-label">Số Định Danh</label>
+                            <input asp-for="filter.IdentityCardNumber" class="form-control-sm" />
+                            <span asp-validation-for="filter.IdentityCardNumber" class="text-danger"></span>
+                        </div>
+                    @* </div> *@
+
+                    <button class="btn btn-google-plus" type="submit">Lưu Thông Tin</button>
+
+
+                </form>
+            </div>
+
+        </div>
+
+        </div>
+
+
     <!--End Search-->
 
 

@@ -1,7 +1,10 @@
+using AutoMapper.Execution;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 using WebAdmin.Context;
+using WebAdmin.DTOModels.Filter;
 using WebAdmin.DTOModels.Response.Helpers;
 using WebAdmin.Services.Interfaces;
 
@@ -20,6 +23,9 @@ namespace WebAdmin.Pages.Account
         public int CurrentPage { get; set; }
         [BindProperty]
         public static int TotalPage { get; set; } = 1;
+
+        [BindProperty]
+        public AccountFilter? filter { get; set; }
         public static int? TotalData { get; set; }
 
         public Index1Model(ILogger<Index1Model> logger, IApiClient apiClient)
@@ -90,6 +96,49 @@ namespace WebAdmin.Pages.Account
 
             return await OnGet(filter: "&filter" + "=" + search);
 
+        }
+
+
+        public async Task<IActionResult> OnPostSearchAdvanced(string? number = null)
+        {
+
+            CurrentPage = int.Parse(number ?? "1");
+            CurrentPage = (CurrentPage < 1) ? 1 : CurrentPage;
+            CurrentPage = (CurrentPage > TotalPage) ? TotalPage : CurrentPage;
+
+            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.AccountResource;
+            var queryParams = new Dictionary<string, string>()
+            {
+                {"UserName", filter.UserName },
+                {"Email", filter.Email },
+                {"Gender", filter.Gender },
+                {"Role", filter.Role },
+                {"UpBalance", string.Concat(filter.UpBalance) },
+                {"IsOnline", string.Concat(filter.IsOnline) },
+                {"Fullname", filter.Fullname },
+                {"Yob", string.Concat(filter.Yob) },
+                {"IdentityCardNumber", filter.IdentityCardNumber },
+                {"PhoneNumber", filter.PhoneNumber },
+                {"page", string.Concat(CurrentPage) },
+
+
+            };
+
+            var response = await apiClient.GetAsync(QueryHelpers.AddQueryString(uri, queryParams));
+
+
+
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+#pragma warning disable CS8601 // Possible null reference assignment.
+            data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Account>>(jsonResponse);
+#pragma warning restore CS8601 // Possible null reference assignment.
+
+            if (data.Results is not null)
+            {
+                TotalData = data.Metadata.Total;
+                TotalPage = (int)MathF.Ceiling((float)data.Metadata.Total / (float)data.Metadata.Size);
+            }
+            return Page();
         }
 
     }

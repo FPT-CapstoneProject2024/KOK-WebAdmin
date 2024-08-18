@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 using WebAdmin.Context;
+using WebAdmin.DTOModels.Filter;
 using WebAdmin.DTOModels.Response;
 using WebAdmin.DTOModels.Response.Helpers;
 using WebAdmin.Services.Interfaces;
@@ -19,6 +21,8 @@ namespace WebAdmin.Pages.Song
         public int PageSzie { get; set; } = 3;
         [BindProperty]
         public int CurrentPage { get; set; }
+        [BindProperty]
+        public SongFilter? filter { get; set; }
         [BindProperty]
         public static int TotalPage { get; set; } = 1;
         public static List<SongArtist> SongIds { get; set; } = new List<SongArtist>();
@@ -120,6 +124,43 @@ namespace WebAdmin.Pages.Song
             return Partial("_SearchGenreResults", this);
 
 
+        }
+
+        public async Task<IActionResult> OnPostSearchAdvanced(string? number = null)
+        {
+
+            CurrentPage = int.Parse(number ?? "1");
+            CurrentPage = (CurrentPage < 1) ? 1 : CurrentPage;
+            CurrentPage = (CurrentPage > TotalPage) ? TotalPage : CurrentPage;
+
+            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.SongResource;
+            var queryParams = new Dictionary<string, string>()
+            {
+                {"SongName", filter.SongName },
+                {"SongStatus", filter.SongStatus },
+                {"CreatedDate", string.Concat(filter.CreatedDate) },
+                {"SongCode", filter.SongCode },
+                {"PublicDate", string.Concat(filter.PublicDate) },
+                {"Price", string.Concat(filter.Price) },
+                {"page", string.Concat(CurrentPage) },
+
+
+            };
+
+            var response = await apiClient.GetAsync(QueryHelpers.AddQueryString(uri, queryParams));
+
+
+
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+#pragma warning disable CS8601 // Possible null reference assignment.
+            data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Song>>(jsonResponse);
+#pragma warning restore CS8601 // Possible null reference assignment.
+
+            if (data.Results is not null)
+            {
+                TotalPage = (int)MathF.Ceiling((float)data.Metadata.Total / (float)data.Metadata.Size);
+            }
+            return Page();
         }
 
         /*public void OnPostAddArtist()
