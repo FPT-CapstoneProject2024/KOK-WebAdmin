@@ -35,7 +35,7 @@ namespace WebAdmin.Pages.Singer
             {
                 if (!ModelState.IsValid)
                 {
-                    return Page();
+                    return new JsonResult(new { success = false });
                 }
 
                 var dataImage = await SupportingFeature.Instance.UploadImage(_clientFactory, file, KokApiContext.ImgurClientId);
@@ -43,7 +43,7 @@ namespace WebAdmin.Pages.Singer
                 if (!dataImage.Item1)
                 {
                     ViewData["Message"] = dataImage.Item2;
-                    return Page();
+                    return new JsonResult(new { success = false });
                 }
                 else
                 {
@@ -62,17 +62,15 @@ namespace WebAdmin.Pages.Singer
 
                 if (data.result.Value)
                 {
-                    return RedirectToPage("./Index");
+                    return new JsonResult(new { success = true });
                 }
             }
             catch (Exception)
             {
-                return RedirectToPage("/Error");
+                return new JsonResult(new { success = false });
             }
 
-
-
-            return Page();
+            return new JsonResult(new { success = false });
         }
     }
 }

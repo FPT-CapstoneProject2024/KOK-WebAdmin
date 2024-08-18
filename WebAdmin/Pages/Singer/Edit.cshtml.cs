@@ -63,7 +63,7 @@ namespace WebAdmin.Pages.Singer
         {
             if (!ModelState.IsValid)
             {
-                return Page();
+                return new JsonResult(new { success = false });
             }
 
             var dataImage = await SupportingFeature.Instance.UploadImage(_clientFactory, file, KokApiContext.ImgurClientId);
@@ -71,7 +71,7 @@ namespace WebAdmin.Pages.Singer
             if (!dataImage.Item1)
             {
                 ViewData["Message"] = dataImage.Item2;
-                return Page();
+                return new JsonResult(new { success = false });
             }
             else
             {
@@ -88,11 +88,10 @@ namespace WebAdmin.Pages.Singer
                 var responeJson = await response.Content.ReadAsStringAsync();
                 var item = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Singer>>(responeJson);
 
-                if (item.result.Value == false)
+                if (item.result.Value)
                 {
-                    return Page();
+                    return new JsonResult(new { success = true });
                 }
-
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -104,10 +103,10 @@ namespace WebAdmin.Pages.Singer
                 //{
                 //    throw;
                 //}
-                return RedirectToPage("./Error");
+                return new JsonResult(new { success = false });
             }
 
-            return RedirectToPage("./Index");
+            return new JsonResult(new { success = false });
         }
 
         //private bool ItemExists(Guid id)
