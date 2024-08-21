@@ -27,6 +27,8 @@ namespace WebAdmin.Pages.Account
         [BindProperty]
         public AccountFilter? filter { get; set; }
         public static int? TotalData { get; set; }
+        [BindProperty]
+        public string? search { get; set; }
 
         public Index1Model(ILogger<Index1Model> logger, IApiClient apiClient)
         {
@@ -90,10 +92,6 @@ namespace WebAdmin.Pages.Account
         public async Task<IActionResult> OnPostSearch()
         {
             //string? filter = Request.Form["txt_filter"];
-            string? search = Request.Form["txt_search"];
-
-            ViewData["filter_search"] = search;
-
             return await OnGet(filter: "&filter" + "=" + search);
 
         }

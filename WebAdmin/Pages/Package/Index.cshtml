@@ -12,21 +12,75 @@
 <!-- Search -->
 <div class="input-group">
     <form method="post" class="input-group">
-        <input name="txt_search" type="search" class="form-control rounded" placeholder="Search..." value="@ViewBag.filter_search" aria-label="Search" aria-describedby="search-addon" />
+        <input asp-for="search" type="search" class="form-control rounded" placeholder="Search..." aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
         </span>
         <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
     </form>
+    <div style="margin-top:20px;">
+        <button class="btn btn-outline-info" id="advancedSearchBtn" data-mdb-ripple-init>Tìm Kiếm Nâng Cao</button>
+    </div>
+
+</div>
+
+<div id="advancedSearchModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="formAdvanced">
+            <form asp-page-handler="SearchAdvanced" method="post" class="input-group">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div>
+                    <label class="control-label">Tên Gói</label>
+                    <input asp-for="filter.PackageName" class="form-control-sm" />
+                    <span asp-validation-for="filter.PackageName" class="text-danger"></span>
+                </div>
+                <div>
+                    <label class="control-label">Giá Gói</label>
+                    <input asp-for="filter.MoneyAmount" class="form-control-sm" />
+                    <span asp-validation-for="filter.MoneyAmount" clas="text-danger"></span>
+                </div>
+                <div>
+                    <label class="control-label">Ngày Tạo</label>
+                    <input asp-for="filter.CreatedDate" class="form-control-sm" />
+                    <span asp-validation-for="filter.CreatedDate" clas="text-danger"></span>
+                </div>
+                <div>
+                    <label class="control-label">Số Sao</label>
+                    <input asp-for="filter.StarNumber" class="form-control-sm" />
+                    <span asp-validation-for="filter.StarNumber" clas="text-danger"></span>
+                </div>
+
+
+                <div>
+                    <label class="control-label">Trạng Thái</label>
+                    <select asp-for="filter.Status">
+                        <option value="INACTIVE">Không Hoạt Động</option>
+                        <option value="ACTIVE">Hoạt Động</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-google-plus" type="submit">Lưu Thông Tin</button>
+
+
+            </form>
+        </div>
+
+    </div>
+
 </div>
 <!-- End Search -->
-<br/>
-<p>
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createPackageModal">
-        Tạo Gói Mới
-    </button>
-</p>
 
 <div class="table-container">
+
+    <br />
+    <p>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createPackageModal">
+            Tạo Gói Mới
+        </button>
+    </p>
+
+
+
     <table class="table table-hover">
         <thead>
             <tr>
@@ -56,7 +110,7 @@
                         <td>@Html.DisplayFor(modelItem => package.CreatedDate)</td>
                         <td>
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editPackageModal" data-id="@package.PackageId">Chỉnh sửa</button>
-                            <button type="button" class="btn btn-dark" onclick="location.href='@Url.Page("./Details", new { id = package.PackageId })'">Chi tiết</button>
+                            <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailPackageModal" data-id="@package.PackageId">Chi Tiết</a>
                             <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = package.PackageId })'">Xóa</button>
                         </td>
                     </tr>
@@ -112,7 +166,42 @@
     </div>
 </div>
 
+<!-- Details Modal -->
+<div class="modal fade" id="detailPackageModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog custom-modal-width" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalLabel">Package Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body detail-modal-body">
+                <!-- Nội dung chi tiết sẽ được tải vào đây -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
+
+    // Load Detail form content into the modal
+    $(document).ready(function () {
+        $('#detailPackageModal').on('show.bs.modal', function (e) {
+            var button = $(e.relatedTarget);
+            var PackageId = button.data('id');
+            var modal = $(this);
+
+            // Tải nội dung từ trang Details và chỉ lấy phần thân của nội dung
+            $.get('@Url.Page("/Package/Details", new { id = "__ID__" })'.replace('__ID__', PackageId), function (data) {
+                var detailContent = $(data).find('.details').html(); // Lấy phần nội dung chính
+                modal.find('.detail-modal-body').html(detailContent);
+            });
+        });
+    });
+
+
     $(document).ready(function () {
         $('#createPackageModal').on('show.bs.modal', function (e) {
             var modal = $(this);

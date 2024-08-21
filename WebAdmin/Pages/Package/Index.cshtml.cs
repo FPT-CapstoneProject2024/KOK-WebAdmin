@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 using WebAdmin.Context;
+using WebAdmin.DTOModels.Filter;
 using WebAdmin.DTOModels.Response.Helpers;
 using WebAdmin.Pages.Authentication;
 using WebAdmin.Services.Interfaces;
@@ -21,6 +23,10 @@ namespace WebAdmin.Pages.Package
         public int CurrentPage { get; set; }
         [BindProperty]
         public static int TotalPage { get; set; } = 1;
+        [BindProperty]
+        public PackageFilter? filter { get; set; }
+        [BindProperty]
+        public string? search { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, IApiClient apiClient)
         {
@@ -60,10 +66,43 @@ namespace WebAdmin.Pages.Package
 
         public async Task<IActionResult> OnPostSearch()
         {
-            //string? filter = Request.Form["txt_filter"];
-            string? search = Request.Form["txt_search"];
-            ViewData["filter_search"] = search;
+
             return await OnGet(filter: "&filter" + "=" + search);
+        }
+
+
+        public async Task<IActionResult> OnPostSearchAdvanced(string? number = null)
+        {
+
+            CurrentPage = int.Parse(number ?? "1");
+            CurrentPage = (CurrentPage < 1) ? 1 : CurrentPage;
+            CurrentPage = (CurrentPage > TotalPage) ? TotalPage : CurrentPage;
+
+            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.PackageResource;
+            var queryParams = new Dictionary<string, string>()
+            {
+                {"PackageName", filter.PackageName },
+                {"MoneyAmount", string.Concat(filter.MoneyAmount) },
+                {"StarNumber", string.Concat(filter.StarNumber) },
+                {"Status", filter.Status },
+                {"CreatedDate", string.Concat(filter.CreatedDate) },
+
+            };
+
+            var response = await apiClient.GetAsync(QueryHelpers.AddQueryString(uri, queryParams));
+
+
+
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+#pragma warning disable CS8601 // Possible null reference assignment.
+            data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Package>>(jsonResponse);
+#pragma warning restore CS8601 // Possible null reference assignment.
+
+            if (data.Results is not null)
+            {
+                TotalPage = (int)MathF.Ceiling((float)data.Metadata.Total / (float)data.Metadata.Size);
+            }
+            return Page();
         }
     }
 }

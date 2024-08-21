@@ -19,6 +19,8 @@
     <link href="/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
     @* <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> *@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+
 
     @* <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> *@
 
@@ -83,10 +85,12 @@
                         } */
 
         .table-container {
+            position: fixed;
             flex: 1;
-            width: 100%;
+            width: 65%;
             height: 60vh;
             overflow: auto;
+            
         }
 
         .form-check-input {
@@ -95,7 +99,7 @@
 
         .img-cell img {
             width: 8vw;
-            height: auto;
+            height: 8vh;
             display: block;
             margin: 0 auto;
             border-style: solid;
@@ -167,6 +171,11 @@
             height: 195px;
         }
 
+        .custom-modal-width {
+            max-width: 85%; /* Tùy chỉnh phần trăm theo nhu cầu của bạn */
+        }
+
+
         /* Hiển thị form khi cần */
         .modal {
             /* display: block; */
@@ -219,6 +228,14 @@
             cursor: pointer;
         }
 
+        .details-img{
+            width: 60%;
+            border-style: solid;
+            color: slategrey;
+            border-radius: 15px;
+            
+        }
+
         .formAdvanced form{
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -253,6 +270,7 @@
             .formAdvanced button:hover {
                 background-color: #218838;
             }
+
     </style>
 
 </head>
@@ -348,11 +366,11 @@
 
                             <div class="dropdown">
                                 <a class="nav-link dropdown-toggle" href="" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="ni ni-tv-2 text-primary"></i> Dashboard
+                                    <i class="ni ni-tv-2 text-primary"></i> Bảng Thống Kê
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" asp-page="/Dashboard/Index">Overview</a>
+                                    <a class="dropdown-item" asp-page="/Dashboard/Index">Tổng Quan</a>
                                     <div class="dropdown-submenu">
                                         <a class="dropdown-item dropdown-toggle" href="#" id="monetaryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Giao dịch tiền mặt</a>
                                         <ul class="list-group">
@@ -375,21 +393,34 @@
 
                         <li class="nav-item">
                             <a asp-page="/Account/Index1" class="nav-link ">
-                                <i class="ni ni-tv-2 text-primary"></i> Accounts
+                                <i class="ni ni-tv-2 text-primary"></i> Danh Sách Tài Khoản
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a asp-page="/Genre/Index" class="nav-link ">
-                                <i class="ni ni-tv-2 text-primary"></i> Genres
+                                <i class="ni ni-tv-2 text-primary"></i> Danh Sách Thể Loại
                             </a>
                         </li>
 
 
-                        <li class="nav-item">
-                            <a asp-page="/Song/Index" class="nav-link ">
-                                <i class="ni ni-tv-2 text-primary"></i> Songs
-                            </a>
+
+
+                        <li class="nav-item dropdown">
+
+                            <div class="dropdown">
+                                <a class="nav-link dropdown-toggle" href="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="ni ni-tv-2 text-primary"></i> Bài Hát
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" asp-page="/Song/Index">Danh Sách Bài Hát</a>
+                                    <a class="dropdown-item" asp-page="/Singer/Index">Danh Sách Ca Sĩ</a>
+                                    <a class="dropdown-item" asp-page="/Artist/Index">Danh Sách Tác Giả</a>
+
+                                </div>
+
+
+                            </div>
                         </li>
 
 
@@ -397,11 +428,11 @@
 
                             <div class="dropdown">
                                 <a class="nav-link dropdown-toggle" href="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="ni ni-tv-2 text-primary"></i> Transaction
+                                    <i class="ni ni-tv-2 text-primary"></i> Giao Dịch
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" asp-page="/Transactions/Game">Game</a>
-                                    <a class="dropdown-item" asp-page="/Transactions/Monetary">Monetary</a>
+                                    <a class="dropdown-item" asp-page="/Transactions/Game">Trong Ứng Dụng</a>
+                                    <a class="dropdown-item" asp-page="/Transactions/Monetary">Tiền</a>
 
                                 </div>
 
@@ -411,32 +442,20 @@
 
                         <li class="nav-item">
                             <a asp-page="/Item/Index" class="nav-link ">
-                                <i class="ni ni-tv-2 text-primary"></i> Items
-                            </a>
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a asp-page="/Singer/Index" class="nav-link ">
-                                <i class="ni ni-tv-2 text-primary"></i> Singers
+                                <i class="ni ni-tv-2 text-primary"></i> Danh Sách Vật Phẩm
                             </a>
                         </li>
 
 
 
-                        <li class="nav-item">
-                            <a asp-page="/Artist/Index" class="nav-link ">
-                                <i class="ni ni-tv-2 text-primary"></i> Artists
-                            </a>
-                        </li>
                         <li class="nav-item">
                             <a asp-page="/Package/Index" class="nav-link ">
-                                <i class="ni ni-tv-2 text-primary"></i> Packages
+                                <i class="ni ni-tv-2 text-primary"></i> Danh Sách Gói
                             </a>
                         </li>
                         <li class="nav-item">
                             <a asp-page="/Report/Index" class="nav-link ">
-                                <i class="ni ni-tv-2 text-primary"></i> Reports
+                                <i class="ni ni-tv-2 text-primary"></i> Danh Sách Tố Cáo
                             </a>
                         </li>
 
@@ -508,11 +527,11 @@
 
     <div class="container">
 
-        <main role="main" class="pb-0">
+        <main role="main" class="container-fluid">
             <div class="col-12">
                 <div id="confirmLogout" class="modal">
                     <div class="modal-content">
-                        <p>Xác nhận thoát?</p>
+                        <b>Xác nhận thoát?</b>
                         <button id="confirmYes">Có</button>
                         <button id="confirmNo">Không</button>
                     </div>

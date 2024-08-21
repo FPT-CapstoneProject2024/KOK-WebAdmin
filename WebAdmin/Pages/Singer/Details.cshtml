@@ -2,10 +2,8 @@
 @model WebAdmin.Pages.Singer.DetailsModel
 @{
 }
-<h1>Details</h1>
 
-<div>
-    <h4>Singer</h4>
+<div class="details">
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -18,11 +16,9 @@
             @Html.DisplayNameFor(model => model.Singer.Image)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Singer.Image)
+            <img class="details-img" src="@Html.DisplayFor(model => model.Singer.Image)"  alt="N/A"/>
+            
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Singer?.SingerId">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
-</div>
+

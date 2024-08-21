@@ -31,6 +31,8 @@ namespace WebAdmin.Pages.Song
         public List<DTOModels.Response.Artist> SearchArtistResults { get; set; } = new List<DTOModels.Response.Artist>();
         public List<DTOModels.Response.Singer> SearchSingerResults { get; set; } = new List<DTOModels.Response.Singer>();
         public List<DTOModels.Response.Genre> SearchGenreResults { get; set; } = new List<DTOModels.Response.Genre>();
+        [BindProperty]
+        public string? search { get; set; }
 
         //sorry code do
         public List<SongArtist> SongIds2 = SongIds;
@@ -80,9 +82,6 @@ namespace WebAdmin.Pages.Song
 
         public async Task<IActionResult> OnPostSearch()
         {
-            //string? filter = Request.Form["txt_filter"];
-            string? search = Request.Form["txt_search"];
-            ViewData["filter_search"] = search;
             return await OnGet(filter: "&filter" + "=" + search);
 
         }

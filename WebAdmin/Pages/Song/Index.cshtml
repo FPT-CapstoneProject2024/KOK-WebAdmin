@@ -7,7 +7,7 @@
 <!--Search-->
 <div class="input-group">
     <form method="post" class="input-group">
-        <input name="txt_search" type="search" class="form-control rounded" placeholder="Search..." value="@ViewBag.filter_search" aria-label="Search..." aria-describedby="search-addon" />
+        <input asp-for="search" type="search" class="form-control rounded" placeholder="Search..." aria-label="Search..." aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
         </span>
         <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
@@ -84,20 +84,20 @@
 </div>
 <!--End Search-->
 
-<br/>
-<p>
-    <a class="btn btn-success" href="/Song/Create">Tạo Bài Hát Mới </a>
 
-
-</p>
 
 <div class="table-container">
+    <br />
+    <p>
+        <a class="btn btn-success" href="/Song/Create">Tạo Bài Hát Mới </a>
+    </p>
+    <br />
     <table class="table table-hover">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Song Name</th>
-                <th>Song Description</th>
+                @* <th>Song Description</th> *@
                 <th>Song Status</th>
                 <th>Song Code</th>     
                 <th>Price</th>
@@ -118,9 +118,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.SongName)
                         </td>
-                        <td>
+                  @*       <td>
                             @Html.DisplayFor(modelItem => item.SongDescription)
-                        </td>
+                        </td> *@
                         <td>
                             @Html.DisplayFor(modelItem => item.SongStatus)
                         </td>
@@ -141,7 +141,7 @@
                         </td>
                         <td>
                             <button type="button" class="btn btn-facebook" data-toggle="modal" data-target="#editSongModal" data-id="@item.SongId">Chỉnh sửa</button>
-                            <button type="button" class="btn btn-darker" onclick="location.href='@Url.Page("./Details", new { id = item.SongId })'">Chi tiết</button>
+                            <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailSongModal" data-id="@item.SongId">Chi Tiết</a>
                             <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = item.SongId })'">Xóa</button>
                         </td>
                     </tr>
@@ -211,7 +211,42 @@
     </div>
 </div>
 
+<!-- Details Modal -->
+<div class="modal fade" id="detailSongModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog custom-modal-width" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalLabel">Song Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body detail-modal-body">
+                <!-- Nội dung chi tiết sẽ được tải vào đây -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
+
+    // Load Detail form content into the modal
+    $(document).ready(function () {
+        $('#detailSongModal').on('show.bs.modal', function (e) {
+            var button = $(e.relatedTarget);
+            var SongId = button.data('id');
+            var modal = $(this);
+
+            // Tải nội dung từ trang Details và chỉ lấy phần thân của nội dung
+            $.get('@Url.Page("/Song/Details", new { id = "__ID__" })'.replace('__ID__', SongId), function (data) {
+                var detailContent = $(data).find('.details').html(); // Lấy phần nội dung chính
+                modal.find('.detail-modal-body').html(detailContent);
+            });
+        });
+    });
+
+
     $('#createSongModal').on('show.bs.modal', function (e) {
         var modal = $(this);
         // Load only the form content from the Create page

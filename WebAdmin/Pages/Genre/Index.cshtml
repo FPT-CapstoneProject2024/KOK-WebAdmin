@@ -11,7 +11,7 @@
 <!--Search-->
 <div class="input-group">
     <form method="post" class="input-group">
-        <input name="txt_search" type="search" class="form-control rounded" placeholder="Search..." value="@ViewBag.filter_search" aria-label="Search" aria-describedby="search-addon" />
+        <input asp-for="search" type="search" class="form-control rounded" placeholder="Search..." aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
         </span>
         <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
@@ -52,7 +52,7 @@
                 <td class="img-cell"><img src="@Html.DisplayFor(modelItem => item.Image)" alt="N/A"/></td>
                 <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editGenreModal" data-id="@item.GenreId">Chỉnh Sửa</button>
-                    <button type="button" class="btn btn-dark" onclick="location.href='@Url.Page("./Details", new { id = item.GenreId })'">Chi tiết</button>
+                     <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailGenreModal" data-id="@item.GenreId">Chi Tiết</a>
                     <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = item.GenreId })'">Xóa</button>
                 </td>
             </tr>
@@ -108,7 +108,44 @@
     </div>
 </div>
 
+
+        <!-- Details Modal -->
+        <div class="modal fade" id="detailGenreModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+            <div class="modal-dialog custom-modal-width" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detailModalLabel">Genre Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body detail-modal-body">
+                        <!-- Nội dung chi tiết sẽ được tải vào đây -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 <script>
+
+                // Load Detail form content into the modal
+            $(document).ready(function () {
+                $('#detailGenreModal').on('show.bs.modal', function (e) {
+                    var button = $(e.relatedTarget);
+                    var genreId = button.data('id');
+                    var modal = $(this);
+
+                    // Tải nội dung từ trang Details và chỉ lấy phần thân của nội dung
+                    $.get('@Url.Page("/Genre/Details", new { id = "__ID__" })'.replace('__ID__', genreId), function (data) {
+                        var detailContent = $(data).find('.details').html(); // Lấy phần nội dung chính
+                        modal.find('.detail-modal-body').html(detailContent);
+                    });
+                });
+            });
+
+
+
     $(document).ready(function () {
     $('#createGenreModal').on('show.bs.modal', function (e) {
         var modal = $(this);
