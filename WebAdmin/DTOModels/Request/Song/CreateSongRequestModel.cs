@@ -8,7 +8,7 @@ namespace WebAdmin.DTOModels.Request.Song
         [Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
         public string SongName { get; set; } = null!;
         public string? SongDescription { get; set; }
-        public string? SongUrl { get; set; }
+        public IFormFile? SongFile { get; set; }
         public DateTime? PublicDate { get; set; }
         [Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
         public Guid CreatorId { get; set; }
