@@ -13,6 +13,74 @@
         <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
 
     </form>
+
+    <div style="margin-top:20px;">
+        <button class="btn btn-outline-info" id="advancedSearchBtn" data-mdb-ripple-init>Tìm Kiếm Nâng Cao</button>
+    </div>
+</div>
+
+
+<div id="advancedSearchModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="formAdvanced">
+            <form asp-page-handler="SearchAdvanced" method="post" class="input-group">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @* <div class="form-group"> *@
+                <div>
+                    <label class="control-label">Tên Bài Hát</label>
+                    <input asp-for="filter.SongName" class="form-control-sm" />
+                    <span asp-validation-for="filter.SongName" class="text-danger"></span>
+                </div>
+                <div>
+                    <label class="control-label">Trạng Thái Bài Hát</label>
+                    <input asp-for="filter.SongStatus" class="form-control-sm" />
+                    <span asp-validation-for="filter.SongStatus" clas="text-danger"></span>
+                </div>
+
+                <div>
+                    <label class="control-label">Trạng Thái</label>
+                    <select asp-for="filter.SongStatus">
+                        <option value="DISABLE">Chưa Được Kích Hoạt</option>
+                        <option value="ENABLE">Đã Kích Hoạt</option>
+                    </select>
+                </div>
+                @* </div> *@
+
+                <div>
+                    <label class="control-label">Ngày Tạo</label>
+                    <input asp-for="filter.CreatedDate" class="form-control-sm"/>
+                    <span asp-validation-for="filter.CreatedDate" clas="text-danger"></span>
+
+                </div>
+
+                <div>
+                    <label class="control-label">Mã Bài Hát</label>
+                    <input asp-for="filter.SongCode" class="form-control-sm" />
+                    <span asp-validation-for="filter.SongCode" clas="text-danger"></span>
+                </div>
+                
+                <div>
+                    <label class="control-label">Ngày Công Bố</label>
+                    <input asp-for="filter.PublicDate" class="form-control-sm" />
+                    <span asp-validation-for="filter.PublicDate" clas="text-danger"></span>
+                </div>
+                
+                <div>
+                    <label class="control-label">Giá Bài Hát</label>
+                    <input asp-for="filter.Price" class="form-control-sm" />
+                    <span asp-validation-for="filter.Price" clas="text-danger"></span>
+                </div>
+
+
+                <button class="btn btn-google-plus" type="submit">Lưu Thông Tin</button>
+
+
+            </form>
+        </div>
+
+    </div>
+
 </div>
 <!--End Search-->
 
