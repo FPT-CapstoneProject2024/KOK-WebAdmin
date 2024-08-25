@@ -7,6 +7,59 @@
 <head>
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        /* Collapsible Panel Styles */
+        #rightPanel {
+            height: 100%; /* Full height */
+            width: 0; /* Start hidden */
+            position: fixed;
+            z-index: 1050; /* Above other elements */
+            top: 0;
+            right: 0;
+            background-color: #343a40; /* Dark background */
+            overflow-x: hidden; /* Disable horizontal scroll */
+            padding-top: 60px; /* Space for content */
+            transition: 0.5s; /* Smooth slide effect */
+        }
+
+            #rightPanel a {
+                padding: 10px 20px;
+                text-decoration: none;
+                font-size: 18px;
+                color: white;
+                display: block;
+                transition: 0.3s;
+            }
+
+                #rightPanel a:hover {
+                    background-color: #575757;
+                }
+
+        .panel-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 20px;
+            background-color: #28a745; /* Green color */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            z-index: 1100;
+        }
+
+            .panel-btn:hover {
+                background-color: #218838;
+            }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 36px;
+        }
+    </style>
 </head>
 
 <!-- Search -->
@@ -76,6 +129,18 @@
     <!-- End Paging -->
 </div>
 
+<!-- Right-side Collapsible Panel -->
+<div id="rightPanel">
+    <a href="javascript:void(0)" class="close-btn" onclick="togglePanel()">&times;</a>
+    <a href="#">Link 1</a>
+    <a href="#">Link 2</a>
+    <a href="#">Link 3</a>
+    <!-- Add more content as needed -->
+</div>
+
+<!-- Button to open the panel -->
+<button class="panel-btn" onclick="togglePanel()">☰</button>
+
 <!-- Create Modal -->
 <div class="modal fade" id="createPackageModal" tabindex="-1" role="dialog" aria-labelledby="createPackageModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -113,6 +178,38 @@
 </div>
 
 <script>
+    // Function to toggle the panel
+    function togglePanel() {
+        const panel = document.getElementById("rightPanel");
+        if (panel.style.width === "250px") {
+            closePanel();
+        } else {
+            openPanel();
+        }
+    }
+
+    // Function to open the panel
+    function openPanel() {
+        document.getElementById("rightPanel").style.width = "250px";
+        // Add an event listener to detect clicks outside the panel
+        document.addEventListener("click", closeOnClickOutside);
+    }
+
+    // Function to close the panel
+    function closePanel() {
+        document.getElementById("rightPanel").style.width = "0";
+        // Remove the event listener when the panel is closed
+        document.removeEventListener("click", closeOnClickOutside);
+    }
+
+    // Function to close the panel if the user clicks outside of it
+    function closeOnClickOutside(event) {
+        const panel = document.getElementById("rightPanel");
+        if (!panel.contains(event.target) && event.target.className !== "panel-btn") {
+            closePanel();
+        }
+    }
+
     $(document).ready(function () {
         $('#createPackageModal').on('show.bs.modal', function (e) {
             var modal = $(this);
