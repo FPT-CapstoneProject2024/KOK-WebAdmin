@@ -15,7 +15,7 @@
     <!--Search-->
     <div class="input-group">
         <form method="post" class="input-group">
-            <input name="txt_search" type="search" class="form-control rounded" placeholder="Search..." value="@ViewBag.filter_search" aria-label="Search" aria-describedby="search-addon" />
+            <input asp-for="search" type="search" class="form-control rounded" placeholder="Từ Khóa..." aria-label="Search" aria-describedby="search-addon" />
             <span class="input-group-text border-0" id="search-addon">
             </span>
             <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Tìm Kiếm</button>
@@ -74,31 +74,31 @@
                     </div>
 
                     @* <div class="form-group"> *@
-                        <div>
-                            <label class="form-label">Số Tiền Trong Tài Khoản</label>
-                            <input asp-for="filter.UpBalance" class="form-control-sm" />
-                            <span asp-validation-for="filter.UpBalance" class="text-danger"></span>
-                        </div>
+                    <div>
+                        <label class="form-label">Số Tiền Trong Tài Khoản</label>
+                        <input asp-for="filter.UpBalance" class="form-control-sm" />
+                        <span asp-validation-for="filter.UpBalance" class="text-danger"></span>
+                    </div>
 
-                        <div>
-                            <label class="control-label">Họ Tên</label>
-                            <input asp-for="filter.Fullname" class="form-control-sm" />
-                            <span asp-validation-for="filter.Fullname" class="text-danger"></span>
-                        </div>
+                    <div>
+                        <label class="control-label">Họ Tên</label>
+                        <input asp-for="filter.Fullname" class="form-control-sm" />
+                        <span asp-validation-for="filter.Fullname" class="text-danger"></span>
+                    </div>
                     @* </div> *@
 
                     @* <div class="form-group"> *@
-                        <div>
-                            <label class="form-label">Năm Sinh</label>
-                            <input asp-for="filter.Yob" class="form-control-sm" />
-                            <span asp-validation-for="filter.Yob" class="text-danger"></span>
-                        </div>
+                    <div>
+                        <label class="form-label">Năm Sinh</label>
+                        <input asp-for="filter.Yob" class="form-control-sm" />
+                        <span asp-validation-for="filter.Yob" class="text-danger"></span>
+                    </div>
 
-                        <div>
-                            <label class="control-label">Số Định Danh</label>
-                            <input asp-for="filter.IdentityCardNumber" class="form-control-sm" />
-                            <span asp-validation-for="filter.IdentityCardNumber" class="text-danger"></span>
-                        </div>
+                    <div>
+                        <label class="control-label">Số Định Danh</label>
+                        <input asp-for="filter.IdentityCardNumber" class="form-control-sm" />
+                        <span asp-validation-for="filter.IdentityCardNumber" class="text-danger"></span>
+                    </div>
                     @* </div> *@
 
                     <button class="btn btn-google-plus" type="submit">Lưu Thông Tin</button>
@@ -109,7 +109,7 @@
 
         </div>
 
-        </div>
+    </div>
 
 
     <!--End Search-->
@@ -117,22 +117,23 @@
 
     <div class="table-container">
         <br />
-
-        <a href="Create" class="btn btn-success">Tạo tài khoản nhân viên</a>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createAccountModal">
+            Tạo tài khoản nhân viên
+        </button>
         <br />
         <!--Table list Account-->
         <table class="table table-hover" style="margin-top:20px;">
             <tr>
                 <th>#</th>
                 <th></th>
-                <th>Full Name</th>
+                @*                 <th>Full Name</th> *@
                 <th>Email</th>
-                <th>Username</th>
-                <th>Gender</th>
-                <th>Role</th>
-                <th>Is Online</th>
-                <th>Account Status</th>
-                <th>Inactive/Active</th>
+                <th>Tên Tài Khoản</th>
+                <th>Giới Tính</th>
+                <th>Vai Trò</th>
+                @*                 <th>Is Online</th>
+                <th>Account Status</th> *@
+                <th>Ẩn/Kích Hoạt</th>
                 <th></th>
             </tr>
             @if (Model.data.Results is not null)
@@ -143,15 +144,17 @@
                     <tr>
                         <td>@(count += 1)</td>
                         <td class="img-cell"><img src="@e.Image" alt="N/A" /></td>
-                        <td>@e.Fullname</td>
+                        @* <td>@e.Fullname</td> *@
                         <td>@e.Email</td>
                         <td>@e.UserName</td>
                         <td>@e.Gender</td>
                         <td>@e.Role</td>
-                        <td>@e.IsOnline</td>
-                        <td>@e.AccountStatus</td>
-                        <td><a asp-page-handler="Inactive" asp-route-id="@e.AccountId"  class="btn btn-dribbble" >Ẩn</a> | <a asp-page-handler="Active" asp-route-id="@e.AccountId" class="btn btn-warning">Kích hoạt</a></td>
-                        <td><a asp-page="./Details" asp-route-id="@e.AccountId" class="btn btn-dark">Chi tiết</a> </td>
+                        @* <td>@e.IsOnline</td> *@
+                        @* <td>@e.AccountStatus</td> *@
+                        <td><a asp-page-handler="Inactive" asp-route-id="@e.AccountId" class="btn btn-dribbble">Ẩn</a> | <a asp-page-handler="Active" asp-route-id="@e.AccountId" class="btn btn-warning">Kích hoạt</a></td>
+                        <td>
+                            <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailAccountModal" data-id="@e.AccountId">Chi Tiết</a>
+                        </td>
                     </tr>
 
                 }
@@ -168,5 +171,229 @@
             </div>
             <!--End Paging-->
         </div>
+
+
+
+
+
+        <!-- Create Modal -->
+        <div class="modal fade" id="createAccountModal" tabindex="-1" role="dialog" aria-labelledby="createAccountModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createAccountModalLabel">Tạo Tài Khoản Nhân Viên Mới</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- The content of the Create page will be loaded here -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Modal -->
+        <div class="modal fade" id="editAccountModal" tabindex="-1" role="dialog" aria-labelledby="editAccountModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg-custom" role="document">
+                <div class="modal-content edit-modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editAccountModalLabel">Chỉnh Sửa Tài Khoản</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="edit-modal-body">
+                        <!-- The content of the Edit page will be loaded here -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Details Modal -->
+        <div class="modal fade" id="detailAccountModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+            <div class="modal-dialog custom-modal-width" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detailModalLabel">Chi Tiết Tài Khoản</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body detail-modal-body">
+                        <!-- Nội dung chi tiết sẽ được tải vào đây -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            $(document).ready(function () {
+                $('#createAccountModal').on('show.bs.modal', function (e) {
+                    var modal = $(this);
+                    // Load only the form content from the Create page
+                    $.get('@Url.Page("./Create")', function (data) {
+                        var formContent = $(data).find('form');
+                        modal.find('.modal-body').html(formContent);
+
+                        // Attach an event listener to the form submit event
+                        modal.find('form').on('submit', function (e) {
+                            e.preventDefault(); // Prevent normal form submission
+
+                            // Use AJAX to submit the form data
+                            $.ajax({
+                                type: $(this).attr('method'),
+                                url: $(this).attr('action'),
+                                data: $(this).serialize(),
+                                success: function (response) {
+                                    if (response.success) {
+                                        // Close the modal and remove the backdrop
+                                        modal.modal('hide');
+                                        $('.modal-backdrop').remove(); // Ensure the backdrop is removed
+
+                                        // Show the success popup
+                                        Swal.fire({
+                                            title: 'Success!',
+                                            text: 'The account was created successfully.',
+                                            icon: 'success',
+                                            confirmButtonText: 'OK'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                // Reload the page when the user presses OK
+                                                location.reload();
+                                            }
+                                        });
+                                    } else {
+                                        // Handle the failure case
+                                        Swal.fire({
+                                            title: 'Error!',
+                                            text: 'There was a problem creating the account.',
+                                            icon: 'error',
+                                            confirmButtonText: 'OK'
+                                        });
+
+                                        // Close the modal and remove the backdrop
+                                        modal.modal('hide');
+                                        $('.modal-backdrop').remove();
+                                    }
+                                },
+                                error: function () {
+                                    // Close the modal and remove the backdrop in case of an error
+                                    modal.modal('hide');
+                                    $('.modal-backdrop').remove();
+
+                                    Swal.fire({
+                                        title: 'Error!',
+                                        text: 'There was a problem with the request.',
+                                        icon: 'error',
+                                        confirmButtonText: 'OK'
+                                    });
+                                }
+                            });
+                        });
+                    });
+                });
+            });
+
+            // Load Edit form content into the modal
+            $('#editAccountModal').on('show.bs.modal', function (e) {
+                var button = $(e.relatedTarget);
+                var accountId = button.data('id');
+                var modal = $(this);
+
+                // Load the edit form from the Edit page
+                $.get('@Url.Page("./Edit", new { id = "__ID__" })'.replace('__ID__', accountId), function (data) {
+                    var formContent = $(data).find('form');
+                    modal.find('.edit-modal-body').html(formContent);
+
+                    // Attach an event listener to the form submit event
+                    modal.find('form').on('submit', function (e) {
+                        e.preventDefault(); // Prevent normal form submission
+
+                        // Use AJAX to submit the form data
+                        $.ajax({
+                            type: $(this).attr('method'),
+                            url: $(this).attr('action'),
+                            data: $(this).serialize(),
+                            success: function (response) {
+                                if (response.success) {
+                                    // Close the modal and remove the backdrop
+                                    modal.modal('hide');
+                                    $('.modal-backdrop').remove(); // Ensure the backdrop is removed
+
+                                    // Show the success popup
+                                    Swal.fire({
+                                        title: 'Success!',
+                                        text: 'The account was edited successfully.',
+                                        icon: 'success',
+                                        confirmButtonText: 'OK'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            // Reload the page when the user presses OK
+                                            location.reload();
+                                        }
+                                    });
+                                } else {
+                                    // Handle the failure case
+                                    Swal.fire({
+                                        title: 'Error!',
+                                        text: 'There was a problem creating the account.',
+                                        icon: 'error',
+                                        confirmButtonText: 'OK'
+                                    });
+
+                                    // Close the modal and remove the backdrop
+                                    modal.modal('hide');
+                                    $('.modal-backdrop').remove();
+                                }
+                            },
+                            error: function () {
+                                // Close the modal and remove the backdrop in case of an error
+                                modal.modal('hide');
+                                $('.modal-backdrop').remove();
+
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: 'There was a problem with the request.',
+                                    icon: 'error',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        });
+                    });
+                });
+            });
+
+            // Load Detail form content into the modal
+            $(document).ready(function () {
+                $('#detailAccountModal').on('show.bs.modal', function (e) {
+                    var button = $(e.relatedTarget);
+                    var accountId = button.data('id');
+                    var modal = $(this);
+
+                    // Tải nội dung từ trang Details và chỉ lấy phần thân của nội dung
+                    $.get('@Url.Page("/Account/Details", new { id = "__ID__" })'.replace('__ID__', accountId), function (data) {
+                        var detailContent = $(data).find('.details').html(); // Lấy phần nội dung chính
+                        modal.find('.detail-modal-body').html(detailContent);
+                    });
+                });
+            });
+
+
+
+        </script>
+
+        <style>
+            .modal-dialog.modal-lg-custom {
+                max-width: 500px;
+            }
+
+            .edit-modal-content {
+                padding: 20px;
+            }
+        </style>
 </body>
 </html>

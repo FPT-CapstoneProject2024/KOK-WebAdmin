@@ -7,79 +7,210 @@
 <head>
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <style>
-        /* Collapsible Panel Styles */
-        #rightPanel {
-            height: 100%; /* Full height */
-            width: 0; /* Start hidden */
-            position: fixed;
-            z-index: 1050; /* Above other elements */
-            top: 0;
-            right: 0;
-            background-color: #343a40; /* Dark background */
-            overflow-x: hidden; /* Disable horizontal scroll */
-            padding-top: 60px; /* Space for content */
-            transition: 0.5s; /* Smooth slide effect */
-        }
-
-            #rightPanel a {
-                padding: 10px 20px;
-                text-decoration: none;
-                font-size: 18px;
-                color: white;
-                display: block;
-                transition: 0.3s;
-            }
-
-                #rightPanel a:hover {
-                    background-color: #575757;
-                }
-
-        .panel-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            font-size: 20px;
-            background-color: #28a745; /* Green color */
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            z-index: 1100;
-        }
-
-            .panel-btn:hover {
-                background-color: #218838;
-            }
-
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 25px;
-            font-size: 36px;
-        }
-    </style>
+    <!-- FontAwesome icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <!-- Search -->
-<div class="input-group">
+@* <div class="input-group">
     <form method="post" class="input-group">
-        <input name="txt_search" type="search" class="form-control rounded" placeholder="Search..." value="@ViewBag.filter_search" aria-label="Search" aria-describedby="search-addon" />
+        <input asp-for="search" type="search" class="form-control rounded" placeholder="Search..." aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
         </span>
         <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
     </form>
+    <div style="margin-top:20px;">
+        <button class="btn btn-outline-info" id="advancedSearchBtn" data-mdb-ripple-init>Tìm Kiếm Nâng Cao</button>
+    </div>
+
+</div> *@
+<!-- Search Bar -->
+<div class="input-group">
+    <form method="post" class="input-group">
+        <input asp-for="search" type="search" class="form-control rounded" placeholder="Search..." aria-label="Search" aria-describedby="search-addon" />
+        <span class="input-group-text border-0" id="search-addon">
+        </span>
+        <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
+    </form>
+    <div style="margin-top:20px;">
+        <!-- Toggle Button for Advanced Search -->
+        <button class="btn btn-outline-info" id="toggleAdvancedSearch">Tìm Kiếm Nâng Cao</button>
+    </div>
+</div>
+
+<!-- Advanced Search Panel (Initially Hidden) -->
+<div id="advancedSearchPanel" class="advanced-search-container" style="display: none; margin-top: 20px;">
+    <div class="card p-3 mb-4">
+        <h5 class="card-title">Tìm Kiếm Nâng Cao</h5>
+        <form asp-page-handler="SearchAdvanced" method="post">
+            <div class="row">
+                <!-- First row with 3 columns -->
+                <div class="col-md-4">
+                    <label class="form-label">Tên Gói</label>
+                    <input asp-for="filter.PackageName" class="form-control" />
+                    <span asp-validation-for="filter.PackageName" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Giá Gói</label>
+                    <input asp-for="filter.MoneyAmount" class="form-control" />
+                    <span asp-validation-for="filter.MoneyAmount" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Ngày Tạo</label>
+                    <input asp-for="filter.CreatedDate" class="form-control" type="datetime-local" />
+                    <span asp-validation-for="filter.CreatedDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <!-- Second row with 2 columns -->
+                <div class="col-md-4">
+                    <label class="form-label">Số Sao</label>
+                    <input asp-for="filter.StarNumber" class="form-control" />
+                    <span asp-validation-for="filter.StarNumber" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Trạng Thái</label>
+                    <select asp-for="filter.Status" class="form-select">
+                        <option value="INACTIVE">Không Hoạt Động</option>
+                        <option value="ACTIVE">Hoạt Động</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Save Button -->
+            <button type="submit" class="btn btn-success-search mt-3">Tìm Kiếm</button>
+        </form>
+    </div>
+</div>
+
+
+
+<style>
+    .advanced-search-container {
+        margin-bottom: 20px;
+    }
+
+    .card {
+        border-radius: 10px;
+        padding: 20px;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-title {
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+
+    .form-label {
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .form-control,
+    .form-select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="checkbox"] {
+        margin-left: 5px;
+        transform: scale(1.2);
+    }
+
+    .btn-success-search {
+        width: 100%;
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .btn-success-search:hover {
+            background-color: #218838;
+        }
+
+    .row {
+        margin-bottom: 15px;
+    }
+
+    .col-md-4 {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+</style>
+
+<div id="advancedSearchModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="formAdvanced">
+            <form asp-page-handler="SearchAdvanced" method="post" class="input-group">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div>
+                    <label class="control-label">Tên Gói</label>
+                    <input asp-for="filter.PackageName" class="form-control-sm" />
+                    <span asp-validation-for="filter.PackageName" class="text-danger"></span>
+                </div>
+                <div>
+                    <label class="control-label">Giá Gói</label>
+                    <input asp-for="filter.MoneyAmount" class="form-control-sm" />
+                    <span asp-validation-for="filter.MoneyAmount" clas="text-danger"></span>
+                </div>
+                <div>
+                    <label class="control-label">Ngày Tạo</label>
+                    <input asp-for="filter.CreatedDate" class="form-control-sm" />
+                    <span asp-validation-for="filter.CreatedDate" clas="text-danger"></span>
+                </div>
+                <div>
+                    <label class="control-label">Số Sao</label>
+                    <input asp-for="filter.StarNumber" class="form-control-sm" />
+                    <span asp-validation-for="filter.StarNumber" clas="text-danger"></span>
+                </div>
+
+
+                <div>
+                    <label class="control-label">Trạng Thái</label>
+                    <select asp-for="filter.Status">
+                        <option value="INACTIVE">Không Hoạt Động</option>
+                        <option value="ACTIVE">Hoạt Động</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-google-plus" type="submit">Lưu Thông Tin</button>
+
+
+            </form>
+        </div>
+
+    </div>
+
 </div>
 <!-- End Search -->
-<br/>
-<p>
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createPackageModal">
-        Tạo Gói Mới
-    </button>
-</p>
 
 <div class="table-container">
+
+    <br />
+    <p>
+        <button type="button" class="btn btn-success btn-icon-only" data-toggle="modal" data-target="#createPackageModal" style="border: none; background: transparent; padding: 0;">
+            <i class="fa-regular fa-square-plus" style="font-size: 42px; color: #28a745;"></i>
+        </button>
+    </p>
+
+
+
+
     <table class="table table-hover">
         <thead>
             <tr>
@@ -108,9 +239,16 @@
                         <td>@Html.DisplayFor(modelItem => package.Status)</td>
                         <td>@Html.DisplayFor(modelItem => package.CreatedDate)</td>
                         <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editPackageModal" data-id="@package.PackageId">Chỉnh sửa</button>
-                            <button type="button" class="btn btn-dark" onclick="location.href='@Url.Page("./Details", new { id = package.PackageId })'">Chi tiết</button>
-                            <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = package.PackageId })'">Xóa</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editPackageModal" style="border: none; background: transparent; padding: 0;" data-id="@package.PackageId">
+                                <i class="fa-solid fa-square-pen" style="font-size: 42px; color: #6EA0FF;"></i>
+                            </button>
+                            <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailPackageModal" data-id="@package.PackageId">
+                                <i class="fa-brands fa-jxl"></i>
+                                Chi Tiết
+                                </a>
+                            <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = package.PackageId })'">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
                         </td>
                     </tr>
                 }
@@ -129,7 +267,7 @@
     <!-- End Paging -->
 </div>
 
-<!-- Right-side Collapsible Panel -->
+@* <!-- Right-side Collapsible Panel -->
 <div id="rightPanel">
     <a href="javascript:void(0)" class="close-btn" onclick="togglePanel()">&times;</a>
     <a href="#">Link 1</a>
@@ -139,7 +277,7 @@
 </div>
 
 <!-- Button to open the panel -->
-<button class="panel-btn" onclick="togglePanel()">☰</button>
+<button class="panel-btn" onclick="togglePanel()">☰</button> *@
 
 <!-- Create Modal -->
 <div class="modal fade" id="createPackageModal" tabindex="-1" role="dialog" aria-labelledby="createPackageModalLabel" aria-hidden="true">
@@ -177,38 +315,83 @@
     </div>
 </div>
 
+<!-- Details Modal -->
+<div class="modal fade" id="detailPackageModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog custom-modal-width" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalLabel">Package Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body detail-modal-body">
+                <!-- Nội dung chi tiết sẽ được tải vào đây -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
-    // Function to toggle the panel
-    function togglePanel() {
-        const panel = document.getElementById("rightPanel");
-        if (panel.style.width === "250px") {
-            closePanel();
-        } else {
-            openPanel();
-        }
-    }
+    // // Function to toggle the panel
+    // function togglePanel() {
+    //     const panel = document.getElementById("rightPanel");
+    //     if (panel.style.width === "250px") {
+    //         closePanel();
+    //     } else {
+    //         openPanel();
+    //     }
+    // }
 
-    // Function to open the panel
-    function openPanel() {
-        document.getElementById("rightPanel").style.width = "250px";
-        // Add an event listener to detect clicks outside the panel
-        document.addEventListener("click", closeOnClickOutside);
-    }
+    // // Function to open the panel
+    // function openPanel() {
+    //     document.getElementById("rightPanel").style.width = "250px";
+    //     // Add an event listener to detect clicks outside the panel
+    //     document.addEventListener("click", closeOnClickOutside);
+    // }
 
-    // Function to close the panel
-    function closePanel() {
-        document.getElementById("rightPanel").style.width = "0";
-        // Remove the event listener when the panel is closed
-        document.removeEventListener("click", closeOnClickOutside);
-    }
+    // // Function to close the panel
+    // function closePanel() {
+    //     document.getElementById("rightPanel").style.width = "0";
+    //     // Remove the event listener when the panel is closed
+    //     document.removeEventListener("click", closeOnClickOutside);
+    // }
 
-    // Function to close the panel if the user clicks outside of it
-    function closeOnClickOutside(event) {
-        const panel = document.getElementById("rightPanel");
-        if (!panel.contains(event.target) && event.target.className !== "panel-btn") {
-            closePanel();
-        }
-    }
+    // // Function to close the panel if the user clicks outside of it
+    // function closeOnClickOutside(event) {
+    //     const panel = document.getElementById("rightPanel");
+    //     if (!panel.contains(event.target) && event.target.className !== "panel-btn") {
+    //         closePanel();
+    //     }
+    // }
+
+    document.getElementById('toggleAdvancedSearch').addEventListener('click', function () {
+        const panel = document.getElementById('advancedSearchPanel');
+        const isVisible = panel.style.display !== 'none';
+
+        // Toggle visibility
+        panel.style.display = isVisible ? 'none' : 'block';
+
+        // Optionally change button text
+        this.innerText = isVisible ? 'Tìm Kiếm Nâng Cao' : 'Ẩn Tìm Kiếm Nâng Cao';
+    });
+
+    // Load Detail form content into the modal
+    $(document).ready(function () {
+        $('#detailPackageModal').on('show.bs.modal', function (e) {
+            var button = $(e.relatedTarget);
+            var PackageId = button.data('id');
+            var modal = $(this);
+
+            // Tải nội dung từ trang Details và chỉ lấy phần thân của nội dung
+            $.get('@Url.Page("/Package/Details", new { id = "__ID__" })'.replace('__ID__', PackageId), function (data) {
+                var detailContent = $(data).find('.details').html(); // Lấy phần nội dung chính
+                modal.find('.detail-modal-body').html(detailContent);
+            });
+        });
+    });
+
 
     $(document).ready(function () {
         $('#createPackageModal').on('show.bs.modal', function (e) {

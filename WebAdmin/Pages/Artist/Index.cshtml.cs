@@ -20,6 +20,8 @@ namespace WebAdmin.Pages.Artist
         public int CurrentPage { get; set; }
         [BindProperty]
         public static int TotalPage { get; set; } = 1;
+        [BindProperty]
+        public string? search { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, IApiClient apiClient)
         {
@@ -62,9 +64,6 @@ namespace WebAdmin.Pages.Artist
 
         public async Task<IActionResult> OnPostSearch()
         {
-            //string? filter = Request.Form["txt_filter"];
-            string? search = Request.Form["txt_search"];
-            ViewData["filter_search"] = search;
             return await OnGet(filter: "&filter" + "=" + search);
 
         }

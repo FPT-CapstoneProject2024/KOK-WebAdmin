@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 using WebAdmin.Context;
+using WebAdmin.DTOModels.Filter;
 using WebAdmin.DTOModels.Response.Helpers;
 using WebAdmin.Pages.Account;
 using WebAdmin.Services.Implementation;
@@ -22,6 +24,10 @@ namespace WebAdmin.Pages.Item
         public int CurrentPage { get; set; }
         [BindProperty]
         public static int TotalPage { get; set; } = 1;
+        [BindProperty]
+        public ItemFilter? filter { get; set; }
+        [BindProperty]
+        public string? search { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, IApiClient apiClient)
         {
@@ -71,6 +77,49 @@ namespace WebAdmin.Pages.Item
 
             return await OnGet(filter: "&filter"  + "=" + search);
 
+        }
+
+
+        public async Task<IActionResult> OnPostSearchAdvanced(string? number = null)
+        {
+
+            CurrentPage = int.Parse(number ?? "1");
+            CurrentPage = (CurrentPage < 1) ? 1 : CurrentPage;
+            CurrentPage = (CurrentPage > TotalPage) ? TotalPage : CurrentPage;
+
+            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ItemResource;
+            var queryParams = new Dictionary<string, string>()
+            {
+                {"ItemCode", filter.ItemCode },
+                {"ItemName", filter.ItemName },
+                {"ItemDescription", filter.ItemDescription },
+                {"ItemType", filter.ItemType },
+                {"ItemStatus", string.Concat(filter.ItemStatus) },
+                {"CanExpire", string.Concat(filter.CanExpire) },
+                {"CanStack", string.Concat(filter.CanStack) },
+                {"CreatedDate", string.Concat(filter.CreatedDate) },
+                {"PrefabCode", filter.PrefabCode },
+                {"ItemBuyPrice", string.Concat(filter.ItemBuyPrice) },
+                {"ItemSellPrice", string.Concat(filter.ItemSellPrice) },
+                {"page", string.Concat(CurrentPage) },
+
+
+            };
+
+            var response = await apiClient.GetAsync(QueryHelpers.AddQueryString(uri, queryParams));
+
+
+
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+#pragma warning disable CS8601 // Possible null reference assignment.
+            data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Item>>(jsonResponse);
+#pragma warning restore CS8601 // Possible null reference assignment.
+
+            if (data.Results is not null)
+            {
+                TotalPage = (int)MathF.Ceiling((float)data.Metadata.Total / (float)data.Metadata.Size);
+            }
+            return Page();
         }
 
     }

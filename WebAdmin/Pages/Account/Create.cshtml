@@ -6,7 +6,7 @@
     <div class="col-md-4">
         <form method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <label asp-for="Account.UserName" class="control-label"></label>
+                <label @* asp-for="Account.UserName"  *@class="control-label">Tên Tài Khoản</label>
                 <input asp-for="Account.UserName" type="text" placeholder="Username" required class="form-control" />
                 <span asp-validation-for="Account.UserName" class="text-danger"></span>
             </div>
@@ -17,18 +17,18 @@
                 <span asp-validation-for="Account.Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Account.Password" class="control-label"></label>
+                <label @* asp-for="Account.Password" *@ class="control-label">Mật Khẩu</label>
                 <input asp-for="Account.Password" type="password" placeholder="Password" required class="form-control" />
                 <span asp-validation-for="Account.Password" class="text-danger"></span>
             </div>
             <br />
             <div class="form-group">
-                <label asp-for="Account.Fullname" class="control-label">Full Name</label>
+                <label @* asp-for="Account.Fullname" *@ class="control-label">Họ Tên</label>
                 <input asp-for="Account.Fullname" type="Fullname" placeholder="Fullname" class="form-control" />
                 <span asp-validation-for="Account.Fullname" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Account.Gender" class="control-label"></label>
+                <label @* asp-for="Account.Gender" *@ class="control-label">Giới Tính</label>
                 <select asp-for="Account.Gender" class="form-control">
                     <option value="MALE" selected>Nam</option>
                     <option value="FEMALE">Nữ</option>
@@ -39,29 +39,29 @@
 
             <input asp-for="Account.Role" value="STAFF" type="hidden" />
             <div class="form-group">
-                <label asp-for="Account.UpBalance" class="control-label"></label>
+                <label@*  asp-for="Account.UpBalance" *@ class="control-label">Tài Khoản (UP)</label>
                 <input asp-for="Account.UpBalance" type="number" required class="form-control" />
                 <span asp-validation-for="Account.UpBalance" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Account.Yob" class="control-label">Yob</label>
+                <label @* asp-for="Account.Yob"  *@class="control-label">Năm Sinh</label>
                 <input asp-for="Account.Yob" type="number" class="form-control" />
                 <span asp-validation-for="Account.Yob" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Account.IdentityCardNumber" class="control-label"></label>
+                <label@*  asp-for="Account.IdentityCardNumber" *@ class="control-label">Số Định Danh</label>
                 <input asp-for="Account.IdentityCardNumber" type="number" class="form-control" />
                 <span asp-validation-for="Account.IdentityCardNumber" class="text-danger"></span>
             </div>
             <br />
             <div class="form-group">
-                <label asp-for="Account.PhoneNumber" class="control-label"></label>
+                <label @* asp-for="Account.PhoneNumber" *@ class="control-label">Số Điện Thoại</label>
                 <input asp-for="Account.PhoneNumber" type="number" class="form-control" />
                 <span asp-validation-for="Account.PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Account.AccountStatus" class="control-label"></label>
+                <label @* asp-for="Account.AccountStatus" *@ class="control-label">Trạng Thái</label>
                 <select asp-for="Account.AccountStatus" class="form-control" required>
                     <option value="NOT_VERIFY">Chưa xác thực</option>
                     <option value="ACTIVE">Hoạt động</option>

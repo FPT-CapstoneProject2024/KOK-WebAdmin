@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using WebAdmin.Helpers;
 
 namespace WebAdmin.DTOModels.Request.Account
@@ -8,6 +9,7 @@ namespace WebAdmin.DTOModels.Request.Account
         [Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
         public string UserName { get; set; } = null!;
         [Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
+        [PasswordPropertyText]
         public string Password { get; set; } = null!;
         [EmailAddress]
         public string Email { get; set; } = null!;

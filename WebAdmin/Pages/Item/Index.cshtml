@@ -12,19 +12,115 @@
 <!--Search-->
 <div class="input-group">
     <form method="post" class="input-group">
-        <input name="txt_search" type="search" class="form-control rounded" placeholder="Search..." value="@ViewBag.filter_search" aria-label="Search" aria-describedby="search-addon" />
+        <input asp-for="search" type="search" class="form-control rounded" placeholder="Search..." aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
         </span>
         <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
 
     </form>
+    <div style="margin-top:20px;">
+        <button class="btn btn-outline-info" id="advancedSearchBtn" data-mdb-ripple-init>Tìm Kiếm Nâng Cao</button>
+    </div>
+
 </div>
+
+<div id="advancedSearchModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="formAdvanced">
+            <form asp-page-handler="SearchAdvanced" method="post" class="input-group">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @* <div class="form-group"> *@
+                <div>
+                    <label class="control-label">Mã Vật Phẩm</label>
+                    <input asp-for="filter.ItemCode" class="form-control-sm" />
+                    <span asp-validation-for="filter.ItemCode" class="text-danger"></span>
+                </div>
+                <div>
+                    <label class="control-label">Tên Vật Phẩm</label>
+                    <input asp-for="filter.ItemName" class="form-control-sm" />
+                    <span asp-validation-for="filter.ItemName" clas="text-danger"></span>
+                </div>
+                
+                <div>
+                    <label class="control-label">Hết Hạn? </label>
+                    <input asp-for="filter.CanExpire" class="form-control-sm" />
+                    <span asp-validation-for="filter.CanExpire" clas="text-danger"></span>
+                </div>
+                
+                <div>
+                    <label class="control-label">Cho Phép Mua Nhiều? </label>
+                    <input asp-for="filter.CanStack" class="form-control-sm" />
+                    <span asp-validation-for="filter.CanStack" clas="text-danger"></span>
+                </div>
+                
+                <div>
+                    <label class="control-label">Mô Tả Vật Phẩm</label>
+                    <input asp-for="filter.ItemDescription" class="form-control-sm" />
+                    <span asp-validation-for="filter.ItemDescription" clas="text-danger"></span>
+                </div>
+                
+                <div>
+                    <label class="control-label">Ngày Tạo Vật Phẩm</label>
+                    <input asp-for="filter.CreatedDate" class="form-control-sm" />
+                    <span asp-validation-for="filter.CreatedDate" clas="text-danger"></span>
+                </div>
+                
+                <div>
+                    <label class="control-label">Prefab Code</label>
+                    <input asp-for="filter.PrefabCode" class="form-control-sm" />
+                    <span asp-validation-for="filter.PrefabCode" clas="text-danger"></span>
+                </div>
+                
+                <div>
+                    <label class="control-label">Giá Mua Vật Phẩm</label>
+                    <input asp-for="filter.ItemBuyPrice" class="form-control-sm" />
+                    <span asp-validation-for="filter.ItemBuyPrice" clas="text-danger"></span>
+                </div>
+                
+                <div>
+                    <label class="control-label">Giá Bán Vật Phẩm</label>
+                    <input asp-for="filter.ItemSellPrice" class="form-control-sm" />
+                    <span asp-validation-for="filter.ItemSellPrice" clas="text-danger"></span>
+                </div>
+
+                <div>
+                    <label class="control-label">Loại Vật Phẩm</label>
+                    <select asp-for="filter.ItemType">
+                        <option value="CHARACTER">Nhân Vật</option>
+                        <option value="ROOM">Phòng</option>
+                        <option value="DEFAULT">Mặc Định</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="control-label">Trạng Thái</label>
+                    <select asp-for="filter.ItemStatus">
+                        <option value="DISABLE">Chưa Kích Hoạt</option>
+                        <option value="ENABLE">Kích Hoạt</option>
+                        <option value="PENDING">Chờ Duyệt</option>
+                    </select>
+                </div>
+
+
+
+                <button class="btn btn-google-plus" type="submit">Lưu Thông Tin</button>
+
+
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!--End Search-->
 <!--End Search-->
 
 
 <div class="table-container">
     <br />
-+
     <p>
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createItemModal">
             Tạo Vật Phẩm Mới
@@ -38,8 +134,8 @@
                 <th>Prefab Code</th>
                 <th>Item Name</th>
                 <th>Item Type</th>
-                <th>Created Date</th>
-                <th>Item Description</th>
+                @* <th>Created Date</th> *@
+                @* <th>Item Description</th> *@
                 <th>Can Expire</th>
                 <th>Can Stack</th>
                 <th>Item Status</th>
@@ -71,12 +167,12 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.ItemType)
                         </td>
-                        <td>
+                       @*  <td>
                             @Html.DisplayFor(modelItem => item.CreatedDate)
-                        </td>
-                        <td>
+                        </td> *@
+                     @*    <td>
                             @Html.DisplayFor(modelItem => item.ItemDescription)
-                        </td>
+                        </td> *@
                         <td>
                             @Html.DisplayFor(modelItem => item.CanExpire)
                         </td>
@@ -97,7 +193,7 @@
                         </td>
                         <td>
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editItemModal" data-id="@item.ItemId">Chỉnh sửa</button>
-                            <button type="button" class="btn btn-dark" onclick="location.href='@Url.Page("./Details", new { id = item.ItemId })'">Chi tiết</button>
+                            <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailItemModal" data-id="@item.ItemId">Chi Tiết</a>
                             <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = item.ItemId })'">Xóa</button>
                         </td>
                     </tr>
@@ -156,7 +252,46 @@
     </div>
 </div>
 
+
+<!-- Details Modal -->
+<div class="modal fade" id="detailItemModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog custom-modal-width" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalLabel">Item Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body detail-modal-body">
+                <!-- Nội dung chi tiết sẽ được tải vào đây -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <script>
+
+
+    // Load Detail form content into the modal
+    $(document).ready(function () {
+        $('#detailItemModal').on('show.bs.modal', function (e) {
+            var button = $(e.relatedTarget);
+            var ItemId = button.data('id');
+            var modal = $(this);
+
+            // Tải nội dung từ trang Details và chỉ lấy phần thân của nội dung
+            $.get('@Url.Page("/Item/Details", new { id = "__ID__" })'.replace('__ID__', ItemId), function (data) {
+                var detailContent = $(data).find('.details').html(); // Lấy phần nội dung chính
+                modal.find('.detail-modal-body').html(detailContent);
+            });
+        });
+    });
+
+
+
     $(document).ready(function () {
         $('#createItemModal').on('show.bs.modal', function (e) {
             var modal = $(this);

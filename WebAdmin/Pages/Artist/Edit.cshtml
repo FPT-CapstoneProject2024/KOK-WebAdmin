@@ -11,12 +11,11 @@
         <form method="post" enctype="multipart/form-data" asp-page="./Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="UpdateArtist.ArtistName" class="control-label"></label>
-                <input asp-for="UpdateArtist.ArtistName" class="form-control" />
+                <label @* asp-for="UpdateArtist.ArtistName" *@ class="control-label">Tên Tác Giả</label>
                 <span asp-validation-for="UpdateArtist.ArtistName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UpdateArtist.Image" class="control-label"></label>
+                <label @* asp-for="UpdateArtist.Image" *@ class="control-label">Hình Ảnh</label>
                 <input type="file" name="file" class="form-control" />
             </div>
             <input type="hidden" asp-for="Artist.ArtistId" />
@@ -25,8 +24,4 @@
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-page="./Index">Back to List</a>
 </div>
