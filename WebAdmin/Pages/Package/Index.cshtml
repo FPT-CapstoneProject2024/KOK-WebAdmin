@@ -25,22 +25,23 @@
 
 </div> *@
 <!-- Search Bar -->
-<div class="input-group">
+<div style="max-width: 1200px;">
     <form method="post" class="input-group">
         <input asp-for="search" type="search" class="form-control rounded" placeholder="Search..." aria-label="Search" aria-describedby="search-addon" />
-        <span class="input-group-text border-0" id="search-addon">
-        </span>
+        <span class="input-group-text border-0" id="search-addon"></span>
         <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
     </form>
-    <div style="margin-top:20px;">
-        <!-- Toggle Button for Advanced Search -->
+
+    <!-- Toggle Button for Advanced Search in a new row -->
+    <div style="margin-top: 10px; text-align: left;">
         <button class="btn btn-outline-info" id="toggleAdvancedSearch">Tìm Kiếm Nâng Cao</button>
     </div>
 </div>
 
+
 <!-- Advanced Search Panel (Initially Hidden) -->
 <div id="advancedSearchPanel" class="advanced-search-container" style="display: none; margin-top: 20px;">
-    <div class="card p-3 mb-4">
+    <div class="card p-3 mb-4 custom-card-width">
         <h5 class="card-title">Tìm Kiếm Nâng Cao</h5>
         <form asp-page-handler="SearchAdvanced" method="post">
             <div class="row">
@@ -91,6 +92,13 @@
         margin-bottom: 20px;
     }
 
+    /* Adjusting the width of the container */
+    .custom-card-width {
+        width: 100%; /* Change this value as needed */
+        max-width: 1200px; /* Optional: Set a max-width */
+        /* margin: 0 auto; /* Center the container horizontally */ */
+    }
+
     .card {
         border-radius: 10px;
         padding: 20px;
@@ -138,9 +146,9 @@
         transition: background-color 0.3s;
     }
 
-        .btn-success-search:hover {
-            background-color: #218838;
-        }
+    .btn-success-search:hover {
+        background-color: #218838;
+    }
 
     .row {
         margin-bottom: 15px;
@@ -239,15 +247,18 @@
                         <td>@Html.DisplayFor(modelItem => package.Status)</td>
                         <td>@Html.DisplayFor(modelItem => package.CreatedDate)</td>
                         <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editPackageModal" style="border: none; background: transparent; padding: 0;" data-id="@package.PackageId">
-                                <i class="fa-solid fa-square-pen" style="font-size: 42px; color: #6EA0FF;"></i>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editPackageModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@package.PackageId">
+                                <i class="fa-solid fa-pen" style="font-size: 30px;color: #fff;"></i>
                             </button>
-                            <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailPackageModal" data-id="@package.PackageId">
+                            @* <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailPackageModal" data-id="@package.PackageId">
                                 <i class="fa-brands fa-jxl"></i>
                                 Chi Tiết
-                                </a>
-                            <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = package.PackageId })'">
-                                <i class="fa-regular fa-trash-can"></i>
+                                </a> *@
+                            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#detailPackageModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@package.PackageId">
+                                <i class="fa-solid fa-file-lines" style="font-size: 30px;color: #fff;"></i>
+                            </button>
+                            <button type="button" class="btn btn-google-plus" style="border: none; padding: 0; width: 42px; height: 42px; align-items: center; justify-content: center;" onclick="location.href='@Url.Page("./Delete", new { id = package.PackageId })'">
+                                <i class="fa-regular fa-trash-can" style="font-size: 30px; color: #fff;"></i>
                             </button>
                         </td>
                     </tr>
