@@ -1,4 +1,5 @@
-﻿@model WebAdmin.Pages.Song.CreateModel
+﻿@using WebAdmin.DTOModels.Request.Song
+@model WebAdmin.Pages.Song.CreateModel
 
 @if (Model.SearchArtistResults != null && Model.SearchArtistResults.Count > 0)
 {
@@ -10,7 +11,7 @@
                 <input asp-for="SelectedArtistId" value="@result.ArtistId" type="hidden" />
                 <p>@result.ArtistName</p>
                 <img src="@result.Image" alt="N/A" />
-                @if (!Song.CreateModel.SongIds.Any(a => a.ArtistId == result.ArtistId))
+                @if (!CreateSongRequestModel.SongArtists.Any(a => a.ArtistId == result.ArtistId))
                 {
                     <input value="Thêm tác giả" type="submit" name="submit" class="btn btn-danger" />
                 }

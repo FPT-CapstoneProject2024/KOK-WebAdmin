@@ -15,11 +15,11 @@ namespace WebAdmin.DTOModels.Request.Song
         [RegularExpression(Constraints.VALIDATE_AMOUNT, ErrorMessage = Constraints.STAR_INVALID)]
         public decimal Price { get; set; }
         [Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
-        public ICollection<SongGenreRequestModel>? SongGenres { get; set; } = new List<SongGenreRequestModel>();
+        public static ICollection<SongGenreRequestModel>? SongGenres { get; set; } = new List<SongGenreRequestModel>();
         [Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
-        public ICollection<SongArtistRequestModel>? SongArtists { get; set; } = new List<SongArtistRequestModel>();
+        public static ICollection<SongArtistRequestModel>? SongArtists { get; set; } = new List<SongArtistRequestModel>();
         [Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
-        public ICollection<SongSingerRequestModel>? SongSingers { get; set; } = new List <SongSingerRequestModel>();
+        public static ICollection<SongSingerRequestModel>? SongSingers { get; set; } = new List <SongSingerRequestModel>();
 
 
     }

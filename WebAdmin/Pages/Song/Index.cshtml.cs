@@ -238,7 +238,8 @@ namespace WebAdmin.Pages.Song
             }
 
             // Return JSON response
-            return new JsonResult(new { success = true, message = "Singer added/removed successfully." });
+            return Page();
+           // return new JsonResult(new { success = true, message = "Singer added/removed successfully." });
         }
 
         public IActionResult OnPostAddGerne()

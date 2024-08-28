@@ -24,10 +24,10 @@ namespace WebAdmin.Pages.Song
         public IApiClient apiClient { get; set; }
 
         [BindProperty]
-        public DTOModels.Request.Song.CreateSongRequestModel Song { get; set; } = new DTOModels.Request.Song.CreateSongRequestModel();
-        public static List<SongArtist> SongIds { get; set; } = new List<SongArtist>();
-        public static List<SongSinger> SingerIds { get; set; } = new List<SongSinger>();
-        public static List<SongGenre> GenreIds { get; set; } = new List<SongGenre>();
+        public CreateSongRequestModel Song { get; set; } = new DTOModels.Request.Song.CreateSongRequestModel();
+        //public static List<SongArtist> SongIds { get; set; } = new List<SongArtist>();
+        //public static List<SongSinger> SingerIds { get; set; } = new List<SongSinger>();
+        //public static List<SongGenre> GenreIds { get; set; } = new List<SongGenre>();
         public List<DTOModels.Response.Artist> SearchArtistResults { get; set; } = new List<DTOModels.Response.Artist>();
         public List<DTOModels.Response.Singer> SearchSingerResults { get; set; } = new List<DTOModels.Response.Singer>();
         public List<DTOModels.Response.Genre> SearchGenreResults { get; set; } = new List<DTOModels.Response.Genre>();
@@ -61,9 +61,9 @@ namespace WebAdmin.Pages.Song
                     return Page();
                 }
                 Song.CreatorId = LoginModel.AccountId.Value;                
-                Song.SongArtists = _mapper.Map<ICollection<SongArtistRequestModel>>(SongIds);
-                Song.SongSingers = _mapper.Map<ICollection<SongSingerRequestModel>>(SingerIds);
-                Song.SongGenres = _mapper.Map<ICollection<SongGenreRequestModel>>(GenreIds);
+                //Song.SongArtists = _mapper.Map<ICollection<SongArtistRequestModel>>(SongIds);
+                //Song.SongSingers = _mapper.Map<ICollection<SongSingerRequestModel>>(SingerIds);
+                //Song.SongGenres = _mapper.Map<ICollection<SongGenreRequestModel>>(GenreIds);
 
                 var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.SongResource;
 
@@ -134,6 +134,10 @@ namespace WebAdmin.Pages.Song
             {
                 return RedirectToPage("/Error");
             }
+            finally
+            {
+                Song = new CreateSongRequestModel();
+            }
             return null;
         }
 
@@ -181,29 +185,45 @@ namespace WebAdmin.Pages.Song
             string value = Request.Form["submit"];
             if (value.Equals("Bỏ chọn"))
             {
-                GenreIds.Remove(GenreIds.Find(x => x.GenreId == SelectedArtistId));
+                CreateSongRequestModel.SongArtists.Remove(CreateSongRequestModel.SongArtists.FirstOrDefault(x => x.ArtistId == SelectedArtistId));
             }
             else
             {
-                SongIds.Add(new SongArtist() { ArtistId = SelectedArtistId });
+                CreateSongRequestModel.SongArtists.Add(new SongArtistRequestModel() { ArtistId = SelectedArtistId });
 
                 SearchArtistResults.RemoveAll(a => a.ArtistId == SelectedArtistId);
             }
         }
 
-        public void OnPostAddSinger()
+        //public void OnPostAddSinger(Guid singerId, string action)
+        //{
+        //     Logic để thêm hoặc bỏ chọn ca sĩ
+       
+        //    var singer = Song.SongSingers.FirstOrDefault(s => s.SingerId == singerId);
+        //    if (singer != null)
+        //    {
+        //        if (Song.SongSingers.Any(s => s.SingerId == singerId))
+        //            Song.SongSingers.Remove(singer);
+        //        else
+        //            Song.SongSingers.Add(singer);
+        //    }
+        //}
+
+        public IActionResult OnPostAddSinger()
         {
             string value = Request.Form["submit"];
             if (value.Equals("Bỏ chọn"))
             {
-                SingerIds.Remove(SingerIds.Find(x => x.SingerId == SelectedSingerId));
+                CreateSongRequestModel.SongSingers.Remove(CreateSongRequestModel.SongSingers.FirstOrDefault(x => x.SingerId == SelectedSingerId));
             }
             else
             {
-                SingerIds.Add(new SongSinger() { SingerId = SelectedSingerId });
+                CreateSongRequestModel.SongSingers.Add(new SongSingerRequestModel() { SingerId = SelectedSingerId });
 
                 SearchSingerResults.RemoveAll(a => a.SingerId == SelectedSingerId);
             }
+            return Page();
+            //return Partial("_SearchSingerResults", this);
         }
 
         public void OnPostAddGerne()
@@ -211,11 +231,11 @@ namespace WebAdmin.Pages.Song
             string value = Request.Form["submit"];
             if (value.Equals("Bỏ chọn"))
             {
-                GenreIds.Remove(GenreIds.Find(x => x.GenreId == SelectedGenreId));
+                CreateSongRequestModel.SongGenres.Remove(CreateSongRequestModel.SongGenres.FirstOrDefault(x => x.GenreId == SelectedGenreId));
             }
             else
             {
-                GenreIds.Add(new DTOModels.Response.SongGenre() { GenreId = SelectedGenreId });
+                CreateSongRequestModel.SongGenres.Add(new SongGenreRequestModel() { GenreId = SelectedGenreId });
 
                 SearchGenreResults.RemoveAll(a => a.GenreId == SelectedGenreId);
             }
