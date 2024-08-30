@@ -1,4 +1,4 @@
-{
+﻿{
 	"version": 3,
 	"file": "dashboard-free.css",
 	"sources": [
@@ -168,7 +168,7 @@
 		"../scss/custom/_navbar.scss",
 		"../scss/custom/navbars/_navbar.scss",
 		"../scss/custom/navbars/_navbar-vertical.scss",
-		"../scss/custom/navbars/_navbar-search.scss",
+		"../scss/custom/navbars/_navbar-Tìm Kiếm.scss",
 		"../scss/custom/navbars/_navbar-dropdown.scss",
 		"../scss/custom/navbars/_navbar-collapse.scss",
 		"../scss/custom/_pagination.scss",

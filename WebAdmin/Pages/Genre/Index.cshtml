@@ -11,10 +11,10 @@
 <!--Search-->
 <div class="input-group">
     <form method="post" class="input-group">
-        <input asp-for="search" type="search" class="form-control rounded" placeholder="Search..." aria-label="Search" aria-describedby="search-addon" />
+        <input asp-for="search" type="search" class="form-control rounded" placeholder="Tìm Kiếm..." aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
         </span>
-        <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
+        <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Tìm Kiếm</button>
 
     </form>
 </div>
@@ -34,9 +34,9 @@
     <thead>
         <tr>
             <th>
-                Genre Name
+                Tên Thể Loại
             </th>
-            <th>Image</th>
+            <th>Hình Ảnh</th>
             <th></th>
         </tr>
     </thead>
@@ -51,9 +51,9 @@
                 </td>
                 <td class="img-cell"><img src="@Html.DisplayFor(modelItem => item.Image)" alt="N/A"/></td>
                 <td>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editGenreModal" data-id="@item.GenreId">Chỉnh Sửa</button>
-                     <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailGenreModal" data-id="@item.GenreId">Chi Tiết</a>
-                    <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = item.GenreId })'">Xóa</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editGenreModal" data-id="@item.GenreId"> <i class="fa-solid fa-pen" style="font-size: 30px;color: #fff;"></i></button>
+                     <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailGenreModal" data-id="@item.GenreId"><i class="fa-solid fa-file-lines" style="font-size: 30px;color: #fff;"></i></a>
+                    <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = item.GenreId })'"><i class="fa-regular fa-trash-can" style="font-size: 30px; color: #fff;"></i></button>
                 </td>
             </tr>
         }

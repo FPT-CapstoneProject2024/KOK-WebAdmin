@@ -22,14 +22,16 @@
 
         </form>
         <div style="margin-top:20px;">
-            <button class="btn btn-outline-info" id="advancedSearchBtn" data-mdb-ripple-init>Tìm Kiếm Nâng Cao</button>
+            <button class="btn btn-outline-info" id="toggleAdvancedSearch" data-mdb-ripple-init>Tìm Kiếm Nâng Cao</button>
         </div>
 
     </div>
 
-    <div id="advancedSearchModal" class="modal">
+    <div id="advancedSearchPanel" class="advanced-search-container" style="display: none; margin-top: 20px;">
+
+         @* <div id="advancedSearchModal" class="modal">@* advancedSearchBtn *@ 
         <div class="modal-content">
-            <span class="close">&times;</span>
+            @* <span class="close">&times;</span> *@
             <div class="formAdvanced">
                 <form asp-page-handler="SearchAdvanced" method="post" class="input-group">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -109,7 +111,9 @@
 
         </div>
 
-    </div>
+    </div> 
+
+
 
 
     <!--End Search-->
@@ -153,7 +157,7 @@
                         @* <td>@e.AccountStatus</td> *@
                         <td><a asp-page-handler="Inactive" asp-route-id="@e.AccountId" class="btn btn-dribbble">Ẩn</a> | <a asp-page-handler="Active" asp-route-id="@e.AccountId" class="btn btn-warning">Kích hoạt</a></td>
                         <td>
-                            <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailAccountModal" data-id="@e.AccountId">Chi Tiết</a>
+                            <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailAccountModal" data-id="@e.AccountId"><i class="fa-solid fa-file-lines" style="font-size: 30px;color: #fff;"></i></a>
                         </td>
                     </tr>
 
@@ -231,6 +235,18 @@
 
 
         <script>
+
+            document.getElementById('toggleAdvancedSearch').addEventListener('click', function () {
+                const panel = document.getElementById('advancedSearchPanel');
+                const isVisible = panel.style.display !== 'none';
+
+                // Toggle visibility
+                panel.style.display = isVisible ? 'none' : 'block';
+
+                // Optionally change button text
+                this.innerText = isVisible ? 'Tìm Kiếm Nâng Cao' : 'Ẩn Tìm Kiếm Nâng Cao';
+            });
+
             $(document).ready(function () {
                 $('#createAccountModal').on('show.bs.modal', function (e) {
                     var modal = $(this);

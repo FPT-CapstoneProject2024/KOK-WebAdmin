@@ -31,6 +31,10 @@
     @* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> *@
     @* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> *@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+        <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- FontAwesome icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 
     <style>
@@ -80,9 +84,14 @@
             border-top: 1px solid #dee2e6;
         }
 
-        /*         .container {
-
-                        } */
+                .container {
+/*             display: flex;
+            flex-direction: column;
+            height: 100%;
+            flex-grow: 1;
+            overflow-y: auto;
+            overflow-x: auto; */
+        }
 
         .table-container {
             position: fixed;
@@ -271,12 +280,50 @@
                 background-color: #218838;
             }
 
+
+        .table-hover button{
+            border: none;
+            padding: 0;
+            width: 42px;
+            height: 42px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dropdown-submenu {
+            position: relative;
+        }
+
+            .dropdown-submenu > .dropdown-menu {
+                display: none;
+                position: absolute;
+                left: 0; /* Đặt submenu bên dưới menu cha */
+                top: 100%; /* Hiển thị menu con phía dưới mục cha */
+                margin-top: 0;
+                margin-left: 0;
+            }
+
+            .dropdown-submenu:hover > .dropdown-menu {
+                display: block;
+            }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+            margin-top: 0;
+        }
+
+        .dropdown-item.dropdown-toggle::after {
+            content: "▼"; /* Mũi tên chỉ xuống */
+            float: right;
+        }
+
+
     </style>
 
 </head>
 
 <body>
-    <header>
+    <header style="z-index: 400">
         <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
             <div class="container-fluid">
                 <!-- Toggler -->
@@ -369,8 +416,8 @@
                                     <i class="ni ni-tv-2 text-primary"></i> Bảng Thống Kê
                                 </a>
 
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" asp-page="/Dashboard/Index">Tổng Quan</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"> 
+                                     <a class="dropdown-item" asp-page="/Dashboard/Index">Tổng Quan</a>
                                     <div class="dropdown-submenu">
                                         <a class="dropdown-item dropdown-toggle" href="#" id="monetaryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Giao dịch tiền mặt</a>
                                         <ul class="list-group">
@@ -378,6 +425,9 @@
                                             <li class="list-group-item"><a class="dropdown-item" asp-page="/Dashboard/Date/Monetary">Giao dịch trong ngày</a></li>
                                         </ul>
                                     </div>
+
+
+
                                     <div class="dropdown-submenu">
                                         <a class="dropdown-item dropdown-toggle" href="#" id="monetaryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Giao dịch ứng dụng</a>
                                         <ul class="list-group">
@@ -389,7 +439,36 @@
                             </div>
 
 
-                        </li>
+                        </li> 
+@* 
+                        <li class="nav-item dropdown">
+                            <div class="dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="ni ni-tv-2 text-primary"></i> Bảng Thống Kê
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" asp-page="/Dashboard/Index">Tổng Quan</a>
+
+                                    <div class="dropdown-submenu">
+                                        <a class="dropdown-item dropdown-toggle" href="#">Giao dịch tiền mặt</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="list-group-item"><a class="dropdown-item" asp-page="/Dashboard/Monetary">Giao dịch trong tháng</a></li>
+                                            <li class="list-group-item"><a class="dropdown-item" asp-page="/Dashboard/Date/Monetary">Giao dịch trong ngày</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="dropdown-submenu">
+                                        <a class="dropdown-item dropdown-toggle" href="#">Giao dịch ứng dụng</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="list-group-item"><a class="dropdown-item" asp-page="/Dashboard/Game">Giao dịch trong tháng</a></li>
+                                            <li class="list-group-item"><a class="dropdown-item" asp-page="/Dashboard/Date/Game">Giao dịch trong ngày</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li> *@
+
 
                         <li class="nav-item">
                             <a asp-page="/Account/Index1" class="nav-link ">
@@ -402,8 +481,6 @@
                                 <i class="ni ni-tv-2 text-primary"></i> Danh Sách Thể Loại
                             </a>
                         </li>
-
-
 
 
                         <li class="nav-item dropdown">
@@ -646,6 +723,23 @@
                 modal.style.display = "none";
             }
         }
+
+
+        document.querySelectorAll('.dropdown-submenu > a').forEach(function (element) {
+            element.addEventListener('click', function (e) {
+                e.preventDefault();
+                var submenu = this.nextElementSibling;
+                submenu.classList.toggle('show');
+            });
+        });
+        document.querySelectorAll('.dropdown-submenu > a').forEach(function (element) {
+            element.addEventListener('click', function (e) {
+                e.preventDefault();
+                var submenu = this.nextElementSibling;
+                submenu.classList.toggle('show');
+            });
+        });
+
 
     </script>
 

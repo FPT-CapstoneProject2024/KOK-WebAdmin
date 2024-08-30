@@ -12,22 +12,23 @@
 <!--Search-->
 <div class="input-group">
     <form method="post" class="input-group">
-        <input asp-for="search" type="search" class="form-control rounded" placeholder="Search..." aria-label="Search" aria-describedby="search-addon" />
+        <input asp-for="search" type="search" class="form-control rounded" placeholder="Tìm Kiếm..." aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
         </span>
-        <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
+        <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Tìm Kiếm</button>
 
     </form>
     <div style="margin-top:20px;">
-        <button class="btn btn-outline-info" id="advancedSearchBtn" data-mdb-ripple-init>Tìm Kiếm Nâng Cao</button>
+        <button class="btn btn-outline-info" id="toggleAdvancedSearch" data-mdb-ripple-init>Tìm Kiếm Nâng Cao</button>@* advancedSearchBtn *@
     </div>
 
 </div>
+<div id="advancedSearchPanel" class="advanced-search-container" style="display: none; margin-top: 20px;">
 
-<div id="advancedSearchModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <div class="formAdvanced">
+@* <div id="advancedSearchModal" class="modal">
+ *@    <div class="modal-content">
+@*         <span class="close">&times;</span>
+ *@        <div class="formAdvanced">
             <form asp-page-handler="SearchAdvanced" method="post" class="input-group">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 @* <div class="form-group"> *@
@@ -151,7 +152,7 @@
                 @foreach (var item in Model.data.Results)
                 {
                     <tr>
-                        @*                 <td>
+                    @* <td>
                 @Html.DisplayFor(modelItem => item.ItemId)
                 </td> *@
                         <td>@(count += 1)</td>
@@ -192,9 +193,15 @@
                             @Html.DisplayFor(modelItem => item.ItemBuyPrice)
                         </td>
                         <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editItemModal" data-id="@item.ItemId">Chỉnh sửa</button>
-                            <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailItemModal" data-id="@item.ItemId">Chi Tiết</a>
-                            <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = item.ItemId })'">Xóa</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editItemModal" data-id="@item.ItemId">
+                                <i class="fa-solid fa-pen" style="font-size: 30px;color: #fff;"></i>
+                            </button>
+                            <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailItemModal" data-id="@item.ItemId">
+                                <i class="fa-solid fa-file-lines" style="font-size: 30px;color: #fff;"></i>
+                            </a>
+                            <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = item.ItemId })'">
+                                <i class="fa-regular fa-trash-can" style="font-size: 30px; color: #fff;"></i>
+                            </button>
                         </td>
                     </tr>
                 }
@@ -273,7 +280,16 @@
 
 
 <script>
+    document.getElementById('toggleAdvancedSearch').addEventListener('click', function () {
+        const panel = document.getElementById('advancedSearchPanel');
+        const isVisible = panel.style.display !== 'none';
 
+        // Toggle visibility
+        panel.style.display = isVisible ? 'none' : 'block';
+
+        // Optionally change button text
+        this.innerText = isVisible ? 'Tìm Kiếm Nâng Cao' : 'Ẩn Tìm Kiếm Nâng Cao';
+    });
 
     // Load Detail form content into the modal
     $(document).ready(function () {
