@@ -8,23 +8,107 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Kaiadmin - Bootstrap 5 Admin Dashboard</title>
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- FontAwesome icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
 
-    <!--Search-->
-    <div class="input-group">
+    <!-- Search Bar -->
+    <div style="max-width: 1200px;">
         <form method="post" class="input-group">
-            <input asp-for="search" type="search" class="form-control rounded" placeholder="Từ Khóa..." aria-label="Search" aria-describedby="search-addon" />
-            <span class="input-group-text border-0" id="search-addon">
-            </span>
-            <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Tìm Kiếm</button>
-
+            <input asp-for="search" type="search" class="form-control rounded" placeholder="Search..." aria-label="Search" aria-describedby="search-addon" />
+            <span class="input-group-text border-0" id="search-addon"></span>
+            <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
         </form>
-        <div style="margin-top:20px;">
-            <button class="btn btn-outline-info" id="advancedSearchBtn" data-mdb-ripple-init>Tìm Kiếm Nâng Cao</button>
-        </div>
 
+        <!-- Toggle Button for Advanced Search in a new row -->
+        <div style="margin-top: 10px; text-align: left;">
+            <button class="btn btn-outline-info" id="toggleAdvancedSearch">Tìm Kiếm Nâng Cao</button>
+        </div>
+    </div>
+
+    <!-- Advanced Search Panel (Initially Hidden) -->
+    <div id="advancedSearchPanel" class="advanced-search-container" style="display: none; margin-top: 20px;">
+        <div class="card p-3 mb-4 custom-card-width">
+            <h5 class="card-title">Tìm Kiếm Nâng Cao Tài Khoản</h5>
+            <form asp-page-handler="SearchAdvanced" method="post">
+                <div class="row">
+                    <!-- First row with 3 columns -->
+                    <div class="col-md-4">
+                        <label class="form-label">Tên Tài Khoản</label>
+                        <input asp-for="filter.UserName" class="form-control" />
+                        <span asp-validation-for="filter.UserName" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Email</label>
+                        <input asp-for="filter.Email" class="form-control" />
+                        <span asp-validation-for="filter.Email" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Giới Tính</label>
+                        <select asp-for="filter.Gender" class="form-select">
+                            <option value="" disabled selected>Chọn</option>
+                            <option value="Male">Nam</option>
+                            <option value="Female">Nữ</option>
+                        </select>
+                        <span asp-validation-for="filter.Gender" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <!-- Second row with 3 columns -->
+                    <div class="col-md-4">
+                        <label class="form-label">Vai Trò</label>
+                        <input asp-for="filter.Role" class="form-control" />
+                        <span asp-validation-for="filter.Role" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Số Dư UP</label>
+                        <input asp-for="filter.UpBalance" class="form-control" />
+                        <span asp-validation-for="filter.UpBalance" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Trực Tuyến</label>
+                        <select asp-for="filter.IsOnline" class="form-select">
+                            <option value="">Chọn</option>
+                            <option value="true">Có</option>
+                            <option value="false">Không</option>
+                        </select>
+                        <span asp-validation-for="filter.IsOnline" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <!-- Third row with 3 columns -->
+                    <div class="col-md-3">
+                        <label class="form-label">Họ Và Tên</label>
+                        <input asp-for="filter.Fullname" class="form-control" />
+                        <span asp-validation-for="filter.Fullname" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Năm Sinh</label>
+                        <input asp-for="filter.Yob" class="form-control" type="number" />
+                        <span asp-validation-for="filter.Yob" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Số CMND</label>
+                        <input asp-for="filter.IdentityCardNumber" class="form-control" />
+                        <span asp-validation-for="filter.IdentityCardNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Số Điện Thoại</label>
+                        <input asp-for="filter.PhoneNumber" class="form-control" />
+                        <span asp-validation-for="filter.PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Save Button -->
+                <button type="submit" class="btn btn-success-search mt-3">Tìm Kiếm</button>
+            </form>
+        </div>
     </div>
 
     <div id="advancedSearchModal" class="modal">
@@ -58,8 +142,8 @@
                     <div>
                         <label class="control-label">Giới Tính</label>
                         <select asp-for="filter.Gender">
-                            <option value="MALE">Đàn Ông</option>
-                            <option value="FEMALE">Phụ Nữ</option>
+                            <option value="MALE">Nam</option>
+                            <option value="FEMALE">Nữ</option>
                             <option value="ORTHER">Khác</option>
                         </select>
                     </div>
@@ -231,6 +315,17 @@
 
 
         <script>
+            document.getElementById('toggleAdvancedSearch').addEventListener('click', function () {
+                const panel = document.getElementById('advancedSearchPanel');
+                const isVisible = panel.style.display !== 'none';
+
+                // Toggle visibility
+                panel.style.display = isVisible ? 'none' : 'block';
+
+                // Optionally change button text
+                this.innerText = isVisible ? 'Tìm Kiếm Nâng Cao' : 'Ẩn Tìm Kiếm Nâng Cao';
+            });
+
             $(document).ready(function () {
                 $('#createAccountModal').on('show.bs.modal', function (e) {
                     var modal = $(this);

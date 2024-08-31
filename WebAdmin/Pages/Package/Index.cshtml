@@ -11,19 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
-<!-- Search -->
-@* <div class="input-group">
-    <form method="post" class="input-group">
-        <input asp-for="search" type="search" class="form-control rounded" placeholder="Search..." aria-label="Search" aria-describedby="search-addon" />
-        <span class="input-group-text border-0" id="search-addon">
-        </span>
-        <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
-    </form>
-    <div style="margin-top:20px;">
-        <button class="btn btn-outline-info" id="advancedSearchBtn" data-mdb-ripple-init>Tìm Kiếm Nâng Cao</button>
-    </div>
-
-</div> *@
 <!-- Search Bar -->
 <div style="max-width: 1200px;">
     <form method="post" class="input-group">
@@ -37,7 +24,6 @@
         <button class="btn btn-outline-info" id="toggleAdvancedSearch">Tìm Kiếm Nâng Cao</button>
     </div>
 </div>
-
 
 <!-- Advanced Search Panel (Initially Hidden) -->
 <div id="advancedSearchPanel" class="advanced-search-container" style="display: none; margin-top: 20px;">
@@ -84,8 +70,6 @@
         </form>
     </div>
 </div>
-
-
 
 <style>
     .advanced-search-container {
@@ -223,12 +207,12 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Package Name</th>
-                <th>Description</th>
-                <th>Money Amount</th>
-                <th>Star Number</th>
-                <th>Status</th>
-                <th>Created Date</th>
+                <th>Tên Gói</th>
+                <th>Mô tả</th>
+                <th>Giá Gói</th>
+                <th>Số Sao</th>
+                <th>Trạng Thái</th>
+                <th>Ngày Tạo</th>
                 <th></th>
             </tr>
         </thead>
@@ -250,10 +234,6 @@
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editPackageModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@package.PackageId">
                                 <i class="fa-solid fa-pen" style="font-size: 30px;color: #fff;"></i>
                             </button>
-                            @* <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailPackageModal" data-id="@package.PackageId">
-                                <i class="fa-brands fa-jxl"></i>
-                                Chi Tiết
-                                </a> *@
                             <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#detailPackageModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@package.PackageId">
                                 <i class="fa-solid fa-file-lines" style="font-size: 30px;color: #fff;"></i>
                             </button>
@@ -277,18 +257,6 @@
     </div>
     <!-- End Paging -->
 </div>
-
-@* <!-- Right-side Collapsible Panel -->
-<div id="rightPanel">
-    <a href="javascript:void(0)" class="close-btn" onclick="togglePanel()">&times;</a>
-    <a href="#">Link 1</a>
-    <a href="#">Link 2</a>
-    <a href="#">Link 3</a>
-    <!-- Add more content as needed -->
-</div>
-
-<!-- Button to open the panel -->
-<button class="panel-btn" onclick="togglePanel()">☰</button> *@
 
 <!-- Create Modal -->
 <div class="modal fade" id="createPackageModal" tabindex="-1" role="dialog" aria-labelledby="createPackageModalLabel" aria-hidden="true">
@@ -343,40 +311,7 @@
     </div>
 </div>
 
-
 <script>
-    // // Function to toggle the panel
-    // function togglePanel() {
-    //     const panel = document.getElementById("rightPanel");
-    //     if (panel.style.width === "250px") {
-    //         closePanel();
-    //     } else {
-    //         openPanel();
-    //     }
-    // }
-
-    // // Function to open the panel
-    // function openPanel() {
-    //     document.getElementById("rightPanel").style.width = "250px";
-    //     // Add an event listener to detect clicks outside the panel
-    //     document.addEventListener("click", closeOnClickOutside);
-    // }
-
-    // // Function to close the panel
-    // function closePanel() {
-    //     document.getElementById("rightPanel").style.width = "0";
-    //     // Remove the event listener when the panel is closed
-    //     document.removeEventListener("click", closeOnClickOutside);
-    // }
-
-    // // Function to close the panel if the user clicks outside of it
-    // function closeOnClickOutside(event) {
-    //     const panel = document.getElementById("rightPanel");
-    //     if (!panel.contains(event.target) && event.target.className !== "panel-btn") {
-    //         closePanel();
-    //     }
-    // }
-
     document.getElementById('toggleAdvancedSearch').addEventListener('click', function () {
         const panel = document.getElementById('advancedSearchPanel');
         const isVisible = panel.style.display !== 'none';
