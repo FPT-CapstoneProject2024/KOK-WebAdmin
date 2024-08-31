@@ -67,7 +67,7 @@
             position: fixed;
             bottom: 0;
             left: 0;
-            z-index: 2;
+            z-index: 3;
         }
 
         .wrapper {
@@ -126,7 +126,7 @@
 
         .img-cell:hover img {
             transform: scale(2.5) translateX(-30px) translateY(-30px); /* Phóng to ảnh lên 1.5 lần khi di chuột vào */
-            z-index: 10;
+            z-index: 5;
         }
 
         .img-cell p {
@@ -175,7 +175,7 @@
             background-color: white;
             padding: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
+            z-index: 7;
             width: 300px;
             height: 195px;
         }
@@ -323,7 +323,7 @@
 </head>
 
 <body>
-    <header style="z-index: 400">
+    <header style="z-index: 2">
         <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
             <div class="container-fluid">
                 <!-- Toggler -->

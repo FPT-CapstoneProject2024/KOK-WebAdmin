@@ -3,6 +3,7 @@ using WebAdmin.DTOModels.Request.Artist;
 using WebAdmin.DTOModels.Request.Genre;
 using WebAdmin.DTOModels.Request.Item;
 using WebAdmin.DTOModels.Request.Package;
+using WebAdmin.DTOModels.Request.Report;
 using WebAdmin.DTOModels.Request.Singer;
 using WebAdmin.DTOModels.Request.Song;
 using WebAdmin.DTOModels.Response;
@@ -23,6 +24,7 @@ namespace WebAdmin.Helpers
             CreateMap<SongGenreRequestModel, SongGenre>().ReverseMap();
             CreateMap<SongSingerRequestModel, SongSinger>().ReverseMap();
             CreateMap<CreateSongRequestModel, CreateSongRequestModel1>().ReverseMap();
+            CreateMap<Report, UpdateReportRequestModel>().ReverseMap();
 
         }
     }
