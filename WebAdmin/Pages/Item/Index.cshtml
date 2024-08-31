@@ -7,28 +7,189 @@
 <head>
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- FontAwesome icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
-<!--Search-->
-<div class="input-group">
+<!-- Search Bar -->
+<div style="max-width: 1200px;">
     <form method="post" class="input-group">
-        <input asp-for="search" type="search" class="form-control rounded" placeholder="Tìm Kiếm..." aria-label="Search" aria-describedby="search-addon" />
-        <span class="input-group-text border-0" id="search-addon">
-        </span>
-        <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Tìm Kiếm</button>
-
+        <input asp-for="search" type="search" class="form-control rounded" placeholder="Search..." aria-label="Search" aria-describedby="search-addon" />
+        <span class="input-group-text border-0" id="search-addon"></span>
+        <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
     </form>
-    <div style="margin-top:20px;">
-        <button class="btn btn-outline-info" id="toggleAdvancedSearch" data-mdb-ripple-init>Tìm Kiếm Nâng Cao</button>@* advancedSearchBtn *@
+
+    <!-- Toggle Button for Advanced Search in a new row -->
+    <div style="margin-top: 10px; text-align: left;">
+        <button class="btn btn-outline-info" id="toggleAdvancedSearch">Tìm Kiếm Nâng Cao</button>
     </div>
-
 </div>
-<div id="advancedSearchPanel" class="advanced-search-container" style="display: none; margin-top: 20px;">
 
-@* <div id="advancedSearchModal" class="modal">
- *@    <div class="modal-content">
-@*         <span class="close">&times;</span>
- *@        <div class="formAdvanced">
+<!-- Advanced Search Panel for Item (Initially Hidden) -->
+<div id="advancedSearchPanel" class="advanced-search-container" style="display: none; margin-top: 20px;">
+    <div class="card p-3 mb-4 custom-card-width">
+        <h5 class="card-title">Tìm Kiếm Nâng Cao</h5>
+        <form asp-page-handler="SearchAdvanced" method="post">
+            <div class="row">
+                <!-- First row with 3 columns -->
+                <div class="col-md-4">
+                    <label class="form-label">Mã Vật Phẩm</label>
+                    <input asp-for="filter.ItemCode" class="form-control" />
+                    <span asp-validation-for="filter.ItemCode" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Tên Vật Phẩm</label>
+                    <input asp-for="filter.ItemName" class="form-control" />
+                    <span asp-validation-for="filter.ItemName" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Mô Tả</label>
+                    <input asp-for="filter.ItemDescription" class="form-control" />
+                    <span asp-validation-for="filter.ItemDescription" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <!-- Second row with 3 columns -->
+                <div class="col-md-4">
+                    <label class="form-label">Loại Vật Phẩm</label>
+                    <input asp-for="filter.ItemType" class="form-control" />
+                    <span asp-validation-for="filter.ItemType" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Trạng Thái</label>
+                    <select asp-for="filter.ItemStatus" class="form-select">
+                        <option value="INACTIVE">Không Hoạt Động</option>
+                        <option value="ACTIVE">Hoạt Động</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Ngày Tạo</label>
+                    <input asp-for="filter.CreatedDate" class="form-control" type="datetime-local" />
+                    <span asp-validation-for="filter.CreatedDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <!-- Third row with 3 columns -->
+                <div class="col-md-4">
+                    <label class="form-label">Có Thể Hết Hạn</label>
+                    <select asp-for="filter.CanExpire" class="form-select">
+                        <option value="true">Có</option>
+                        <option value="false">Không</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Có Thể Stack</label>
+                    <select asp-for="filter.CanStack" class="form-select">
+                        <option value="true">Có</option>
+                        <option value="false">Không</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Mã Prefab</label>
+                    <input asp-for="filter.PrefabCode" class="form-control" />
+                    <span asp-validation-for="filter.PrefabCode" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <!-- Fourth row with 2 columns -->
+                <div class="col-md-6">
+                    <label class="form-label">Giá Mua</label>
+                    <input asp-for="filter.ItemBuyPrice" class="form-control" />
+                    <span asp-validation-for="filter.ItemBuyPrice" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Giá Bán</label>
+                    <input asp-for="filter.ItemSellPrice" class="form-control" />
+                    <span asp-validation-for="filter.ItemSellPrice" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Search Button -->
+            <button type="submit" class="btn btn-success-search mt-3">Tìm Kiếm</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .advanced-search-container {
+        margin-bottom: 20px;
+    }
+
+    /* Adjusting the width of the container */
+    .custom-card-width {
+        width: 100%; /* Change this value as needed */
+        max-width: 1200px; /* Optional: Set a max-width */
+        /* margin: 0 auto; /* Center the container horizontally */ */
+    }
+
+    .card {
+        border-radius: 10px;
+        padding: 20px;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-title {
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+
+    .form-label {
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .form-control,
+    .form-select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="checkbox"] {
+        margin-left: 5px;
+        transform: scale(1.2);
+    }
+
+    .btn-success-search {
+        width: 100%;
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .btn-success-search:hover {
+            background-color: #218838;
+        }
+
+    .row {
+        margin-bottom: 15px;
+    }
+
+    .col-md-4 {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+</style>
+
+<div id="advancedSearchModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="formAdvanced">
             <form asp-page-handler="SearchAdvanced" method="post" class="input-group">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 @* <div class="form-group"> *@
@@ -114,9 +275,6 @@
     </div>
 
 </div>
-
-
-<!--End Search-->
 <!--End Search-->
 
 
@@ -131,17 +289,17 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Item Code</th>
-                <th>Prefab Code</th>
-                <th>Item Name</th>
-                <th>Item Type</th>
+                <th>Mã Vật Phẩm</th>
+                <th>Mã Prefab</th>
+                <th>Tên Vật Phẩm</th>
+                <th>Loại Vật Phẩm</th>
                 @* <th>Created Date</th> *@
                 @* <th>Item Description</th> *@
-                <th>Can Expire</th>
-                <th>Can Stack</th>
-                <th>Item Status</th>
-                <th>Item Sell Price</th>
-                <th>Item Buy Price</th>
+                <th>Hết Hạn?</th>
+                <th>Stack?</th>
+                <th>Trạng thái vật phẩm</th>
+                <th>Giá Mua</th>
+                <th>Giá Bán</th>
                 <th></th>
             </tr>
         </thead>
@@ -183,23 +341,20 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.ItemStatus)
                         </td>
-                        @*                 <td>
-                @Html.DisplayFor(modelItem => item.CreatorId)
-                </td> *@
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ItemSellPrice)
-                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.ItemBuyPrice)
                         </td>
                         <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editItemModal" data-id="@item.ItemId">
+                            @Html.DisplayFor(modelItem => item.ItemSellPrice)
+                        </td>                       
+                        <td>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editPackageModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@item.ItemId">
                                 <i class="fa-solid fa-pen" style="font-size: 30px;color: #fff;"></i>
                             </button>
-                            <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailItemModal" data-id="@item.ItemId">
+                            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#detailPackageModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@item.ItemId">
                                 <i class="fa-solid fa-file-lines" style="font-size: 30px;color: #fff;"></i>
-                            </a>
-                            <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = item.ItemId })'">
+                            </button>
+                            <button type="button" class="btn btn-google-plus" style="border: none; padding: 0; width: 42px; height: 42px; align-items: center; justify-content: center;" onclick="location.href='@Url.Page("./Delete", new { id = item.ItemId })'">
                                 <i class="fa-regular fa-trash-can" style="font-size: 30px; color: #fff;"></i>
                             </button>
                         </td>
