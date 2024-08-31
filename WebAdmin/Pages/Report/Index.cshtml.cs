@@ -79,7 +79,7 @@ namespace WebAdmin.Pages.Report
             CurrentPage = (CurrentPage < 1) ? 1 : CurrentPage;
             CurrentPage = (CurrentPage > TotalPage) ? TotalPage : CurrentPage;
 
-            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.PackageResource;
+            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ReportResource;
             var queryParams = new Dictionary<string, string>()
             {
                 {"ReportCategory", filter.ReportCategory },

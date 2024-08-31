@@ -239,7 +239,7 @@
 
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editReportModal" data-id="@item.ReportId"> <i class="fa-solid fa-pen" style="font-size: 30px;color: #fff;"></i></button>
                             <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailReportModal" data-id="@item.ReportId"><i class="fa-solid fa-file-lines" style="font-size: 30px;color: #fff;"></i></a>
-                            <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = item.ReportId })'"><i class="fa-regular fa-trash-can" style="font-size: 30px; color: #fff;"></i></button>
+                            @* <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = item.ReportId })'"><i class="fa-regular fa-trash-can" style="font-size: 30px; color: #fff;"></i></button> *@
                         </td>
                     </tr>
                 }
@@ -365,7 +365,7 @@
                                 // Show the success popup
                                 Swal.fire({
                                     title: 'Success!',
-                                    text: 'The package was created successfully.',
+                                    text: 'The report was created successfully.',
                                     icon: 'success',
                                     confirmButtonText: 'OK'
                                 }).then((result) => {
@@ -378,7 +378,7 @@
                                 // Handle the failure case
                                 Swal.fire({
                                     title: 'Error!',
-                                    text: 'There was a problem creating the package.',
+                                    text: 'There was a problem creating the report.',
                                     icon: 'error',
                                     confirmButtonText: 'OK'
                                 });
@@ -409,11 +409,11 @@
     //Load Edit form content into the modal
     $('#editReportModal').on('show.bs.modal', function (e) {
         var button = $(e.relatedTarget);
-        var packageId = button.data('id');
+        var reportId = button.data('id');
         var modal = $(this);
 
         //Load the edit form from the Edit page
-        $.get('@Url.Page("./Edit", new { id = "__ID__" })'.replace('__ID__', packageId), function (data) {
+        $.get('@Url.Page("./Edit", new { id = "__ID__" })'.replace('__ID__', reportId), function (data) {
             var formContent = $(data).find('form');
             modal.find('.edit-modal-body').html(formContent);
 
@@ -435,7 +435,7 @@
                             // Show the success popup
                             Swal.fire({
                                 title: 'Success!',
-                                text: 'The package was edited successfully.',
+                                text: 'The report was edited successfully.',
                                 icon: 'success',
                                 confirmButtonText: 'OK'
                             }).then((result) => {
@@ -448,7 +448,7 @@
                             // Handle the failure case
                             Swal.fire({
                                 title: 'Error!',
-                                text: 'There was a problem creating the package.',
+                                text: 'There was a problem editing the report.',
                                 icon: 'error',
                                 confirmButtonText: 'OK'
                             });

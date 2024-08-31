@@ -23,8 +23,8 @@ namespace WebAdmin.Pages.Report
         }
         [BindProperty]
         public UpdateReportRequestModel UpdateReport { get; set; }
-        [BindProperty]
-        public string Status { get; set; }
+        //[BindProperty]
+        //public string Status { get; set; }
         //[BindProperty]
         public DTOModels.Response.Report Report { get; set; } = default!;
 
@@ -50,8 +50,6 @@ namespace WebAdmin.Pages.Report
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -61,7 +59,7 @@ namespace WebAdmin.Pages.Report
 
             try
             {
-                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ReportResource + "/update-status/" + Report.ReportId;
+                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ReportResource + "/update-status/" + UpdateReport.ReportId;
                 var response = await _apiClient.PutAsync(uri, UpdateReport.ReportStatus);
                 var responseJson = await response.Content.ReadAsStringAsync();
                 var report = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Report>>(responseJson);
