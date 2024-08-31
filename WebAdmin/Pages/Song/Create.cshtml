@@ -173,6 +173,65 @@
             cursor: pointer;
         }
     </style>
+
+@*     <script type="text/javascript">
+        $(document).ready(function () {
+            $('#artistSelect form').on('submit', function (event) {
+                event.preventDefault(); // Ngăn không cho form gửi yêu cầu theo cách thông thường
+
+                var form = $(this);
+                var actionUrl = form.attr('action') || window.location.href; // Lấy URL từ form hoặc trang hiện tại
+                var formData = form.serialize();
+
+                $.ajax({
+                    url: actionUrl,
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        // Cập nhật lại nội dung của artistSelect với nội dung mới từ response
+                        var newContent = $(response).find('#artistSelect').html();
+                        $('#artistSelect').html(newContent);
+
+                        // Tái kích hoạt sự kiện cho các nút mới
+                        initializeFormSubmission();
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Có lỗi xảy ra: " + error);
+                    }
+                });
+            });
+
+            // Hàm này đảm bảo rằng các form mới cũng sẽ có hành vi đúng
+            function initializeFormSubmission() {
+                $('#artistSelect form').off('submit').on('submit', function (event) {
+                    event.preventDefault(); // Ngăn không cho form gửi yêu cầu theo cách thông thường
+
+                    var form = $(this);
+                    var actionUrl = form.attr('action') || window.location.href;
+                    var formData = form.serialize();
+
+                    $.ajax({
+                        url: actionUrl,
+                        type: 'POST',
+                        data: formData,
+                        success: function (response) {
+                            var newContent = $(response).find('#artistSelect').html();
+                            $('#artistSelect').html(newContent);
+                            initializeFormSubmission(); // Kích hoạt lại sự kiện cho form mới
+                        },
+                        error: function (xhr, status, error) {
+                            console.log("Có lỗi xảy ra: " + error);
+                        }
+                    });
+                });
+            }
+
+            // Kích hoạt sự kiện cho lần đầu tiên
+            initializeFormSubmission();
+        });
+    </script> *@
+
+
 </head>
 <body>
     <h1>Create</h1>
@@ -182,7 +241,7 @@
     <div class="row">
         <div class="col-md-9">
             <div class="form-container">
-                <form method="post" asp-page="./Create">
+                <form method="post" asp-page="./Create" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="Song.SongName" class="control-label"></label>
@@ -311,6 +370,31 @@
         }
     </script>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Khi nhấn nút trong form
+            $('#artistSelect').on('click', 'input[type="submit"]', function (event) {
+                event.preventDefault(); // Ngăn chặn hành động submit mặc định
+
+                var form = $(this).closest('form'); // Lấy form chứa nút bấm
+                var actionUrl = form.attr('action') || window.location.href; // Lấy URL từ form hoặc trang hiện tại
+                var formData = form.serialize();
+
+                $.ajax({
+                    url: actionUrl,
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        // Cập nhật lại nội dung của artistSelect với nội dung mới từ response
+                        $('#artistSelect').html($(response).find('#artistSelect').html());
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Có lỗi xảy ra: " + error);
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>

@@ -1184,7 +1184,7 @@
     <None Include="wwwroot\js\plugins\%40fortawesome\fontawesome-free\svgs\solid\search-location.svg" />
     <None Include="wwwroot\js\plugins\%40fortawesome\fontawesome-free\svgs\solid\search-minus.svg" />
     <None Include="wwwroot\js\plugins\%40fortawesome\fontawesome-free\svgs\solid\search-plus.svg" />
-    <None Include="wwwroot\js\plugins\%40fortawesome\fontawesome-free\svgs\solid\search.svg" />
+    <None Include="wwwroot\js\plugins\%40fortawesome\fontawesome-free\svgs\solid\Tìm KiếmTìm Kiếm.svg" />
     <None Include="wwwroot\js\plugins\%40fortawesome\fontawesome-free\svgs\solid\seedling.svg" />
     <None Include="wwwroot\js\plugins\%40fortawesome\fontawesome-free\svgs\solid\server.svg" />
     <None Include="wwwroot\js\plugins\%40fortawesome\fontawesome-free\svgs\solid\shapes.svg" />
@@ -1812,7 +1812,7 @@
     <None Include="wwwroot\scss\argon-dashboard\custom\modals\_modal.scss" />
     <None Include="wwwroot\scss\argon-dashboard\custom\navbars\_navbar-collapse.scss" />
     <None Include="wwwroot\scss\argon-dashboard\custom\navbars\_navbar-dropdown.scss" />
-    <None Include="wwwroot\scss\argon-dashboard\custom\navbars\_navbar-search.scss" />
+    <None Include="wwwroot\scss\argon-dashboard\custom\navbars\_navbar-Tìm KiếmTìm Kiếm.scss" />
     <None Include="wwwroot\scss\argon-dashboard\custom\navbars\_navbar-vertical.scss" />
     <None Include="wwwroot\scss\argon-dashboard\custom\navbars\_navbar.scss" />
     <None Include="wwwroot\scss\argon-dashboard\custom\navs\_nav-pills.scss" />

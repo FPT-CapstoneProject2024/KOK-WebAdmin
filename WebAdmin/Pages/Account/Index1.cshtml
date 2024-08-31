@@ -13,9 +13,8 @@
     <!-- FontAwesome icons-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
-
-
     <!-- Search Bar -->
     <div style="max-width: 1200px;">
         <form method="post" class="input-group">
@@ -110,94 +109,7 @@
             </form>
         </div>
     </div>
-
-    <div id="advancedSearchModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div class="formAdvanced">
-                <form asp-page-handler="SearchAdvanced" method="post" class="input-group">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    @* <div class="form-group"> *@
-                    <div>
-                        <label class="control-label">Email</label>
-                        <input asp-for="filter.Email" class="form-control-sm" />
-                        <span asp-validation-for="filter.Email" class="text-danger"></span>
-                    </div>
-                    <div>
-                        <label class="control-label">Tên Tài Khoản</label>
-                        <input asp-for="filter.UserName" class="form-control-sm" />
-                        <span asp-validation-for="filter.UserName" clas="text-danger"></span>
-                    </div>
-                    @* </div> *@
-
-                    <div>
-                        <label class="control-label">Vai Trò</label>
-                        <select asp-for="filter.Role">
-                            <option value="ADMIN">Admin</option>
-                            <option value="STAFF">Nhân Viên</option>
-                            <option value="MEMBER">Người Chơi</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="control-label">Giới Tính</label>
-                        <select asp-for="filter.Gender">
-                            <option value="MALE">Nam</option>
-                            <option value="FEMALE">Nữ</option>
-                            <option value="ORTHER">Khác</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="control-label">Trạng Thái</label>
-                        <select asp-for="filter.AccountStatus">
-                            <option value="NOT_VERIFY">Chưa Được Kích Hoạt</option>
-                            <option value="ACTIVE">Hoạt Động</option>
-                            <option value="INACTIVE">Không Hoạt Động</option>
-                        </select>
-                    </div>
-
-                    @* <div class="form-group"> *@
-                    <div>
-                        <label class="form-label">Số Tiền Trong Tài Khoản</label>
-                        <input asp-for="filter.UpBalance" class="form-control-sm" />
-                        <span asp-validation-for="filter.UpBalance" class="text-danger"></span>
-                    </div>
-
-                    <div>
-                        <label class="control-label">Họ Tên</label>
-                        <input asp-for="filter.Fullname" class="form-control-sm" />
-                        <span asp-validation-for="filter.Fullname" class="text-danger"></span>
-                    </div>
-                    @* </div> *@
-
-                    @* <div class="form-group"> *@
-                    <div>
-                        <label class="form-label">Năm Sinh</label>
-                        <input asp-for="filter.Yob" class="form-control-sm" />
-                        <span asp-validation-for="filter.Yob" class="text-danger"></span>
-                    </div>
-
-                    <div>
-                        <label class="control-label">Số Định Danh</label>
-                        <input asp-for="filter.IdentityCardNumber" class="form-control-sm" />
-                        <span asp-validation-for="filter.IdentityCardNumber" class="text-danger"></span>
-                    </div>
-                    @* </div> *@
-
-                    <button class="btn btn-google-plus" type="submit">Lưu Thông Tin</button>
-
-
-                </form>
-            </div>
-
-        </div>
-
-    </div>
-
-
     <!--End Search-->
-
 
     <div class="table-container">
         <br />
@@ -237,7 +149,7 @@
                         @* <td>@e.AccountStatus</td> *@
                         <td><a asp-page-handler="Inactive" asp-route-id="@e.AccountId" class="btn btn-dribbble">Ẩn</a> | <a asp-page-handler="Active" asp-route-id="@e.AccountId" class="btn btn-warning">Kích hoạt</a></td>
                         <td>
-                            <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailAccountModal" data-id="@e.AccountId">Chi Tiết</a>
+                            <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailAccountModal" data-id="@e.AccountId"><i class="fa-solid fa-file-lines" style="font-size: 30px;color: #fff;"></i></a>
                         </td>
                     </tr>
 
@@ -255,10 +167,6 @@
             </div>
             <!--End Paging-->
         </div>
-
-
-
-
 
         <!-- Create Modal -->
         <div class="modal fade" id="createAccountModal" tabindex="-1" role="dialog" aria-labelledby="createAccountModalLabel" aria-hidden="true">

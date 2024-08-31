@@ -14,9 +14,9 @@
 <!-- Search Bar -->
 <div style="max-width: 1200px;">
     <form method="post" class="input-group">
-        <input asp-for="search" type="search" class="form-control rounded" placeholder="Search..." aria-label="Search" aria-describedby="search-addon" />
+        <input asp-for="search" type="search" class="form-control rounded" placeholder="Tìm Kiếm..." aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon"></span>
-        <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
+        <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Tìm Kiếm</button>
     </form>
 
     <!-- Toggle Button for Advanced Search in a new row -->
@@ -231,13 +231,13 @@
                         <td>@Html.DisplayFor(modelItem => package.Status)</td>
                         <td>@Html.DisplayFor(modelItem => package.CreatedDate)</td>
                         <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editPackageModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@package.PackageId">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editPackageModal" data-id="@package.PackageId">
                                 <i class="fa-solid fa-pen" style="font-size: 30px;color: #fff;"></i>
                             </button>
                             <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#detailPackageModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@package.PackageId">
                                 <i class="fa-solid fa-file-lines" style="font-size: 30px;color: #fff;"></i>
                             </button>
-                            <button type="button" class="btn btn-google-plus" style="border: none; padding: 0; width: 42px; height: 42px; align-items: center; justify-content: center;" onclick="location.href='@Url.Page("./Delete", new { id = package.PackageId })'">
+                            <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = package.PackageId })'">
                                 <i class="fa-regular fa-trash-can" style="font-size: 30px; color: #fff;"></i>
                             </button>
                         </td>

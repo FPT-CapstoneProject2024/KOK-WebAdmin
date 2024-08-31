@@ -1,15 +1,16 @@
-﻿@model WebAdmin.Pages.Song.IndexModel
+﻿@using WebAdmin.DTOModels.Request.Song
+@model WebAdmin.Pages.Song.CreateModel
 @if (Model.SearchGenreResults != null && Model.SearchGenreResults.Count > 0)
 {
     <div id="artistSelect" class="img-cell">
-        <form asp-page-handler="AddGenre" method="post">
+        <form asp-page-handler="AddGerne" method="post">
             @foreach (var result in Model.SearchGenreResults)
             {
 
                 <input asp-for="SelectedGenreId" value="@result.GenreId" type="hidden" />
                 <p>@result.GenreName</p>
                 <img src="@result.Image" alt="N/A" />
-                @if (!Song.IndexModel.GenreIds.Any(a => a.GenreId == result.GenreId))
+                @if (!CreateSongRequestModel.SongGenres.Any(a => a.GenreId == result.GenreId))
                 {
                     <input value="Thêm thể loại" type="submit" name="submit" class="btn btn-danger" />
                 }

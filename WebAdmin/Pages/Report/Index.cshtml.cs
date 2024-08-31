@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 using WebAdmin.Context;
+using WebAdmin.DTOModels.Filter;
 using WebAdmin.DTOModels.Response.Helpers;
 using WebAdmin.Services.Interfaces;
 
@@ -20,6 +22,10 @@ namespace WebAdmin.Pages.Report
         public int CurrentPage { get; set; }
         [BindProperty]
         public static int TotalPage { get; set; } = 1;
+        [BindProperty]
+        public ReportFilter? filter { get; set; }
+        [BindProperty]
+        public string? search { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, IApiClient apiClient)
         {
@@ -64,6 +70,45 @@ namespace WebAdmin.Pages.Report
             ViewData["filter_search"] = search;
             return await OnGet(filter: "&filter" + "=" + search);
         }
+
+
+        public async Task<IActionResult> OnPostSearchAdvanced(string? number = null)
+        {
+
+            CurrentPage = int.Parse(number ?? "1");
+            CurrentPage = (CurrentPage < 1) ? 1 : CurrentPage;
+            CurrentPage = (CurrentPage > TotalPage) ? TotalPage : CurrentPage;
+
+            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.PackageResource;
+            var queryParams = new Dictionary<string, string>()
+            {
+                {"ReportCategory", filter.ReportCategory },
+                {"Status", filter.Status },
+                {"Reason" , filter.Reason },
+                {"CreateTime", string.Concat(filter.CreateTime) },
+                {"ReportType", filter.ReportType },
+                {"Comment", filter.Comment },
+                {"PostCaption", filter.PostCaption },
+
+            };
+
+            var response = await apiClient.GetAsync(QueryHelpers.AddQueryString(uri, queryParams));
+
+
+
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+#pragma warning disable CS8601 // Possible null reference assignment.
+            data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Report>>(jsonResponse);
+#pragma warning restore CS8601 // Possible null reference assignment.
+
+            if (data.Results is not null)
+            {
+                TotalPage = (int)MathF.Ceiling((float)data.Metadata.Total / (float)data.Metadata.Size);
+            }
+            return Page();
+        }
     }
+
+
 
 }

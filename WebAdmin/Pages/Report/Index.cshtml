@@ -2,19 +2,186 @@
 @model WebAdmin.Pages.Report.IndexModel
 @{
 }
+<head>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- FontAwesome icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
 <!-- Search -->
-<div class="input-group">
+@* <div class="input-group">
     <form method="post" class="input-group">
-        <input name="txt_search" type="search" class="form-control rounded" placeholder="Search..." value="@ViewBag.filter_search" aria-label="Search" aria-describedby="search-addon" />
+        <input asp-for="search" type="search" class="form-control rounded" placeholder="Tìm Kiếm..." aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
         </span>
-        <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
+        <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Tìm Kiếm</button>
     </form>
+    <div style="margin-top:20px;">
+        <button class="btn btn-outline-info" id="advancedSearchBtn" data-mdb-ripple-init>Tìm Kiếm Nâng Cao</button>
+    </div>
+
+</div> *@
+<!-- Search Bar -->
+<div style="max-width: 1200px;">
+    <form method="post" class="input-group">
+        <input asp-for="search" type="search" class="form-control rounded" placeholder="Tìm Kiếm..." aria-label="Search" aria-describedby="search-addon" />
+        <span class="input-group-text border-0" id="search-addon"></span>
+        <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Tìm Kiếm</button>
+    </form>
+
+    <!-- Toggle Button for Advanced Search in a new row -->
+    <div style="margin-top: 10px; text-align: left; margin-bottom: 20px;">
+        <button class="btn btn-outline-info" id="toggleAdvancedSearch">Tìm Kiếm Nâng Cao</button>
+    </div>
+</div>
+
+
+<!-- Advanced Search Panel (Initially Hidden) -->
+
+
+<style>
+    .advanced-search-container {
+        margin-bottom: 20px;
+    }
+
+    /* Adjusting the width of the container */
+    .custom-card-width {
+        width: 100%; /* Change this value as needed */
+        max-width: 1200px; /* Optional: Set a max-width */
+        /* margin: 0 auto; /* Center the container horizontally */ */
+    }
+
+    .card {
+        border-radius: 10px;
+        padding: 20px;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-title {
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+
+    .form-label {
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .form-control,
+    .form-select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="checkbox"] {
+        margin-left: 5px;
+        transform: scale(1.2);
+    }
+
+    .btn-success-search {
+        width: 100%;
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .btn-success-search:hover {
+            background-color: #218838;
+        }
+
+    .row {
+        margin-bottom: 15px;
+    }
+
+    .col-md-4 {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+</style>
+
+<div id="advancedSearchPanel" class="advanced-search-container" style="display: none; margin-top: 20px;">
+    <div class="modal-content">
+        @* <span class="close">&times;</span> *@
+        <div class="formAdvanced">
+            <form asp-page-handler="SearchAdvanced" method="post" class="input-group">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div>
+                    <label class="control-label">Loại Báo Cáo</label>
+                    <input asp-for="filter.ReportCategory" class="form-control-sm" />
+                    <span asp-validation-for="filter.ReportCategory" class="text-danger"></span>
+                </div>
+                <div>
+                    <label class="control-label">Lý Do</label>
+                    <input asp-for="filter.Reason" class="form-control-sm" />
+                    <span asp-validation-for="filter.Reason" clas="text-danger"></span>
+                </div>
+                <div>
+                    <label class="control-label">Ngày Tạo</label>
+                    <input asp-for="filter.CreateTime" class="form-control-sm" />
+                    <span asp-validation-for="filter.CreateTime" clas="text-danger"></span>
+                </div>
+                <div>
+                    <label class="control-label">Tiêu Đề</label>
+                    <input asp-for="filter.PostCaption" class="form-control-sm" />
+                    <span asp-validation-for="filter.PostCaption" clas="text-danger"></span>
+                </div>
+
+
+                <div>
+                    <label class="control-label">Trạng Thái</label>
+                    <select asp-for="filter.Status">
+                        <option value="PROCCESSING">Đang Xử Lý</option>
+                        <option value="COMPLETE">Hoàn Tất</option>
+                        <option value="CANCELED">Hủy Bỏ</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="control-label">Kiểu Báo Cáo</label>
+                    <select asp-for="filter.ReportType">
+                        <option value="INAPPROPRIATE_CONTENT">
+                            Nội Dung Không Phù Hợp
+                        </option>
+                        <option value="SPAM">
+                            Thư Rác
+                        </option>
+                        <option value="HARASSMENT">
+                            Quấy Rối
+                        </option>
+                        <option value="VIOLENCE">Bạo Lực</option>
+                        <option value="HATE_SPEECH">Phát Ngôn Thù Ghét</option>
+                        <option value="SELF_HARM">Tự Gây Hại</option>
+                        <option value="TERRORISM">Khủng Bố</option>
+                        <option value="NUDITY">Ảnh Khoả Thân</option>
+                        <option value="GRAPHIC_CONTENT">Nội Dung Rùng Rợn</option>
+                        <option value="MISINFORMATION">Thông Tin Sai Lệch</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-google-plus" type="submit">Lưu Thông Tin</button>
+
+
+            </form>
+        </div>
+
+    </div>
+
 </div>
 <!-- End Search -->
-<br />
-<p>
-</p>
 
 <div class="table-container">
     <table class="table">
@@ -34,7 +201,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.data.Results[0].ReportType)
                 </th>
-                
+
                 <th>
                     @Html.DisplayNameFor(model => model.data.Results[0].PostCaption)
                 </th>
@@ -48,7 +215,7 @@
                 @foreach (var item in Model.data.Results)
                 {
                     <tr>
-                        <td>@(count += 1 )</td>
+                        <td>@(count += 1)</td>
                         <td>
                             @Html.DisplayFor(modelItem => item.ReportCategory)
                         </td>
@@ -62,11 +229,11 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.ReportType)
                         </td>
-                        
+
                         <td>
                             @Html.DisplayFor(modelItem => item.PostCaption)
                         </td>
-       
+
 
                         <td>
                             <a asp-page="./Edit" asp-route-id="@item.ReportId">Edit</a> |
@@ -80,8 +247,6 @@
         </tbody>
     </table>
 </div>
-
-<div>
     <!-- Paging -->
     <div class="pagination">
         <li class="page-item"><a asp-route-number="@(Model.CurrentPage - 1)" class="page-link">&laquo;</a></li>
@@ -127,13 +292,116 @@
     </div>
 </div>
 
+<!-- Details Modal -->
+<div class="modal fade" id="detailPackageModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog custom-modal-width" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalLabel">Package Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body detail-modal-body">
+                <!-- Nội dung chi tiết sẽ được tải vào đây -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
-    $('#createPackageModal').on('show.bs.modal', function (e) {
-        var modal = $(this);
-        // Load only the form content from the Create page
-        $.get('@Url.Page("./Create")', function (data) {
-            var formContent = $(data).find('form');
-            modal.find('.modal-body').html(formContent);
+    document.getElementById('toggleAdvancedSearch').addEventListener('click', function () {
+        const panel = document.getElementById('advancedSearchPanel');
+        const isVisible = panel.style.display !== 'none';
+
+        // Toggle visibility
+        panel.style.display = isVisible ? 'none' : 'block';
+
+        // Optionally change button text
+        this.innerText = isVisible ? 'Tìm Kiếm Nâng Cao' : 'Ẩn Tìm Kiếm Nâng Cao';
+    });
+
+    // Load Detail form content into the modal
+    $(document).ready(function () {
+        $('#detailPackageModal').on('show.bs.modal', function (e) {
+            var button = $(e.relatedTarget);
+            var PackageId = button.data('id');
+            var modal = $(this);
+
+            // Tải nội dung từ trang Details và chỉ lấy phần thân của nội dung
+            $.get('@Url.Page("/Package/Details", new { id = "__ID__" })'.replace('__ID__', PackageId), function (data) {
+                var detailContent = $(data).find('.details').html(); // Lấy phần nội dung chính
+                modal.find('.detail-modal-body').html(detailContent);
+            });
+        });
+    });
+
+
+    $(document).ready(function () {
+        $('#createPackageModal').on('show.bs.modal', function (e) {
+            var modal = $(this);
+            // Load only the form content from the Create page
+            $.get('@Url.Page("./Create")', function (data) {
+                var formContent = $(data).find('form');
+                modal.find('.modal-body').html(formContent);
+
+                // Attach an event listener to the form submit event
+                modal.find('form').on('submit', function (e) {
+                    e.preventDefault(); // Prevent normal form submission
+
+                    // Use AJAX to submit the form data
+                    $.ajax({
+                        type: $(this).attr('method'),
+                        url: $(this).attr('action'),
+                        data: $(this).serialize(),
+                        success: function (response) {
+                            if (response.success) {
+                                // Close the modal and remove the backdrop
+                                modal.modal('hide');
+                                $('.modal-backdrop').remove(); // Ensure the backdrop is removed
+
+                                // Show the success popup
+                                Swal.fire({
+                                    title: 'Success!',
+                                    text: 'The package was created successfully.',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        // Reload the page when the user presses OK
+                                        location.reload();
+                                    }
+                                });
+                            } else {
+                                // Handle the failure case
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: 'There was a problem creating the package.',
+                                    icon: 'error',
+                                    confirmButtonText: 'OK'
+                                });
+
+                                // Close the modal and remove the backdrop
+                                modal.modal('hide');
+                                $('.modal-backdrop').remove();
+                            }
+                        },
+                        error: function () {
+                            // Close the modal and remove the backdrop in case of an error
+                            modal.modal('hide');
+                            $('.modal-backdrop').remove();
+
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'There was a problem with the request.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    });
+                });
+            });
         });
     });
 
@@ -147,6 +415,62 @@
         $.get('@Url.Page("./Edit", new { id = "__ID__" })'.replace('__ID__', packageId), function (data) {
             var formContent = $(data).find('form');
             modal.find('.edit-modal-body').html(formContent);
+
+            // Attach an event listener to the form submit event
+            modal.find('form').on('submit', function (e) {
+                e.preventDefault(); // Prevent normal form submission
+
+                // Use AJAX to submit the form data
+                $.ajax({
+                    type: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            // Close the modal and remove the backdrop
+                            modal.modal('hide');
+                            $('.modal-backdrop').remove(); // Ensure the backdrop is removed
+
+                            // Show the success popup
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'The package was edited successfully.',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // Reload the page when the user presses OK
+                                    location.reload();
+                                }
+                            });
+                        } else {
+                            // Handle the failure case
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'There was a problem creating the package.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+
+                            // Close the modal and remove the backdrop
+                            modal.modal('hide');
+                            $('.modal-backdrop').remove();
+                        }
+                    },
+                    error: function () {
+                        // Close the modal and remove the backdrop in case of an error
+                        modal.modal('hide');
+                        $('.modal-backdrop').remove();
+
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'There was a problem with the request.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            });
         });
     });
 </script>
