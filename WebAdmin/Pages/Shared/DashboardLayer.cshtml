@@ -376,12 +376,10 @@
                                 <span>Support</span>
                             </a>
                             <div class="dropdown-divider"></div>
-                            @*                            <a id="logoutButton" class="dropdown-item">
-                            <i class="ni ni-user-run"></i>
-                            <span>Logout</span>
-                            </a> *@
-
-
+                            <a id="logoutButton" class="dropdown-item">
+                                <i class="ni ni-user-run"></i>
+                                <span>Đăng xuất</span>
+                            </a>
 
                         </div>
                     </li>
@@ -407,8 +405,6 @@
 
                     <!-- Navigation -->
                     <ul class="navbar-nav">
-
-
                         <li class="nav-item dropdown">
 
                             <div class="dropdown">
@@ -416,8 +412,8 @@
                                     <i class="ni ni-tv-2 text-primary"></i> Bảng Thống Kê
                                 </a>
 
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"> 
-                                     <a class="dropdown-item" asp-page="/Dashboard/Index">Tổng Quan</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" asp-page="/Dashboard/Index">Tổng Quan</a>
                                     <div class="dropdown-submenu">
                                         <a class="dropdown-item dropdown-toggle" href="#" id="monetaryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Giao dịch tiền mặt</a>
                                         <ul class="list-group">
@@ -439,113 +435,69 @@
                             </div>
 
 
-                        </li> 
-@* 
-                        <li class="nav-item dropdown">
-                            <div class="dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="ni ni-tv-2 text-primary"></i> Bảng Thống Kê
-                                </a>
-
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" asp-page="/Dashboard/Index">Tổng Quan</a>
-
-                                    <div class="dropdown-submenu">
-                                        <a class="dropdown-item dropdown-toggle" href="#">Giao dịch tiền mặt</a>
-                                        <ul class="dropdown-menu">
-                                            <li class="list-group-item"><a class="dropdown-item" asp-page="/Dashboard/Monetary">Giao dịch trong tháng</a></li>
-                                            <li class="list-group-item"><a class="dropdown-item" asp-page="/Dashboard/Date/Monetary">Giao dịch trong ngày</a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="dropdown-submenu">
-                                        <a class="dropdown-item dropdown-toggle" href="#">Giao dịch ứng dụng</a>
-                                        <ul class="dropdown-menu">
-                                            <li class="list-group-item"><a class="dropdown-item" asp-page="/Dashboard/Game">Giao dịch trong tháng</a></li>
-                                            <li class="list-group-item"><a class="dropdown-item" asp-page="/Dashboard/Date/Game">Giao dịch trong ngày</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </li> *@
-
+                        </li>
 
                         <li class="nav-item">
-                            <a asp-page="/Account/Index1" class="nav-link ">
+                            <a asp-page="/Account/Index1" class="nav-link">
                                 <i class="ni ni-tv-2 text-primary"></i> Danh Sách Tài Khoản
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a asp-page="/Genre/Index" class="nav-link ">
+                            <a asp-page="/Genre/Index" class="nav-link">
                                 <i class="ni ni-tv-2 text-primary"></i> Danh Sách Thể Loại
                             </a>
                         </li>
 
-
-                        <li class="nav-item dropdown">
-
-                            <div class="dropdown">
-                                <a class="nav-link dropdown-toggle" href="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="ni ni-tv-2 text-primary"></i> Bài Hát
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" asp-page="/Song/Index">Danh Sách Bài Hát</a>
-                                    <a class="dropdown-item" asp-page="/Singer/Index">Danh Sách Ca Sĩ</a>
-                                    <a class="dropdown-item" asp-page="/Artist/Index">Danh Sách Tác Giả</a>
-
-                                </div>
-
-
-                            </div>
-                        </li>
-
-
-                        <li class="nav-item dropdown">
-
-                            <div class="dropdown">
-                                <a class="nav-link dropdown-toggle" href="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="ni ni-tv-2 text-primary"></i> Giao Dịch
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" asp-page="/Transactions/Game">Trong Ứng Dụng</a>
-                                    <a class="dropdown-item" asp-page="/Transactions/Monetary">Tiền</a>
-
-                                </div>
-
-
+                        <!-- Modified Dropdown Menu -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="songMenuLink" aria-haspopup="true" aria-expanded="false">
+                                <i class="ni ni-tv-2 text-primary"></i> Bài Hát
+                                <span class="arrow" id="songArrow">&#9662;</span> <!-- Down arrow initially -->
+                            </a>
+                            <div id="songMenuCollapse" class="collapse">
+                                <a class="nav-link ml-3" asp-page="/Song/Index">Danh Sách Bài Hát</a>
+                                <a class="nav-link ml-3" asp-page="/Singer/Index">Danh Sách Ca Sĩ</a>
+                                <a class="nav-link ml-3" asp-page="/Artist/Index">Danh Sách Tác Giả</a>
                             </div>
                         </li>
 
                         <li class="nav-item">
-                            <a asp-page="/Item/Index" class="nav-link ">
+                            <a class="nav-link" href="#" id="transactionMenuLink" aria-haspopup="true" aria-expanded="false">
+                                <i class="ni ni-tv-2 text-primary"></i> Giao Dịch
+                                <span class="arrow" id="transactionArrow">&#9662;</span> <!-- Down arrow initially -->
+                            </a>
+                            <div id="transactionMenuCollapse" class="collapse">
+                                <a class="nav-link ml-3" asp-page="/Transactions/Game">Trong Ứng Dụng</a>
+                                <a class="nav-link ml-3" asp-page="/Transactions/Monetary">Tiền</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-page="/Item/Index" class="nav-link">
                                 <i class="ni ni-tv-2 text-primary"></i> Danh Sách Vật Phẩm
                             </a>
                         </li>
 
-
-
                         <li class="nav-item">
-                            <a asp-page="/Package/Index" class="nav-link ">
+                            <a asp-page="/Package/Index" class="nav-link">
                                 <i class="ni ni-tv-2 text-primary"></i> Danh Sách Gói
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-page="/Report/Index" class="nav-link ">
+                            <a asp-page="/Report/Index" class="nav-link">
                                 <i class="ni ni-tv-2 text-primary"></i> Danh Sách Tố Cáo
                             </a>
                         </li>
-
                     </ul>
                     <!-- Divider -->
                     <hr class="my-3">
                     <!-- Heading -->
                     <h6 class="navbar-heading text-muted">Documentation</h6>
-                    <!-- Navigation -->
-
                 </div>
             </div>
         </nav>
+
         <!-- Navbar -->
         <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
             <div class="container-fluid">
@@ -623,6 +575,48 @@
     <br />
     <br />
     <br />
+
+    <!-- Add custom JS to toggle the dropdown -->
+    <script>
+        document.getElementById('songMenuLink').addEventListener('click', function () {
+            const menu = document.getElementById('songMenuCollapse');
+            const arrow = document.getElementById('songArrow');
+
+            if (menu.classList.contains('collapse')) {
+                menu.classList.remove('collapse');
+                menu.classList.add('expanded');
+                arrow.innerHTML = '&#9652;'; // Up arrow when expanded
+            } else {
+                menu.classList.add('collapse');
+                menu.classList.remove('expanded');
+                arrow.innerHTML = '&#9662;'; // Down arrow when collapsed
+            }
+        });
+
+        document.getElementById('transactionMenuLink').addEventListener('click', function () {
+            const menu = document.getElementById('transactionMenuCollapse');
+            const arrow = document.getElementById('transactionArrow');
+
+            if (menu.classList.contains('collapse')) {
+                menu.classList.remove('collapse');
+                menu.classList.add('expanded');
+                arrow.innerHTML = '&#9652;'; // Up arrow when expanded
+            } else {
+                menu.classList.add('collapse');
+                menu.classList.remove('expanded');
+                arrow.innerHTML = '&#9662;'; // Down arrow when collapsed
+            }
+        });
+    </script>
+
+    <!-- Add custom CSS for expanded dropdown -->
+    <style>
+        .expanded {
+            display: block !important;
+            visibility: visible !important;
+        }
+    </style>
+
     <!-- Footer -->
     <footer class="footer">
         <div style="background-color: #3c3f41;">
