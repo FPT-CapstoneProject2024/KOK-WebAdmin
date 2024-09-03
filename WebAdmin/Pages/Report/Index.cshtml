@@ -236,9 +236,10 @@
 
 
                         <td>
-                            <a asp-page="./Edit" asp-route-id="@item.ReportId">Edit</a> |
-                            <a asp-page="./Details" asp-route-id="@item.ReportId">Details</a> |
-                            <a asp-page="./Delete" asp-route-id="@item.ReportId">Delete</a>
+
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editReportModal" data-id="@item.ReportId"> <i class="fa-solid fa-pen" style="font-size: 30px;color: #fff;"></i></button>
+                            <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailReportModal" data-id="@item.ReportId"><i class="fa-solid fa-file-lines" style="font-size: 30px;color: #fff;"></i></a>
+                            @* <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = item.ReportId })'"><i class="fa-regular fa-trash-can" style="font-size: 30px; color: #fff;"></i></button> *@
                         </td>
                     </tr>
                 }
@@ -257,11 +258,11 @@
 </div>
 
 <!-- Create Modal -->
-<div class="modal fade" id="createPackageModal" tabindex="-1" role="dialog" aria-labelledby="createPackageModalLabel" aria-hidden="true">
+<div class="modal fade" id="createReportModal" tabindex="-1" role="dialog" aria-labelledby="createReportModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createPackageModalLabel">Create New Package</h5>
+                <h5 class="modal-title" id="createReportModalLabel">Create New Report</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -275,11 +276,11 @@
 </div>
 
 <!-- Edit Modal -->
-<div class="modal fade" id="editPackageModal" tabindex="-1" role="dialog" aria-labelledby="editPackageModalLabel" aria-hidden="true">
+<div class="modal fade" id="editReportModal" tabindex="-1" role="dialog" aria-labelledby="editReportModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg-custom" role="document">
         <div class="modal-content edit-modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editPackageModalLabel">Edit Package</h5>
+                <h5 class="modal-title" id="editReportModalLabel">Edit Report</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -293,11 +294,11 @@
 </div>
 
 <!-- Details Modal -->
-<div class="modal fade" id="detailPackageModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+<div class="modal fade" id="detailReportModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
     <div class="modal-dialog custom-modal-width" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="detailModalLabel">Package Details</h5>
+                <h5 class="modal-title" id="detailModalLabel">Report Details</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -324,13 +325,13 @@
 
     // Load Detail form content into the modal
     $(document).ready(function () {
-        $('#detailPackageModal').on('show.bs.modal', function (e) {
+        $('#detailReportModal').on('show.bs.modal', function (e) {
             var button = $(e.relatedTarget);
-            var PackageId = button.data('id');
+            var ReportId = button.data('id');
             var modal = $(this);
 
             // Tải nội dung từ trang Details và chỉ lấy phần thân của nội dung
-            $.get('@Url.Page("/Package/Details", new { id = "__ID__" })'.replace('__ID__', PackageId), function (data) {
+            $.get('@Url.Page("/Report/Details", new { id = "__ID__" })'.replace('__ID__', ReportId), function (data) {
                 var detailContent = $(data).find('.details').html(); // Lấy phần nội dung chính
                 modal.find('.detail-modal-body').html(detailContent);
             });
@@ -339,7 +340,7 @@
 
 
     $(document).ready(function () {
-        $('#createPackageModal').on('show.bs.modal', function (e) {
+        $('#createReportModal').on('show.bs.modal', function (e) {
             var modal = $(this);
             // Load only the form content from the Create page
             $.get('@Url.Page("./Create")', function (data) {
@@ -364,7 +365,7 @@
                                 // Show the success popup
                                 Swal.fire({
                                     title: 'Success!',
-                                    text: 'The package was created successfully.',
+                                    text: 'The report was created successfully.',
                                     icon: 'success',
                                     confirmButtonText: 'OK'
                                 }).then((result) => {
@@ -377,7 +378,7 @@
                                 // Handle the failure case
                                 Swal.fire({
                                     title: 'Error!',
-                                    text: 'There was a problem creating the package.',
+                                    text: 'There was a problem creating the report.',
                                     icon: 'error',
                                     confirmButtonText: 'OK'
                                 });
@@ -406,13 +407,13 @@
     });
 
     //Load Edit form content into the modal
-    $('#editPackageModal').on('show.bs.modal', function (e) {
+    $('#editReportModal').on('show.bs.modal', function (e) {
         var button = $(e.relatedTarget);
-        var packageId = button.data('id');
+        var reportId = button.data('id');
         var modal = $(this);
 
         //Load the edit form from the Edit page
-        $.get('@Url.Page("./Edit", new { id = "__ID__" })'.replace('__ID__', packageId), function (data) {
+        $.get('@Url.Page("./Edit", new { id = "__ID__" })'.replace('__ID__', reportId), function (data) {
             var formContent = $(data).find('form');
             modal.find('.edit-modal-body').html(formContent);
 
@@ -434,7 +435,7 @@
                             // Show the success popup
                             Swal.fire({
                                 title: 'Success!',
-                                text: 'The package was edited successfully.',
+                                text: 'The report was edited successfully.',
                                 icon: 'success',
                                 confirmButtonText: 'OK'
                             }).then((result) => {
@@ -447,7 +448,7 @@
                             // Handle the failure case
                             Swal.fire({
                                 title: 'Error!',
-                                text: 'There was a problem creating the package.',
+                                text: 'There was a problem editing the report.',
                                 icon: 'error',
                                 confirmButtonText: 'OK'
                             });
