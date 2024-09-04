@@ -4751,7 +4751,6 @@ input[type="button"].btn-block {
   }
 
   .navbar-expand-lg .navbar-collapse {
-    display: flex !important;
     flex-basis: auto;
   }
 
