@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using WebAdmin.Context;
+using WebAdmin.DTOModels;
 using WebAdmin.DTOModels.Filter;
 using WebAdmin.DTOModels.Response.Helpers;
 using WebAdmin.Services.Interfaces;
@@ -48,6 +50,14 @@ namespace WebAdmin.Pages.Report
                 var jsonResponse = await response.Content.ReadAsStringAsync();
 
                 data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Report>>(jsonResponse);
+
+                data.Results = data.Results.Select(x =>
+                {
+                    x.ReportCategory = ReportCategory.List[(int)Enum.Parse(typeof(ReportCatagory), x.ReportCategory)];
+                    x.Status = ReportStatuses.List[(int)Enum.Parse(typeof(ReportStatus), x.Status)];
+                    x.ReportType = ReportTypes.List[(int)Enum.Parse(typeof(ReportType), x.ReportType)];
+                    return x;
+                }).ToList();
 
                 if (data.Results is not null)
                 {

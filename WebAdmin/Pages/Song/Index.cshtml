@@ -3,7 +3,12 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<head>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- FontAwesome icons-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
 <!--Search-->
 <div class="input-group">
     <form method="post" class="input-group">
@@ -240,10 +245,10 @@
                 @* <th>Song Description</th> *@
                 <th>Trạng Thái</th>
                 <th>Mã Bài Hát</th>     
-                <th>Price</th>
-                <th>Genre</th>
-                <th>Singer</th>
-                <th>Artist</th>
+                <th>Giá</th>
+                <th>Thể loại</th>
+                <th>Ca Sĩ</th>
+                <th>Tác Giả</th>
                 <th></th>
             </tr>
         </thead>
@@ -280,8 +285,14 @@
                             @Html.DisplayFor(modelItem => item.Artist)
                         </td>
                         <td>
-                            <button type="button" class="btn btn-facebook" data-toggle="modal" data-target="#editSongModal" data-id="@item.SongId"><i class="fa-solid fa-pen" style="font-size: 30px;color: #fff;"></i></button>
-                            <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailSongModal" data-id="@item.SongId"><i class="fa-solid fa-file-lines" style="font-size: 30px;color: #fff;"></i></a>
+                            @* <button type="button" class="btn btn-facebook" data-toggle="modal" data-target="#editSongModal" data-id="@item.SongId"><i class="fa-solid fa-pen" style="font-size: 30px;color: #fff;"></i></button> *@
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editSongModal" data-id="@item.SongId">
+                                <i class="fa-solid fa-pen" style="font-size: 30px;color: #fff;"></i>
+                            </button>
+                            @* <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailSongModal" data-id="@item.SongId"><i class="fa-solid fa-file-lines" style="font-size: 30px;color: #fff;"></i></a> *@
+                            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#detailSongModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@item.SongId">
+                                <i class="fa-solid fa-file-lines" style="font-size: 30px;color: #fff;"></i>
+                            </button>
                             <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = item.SongId })'"><i class="fa-regular fa-trash-can" style="font-size: 30px; color: #fff;"></i></button>
                         </td>
                     </tr>
@@ -311,7 +322,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createSongModalLabel">Create New Song</h5>
+                    <h5 class="modal-title" id="createSongModalLabel">Tạo Bài Hát Mới</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -338,7 +349,7 @@
     <div class="modal-dialog modal-lg-custom" role="document">
         <div class="modal-content edit-modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editSongModalLabel">Edit Song</h5>
+                <h5 class="modal-title" id="editSongModalLabel">Cập Nhật Bài Hát</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -356,7 +367,7 @@
     <div class="modal-dialog custom-modal-width" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="detailModalLabel">Song Details</h5>
+                <h5 class="modal-title" id="detailModalLabel">Chi Tiết</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -401,16 +412,16 @@
     //     }
     // }
 
-    document.getElementById('toggleAdvancedSearchSong').addEventListener('click', function () {
-        const panel = document.getElementById('advancedSearchPanelSong');
-        const isVisible = panel.style.display !== 'none';
+    // document.getElementById('toggleAdvancedSearchSong').addEventListener('click', function () {
+    //     const panel = document.getElementById('advancedSearchPanelSong');
+    //     const isVisible = panel.style.display !== 'none';
 
-        // Toggle visibility
-        panel.style.display = isVisible ? 'none' : 'block';
+    //     // Toggle visibility
+    //     panel.style.display = isVisible ? 'none' : 'block';
 
-        // Optionally change button text
-        this.innerText = isVisible ? 'Tìm Kiếm Nâng Cao' : 'Ẩn Tìm Kiếm Nâng Cao';
-    });
+    //     // Optionally change button text
+    //     this.innerText = isVisible ? 'Tìm Kiếm Nâng Cao' : 'Ẩn Tìm Kiếm Nâng Cao';
+    // });
 
     // Load Detail form content into the modal
     $(document).ready(function () {

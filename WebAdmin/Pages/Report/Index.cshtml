@@ -1,4 +1,5 @@
 ﻿@page
+@using WebAdmin.DTOModels
 @model WebAdmin.Pages.Report.IndexModel
 @{
 }
@@ -153,7 +154,7 @@
                 <div>
                     <label class="control-label">Kiểu Báo Cáo</label>
                     <select asp-for="filter.ReportType">
-                        <option value="INAPPROPRIATE_CONTENT">
+@*                         <option value="INAPPROPRIATE_CONTENT">
                             Nội Dung Không Phù Hợp
                         </option>
                         <option value="SPAM">
@@ -168,7 +169,12 @@
                         <option value="TERRORISM">Khủng Bố</option>
                         <option value="NUDITY">Ảnh Khoả Thân</option>
                         <option value="GRAPHIC_CONTENT">Nội Dung Rùng Rợn</option>
-                        <option value="MISINFORMATION">Thông Tin Sai Lệch</option>
+                        <option value="MISINFORMATION">Thông Tin Sai Lệch</option> *@
+
+                        @for (int e = 0; e < ReportCategory.List.Count(); e++)
+                        {
+                            <option value="@e">@ReportCategory.List[e]</option>
+                        }
                     </select>
                 </div>
 
