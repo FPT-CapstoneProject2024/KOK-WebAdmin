@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 using WebAdmin.Context;
+using WebAdmin.DTOModels;
 using WebAdmin.DTOModels.Filter;
 using WebAdmin.DTOModels.Response.Helpers;
 using WebAdmin.Services.Interfaces;
@@ -53,6 +54,14 @@ namespace WebAdmin.Pages.Account
 #pragma warning disable CS8601 // Possible null reference assignment.
             data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Account>>(jsonResponse);
 #pragma warning restore CS8601 // Possible null reference assignment.
+
+            data.Results = data.Results.Select(r =>
+            {
+                r.AccountStatus = AccountStatuses.List[(int)Enum.Parse(typeof(AccountStatus), r.AccountStatus)];
+                r.Role = AccountRoles.List[(int)Enum.Parse(typeof(AccountRole), r.Role) - 1];
+                r.Gender = AccountGenres.List[(int)Enum.Parse(typeof(AccountGender), r.Gender) - 1];
+                return r;
+            }).ToList();
 
             if (data.Results is not null)
             {

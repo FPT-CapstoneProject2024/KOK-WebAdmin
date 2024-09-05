@@ -7,10 +7,11 @@ namespace WebAdmin.DTOModels.Response
     {
 
         public Guid? InAppTransactionId { get; set; }
-        public InAppTransactionStatus? Status { get; set; }
+        public string? Status { get; set; }
         public DateTime? CreatedDate { get; set; }
-        public InAppTransactionType? TransactionType { get; set; }
+        public string? TransactionType { get; set; }
         public Guid? MemberId { get; set; }
+        public string? UserName { get; set; }
         public Guid? ItemId { get; set; }
         public Guid? SongId { get; set; }
         public decimal? UpAmountBefore { get; set; }

@@ -1,4 +1,5 @@
 ﻿@page
+@using WebAdmin.DTOModels
 @model WebAdmin.Pages.Account.Index1Model
 @{
 }
@@ -50,8 +51,12 @@
                         <label class="form-label">Giới Tính</label>
                         <select asp-for="filter.Gender" class="form-select">
                             <option value="" disabled selected>Chọn</option>
-                            <option value="Male">Nam</option>
-                            <option value="Female">Nữ</option>
+@*                             <option value="Male">Nam</option>
+                            <option value="Female">Nữ</option> *@
+                            @for(int i = 0; i < AccountGenres.List.Count; i++)
+                            {
+                                <option value="@i+1">@AccountGenres.List[i]</option>
+                            }
                         </select>
                         <span asp-validation-for="filter.Gender" class="text-danger"></span>
                     </div>

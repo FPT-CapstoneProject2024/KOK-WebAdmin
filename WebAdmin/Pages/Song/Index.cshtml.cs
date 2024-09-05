@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 using WebAdmin.Context;
+using WebAdmin.DTOModels;
 using WebAdmin.DTOModels.Filter;
 using WebAdmin.DTOModels.Response;
 using WebAdmin.DTOModels.Response.Helpers;
@@ -71,6 +72,12 @@ namespace WebAdmin.Pages.Song
 #pragma warning disable CS8601 // Possible null reference assignment.
             data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Song>>(jsonResponse);
 #pragma warning restore CS8601 // Possible null reference assignment.
+
+            data.Results = data.Results.Select(r =>
+            {
+                r.SongStatus = new SongStatuses().List[(int)Enum.Parse(typeof(SongStatus), r.SongStatus)];
+                return r;
+            }).ToList();
 
             if (data.Results is not null)
             {

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using WebAdmin.Context;
+using WebAdmin.DTOModels;
 using WebAdmin.DTOModels.Response.Helpers;
 using WebAdmin.Services.Interfaces;
 
@@ -44,6 +45,13 @@ namespace WebAdmin.Pages.Transactions
                 var jsonResponse = await response.Content.ReadAsStringAsync();
 #pragma warning disable CS8601 // Possible null reference assignment.
                 data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.InAppTransaction>>(jsonResponse);
+                data.Results = data.Results.Select(r =>
+                {
+                    r.Status = (new InAppTransactionStatuses()).List[(int)Enum.Parse(typeof(InAppTransactionStatus), r.Status)];
+                    r.TransactionType = (new InAppTransactionTypes()).List[(int)Enum.Parse(typeof(InAppTransactionStatus), r.TransactionType)];
+
+                    return r;
+                }).ToList();
 #pragma warning restore CS8601 // Possible null reference assignment.
 
                 if (data.Results is not null)

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 using WebAdmin.Context;
+using WebAdmin.DTOModels;
 using WebAdmin.DTOModels.Filter;
 using WebAdmin.DTOModels.Response.Helpers;
 using WebAdmin.Pages.Authentication;
@@ -49,6 +50,13 @@ namespace WebAdmin.Pages.Package
                 var jsonResponse = await response.Content.ReadAsStringAsync();
 
                 data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Package>>(jsonResponse);
+
+                data.Results = data.Results.Select(r =>
+                {
+                    r.Status = PackageStatuses.list[(int)Enum.Parse(typeof(PackageStatus), r.Status)];
+
+                    return r;
+                }).ToList();
 
                 if (data.Results is not null)
                 {

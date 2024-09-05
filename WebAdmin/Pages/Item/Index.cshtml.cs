@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
+using System.Linq;
 using WebAdmin.Context;
+using WebAdmin.DTOModels;
 using WebAdmin.DTOModels.Filter;
 using WebAdmin.DTOModels.Response.Helpers;
 using WebAdmin.Pages.Account;
@@ -53,6 +55,15 @@ namespace WebAdmin.Pages.Item
 #pragma warning disable CS8601 // Possible null reference assignment.
                 data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Item>>(jsonResponse);
 #pragma warning restore CS8601 // Possible null reference assignment.
+
+                data.Results = data.Results.Select(r =>
+                {
+                    r.ItemStatus = new ItemStatuses().List[(int)Enum.Parse(typeof(ItemStatus), r.ItemStatus)];
+                    r.ItemType = new ItemTypes().List[(int)Enum.Parse(typeof(ItemType), r.ItemType)];
+
+                    return r;
+                }).ToList();    
+
 
                 if (data.Results is not null)
                 {

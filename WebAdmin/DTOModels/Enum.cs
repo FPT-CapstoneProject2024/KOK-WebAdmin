@@ -309,11 +309,30 @@ namespace WebAdmin.DTOModels
         STAFF = 2,
         MEMBER = 3,
     }
+    public static class AccountRoles
+    {
+        public static List<string> List = new()
+        {
+            "Quản Trị Viên",
+            "Nhân Viên",
+            "Người Dùng",
+        };
+    }
     public enum AccountGender
     {
         MALE = 1,
         FEMALE = 2,
         OTHERS = 3,
+    }
+
+    public static class AccountGenres
+    {
+        public static List<string> List = new()
+        {
+            "Nam",
+            "Nữ",
+            "Khác",
+        };
     }
 
     public enum AccountStatus
@@ -323,6 +342,15 @@ namespace WebAdmin.DTOModels
         INACTIVE = 2,
     }
 
+    public static class AccountStatuses
+    {
+        public static List<string> List = new()
+        {
+            "Chưa Xác Thực",
+            "Hoạt Động",
+            "Không Hoạt Động"
+        };
+    }
     #endregion
 
     #region Song
@@ -332,11 +360,30 @@ namespace WebAdmin.DTOModels
         ENABLE = 1,
     }
 
+    public class SongStatuses
+    {
+        public List<string> List = new()
+        {
+            "Vô Hiệu Hóa",
+            "Kích Hoạt"
+        };
+    }
+
     public enum SongType
     {
         INTERNAL = 1,
         EXTERNAL = 2,
     }
+
+    public class SongTypes
+    {
+        public List<string> List = new()
+        {
+            "Nguồn Ngoài",
+            "Nội Bộ"
+        };
+    }
+
     public enum SongCategory
     {
         VPOP = 0,
@@ -361,11 +408,32 @@ namespace WebAdmin.DTOModels
         ENABLE = 1,
         PENDING = 2,
     }
+
+    public class ItemStatuses
+    {
+        public List<string> List = new()
+        {
+            "Vô Hiệu Hóa",
+            "Kích Hoạt",
+            "Chờ Duyệt"
+        };
+    }
+
     public enum ItemType
     {
         CHARACTER,
         ROOM,
         DEFAULT,
+    }
+
+    public class ItemTypes
+    {
+        public List<string> List = new()
+        {
+            "Nhân Vật",
+            "Phòng",
+            "Mặc Định"
+        };
     }
 
     #endregion
@@ -378,6 +446,16 @@ namespace WebAdmin.DTOModels
         RECHARGE_UP_BALANCE = 3,
     }
 
+    public class InAppTransactionTypes
+    {
+        public List<string> List = new()
+        {
+            "Mua Vật Phẩm",
+            "Mua Bài Hát",
+            "Nạp Vào Tài Khoản"
+        };
+    }
+
     public enum InAppTransactionStatus
     {
         PENDING,
@@ -385,6 +463,15 @@ namespace WebAdmin.DTOModels
         CANCELED,
     }
 
+    public class InAppTransactionStatuses
+    {
+        public List<string> List = new()
+        {
+            "Chờ Xử Lý",
+            "Hoàn Thành",
+            "Hủy Bỏ",
+        };
+    }
     #endregion
 
     #region Recording
@@ -404,13 +491,23 @@ namespace WebAdmin.DTOModels
         ACTIVE = 1,
 
     }
+    public static class PackageStatuses
+    {
+        public static List<string> list = new()
+        {
+            "Không Hoạt Động",
+            "Hoạt Động"
+        };
+    }
     #endregion
 
     #region Payment
 
+
     public enum PaymentType
     {
         MOMO = 1,
+        PAYOS = 2,
     }
 
     public enum PaymentStatus
