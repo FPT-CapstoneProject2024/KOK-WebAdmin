@@ -315,6 +315,43 @@
             float: right;
         }
 
+/* 
+        .button-container {
+            display: flex;
+            justify-content: space-around; /* or 'center' or 'space-between' based on your design */
+            gap: 10px; /* Adjust space between buttons as needed */
+        }
+
+        .confirm-button {
+            background-color: #d77c7c; /* Use the color you prefer */
+            padding: 10px 20px; /* Adjust padding to your needs */
+            border-radius: 20px; /* Adjust the border-radius if needed */
+            border: none; /* Remove default border */
+            color: white; /* Text color */
+            cursor: pointer; /* Add pointer cursor on hover */
+        }
+ */
+        .button-container {
+            display: flex;
+            justify-content: space-between; /* Adjust alignment as needed */
+            gap: 10px; /* Space between buttons */
+            padding: 20px; /* Space around the buttons */
+            width: 100%; /* Full width of parent */
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
+
+        .confirm-button {
+            flex: 1; /* Make buttons equally wide */
+            background-color: #d77c7c; /* Button color */
+            padding: 10px; /* Padding inside buttons */
+            border-radius: 20px; /* Rounded corners */
+            border: none; /* Remove default border */
+            color: white; /* Text color */
+            cursor: pointer; /* Pointer cursor on hover */
+            text-align: center; /* Center text inside buttons */
+            min-width: 100px; /* Optional: minimum width to ensure readability */
+        }
+
 
     </style>
 
@@ -607,8 +644,12 @@
                 <div id="confirmLogout" class="modal">
                     <div class="modal-content">
                         <b>Xác nhận thoát?</b>
-                        <button id="confirmYes">Có</button>
-                        <button id="confirmNo">Không</button>
+
+                        <div class="button-container">
+                            <button class="confirm-button" id="confirmYes">Có</button>
+                            <button class="confirm-button" id="confirmNo">Không</button>
+                        </div>
+
                     </div>
                 </div>
                 @RenderBody()
@@ -703,6 +744,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script>
+
         document.getElementById('logoutButton').addEventListener('click', function () {
             // Hiển thị form xác nhận
             document.getElementById('confirmLogout').style.display = 'block';
