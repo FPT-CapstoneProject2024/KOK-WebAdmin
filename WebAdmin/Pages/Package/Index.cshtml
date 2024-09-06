@@ -144,64 +144,13 @@
     }
 </style>
 
-<div id="advancedSearchModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <div class="formAdvanced">
-            <form asp-page-handler="SearchAdvanced" method="post" class="input-group">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div>
-                    <label class="control-label">Tên Gói</label>
-                    <input asp-for="filter.PackageName" class="form-control-sm" />
-                    <span asp-validation-for="filter.PackageName" class="text-danger"></span>
-                </div>
-                <div>
-                    <label class="control-label">Giá Gói</label>
-                    <input asp-for="filter.MoneyAmount" class="form-control-sm" />
-                    <span asp-validation-for="filter.MoneyAmount" clas="text-danger"></span>
-                </div>
-                <div>
-                    <label class="control-label">Ngày Tạo</label>
-                    <input asp-for="filter.CreatedDate" class="form-control-sm" />
-                    <span asp-validation-for="filter.CreatedDate" clas="text-danger"></span>
-                </div>
-                <div>
-                    <label class="control-label">Số Sao</label>
-                    <input asp-for="filter.StarNumber" class="form-control-sm" />
-                    <span asp-validation-for="filter.StarNumber" clas="text-danger"></span>
-                </div>
-
-
-                <div>
-                    <label class="control-label">Trạng Thái</label>
-                    <select asp-for="filter.Status">
-                        <option value="INACTIVE">Không Hoạt Động</option>
-                        <option value="ACTIVE">Hoạt Động</option>
-                    </select>
-                </div>
-
-                <button class="btn btn-google-plus" type="submit">Lưu Thông Tin</button>
-
-
-            </form>
-        </div>
-
-    </div>
-
-</div>
-<!-- End Search -->
-
 <div class="table-container">
-
     <br />
     <p>
         <button type="button" class="btn btn-success btn-icon-only" data-toggle="modal" data-target="#createPackageModal" style="border: none; background: transparent; padding: 0;">
             <i class="fa-regular fa-square-plus" style="font-size: 42px; color: #28a745;"></i>
         </button>
     </p>
-
-
-
 
     <table class="table table-hover">
         <thead>
@@ -232,13 +181,13 @@
                         <td>@Html.DisplayFor(modelItem => package.CreatedDate)</td>
                         <td>
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editPackageModal" data-id="@package.PackageId">
-                                <i class="fa-solid fa-pen" style="font-size: 30px;color: #fff;"></i>
+                                <i class="fa-solid fa-pen" style="font-size: 25px;color: #fff;"></i>
                             </button>
                             <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#detailPackageModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@package.PackageId">
-                                <i class="fa-solid fa-file-lines" style="font-size: 30px;color: #fff;"></i>
+                                <i class="fa-solid fa-file-lines" style="font-size: 25px;color: #fff;"></i>
                             </button>
                             <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = package.PackageId })'">
-                                <i class="fa-regular fa-trash-can" style="font-size: 30px; color: #fff;"></i>
+                                <i class="fa-regular fa-trash-can" style="font-size: 25px; color: #fff;"></i>
                             </button>
                         </td>
                     </tr>
@@ -329,6 +278,7 @@ YÉ        <div class="modal-content edit-modal-content">
             var PackageId = button.data('id');
             var modal = $(this);
 
+            console.log('Detail Song Modal triggered for SongId:', PackageId);
             // Tải nội dung từ trang Details và chỉ lấy phần thân của nội dung
             $.get('@Url.Page("/Package/Details", new { id = "__ID__" })'.replace('__ID__', PackageId), function (data) {
                 var detailContent = $(data).find('.details').html(); // Lấy phần nội dung chính
