@@ -9,7 +9,7 @@ namespace WebAdmin.DTOModels.Response
         public string? SongName { get; set; }
         public string? SongDescription { get; set; }
         public string? SongUrl { get; set; }
-        public SongStatus? SongStatus { get; set; }
+        public string? SongStatus { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public string? SongCode { get; set; }

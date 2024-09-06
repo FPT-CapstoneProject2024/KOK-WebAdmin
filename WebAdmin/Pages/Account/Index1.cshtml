@@ -1,4 +1,5 @@
 ﻿@page
+@using WebAdmin.DTOModels
 @model WebAdmin.Pages.Account.Index1Model
 @{
 }
@@ -18,7 +19,7 @@
     <!-- Search Bar -->
     <div style="max-width: 1200px;">
         <form method="post" class="input-group">
-            <input asp-for="search" type="search" class="form-control rounded" placeholder="Search..." aria-label="Search" aria-describedby="search-addon" />
+            <input asp-for="search" type="search" class="form-control rounded" placeholder="Tìm Kiếm..." aria-label="Search" aria-describedby="search-addon" />
             <span class="input-group-text border-0" id="search-addon"></span>
             <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Search</button>
         </form>
@@ -50,8 +51,12 @@
                         <label class="form-label">Giới Tính</label>
                         <select asp-for="filter.Gender" class="form-select">
                             <option value="" disabled selected>Chọn</option>
-                            <option value="Male">Nam</option>
-                            <option value="Female">Nữ</option>
+@*                             <option value="Male">Nam</option>
+                            <option value="Female">Nữ</option> *@
+                            @for(int i = 0; i < AccountGenres.List.Count; i++)
+                            {
+                                <option value="@i+1">@AccountGenres.List[i]</option>
+                            }
                         </select>
                         <span asp-validation-for="filter.Gender" class="text-danger"></span>
                     </div>

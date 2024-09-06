@@ -15,7 +15,7 @@ namespace WebAdmin.Pages.Singer
 
         private readonly IHttpClientFactory _clientFactory;
 
-        private static string? imageUrl { get; set; }   
+        private static string? imageUrl { get; set; }
         [BindProperty]
         public DTOModels.Request.Singer.SingerRequestModel Singer { get; set; } = new DTOModels.Request.Singer.SingerRequestModel();
         //public List<DTOModels.Response.Account>? SearchResults { get; set; }
@@ -29,29 +29,29 @@ namespace WebAdmin.Pages.Singer
         {
         }
 
-        public async Task<IActionResult> OnPostAsync(IFormFile file)
+        public async Task<IActionResult> OnPostAsync()
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return new JsonResult(new { success = false });
-                }
+                //if (!ModelState.IsValid)
+                //{
+                //    return new JsonResult(new { success = false });
+                //}
 
-                var dataImage = await SupportingFeature.Instance.UploadImage(_clientFactory, file, KokApiContext.ImgurClientId);
+                //var dataImage = await SupportingFeature.Instance.UploadImage(_clientFactory, Singer.file, KokApiContext.ImgurClientId);
 
-                if (!dataImage.Item1)
-                {
-                    ViewData["Message"] = dataImage.Item2;
-                    return new JsonResult(new { success = false });
-                }
-                else
-                {
-                    ViewData["ImageUrl"] = dataImage.Item2;
-                    imageUrl = dataImage.Item2;
-                }
+                //if (!dataImage.Item1)
+                //{
+                //    ViewData["Message"] = dataImage.Item2;
+                //    return new JsonResult(new { success = false });
+                //}
+                //else
+                //{
+                //    ViewData["ImageUrl"] = dataImage.Item2;
+                //    imageUrl = dataImage.Item2;
+                //}
 
-                Singer.Image = imageUrl;
+                //Singer.Image = imageUrl;
 
                 var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.SingerResource;
 

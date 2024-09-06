@@ -26,8 +26,12 @@
         <thead>
             <tr>
                 <th>
+                    @Html.DisplayNameFor(model => model.data.Results[0].UserName)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.data.Results[0].Status)
                 </th>
+
                 <th>
                     @Html.DisplayNameFor(model => model.data.Results[0].CreatedDate)
                 </th>
@@ -50,8 +54,12 @@
                 {
                     <tr>
                         <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.Status)
                         </td>
+
                         <td>
                             @Html.DisplayFor(modelItem => item.CreatedDate)
                         </td>
