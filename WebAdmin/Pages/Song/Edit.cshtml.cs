@@ -52,10 +52,10 @@ namespace WebAdmin.Pages.Song
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return new JsonResult(new { success = false });
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return new JsonResult(new { success = false });
+            //}
 
             try
             {
