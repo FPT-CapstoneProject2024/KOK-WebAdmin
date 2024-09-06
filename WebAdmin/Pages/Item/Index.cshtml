@@ -348,14 +348,14 @@
                             @Html.DisplayFor(modelItem => item.ItemSellPrice)
                         </td>                       
                         <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editPackageModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@item.ItemId">
-                                <i class="fa-solid fa-pen" style="font-size: 30px;color: #fff;"></i>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editItemModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@item.ItemId">
+                                <i class="fa-solid fa-pen" style="font-size: 25px;color: #fff;"></i>
                             </button>
-                            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#detailPackageModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@item.ItemId">
-                                <i class="fa-solid fa-file-lines" style="font-size: 30px;color: #fff;"></i>
+                            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#detailItemModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@item.ItemId">
+                                <i class="fa-solid fa-file-lines" style="font-size: 25px;color: #fff;"></i>
                             </button>
                             <button type="button" class="btn btn-google-plus" style="border: none; padding: 0; width: 42px; height: 42px; align-items: center; justify-content: center;" onclick="location.href='@Url.Page("./Delete", new { id = item.ItemId })'">
-                                <i class="fa-regular fa-trash-can" style="font-size: 30px; color: #fff;"></i>
+                                <i class="fa-regular fa-trash-can" style="font-size: 25px; color: #fff;"></i>
                             </button>
                         </td>
                     </tr>

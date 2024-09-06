@@ -65,7 +65,10 @@
                             @Html.DisplayFor(modelItem => item.UpTotalAmount)
                         </td>
                         <td>
-                            <a asp-page="./Details/Game" asp-route-id="@item.InAppTransactionId">Details</a>
+                            @* <a asp-page="./Details/Game" asp-route-id="@item.InAppTransactionId">Details</a> *@
+                            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#detailGameTransactionModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@item.InAppTransactionId">
+                                <i class="fa-solid fa-file-lines" style="font-size: 25px;color: #fff;"></i>
+                            </button>
                         </td>
                     </tr>
                 }
@@ -78,7 +81,7 @@
     <br />
     <div>
         <label style="color: red;">Tổng Tiền: </label>
-            <p style="color:black;">@ViewBag.TotalAmount VMD</p>
+            <p style="color:black;">@ViewBag.TotalAmount VND</p>
     </div>
     <div>
         <label style="color: red;">Tổng giao dịch: </label>
@@ -88,6 +91,22 @@
 
 </div>
 
+<!-- Details Modal -->
+<div class="modal fade" id="detailGameTransactionModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog custom-modal-width" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalLabel">Game Transaction Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body detail-modal-body">
+                <!-- Nội dung chi tiết sẽ được tải vào đây -->
+            </div>
+        </div>
+    </div>
+</div>
 
 <!--Paging-->
 <div class="pagination">
@@ -96,3 +115,20 @@
     <li class="page-item"><a asp-route-number="@(Model.CurrentPage + 1)" class="page-link">&raquo;</a></li>
 </div>
 <!--End Paging-->
+
+<script>
+    // Load Detail form content into the modal
+    $(document).ready(function () {
+        $('#detailGameTransactionModal').on('show.bs.modal', function (e) {
+            var button = $(e.relatedTarget);
+            var TransactionId = button.data('id');
+            var modal = $(this);
+
+            // Tải nội dung từ trang Details và chỉ lấy phần thân của nội dung
+            $.get('@Url.Page("/Transactions/Details/Game", new { id = "__ID__" })'.replace('__ID__', TransactionId), function (data) {
+                var detailContent = $(data).find('.details').html(); // Lấy phần nội dung chính
+                modal.find('.detail-modal-body').html(detailContent);
+            });
+        });
+    });
+</script>

@@ -10,15 +10,19 @@
     <div class="col-md-4">
         <form method="post" enctype="multipart/form-data" asp-page="./Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Artist.ArtistId" />
             <div class="form-group">
-                <label @* asp-for="UpdateArtist.ArtistName" *@ class="control-label">Tên Tác Giả</label>
+                <label asp-for="UpdateArtist.ArtistName" class="control-label">Tên Tác Giả</label>
+                <input asp-for="UpdateArtist.ArtistName" class="form-control" />
                 <span asp-validation-for="UpdateArtist.ArtistName" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label @* asp-for="UpdateArtist.Image" *@ class="control-label">Hình Ảnh</label>
+                <label asp-for="UpdateArtist.Image" class="control-label">Hình Ảnh</label>
                 <input type="file" name="file" class="form-control" />
+                <span asp-validation-for="UpdateArtist.Image" class="text-danger"></span>
             </div>
-            <input type="hidden" asp-for="Artist.ArtistId" />
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

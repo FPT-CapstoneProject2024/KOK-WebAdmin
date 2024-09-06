@@ -51,9 +51,15 @@
                 </td>
                 <td class="img-cell"><img src="@Html.DisplayFor(modelItem => item.Image)" alt="N/A"/></td>
                 <td>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editGenreModal" data-id="@item.GenreId"> <i class="fa-solid fa-pen" style="font-size: 30px;color: #fff;"></i></button>
-                     <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailGenreModal" data-id="@item.GenreId"><i class="fa-solid fa-file-lines" style="font-size: 30px;color: #fff;"></i></a>
-                    <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = item.GenreId })'"><i class="fa-regular fa-trash-can" style="font-size: 30px; color: #fff;"></i></button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editGenreModal" data-id="@item.GenreId">
+                        <i class="fa-solid fa-pen" style="font-size: 25px;color: #fff;"></i>
+                    </button>
+                    <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#detailGenreModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@item.GenreId">
+                        <i class="fa-solid fa-file-lines" style="font-size: 25px;color: #fff;"></i>
+                    </button>
+                    <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = item.GenreId })'">
+                        <i class="fa-regular fa-trash-can" style="font-size: 25px; color: #fff;"></i>
+                    </button>
                 </td>
             </tr>
         }
@@ -146,10 +152,75 @@
 
 
 
-    $(document).ready(function () {
+//     $(document).ready(function () {
+//     $('#createGenreModal').on('show.bs.modal', function (e) {
+//         var modal = $(this);
+//         // Load only the form content from the Create page
+//         $.get('@Url.Page("./Create")', function (data) {
+//             var formContent = $(data).find('form');
+//             modal.find('.modal-body').html(formContent);
+
+//             // Attach an event listener to the form submit event
+//             modal.find('form').on('submit', function (e) {
+//                 e.preventDefault(); // Prevent normal form submission
+
+//                 // Use AJAX to submit the form data
+//                 $.ajax({
+//                     type: $(this).attr('method'),
+//                     url: $(this).attr('action'),
+//                     data: $(this).serialize(),
+//                     success: function (response) {
+//                         if (response.success) {
+//                             // Close the modal and remove the backdrop
+//                             modal.modal('hide');
+//                             $('.modal-backdrop').remove(); // Ensure the backdrop is removed
+
+//                             // Show the success popup
+//                             Swal.fire({
+//                                 title: 'Success!',
+//                                 text: 'The genre was created successfully.',
+//                                 icon: 'success',
+//                                 confirmButtonText: 'OK'
+//                             }).then((result) => {
+//                                 if (result.isConfirmed) {
+//                                     // Reload the page when the user presses OK
+//                                     location.reload();
+//                                 }
+//                             });
+//                         } else {
+//                             // Handle the failure case
+//                             Swal.fire({
+//                                 title: 'Error!',
+//                                 text: 'There was a problem creating the genre.',
+//                                 icon: 'error',
+//                                 confirmButtonText: 'OK'
+//                             });
+
+//                             // Close the modal and remove the backdrop
+//                             modal.modal('hide');
+//                             $('.modal-backdrop').remove();
+//                         }
+//                     },
+//                     error: function () {
+//                         // Close the modal and remove the backdrop in case of an error
+//                         modal.modal('hide');
+//                         $('.modal-backdrop').remove();
+
+//                         Swal.fire({
+//                             title: 'Error!',
+//                             text: 'There was a problem with the request.',
+//                             icon: 'error',
+//                             confirmButtonText: 'OK'
+//                         });
+//                     }
+//                 });
+//             });
+//         });
+//     });
+// });
+$(document).ready(function () {
     $('#createGenreModal').on('show.bs.modal', function (e) {
         var modal = $(this);
-        // Load only the form content from the Create page
         $.get('@Url.Page("./Create")', function (data) {
             var formContent = $(data).find('form');
             modal.find('.modal-body').html(formContent);
@@ -158,14 +229,17 @@
             modal.find('form').on('submit', function (e) {
                 e.preventDefault(); // Prevent normal form submission
 
-                // Use AJAX to submit the form data
+                var form = $(this)[0]; // Get the form element
+                var formData = new FormData(form); // Use FormData to handle file upload
+
                 $.ajax({
                     type: $(this).attr('method'),
                     url: $(this).attr('action'),
-                    data: $(this).serialize(),
+                    data: formData,
+                    processData: false, // Required for FormData
+                    contentType: false, // Required for FormData
                     success: function (response) {
                         if (response.success) {
-                            // Close the modal and remove the backdrop
                             modal.modal('hide');
                             $('.modal-backdrop').remove(); // Ensure the backdrop is removed
 
@@ -177,12 +251,10 @@
                                 confirmButtonText: 'OK'
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    // Reload the page when the user presses OK
                                     location.reload();
                                 }
                             });
                         } else {
-                            // Handle the failure case
                             Swal.fire({
                                 title: 'Error!',
                                 text: 'There was a problem creating the genre.',
@@ -190,16 +262,13 @@
                                 confirmButtonText: 'OK'
                             });
 
-                            // Close the modal and remove the backdrop
                             modal.modal('hide');
                             $('.modal-backdrop').remove();
                         }
                     },
                     error: function () {
-                        // Close the modal and remove the backdrop in case of an error
                         modal.modal('hide');
                         $('.modal-backdrop').remove();
-
                         Swal.fire({
                             title: 'Error!',
                             text: 'There was a problem with the request.',
