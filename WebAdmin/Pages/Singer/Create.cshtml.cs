@@ -38,20 +38,20 @@ namespace WebAdmin.Pages.Singer
                 //    return new JsonResult(new { success = false });
                 //}
 
-                //var dataImage = await SupportingFeature.Instance.UploadImage(_clientFactory, Singer.file, KokApiContext.ImgurClientId);
+                var dataImage = await SupportingFeature.Instance.UploadImage(_clientFactory, Singer.file, KokApiContext.ImgurClientId);
 
-                //if (!dataImage.Item1)
-                //{
-                //    ViewData["Message"] = dataImage.Item2;
-                //    return new JsonResult(new { success = false });
-                //}
-                //else
-                //{
-                //    ViewData["ImageUrl"] = dataImage.Item2;
-                //    imageUrl = dataImage.Item2;
-                //}
+                if (!dataImage.Item1)
+                {
+                    ViewData["Message"] = dataImage.Item2;
+                    return new JsonResult(new { success = false });
+                }
+                else
+                {
+                    ViewData["ImageUrl"] = dataImage.Item2;
+                    imageUrl = dataImage.Item2;
+                }
 
-                //Singer.Image = imageUrl;
+                Singer.Image = imageUrl;
 
                 var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.SingerResource;
 
