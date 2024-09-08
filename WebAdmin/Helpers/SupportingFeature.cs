@@ -28,9 +28,6 @@ namespace WebAdmin.Helpers
             }
         }
 
-
-
-
         public string GenerateCode()
         {
             return Convert.ToString(new Random().Next(100000, 999999));
@@ -38,7 +35,6 @@ namespace WebAdmin.Helpers
 
         public static IEnumerable<string> GetNameOfProperties<T>()
         {
-
             return typeof(T).GetProperties().Select(p => p.Name);
         }
 
@@ -55,7 +51,6 @@ namespace WebAdmin.Helpers
             var parameter = Expression.Parameter(typeof(object), "p");
             var property = Expression.Property(Expression.Convert(parameter, typeof(TEntity)), propertyName);
             var convert = Expression.Convert(property, typeof(object));
-
             return Expression.Lambda<Func<TEntity, TKey>>(convert, parameter);
         }
 
@@ -68,22 +63,17 @@ namespace WebAdmin.Helpers
         {
             if (sortType == SortOrder.Ascending)
             {
-
                 return searchResult.OrderBy(item => typeof(T).GetProperties().First(x => x.Name.Equals(colName, StringComparison.CurrentCultureIgnoreCase)).GetValue(item)).AsQueryable();
-
             }
             else if (sortType == SortOrder.Descending)
             {
-
                 return searchResult.OrderByDescending(item => typeof(T).GetProperties().First(x => x.Name.Equals(colName, StringComparison.CurrentCultureIgnoreCase)).GetValue(item)).AsQueryable();
-
             }
             else
             {
                 return searchResult;
             }
         }
-
 
         public string? GetDisplayNameForProperty(PropertyInfo property, string otherProperty)
         {
@@ -131,7 +121,6 @@ namespace WebAdmin.Helpers
             try
             {
                 cache.Set(key, value, new TimeSpan(0, minutes, 0));
-
             }
             catch (Exception)
             {
@@ -186,9 +175,7 @@ namespace WebAdmin.Helpers
                     return (false, "Upload failed!");
                 }
             }
-
             return (false, "");
-
         }
     }
 }
