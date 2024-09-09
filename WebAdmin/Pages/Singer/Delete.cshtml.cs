@@ -55,7 +55,7 @@ namespace WebAdmin.Pages.Singer
             {
                 if (id == null)
                 {
-                    return NotFound();
+                    return new JsonResult(new { success = false });
                 }
 
                 var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.SingerResource + "/" + id;
@@ -65,20 +65,18 @@ namespace WebAdmin.Pages.Singer
 
                 if (!data.result.Value)
                 {
-                    return BadRequest();
+                    return new JsonResult(new { success = false });
                 }
                 else
                 {
                     //Item = data.Value;
-                    return RedirectToPage("./Index");
+                    return new JsonResult(new { success = true });
                 }
             }
             catch (Exception)
             {
-                return RedirectToPage("./Error");
+                return new JsonResult(new { success = false });
             }
-
-            return Page();
         }
     }
 }

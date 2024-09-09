@@ -25,9 +25,9 @@
 <br/>
 
 <p>
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createGenreModal">
-        Tạo Thể Loại Mới
-    </button>
+    <button type="button" class="btn btn-success btn-icon-only" data-toggle="modal" data-target="#createGenreModal" style="border: none; background: transparent; padding: 0;">
+            <i class="fa-regular fa-square-plus" style="font-size: 42px; color: #28a745;"></i>
+        </button>
 </p>
 
     <table class="table table-hover">
@@ -57,9 +57,9 @@
                     <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#detailGenreModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@item.GenreId">
                         <i class="fa-solid fa-file-lines" style="font-size: 25px;color: #fff;"></i>
                     </button>
-                    <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = item.GenreId })'">
-                        <i class="fa-regular fa-trash-can" style="font-size: 25px; color: #fff;"></i>
-                    </button>
+                    <button type="button" class="btn btn-google-plus" data-toggle="modal" data-target="#deleteGenreModal" data-id="@item.GenreId">
+                                <i class="fa-regular fa-trash-can" style="font-size: 25px; color: #fff;"></i>
+                            </button>
                 </td>
             </tr>
         }
@@ -114,113 +114,77 @@
     </div>
 </div>
 
-
-        <!-- Details Modal -->
-        <div class="modal fade" id="detailGenreModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
-            <div class="modal-dialog custom-modal-width" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="detailModalLabel">Genre Details</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body detail-modal-body">
-                        <!-- Nội dung chi tiết sẽ được tải vào đây -->
-                    </div>
-                </div>
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteGenreModal" tabindex="-1" role="dialog" aria-labelledby="deleteGenreModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content delete-modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteGenreModalLabel">Delete Genre</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="delete-modal-body">
+                <!-- The content of the Delete page will be loaded here -->
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Details Modal -->
+<div class="modal fade" id="detailGenreModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog custom-modal-width" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalLabel">Genre Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body detail-modal-body">
+                 <!-- Nội dung chi tiết sẽ được tải vào đây -->
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script>
+// Load Detail form content into the modal
+$(document).ready(function () {
+    $('#detailGenreModal').on('show.bs.modal', function (e) {
+        var button = $(e.relatedTarget);
+        var genreId = button.data('id');
+        var modal = $(this);
 
-                // Load Detail form content into the modal
-            $(document).ready(function () {
-                $('#detailGenreModal').on('show.bs.modal', function (e) {
-                    var button = $(e.relatedTarget);
-                    var genreId = button.data('id');
-                    var modal = $(this);
+        // Tải nội dung từ trang Details và chỉ lấy phần thân của nội dung
+        $.get('@Url.Page("/Genre/Details", new { id = "__ID__" })'.replace('__ID__', genreId), function (data) {
+            var detailContent = $(data).find('.details').html(); // Lấy phần nội dung chính
+            modal.find('.detail-modal-body').html(detailContent);
+        });
+    });
+});
 
-                    // Tải nội dung từ trang Details và chỉ lấy phần thân của nội dung
-                    $.get('@Url.Page("/Genre/Details", new { id = "__ID__" })'.replace('__ID__', genreId), function (data) {
-                        var detailContent = $(data).find('.details').html(); // Lấy phần nội dung chính
-                        modal.find('.detail-modal-body').html(detailContent);
-                    });
-                });
-            });
+// Load Detail form content into the modal
+$(document).ready(function () {
+    $('#detailGenreModal').on('show.bs.modal', function (e) {
+        var button = $(e.relatedTarget);
+        var GenreId = button.data('id');
+        var modal = $(this);
 
+        console.log('Detail Modal triggered for GenreId:', GenreId);
+        // Tải nội dung từ trang Details và chỉ lấy phần thân của nội dung
+        $.get('@Url.Page("/Genre/Details", new { id = "__ID__" })'.replace('__ID__', GenreId), function (data) {
+            var detailContent = $(data).find('.details').html(); // Lấy phần nội dung chính
+            modal.find('.detail-modal-body').html(detailContent);
+        });
+    });
+});
 
-
-//     $(document).ready(function () {
-//     $('#createGenreModal').on('show.bs.modal', function (e) {
-//         var modal = $(this);
-//         // Load only the form content from the Create page
-//         $.get('@Url.Page("./Create")', function (data) {
-//             var formContent = $(data).find('form');
-//             modal.find('.modal-body').html(formContent);
-
-//             // Attach an event listener to the form submit event
-//             modal.find('form').on('submit', function (e) {
-//                 e.preventDefault(); // Prevent normal form submission
-
-//                 // Use AJAX to submit the form data
-//                 $.ajax({
-//                     type: $(this).attr('method'),
-//                     url: $(this).attr('action'),
-//                     data: $(this).serialize(),
-//                     success: function (response) {
-//                         if (response.success) {
-//                             // Close the modal and remove the backdrop
-//                             modal.modal('hide');
-//                             $('.modal-backdrop').remove(); // Ensure the backdrop is removed
-
-//                             // Show the success popup
-//                             Swal.fire({
-//                                 title: 'Success!',
-//                                 text: 'The genre was created successfully.',
-//                                 icon: 'success',
-//                                 confirmButtonText: 'OK'
-//                             }).then((result) => {
-//                                 if (result.isConfirmed) {
-//                                     // Reload the page when the user presses OK
-//                                     location.reload();
-//                                 }
-//                             });
-//                         } else {
-//                             // Handle the failure case
-//                             Swal.fire({
-//                                 title: 'Error!',
-//                                 text: 'There was a problem creating the genre.',
-//                                 icon: 'error',
-//                                 confirmButtonText: 'OK'
-//                             });
-
-//                             // Close the modal and remove the backdrop
-//                             modal.modal('hide');
-//                             $('.modal-backdrop').remove();
-//                         }
-//                     },
-//                     error: function () {
-//                         // Close the modal and remove the backdrop in case of an error
-//                         modal.modal('hide');
-//                         $('.modal-backdrop').remove();
-
-//                         Swal.fire({
-//                             title: 'Error!',
-//                             text: 'There was a problem with the request.',
-//                             icon: 'error',
-//                             confirmButtonText: 'OK'
-//                         });
-//                     }
-//                 });
-//             });
-//         });
-//     });
-// });
 $(document).ready(function () {
     $('#createGenreModal').on('show.bs.modal', function (e) {
         var modal = $(this);
+        // Load only the form content from the Create page
         $.get('@Url.Page("./Create")', function (data) {
             var formContent = $(data).find('form');
             modal.find('.modal-body').html(formContent);
@@ -229,49 +193,51 @@ $(document).ready(function () {
             modal.find('form').on('submit', function (e) {
                 e.preventDefault(); // Prevent normal form submission
 
-                var form = $(this)[0]; // Get the form element
-                var formData = new FormData(form); // Use FormData to handle file upload
-
+                // Use AJAX to submit the form data
                 $.ajax({
                     type: $(this).attr('method'),
                     url: $(this).attr('action'),
-                    data: formData,
-                    processData: false, // Required for FormData
-                    contentType: false, // Required for FormData
+                    data: $(this).serialize(),
                     success: function (response) {
                         if (response.success) {
+                            // Close the modal and remove the backdrop
                             modal.modal('hide');
                             $('.modal-backdrop').remove(); // Ensure the backdrop is removed
 
                             // Show the success popup
                             Swal.fire({
                                 title: 'Success!',
-                                text: 'The genre was created successfully.',
+                                text: 'Tạo mới thể loại thành công!',
                                 icon: 'success',
                                 confirmButtonText: 'OK'
                             }).then((result) => {
                                 if (result.isConfirmed) {
+                                    // Reload the page when the user presses OK
                                     location.reload();
                                 }
                             });
                         } else {
+                            // Handle the failure case
                             Swal.fire({
                                 title: 'Error!',
-                                text: 'There was a problem creating the genre.',
+                                text: 'Tạo mới thể loại thất bại!',
                                 icon: 'error',
                                 confirmButtonText: 'OK'
                             });
 
+                            // Close the modal and remove the backdrop
                             modal.modal('hide');
                             $('.modal-backdrop').remove();
                         }
                     },
                     error: function () {
+                        // Close the modal and remove the backdrop in case of an error
                         modal.modal('hide');
                         $('.modal-backdrop').remove();
+
                         Swal.fire({
                             title: 'Error!',
-                            text: 'There was a problem with the request.',
+                            text: 'Xảy ra lỗi với tác vụ!',
                             icon: 'error',
                             confirmButtonText: 'OK'
                         });
@@ -282,13 +248,13 @@ $(document).ready(function () {
     });
 });
 
-// Load Edit form content into the modal
+//Load Edit form content into the modal
 $('#editGenreModal').on('show.bs.modal', function (e) {
     var button = $(e.relatedTarget);
     var genreId = button.data('id');
     var modal = $(this);
 
-    // Load the edit form from the Edit page
+    //Load the edit form from the Edit page
     $.get('@Url.Page("./Edit", new { id = "__ID__" })'.replace('__ID__', genreId), function (data) {
         var formContent = $(data).find('form');
         modal.find('.edit-modal-body').html(formContent);
@@ -311,7 +277,7 @@ $('#editGenreModal').on('show.bs.modal', function (e) {
                         // Show the success popup
                         Swal.fire({
                             title: 'Success!',
-                            text: 'The genre was edited successfully.',
+                            text: 'Chỉnh sửa thể loại thành công!',
                             icon: 'success',
                             confirmButtonText: 'OK'
                         }).then((result) => {
@@ -324,7 +290,7 @@ $('#editGenreModal').on('show.bs.modal', function (e) {
                         // Handle the failure case
                         Swal.fire({
                             title: 'Error!',
-                            text: 'There was a problem creating the genre.',
+                            text: 'Chỉnh sửa thể loại thất bại!',
                             icon: 'error',
                             confirmButtonText: 'OK'
                         });
@@ -341,7 +307,7 @@ $('#editGenreModal').on('show.bs.modal', function (e) {
 
                     Swal.fire({
                         title: 'Error!',
-                        text: 'There was a problem with the request.',
+                        text: 'Xảy ra lỗi với tác vụ!',
                         icon: 'error',
                         confirmButtonText: 'OK'
                     });
@@ -350,6 +316,76 @@ $('#editGenreModal').on('show.bs.modal', function (e) {
         });
     });
 });
+
+//Load Delete form content into the modal
+$('#deleteGenreModal').on('show.bs.modal', function (e) {
+    var button = $(e.relatedTarget);
+    var genreId = button.data('id');
+    var modal = $(this);
+
+    //Load the delete form from the Delete page
+    $.get('@Url.Page("./Delete", new { id = "__ID__" })'.replace('__ID__', genreId), function (data) {
+        var deleteContent = $(data).find('.delete').html(); // Lấy phần nội dung chính
+        modal.find('.delete-modal-body').html(deleteContent);
+
+        // Attach an event listener to the form submit event
+        modal.find('form').on('submit', function (e) {
+            e.preventDefault(); // Prevent normal form submission
+
+            // Use AJAX to submit the form data
+            $.ajax({
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function (response) {
+                    if (response.success) {
+                        // Close the modal and remove the backdrop
+                        modal.modal('hide');
+                        $('.modal-backdrop').remove(); // Ensure the backdrop is removed
+
+                        // Show the success popup
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Xóa thể loại thành công!',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Reload the page when the user presses OK
+                                location.reload();
+                            }
+                        });
+                    } else {
+                        // Handle the failure case
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Xóa thể loại thất bại!',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+
+                        // Close the modal and remove the backdrop
+                        modal.modal('hide');
+                        $('.modal-backdrop').remove();
+                    }
+                },
+                error: function () {
+                    // Close the modal and remove the backdrop in case of an error
+                    modal.modal('hide');
+                    $('.modal-backdrop').remove();
+
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Xảy ra lỗi với tác vụ!',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+        });
+    });
+});
+
 
 </script>
 
