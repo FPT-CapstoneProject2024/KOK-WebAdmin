@@ -5,8 +5,8 @@
 <h1>Delete</h1>
 
 <h3>Bạn chắc chắn xóa thông tin?</h3>
-<div>
-    <h4>Artist</h4>
+<div class="delete">
+    <h3>Bạn chắc chắn xóa thông tin?</h3>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -26,9 +26,10 @@
         </dd>
     </dl>
 
-    <form method="post">
+    <form method="post" asp-page="./Delete" asp-route-id="@Model.Artist.ArtistId">
         <input type="hidden" asp-for="Artist.ArtistId" />
-        <input type="submit" value="Xóa" class="btn btn-danger" /> |
-        <a asp-page="./Index">Trờ Về Danh Sách</a>
+        <div class="form-group">
+            <input type="submit" value="Xóa" class="btn btn-primary" />
+        </div>
     </form>
 </div>

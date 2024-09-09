@@ -55,7 +55,7 @@ namespace WebAdmin.Pages.Package
             {
                 if (id == null)
                 {
-                    return NotFound();
+                    return new JsonResult(new { success = false });
                 }
 
                 var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.PackageResource + "/" + id;
@@ -65,19 +65,17 @@ namespace WebAdmin.Pages.Package
 
                 if (!data.result.Value)
                 {
-                    return BadRequest();
+                    return new JsonResult(new { success = false });
                 }
                 else
                 {
-                    return RedirectToPage("./Index");
+                    return new JsonResult(new { success = true });
                 }
             }
             catch (Exception)
             {
-                return RedirectToPage("./Error");
+                return new JsonResult(new { success = false });
             }
-
-            return Page();
         }
     }
 

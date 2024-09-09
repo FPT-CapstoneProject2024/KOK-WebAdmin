@@ -281,8 +281,8 @@
 <div class="table-container">
     <br />
     <p>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createItemModal">
-            Tạo Vật Phẩm Mới
+        <button type="button" class="btn btn-success btn-icon-only" data-toggle="modal" data-target="#createItemModal" style="border: none; background: transparent; padding: 0;">
+            <i class="fa-regular fa-square-plus" style="font-size: 42px; color: #28a745;"></i>
         </button>
     </p>
     <table class="table table-hover">
@@ -354,7 +354,7 @@
                             <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#detailItemModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@item.ItemId">
                                 <i class="fa-solid fa-file-lines" style="font-size: 25px;color: #fff;"></i>
                             </button>
-                            <button type="button" class="btn btn-google-plus" style="border: none; padding: 0; width: 42px; height: 42px; align-items: center; justify-content: center;" onclick="location.href='@Url.Page("./Delete", new { id = item.ItemId })'">
+                            <button type="button" class="btn btn-google-plus" data-toggle="modal" data-target="#deleteItemModal" data-id="@item.ItemId">
                                 <i class="fa-regular fa-trash-can" style="font-size: 25px; color: #fff;"></i>
                             </button>
                         </td>
@@ -414,6 +414,22 @@
     </div>
 </div>
 
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteItemModal" tabindex="-1" role="dialog" aria-labelledby="deleteItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content delete-modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteItemModalLabel">Delete Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="delete-modal-body">
+                <!-- The content of the Delete page will be loaded here -->
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Details Modal -->
 <div class="modal fade" id="detailItemModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
@@ -453,6 +469,7 @@
             var ItemId = button.data('id');
             var modal = $(this);
 
+            console.log('Detail Modal triggered for ItemId:', ItemId);
             // Tải nội dung từ trang Details và chỉ lấy phần thân của nội dung
             $.get('@Url.Page("/Item/Details", new { id = "__ID__" })'.replace('__ID__', ItemId), function (data) {
                 var detailContent = $(data).find('.details').html(); // Lấy phần nội dung chính
@@ -460,8 +477,6 @@
             });
         });
     });
-
-
 
     $(document).ready(function () {
         $('#createItemModal').on('show.bs.modal', function (e) {
@@ -489,7 +504,7 @@
                                 // Show the success popup
                                 Swal.fire({
                                     title: 'Success!',
-                                    text: 'The item was created successfully.',
+                                    text: 'Tạo mới vật phẩm thành công!',
                                     icon: 'success',
                                     confirmButtonText: 'OK'
                                 }).then((result) => {
@@ -502,7 +517,7 @@
                                 // Handle the failure case
                                 Swal.fire({
                                     title: 'Error!',
-                                    text: 'There was a problem creating the item.',
+                                    text: 'Tạo mới vật phẩm thất bại!',
                                     icon: 'error',
                                     confirmButtonText: 'OK'
                                 });
@@ -519,7 +534,7 @@
 
                             Swal.fire({
                                 title: 'Error!',
-                                text: 'There was a problem with the request.',
+                                text: 'Xảy ra lỗi với tác vụ!',
                                 icon: 'error',
                                 confirmButtonText: 'OK'
                             });
@@ -530,13 +545,13 @@
         });
     });
 
-    // Load Edit form content into the modal
+    //Load Edit form content into the modal
     $('#editItemModal').on('show.bs.modal', function (e) {
         var button = $(e.relatedTarget);
         var itemId = button.data('id');
         var modal = $(this);
 
-        // Load the edit form from the Edit page
+        //Load the edit form from the Edit page
         $.get('@Url.Page("./Edit", new { id = "__ID__" })'.replace('__ID__', itemId), function (data) {
             var formContent = $(data).find('form');
             modal.find('.edit-modal-body').html(formContent);
@@ -559,7 +574,7 @@
                             // Show the success popup
                             Swal.fire({
                                 title: 'Success!',
-                                text: 'The item was edited successfully.',
+                                text: 'Chỉnh sửa vật phẩm thành công!',
                                 icon: 'success',
                                 confirmButtonText: 'OK'
                             }).then((result) => {
@@ -572,7 +587,7 @@
                             // Handle the failure case
                             Swal.fire({
                                 title: 'Error!',
-                                text: 'There was a problem editing the item.',
+                                text: 'Chỉnh sửa vật phẩm thất bại!',
                                 icon: 'error',
                                 confirmButtonText: 'OK'
                             });
@@ -589,7 +604,7 @@
 
                         Swal.fire({
                             title: 'Error!',
-                            text: 'There was a problem with the request.',
+                            text: 'Xảy ra lỗi với tác vụ!',
                             icon: 'error',
                             confirmButtonText: 'OK'
                         });
@@ -599,6 +614,74 @@
         });
     });
 
+    //Load Delete form content into the modal
+    $('#deleteItemModal').on('show.bs.modal', function (e) {
+        var button = $(e.relatedTarget);
+        var itemId = button.data('id');
+        var modal = $(this);
+
+        //Load the delete form from the Delete page
+        $.get('@Url.Page("./Delete", new { id = "__ID__" })'.replace('__ID__', itemId), function (data) {
+            var deleteContent = $(data).find('.delete').html(); // Lấy phần nội dung chính
+            modal.find('.delete-modal-body').html(deleteContent);
+
+            // Attach an event listener to the form submit event
+            modal.find('form').on('submit', function (e) {
+                e.preventDefault(); // Prevent normal form submission
+
+                // Use AJAX to submit the form data
+                $.ajax({
+                    type: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            // Close the modal and remove the backdrop
+                            modal.modal('hide');
+                            $('.modal-backdrop').remove(); // Ensure the backdrop is removed
+
+                            // Show the success popup
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'Xóa vật phẩm thành công!',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // Reload the page when the user presses OK
+                                    location.reload();
+                                }
+                            });
+                        } else {
+                            // Handle the failure case
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Xóa vật phẩm thất bại!',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+
+                            // Close the modal and remove the backdrop
+                            modal.modal('hide');
+                            $('.modal-backdrop').remove();
+                        }
+                    },
+                    error: function () {
+                        // Close the modal and remove the backdrop in case of an error
+                        modal.modal('hide');
+                        $('.modal-backdrop').remove();
+
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Xảy ra lỗi với tác vụ!',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            });
+        });
+    });
 </script>
 
 <style>

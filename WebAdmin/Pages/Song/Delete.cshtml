@@ -6,8 +6,8 @@
 
 
 <h3>Bạn có chắc là xóa bài hát?</h3>
-<div>
-    <h4>Song</h4>
+<div class="delete">
+    <h3>Bạn chắc chắn xóa thông tin?</h3>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -70,9 +70,10 @@
 
     </dl>
 
-    <form method="post">
+    <form method="post" asp-page="./Delete" asp-route-id="@Model.Song.SongId">
         <input type="hidden" asp-for="Song.SongId" />
-        <input type="submit" value="Xóa?" class="btn btn-danger" /> |
-        <a asp-page="./Index">Trở Lại Danh Sách</a>
+        <div class="form-group">
+            <input type="submit" value="Xóa" class="btn btn-primary" />
+        </div>
     </form>
 </div>
