@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
@@ -7,6 +7,7 @@ using WebAdmin.DTOModels;
 using WebAdmin.DTOModels.Filter;
 using WebAdmin.DTOModels.Response.Helpers;
 using WebAdmin.Pages.Authentication;
+using WebAdmin.Services.Implementation;
 using WebAdmin.Services.Interfaces;
 
 namespace WebAdmin.Pages.Package
@@ -81,6 +82,33 @@ namespace WebAdmin.Pages.Package
             return await OnGet(filter: "&filter" + "=" + search);
         }
 
+
+        public async Task<IActionResult> OnPostChangeStatus(Guid id)
+        {
+            try
+            {
+                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.PackageResource + "/update-status/" + id;
+
+                if (Request.Form["submit"].Equals("Không Hoạt Động"))
+                {
+                    var response = await apiClient.PutAsync(uri, "ACTIVE");
+                    var responseJson = await response.Content.ReadAsStringAsync();
+                    var package = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Package>>(responseJson);
+                }else if (Request.Form["submit"].Equals("Hoạt Động"))
+                {
+                    var response = await apiClient.PutAsync(uri, "INACTIVE");
+                    var responseJson = await response.Content.ReadAsStringAsync();
+                    var package = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Package>>(responseJson);
+                }
+            }
+            catch (Exception)
+            {
+                return RedirectToPage("/Error");
+            }
+
+            return await OnGet();
+
+        }
 
         public async Task<IActionResult> OnPostSearchAdvanced(string? number = null)
         {

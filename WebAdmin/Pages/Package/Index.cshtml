@@ -196,18 +196,22 @@
                         <td>@Html.Raw(package.MoneyAmount == 0 ? "Miễn Phí" : ((int)package.MoneyAmount + " VND"))</td>
                         <td>@Html.Raw(package.StarNumber + " UP")</td>
                         <td>
-                            @if (package.Status == "Không Hoạt Động" || package.Status == "INACTIVE")
-                            {
-                                <span style="color: red;">@* @Html.DisplayFor(modelItem => package.Status) *@Không Hoạt Động</span>
-                            }
-                            else if (package.Status == "Hoạt Động" || package.Status == "ACTIVE")
-                            {
-                                <span style="color: green;">@* @Html.DisplayFor(modelItem => package.Status) *@Hoạt Động</span>
-                            }
-                            else
-                            {
-                                @Html.DisplayFor(modelItem => package.Status)
-                            }
+                            <form asp-page-handler="ChangeStatus" asp-route-id="@package.PackageId" method="post">
+                                @if (package.Status == "Không Hoạt Động" || package.Status == "INACTIVE")
+                                {
+
+                                    @* <span style="color: red;">  *@<input name="submit" style="color: red;" class="btn btn-link" type="submit" value="Không Hoạt Động" />@* @Html.DisplayFor(modelItem => package.Status) *@@* </span> *@
+                                }
+                                else if (package.Status == "Hoạt Động" || package.Status == "ACTIVE")
+                                {
+                                    @* <span style="color: green;"> *@<input name="submit" style="color: green;" class="btn btn-link" type="submit" value="Hoạt Động" />@* @Html.DisplayFor(modelItem => package.Status) *@@* </span> *@
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => package.Status)
+                                }
+                            </form>
+
                         </td>
                         <td>@Html.DisplayFor(modelItem => package.CreatedDate)</td>
                         <td>
