@@ -452,7 +452,7 @@ namespace WebAdmin.DTOModels
         {
             "Mua Vật Phẩm",
             "Mua Bài Hát",
-            "Nạp Vào Tài Khoản"
+            "Nạp Vào Tài Khoản",
         };
     }
 

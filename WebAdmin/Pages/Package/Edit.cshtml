@@ -14,30 +14,30 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Package.PackageId" />
                 <div class="form-group">
-                    <label asp-for="UpdatePackage.PackageName" class="control-label">Package Name</label>
+                    <label asp-for="UpdatePackage.PackageName" class="control-label">Tên Gói</label>
                     <input asp-for="UpdatePackage.PackageName" class="form-control" required />
                     <span asp-validation-for="Package.PackageName" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="UpdatePackage.Description" class="control-label"></label>
+                    <label asp-for="UpdatePackage.Description" class="control-label">Mô Tả</label>
                     <input asp-for="UpdatePackage.Description" class="form-control" />
                     <span asp-validation-for="Package.Description" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="UpdatePackage.MoneyAmount" class="control-label">Money Amount</label>
+                    <label asp-for="UpdatePackage.MoneyAmount" class="control-label">Giá Tiền</label>
                     <input asp-for="UpdatePackage.MoneyAmount" class="form-control" />
                     <span asp-validation-for="Package.MoneyAmount" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="UpdatePackage.StarNumber" class="control-label">Star Number</label>
+                    <label asp-for="UpdatePackage.StarNumber" class="control-label">Số UP</label>
                     <input asp-for="UpdatePackage.StarNumber" class="form-control" />
                     <span asp-validation-for="Package.StarNumber" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="UpdatePackage.Status" class="control-label"></label>
+                    <label asp-for="UpdatePackage.Status" class="control-label">Trạng Thái</label>
                     <select asp-for="UpdatePackage.Status" class="form-control">
                         <option value="INACTIVE">Inactive</option>
                         <option value="ACTIVE">Active</option>
@@ -45,7 +45,7 @@
                     
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Edit" class="btn btn-primary" />
+                    <input type="submit" value="Chỉnh Sửa" class="btn btn-primary" />
                 </div>
             </form>
         </div>

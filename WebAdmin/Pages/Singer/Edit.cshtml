@@ -11,7 +11,7 @@
         <form method="post" enctype="multipart/form-data" asp-page="./Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="UpdateSinger.SingerName" class="control-label"></label>
+                <label asp-for="UpdateSinger.SingerName" class="control-label">Tên Ca Sĩ</label>
                 <input asp-for="UpdateSinger.SingerName" class="form-control" />
                 <span asp-validation-for="UpdateSinger.SingerName" class="text-danger"></span>
             </div>
@@ -22,14 +22,16 @@
             </div> *@
 
             <div class="form-group">
-                <label asp-for="UpdateSinger.Image" class="control-label"></label>
+                <label asp-for="UpdateSinger.Image" class="control-label">Hình Ảnh</label>
 
                 <input type="file" name="file" class="form-control" />
             </div>
 
             <input type="hidden" asp-for="Singer.SingerId" />
+            <!-- Existing Image URL (hidden) -->
+            <input type="hidden" asp-for="Singer.Image" />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Chỉnh Sửa" class="btn btn-primary" />
             </div>
         </form>
     </div>

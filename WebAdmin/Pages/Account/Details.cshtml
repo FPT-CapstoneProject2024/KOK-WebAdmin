@@ -2,94 +2,95 @@
 @model WebAdmin.Pages.Account.DetailsModel
 @{
 }
+
 <div class="details">
 
     <div>
         <hr />
         <dl class="row">
-
-            <dt class="col-sm-2">
+            <dt class="col-md-4 col-12">
                 Tên Tài Khoản
                 @* @Html.DisplayNameFor(model => model.Account.UserName) *@
             </dt>
-            <dd class="col-sm-10">
+            <dd class="col-md-8 col-12">
                 @Html.DisplayFor(model => model.Account.UserName)
             </dd>
-            <dt class="col-sm-2">
+            <dt class="col-md-4 col-12">
                 Email
                 @* @Html.DisplayNameFor(model => model.Account.Email) *@
             </dt>
-            <dd class="col-sm-10">
+            <dd class="col-md-8 col-12">
                 @Html.DisplayFor(model => model.Account.Email)
             </dd>
-            <dt class="col-sm-2">
+            <dt class="col-md-4 col-12">
                 Giới Tính
                 @* @Html.DisplayNameFor(model => model.Account.Gender) *@
             </dt>
-            <dd class="col-sm-10">
+            <dd class="col-md-8 col-12">
                 @Html.DisplayFor(model => model.Account.Gender)
             </dd>
-            <dt class="col-sm-2">
+            <dt class="col-md-4 col-12">
                 Vai Trò
                 @* @Html.DisplayNameFor(model => model.Account.Role) *@
             </dt>
-            <dd class="col-sm-10">
+            <dd class="col-md-8 col-12">
                 @Html.DisplayFor(model => model.Account.Role)
             </dd>
-            <dt class="col-sm-2">
+            <dt class="col-md-4 col-12">
                 Online?
                 @* @Html.DisplayNameFor(model => model.Account.IsOnline) *@
             </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Account.IsOnline)
+            <dd class="col-md-8 col-12">
+                @* @Html.DisplayFor(model => model.Account.IsOnline) *@
+                @(Model.Account.IsOnline.HasValue ? (Model.Account.IsOnline.Value ? "Online" : "Offline") : "Unknown")
             </dd>
-            <dt class="col-sm-2">
+            <dt class="col-md-4 col-12">
                 Họ Tên
                 @* @Html.DisplayNameFor(model => model.Account.Fullname) *@
             </dt>
-            <dd class="col-sm-10">
+            <dd class="col-md-8 col-12">
                 @Html.DisplayFor(model => model.Account.Fullname)
             </dd>
-            <dt class="col-sm-2">
+            <dt class="col-md-4 col-12">
                 Năm Sinh
                 @* @Html.DisplayNameFor(model => model.Account.Yob) *@
             </dt>
-            <dd class="col-sm-10">
+            <dd class="col-md-8 col-12">
                 @Html.DisplayFor(model => model.Account.Yob)
             </dd>
-            <dt class="col-sm-2">
+            <dt class="col-md-4 col-12">
                 Số Định Danh
                 @* @Html.DisplayNameFor(model => model.Account.IdentityCardNumber) *@
             </dt>
-            <dd class="col-sm-10">
+            <dd class="col-md-8 col-12">
                 @Html.DisplayFor(model => model.Account.IdentityCardNumber)
             </dd>
-            <dt class="col-sm-2">
+            <dt class="col-md-4 col-12">
                 Số Điện Thoại
                 @* @Html.DisplayNameFor(model => model.Account.PhoneNumber) *@
             </dt>
-            <dd class="col-sm-10">
+            <dd class="col-md-8 col-12">
                 @Html.DisplayFor(model => model.Account.PhoneNumber)
             </dd>
-            <dt class="col-sm-2">
+            <dt class="col-md-4 col-12">
                 Ngày Tạo
                 @* @Html.DisplayNameFor(model => model.Account.CreatedTime) *@
             </dt>
-            <dd class="col-sm-10">
+            <dd class="col-md-8 col-12">
                 @Html.DisplayFor(model => model.Account.CreatedTime)
             </dd>
-            <dt class="col-sm-2">
+            <dt class="col-md-4 col-12">
                 Trạng Thái
                 @* @Html.DisplayNameFor(model => model.Account.AccountStatus) *@
             </dt>
-            <dd class="col-sm-10">
+            <dd class="col-md-8 col-12">
                 @Html.DisplayFor(model => model.Account.AccountStatus)
             </dd>
-            <dt class="col-sm-2">
+            <dt class="col-md-4 col-12">
                 Tài Khoản
                 @* @Html.DisplayNameFor(model => model.Account.UpBalance) *@
             </dt>
-            <dd class="col-sm-10">
+            <dd class="col-md-8 col-12">
                 @Html.DisplayFor(model => model.Account.UpBalance) UP
             </dd>
         </dl>

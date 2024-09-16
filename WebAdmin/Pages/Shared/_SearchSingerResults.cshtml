@@ -1,4 +1,4 @@
-﻿@using WebAdmin.DTOModels.Request.Song
+﻿@* @using WebAdmin.DTOModels.Request.Song
 @model WebAdmin.Pages.Song.CreateModel
 @if (Model.SearchSingerResults != null && Model.SearchSingerResults.Count > 0)
 {
@@ -23,34 +23,38 @@
 
     </div>
 
-@*     <div id="artistSelect" class="img-cell">
-        <form method="post">
-            @foreach (var result in Model.SearchSingerResults)
-            {
-                <input type="hidden" id="singerId_@result.SingerId" value="@result.SingerId" />
-                <p>@result.SingerName</p>
-                <img src="@result.Image" alt="N/A" />
-
-                @if (!Model.Song.SongSingers.Any(a => a.SingerId == result.SingerId))
-                {
-                    <input type="submit" class="btn btn-danger" value="Thêm ca sĩ">
-                }
-                else
-                {
-                    <input type="submit" class="btn btn-danger" value="Bỏ Chọn" >
-                }
-            }
-        </form>
-
-    </div>
- *@
-
 }
 else
 {
     <p>No results found.</p>
 }
 
+ *@
 
+@using WebAdmin.DTOModels.Request.Song
+@model WebAdmin.Pages.Song.CreateModel
 
-                @* onclick="toggleSinger('@result.SingerId', 'remove')" *@
+@if (Model.SearchSingerResults != null && Model.SearchSingerResults.Count > 0)
+{
+    <div id="singerSelect" class="img-cell">
+        @foreach (var result in Model.SearchSingerResults)
+        {
+            <div class="singer-result"
+                 data-id="@result.SingerId"
+                 data-name="@result.SingerName"
+                 data-image="@result.Image"
+                 onclick="toggleSingerSelection('@result.SingerId', '@result.SingerName')">
+                <p>@result.SingerName</p>
+                <img src="@result.Image" alt="N/A" />
+            </div>
+        }
+    </div>
+
+    <ul id="selectedSingers">
+        <!-- List of selected singers -->
+    </ul>
+}
+else
+{
+    <p>No results found.</p>
+}

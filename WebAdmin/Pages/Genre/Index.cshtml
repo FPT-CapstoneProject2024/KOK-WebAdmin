@@ -67,23 +67,28 @@
 
     </tbody>
 </table>
-</div
-    <!--End Table-->
-    <!--Paging-->
-    <div class="pagination">
-        <li class="page-item"><a asp-route-number="@(Model.CurrentPage - 1)" class="page-link">&laquo;</a></li>
-        <li class="page-item active"><a asp-route-number="@Model.CurrentPage" class="page-link">@Model.CurrentPage</a></li>
-        <li class="page-item"><a asp-route-number="@(Model.CurrentPage + 1)" class="page-link">&raquo;</a></li>
-    </div>
-    <!--End Paging-->
 </div>
 
-        <!-- Create Modal -->
+<!-- Paging -->
+<div class="pagination" style="left: 50%;">
+    <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+        <a asp-route-number="@(Model.CurrentPage - 1)" class="page-link">&laquo;</a>
+    </li>
+    <li class="page-item active">
+        <a asp-route-number="@Model.CurrentPage" class="page-link">@Model.CurrentPage/@Model.TotalPage2</a>
+    </li>
+    <li class="page-item @(Model.CurrentPage == Model.TotalPage2 ? "disabled" : "")">
+        <a asp-route-number="@(Model.CurrentPage + 1)" class="page-link">&raquo;</a>
+    </li>
+</div>
+<!-- End Paging -->
+
+<!-- Create Modal -->
 <div class="modal fade" id="createGenreModal" tabindex="-1" role="dialog" aria-labelledby="createGenreModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createGenreModalLabel">Create New Genre</h5>
+                <h5 class="modal-title" id="createGenreModalLabel">Tạo Mới Thể Loại</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -101,7 +106,7 @@
     <div class="modal-dialog modal-lg-custom" role="document">
         <div class="modal-content edit-modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editGenreModalLabel">Edit Genre</h5>
+                <h5 class="modal-title" id="editGenreModalLabel">Chỉnh Sửa Thể Loại</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -119,7 +124,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content delete-modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteGenreModalLabel">Delete Genre</h5>
+                <h5 class="modal-title" id="deleteGenreModalLabel">Xóa Thể Loại</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -136,7 +141,7 @@
     <div class="modal-dialog custom-modal-width" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="detailModalLabel">Genre Details</h5>
+                <h5 class="modal-title" id="detailModalLabel">Chi Tiết Thể Loại</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -193,11 +198,16 @@ $(document).ready(function () {
             modal.find('form').on('submit', function (e) {
                 e.preventDefault(); // Prevent normal form submission
 
+                // Create a new FormData object to handle file uploads
+                var formData = new FormData(this);
+
                 // Use AJAX to submit the form data
                 $.ajax({
                     type: $(this).attr('method'),
                     url: $(this).attr('action'),
-                    data: $(this).serialize(),
+                    data: formData,
+                    contentType: false, // Important: tells jQuery not to process the data
+                    processData: false, // Important: tells jQuery not to convert the FormData into a query string
                     success: function (response) {
                         if (response.success) {
                             // Close the modal and remove the backdrop
@@ -248,13 +258,13 @@ $(document).ready(function () {
     });
 });
 
-//Load Edit form content into the modal
+// Load Edit form content into the modal
 $('#editGenreModal').on('show.bs.modal', function (e) {
     var button = $(e.relatedTarget);
     var genreId = button.data('id');
     var modal = $(this);
 
-    //Load the edit form from the Edit page
+    // Load the edit form from the Edit page
     $.get('@Url.Page("./Edit", new { id = "__ID__" })'.replace('__ID__', genreId), function (data) {
         var formContent = $(data).find('form');
         modal.find('.edit-modal-body').html(formContent);
@@ -263,11 +273,16 @@ $('#editGenreModal').on('show.bs.modal', function (e) {
         modal.find('form').on('submit', function (e) {
             e.preventDefault(); // Prevent normal form submission
 
+            // Create FormData object to include the file input
+            var formData = new FormData(this);
+
             // Use AJAX to submit the form data
             $.ajax({
                 type: $(this).attr('method'),
                 url: $(this).attr('action'),
-                data: $(this).serialize(),
+                data: formData,  // Pass FormData object
+                processData: false,  // Prevent jQuery from processing the data
+                contentType: false,  // Prevent jQuery from setting the content type
                 success: function (response) {
                     if (response.success) {
                         // Close the modal and remove the backdrop

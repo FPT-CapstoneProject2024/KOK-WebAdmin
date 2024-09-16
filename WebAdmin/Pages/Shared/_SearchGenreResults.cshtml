@@ -1,4 +1,4 @@
-﻿@using WebAdmin.DTOModels.Request.Song
+﻿@* @using WebAdmin.DTOModels.Request.Song
 @model WebAdmin.Pages.Song.CreateModel
 @if (Model.SearchGenreResults != null && Model.SearchGenreResults.Count > 0)
 {
@@ -28,6 +28,35 @@
         <!-- List of selected artists -->
     </ul>
 
+}
+else
+{
+    <p>No results found.</p>
+}
+ *@
+
+@using WebAdmin.DTOModels.Request.Song
+@model WebAdmin.Pages.Song.CreateModel
+
+@if (Model.SearchGenreResults != null && Model.SearchGenreResults.Count > 0)
+{
+    <div id="genreSelect" class="img-cell">
+        @foreach (var result in Model.SearchGenreResults)
+        {
+            <div class="genre-result"
+                 data-id="@result.GenreId"
+                 data-name="@result.GenreName"
+                 data-image="@result.Image"
+                 onclick="toggleGenreSelection('@result.GenreId', '@result.GenreName')">
+                <p>@result.GenreName</p>
+                <img src="@result.Image" alt="N/A" />
+            </div>
+        }
+    </div>
+
+    <ul id="selectedGenres">
+        <!-- List of selected genres -->
+    </ul>
 }
 else
 {

@@ -25,9 +25,11 @@ namespace WebAdmin.Pages.Song
 
         [BindProperty]
         public CreateSongRequestModel Song { get; set; } = new DTOModels.Request.Song.CreateSongRequestModel();
+        public CreateSongRequestModel1 Song1 { get; set; } = new DTOModels.Request.Song.CreateSongRequestModel1();
         //public static List<SongArtist> SongIds { get; set; } = new List<SongArtist>();
         //public static List<SongSinger> SingerIds { get; set; } = new List<SongSinger>();
         //public static List<SongGenre> GenreIds { get; set; } = new List<SongGenre>();
+
         public List<DTOModels.Response.Artist> SearchArtistResults { get; set; } = new List<DTOModels.Response.Artist>();
         public List<DTOModels.Response.Singer> SearchSingerResults { get; set; } = new List<DTOModels.Response.Singer>();
         public List<DTOModels.Response.Genre> SearchGenreResults { get; set; } = new List<DTOModels.Response.Genre>();
@@ -52,7 +54,7 @@ namespace WebAdmin.Pages.Song
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        /*public async Task<IActionResult> OnPostAsync()
         {
             try
             {
@@ -139,6 +141,98 @@ namespace WebAdmin.Pages.Song
                 Song = new CreateSongRequestModel();
             }
             return null;
+        }*/
+        public async Task<IActionResult> OnPostAsync()
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return Page();
+                }
+
+                // Deserialize selected items from hidden fields
+                var selectedArtistsJson = Request.Form["selectedArtistsJson"].ToString();
+                var selectedSingersJson = Request.Form["selectedSingersJson"].ToString();
+                var selectedGenresJson = Request.Form["selectedGenresJson"].ToString();
+
+                // Transform the JSON array of arrays into List<SongArtistRequestModelExtended>
+                var songArtists = TransformJsonArrayToSongArtistRequestModelExtended(selectedArtistsJson);
+                var songSingers = TransformJsonArrayToSongSingerRequestModelExtended(selectedSingersJson);
+                var songGenres = TransformJsonArrayToSongGenreRequestModelExtended(selectedGenresJson);
+
+                // Prepare request model
+                var dataSong = _mapper.Map<CreateSongRequestModel1>(Song);
+                dataSong.SongArtists = songArtists;
+                dataSong.SongSingers = songSingers;
+                dataSong.SongGenres = songGenres;
+                dataSong.SongUrl = null; // This will be set later
+                dataSong.CreatorId = LoginModel.AccountId.Value;
+
+                // Handle file upload
+                if (Song.SongFile != null)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await Song.SongFile.CopyToAsync(memoryStream);
+                        var fileBytes = memoryStream.ToArray();
+                        dataSong.SongUrl = Convert.ToBase64String(fileBytes);
+                    }
+                }
+
+                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.SongResource;
+                var response = await apiClient.PostAsync(uri, dataSong);
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Song>>(jsonResponse);
+
+                // Clear the Song object for new input
+                Song = new CreateSongRequestModel();
+
+                if (data.result.Value)
+                {
+                    return new JsonResult(new { success = true });
+                }
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new { success = false });
+            }
+            finally
+            {
+                Song = new CreateSongRequestModel();
+            }
+            return null;
+        }
+
+        // Helper methods to transform JSON array of arrays into List<T> for each extended model
+        private List<SongArtistRequestModelExtended> TransformJsonArrayToSongArtistRequestModelExtended(string json)
+        {
+            var artistArrays = JsonConvert.DeserializeObject<List<List<object>>>(json) ?? new List<List<object>>();
+            return artistArrays.Select(a => new SongArtistRequestModelExtended
+            {
+                ArtistId = Guid.Parse(a[0].ToString()),  // Assuming the ID is the first item and it's a GUID
+                ArtistName = a[1].ToString()            // Assuming the name is the second item
+            }).ToList();
+        }
+
+        private List<SongSingerRequestModelExtended> TransformJsonArrayToSongSingerRequestModelExtended(string json)
+        {
+            var singerArrays = JsonConvert.DeserializeObject<List<List<object>>>(json) ?? new List<List<object>>();
+            return singerArrays.Select(s => new SongSingerRequestModelExtended
+            {
+                SingerId = Guid.Parse(s[0].ToString()),  // Assuming the ID is the first item and it's a GUID
+                SingerName = s[1].ToString()            // Assuming the name is the second item
+            }).ToList();
+        }
+
+        private List<SongGenreRequestModelExtended> TransformJsonArrayToSongGenreRequestModelExtended(string json)
+        {
+            var genreArrays = JsonConvert.DeserializeObject<List<List<object>>>(json) ?? new List<List<object>>();
+            return genreArrays.Select(g => new SongGenreRequestModelExtended
+            {
+                GenreId = Guid.Parse(g[0].ToString()),  // Assuming the ID is the first item and it's a GUID
+                GenreName = g[1].ToString()            // Assuming the name is the second item
+            }).ToList();
         }
 
         public IActionResult OnGetSearchArtist(string query)

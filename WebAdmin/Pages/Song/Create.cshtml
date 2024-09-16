@@ -1,4 +1,4 @@
-﻿@* @page
+﻿@page
 @model WebAdmin.Pages.Song.CreateModel
 
 @{
@@ -9,334 +9,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Form List</title>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Create Song</title>
     <style>
-
         .remove-btn {
-            background-color: red;
-            color: white;
+            margin-left: 10px;
+            background-color: snow;
+            color: red;
             border: none;
-            padding: 5px;
             cursor: pointer;
         }
+
+        .selected-item {
+            display: inline-block;
+            margin: 5px;
+            padding: 5px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+            .selected-item span {
+                cursor: pointer;
+                color: red;
+                margin-left: 5px;
+            }
     </style>
 </head>
 <body>
-    <h1>Create</h1>
+    <h1>Tạo Mới Bài Hát</h1>
 
-    <h4>Song</h4>
     <hr />
     <div class="row">
         <div class="col-md-9">
             <div class="form-container">
-                <form method="post" asp-page="./Create">
+                <form id="createSongForm" method="post" asp-page="./Create" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
-                        <label asp-for="Song.SongName" class="control-label"></label>
+                        <label asp-for="Song.SongName" class="control-label">Tên Bài Hát</label>
                         <input asp-for="Song.SongName" class="form-control" />
                         <span asp-validation-for="Song.SongName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Song.SongDescription" class="control-label"></label>
+                        <label asp-for="Song.SongDescription" class="control-label">Mô Tả</label>
                         <input asp-for="Song.SongDescription" class="form-control" />
                         <span asp-validation-for="Song.SongDescription" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Song.SongUrl" class="control-label"></label>
-                        <input asp-for="Song.SongUrl" class="form-control" />
-                        <span asp-validation-for="Song.SongUrl" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="Song.PublicDate" class="control-label"></label>
-                        <input asp-for="Song.PublicDate" class="form-control" />
-                        <span asp-validation-for="Song.PublicDate" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Song.Price" class="control-label"></label>
-                        <input asp-for="Song.Price" class="form-control" />
-                        <span asp-validation-for="Song.Price" class="text-danger"></span>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label>Tác giả</label>
-                        <input class="form-control" type="text" id="searchBox" placeholder="Tìm kiếm tác giả" onkeyup="liveSearchArtist()" />
-                    </div>
-
-                    <div class="form-group">
-                        <label>Ca sĩ</label>
-                        <input class="form-control" type="text" id="searchSingerBox" placeholder="Tìm kiếm tên ca sĩ" onkeyup="liveSearchSinger()" />
-                    </div>
-
-
-                    <div class="form-group">
-                        <label>Thể loại</label>
-                        <input class="form-control" type="text" id="searchGenreBox" placeholder="Tìm kiếm thể loại" onkeyup="liveSearchGenre()" />
-                    </div>
-
-
-
-                    <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-primary" />
-                    </div>
-                </form>
-            </div>
-
-        </div>
-        <div class="col-md-3">
-            <div>
-                <div>
-                    <label>Ca sĩ</label>
-                    <div style="margin-bottom:30px;" id="searchSingerResults" class="search-results"></div>
-                </div>
-
-                <div>
-                    <label>Thể loại</label>
-                    <div style="margin-bottom:30px;" id="searchGenreResults" class="search-results"></div>
-                </div>
-                <div>
-                    <label>Tác giả</label>
-                    <div style="margin-bottom:30px;" id="searchArtistResults" class="search-results"></div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div>
-        <a asp-page="Index">Back to List</a>
-    </div>
-
-    <script>
-        async function liveSearchArtist() {
-            const query = document.getElementById('searchBox').value;
-            if (query.length < 1) {
-                document.getElementById('searchArtistResults').innerHTML = '';
-                return;
-            }
-            const response = await fetch('./Create?handler=SearchArtist&query=' + query);
-
-            const data = await response.text();
-            document.getElementById('searchArtistResults').innerHTML = data;
-        }
-
-        async function liveSearchSinger() {
-            const query = document.getElementById('searchSingerBox').value;
-            if (query.length < 1) {
-                document.getElementById('searchSingerResults').innerHTML = '';
-                return;
-            }
-            const response = await fetch('./Create?handler=SearchSinger&query=' + query);
-
-            const data = await response.text();
-            document.getElementById('searchSingerResults').innerHTML = data;
-        }
-
-        async function liveSearchGenre() {
-            const query = document.getElementById('searchGenreBox').value;
-            if (query.length < 1) {
-                document.getElementById('searchGenreResults').innerHTML = '';
-                return;
-            }
-            const response = await fetch('./Create?handler=SearchGenre&query=' + query);
-
-            const data = await response.text();
-            document.getElementById('searchGenreResults').innerHTML = data;
-        }
-    </script>
-
-</body>
-</html> *@
-
-        @page
-@model WebAdmin.Pages.Song.CreateModel
-
-@{
-    ViewData["Title"] = "Create";
-}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Form List</title>
-    <style>
-
-        .remove-btn {
-            background-color: red;
-            color: white;
-            border: none;
-            padding: 5px;
-            cursor: pointer;
-        }
-    </style>
-
-@*     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#artistSelect form').on('submit', function (event) {
-                event.preventDefault(); // Ngăn không cho form gửi yêu cầu theo cách thông thường
-
-                var form = $(this);
-                var actionUrl = form.attr('action') || window.location.href; // Lấy URL từ form hoặc trang hiện tại
-                var formData = form.serialize();
-
-                $.ajax({
-                    url: actionUrl,
-                    type: 'POST',
-                    data: formData,
-                    success: function (response) {
-                        // Cập nhật lại nội dung của artistSelect với nội dung mới từ response
-                        var newContent = $(response).find('#artistSelect').html();
-                        $('#artistSelect').html(newContent);
-
-                        // Tái kích hoạt sự kiện cho các nút mới
-                        initializeFormSubmission();
-                    },
-                    error: function (xhr, status, error) {
-                        console.log("Có lỗi xảy ra: " + error);
-                    }
-                });
-            });
-
-            // Hàm này đảm bảo rằng các form mới cũng sẽ có hành vi đúng
-            function initializeFormSubmission() {
-                $('#artistSelect form').off('submit').on('submit', function (event) {
-                    event.preventDefault(); // Ngăn không cho form gửi yêu cầu theo cách thông thường
-
-                    var form = $(this);
-                    var actionUrl = form.attr('action') || window.location.href;
-                    var formData = form.serialize();
-
-                    $.ajax({
-                        url: actionUrl,
-                        type: 'POST',
-                        data: formData,
-                        success: function (response) {
-                            var newContent = $(response).find('#artistSelect').html();
-                            $('#artistSelect').html(newContent);
-                            initializeFormSubmission(); // Kích hoạt lại sự kiện cho form mới
-                        },
-                        error: function (xhr, status, error) {
-                            console.log("Có lỗi xảy ra: " + error);
-                        }
-                    });
-                });
-            }
-
-            // Kích hoạt sự kiện cho lần đầu tiên
-            initializeFormSubmission();
-        });
-    </script> *@
-
-
-</head>
-<body>
-    <h1>Create</h1>
-
-    <h4>Song</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-9">
-            <div class="form-container">
-                <form method="post" asp-page="./Create" enctype="multipart/form-data">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="Song.SongName" class="control-label"></label>
-                        <input asp-for="Song.SongName" class="form-control" />
-                        <span asp-validation-for="Song.SongName" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Song.SongDescription" class="control-label"></label>
-                        <input asp-for="Song.SongDescription" class="form-control" />
-                        <span asp-validation-for="Song.SongDescription" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Song.SongFile" class="control-label">Song File</label>
+                        <label asp-for="Song.SongFile" class="control-label">File Bài Hát</label>
                         <input asp-for="Song.SongFile" class="form-control" type="file" />
                         <span asp-validation-for="Song.SongFile" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Song.PublicDate" class="control-label"></label>
+                        <label asp-for="Song.PublicDate" class="control-label">Ngày Ra Mắt</label>
                         <input asp-for="Song.PublicDate" class="form-control" />
                         <span asp-validation-for="Song.PublicDate" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Song.Price" class="control-label"></label>
+                        <label asp-for="Song.Price" class="control-label">Giá Tiền</label>
                         <input asp-for="Song.Price" class="form-control" />
                         <span asp-validation-for="Song.Price" class="text-danger"></span>
                     </div>
 
-
                     <div class="form-group">
-                        <label>Tác giả</label>
-                        <input class="form-control" type="text" id="searchBox" placeholder="Tìm kiếm tác giả" onkeyup="liveSearchArtist(searchBox)" />
+                        <label>Tác Giả</label>
+                        <input class="form-control" type="text" id="searchBox" placeholder="Tìm Kiếm Tác Giả" onkeyup="liveSearchArtist()" />
                     </div>
 
                     <div class="form-group">
-                        <label>Ca sĩ</label>
-                        <input class="form-control" type="text" id="searchSingerBox" placeholder="Tìm kiếm tên ca sĩ" onkeyup="liveSearchSinger(searchSingerBox)" />
+                        <label>Ca Sĩ</label>
+                        <input class="form-control" type="text" id="searchSingerBox" placeholder="Tìm Kiếm Ca Sĩ" onkeyup="liveSearchSinger()" />
                     </div>
 
-
                     <div class="form-group">
-                        <label>Thể loại</label>
-                        <input class="form-control" type="text" id="searchGenreBox" placeholder="Tìm kiếm thể loại" onkeyup="liveSearchGenre(searchGenreBox)" />
+                        <label>Thể Loại</label>
+                        <input class="form-control" type="text" id="searchGenreBox" placeholder="Tìm Kiếm Thể Loại" onkeyup="liveSearchGenre()" />
                     </div>
 
-
+                    <div class="form-group">
+                        <label>Tác Giả Đã Chọn</label>
+                        <ul id="selectedArtists"></ul>
+                    </div>
 
                     <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-primary" />
+                        <label>Ca Sĩ Đã Chọn</label>
+                        <ul id="selectedSingers"></ul>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Thể Loại Đã Chọn</label>
+                        <ul id="selectedGenres"></ul>
+                    </div>
+
+                    <!-- Hidden fields for selected items -->
+                    <input type="hidden" id="selectedArtistsJson" name="selectedArtistsJson" />
+                    <input type="hidden" id="selectedSingersJson" name="selectedSingersJson" />
+                    <input type="hidden" id="selectedGenresJson" name="selectedGenresJson" />
+
+                    <div class="form-group">
+                        <input type="submit" value="Tạo Mới" class="btn btn-primary" />
                     </div>
                 </form>
             </div>
-
         </div>
         <div class="col-md-3">
             <div>
                 <div>
-                    <label>Ca sĩ</label>
-                    <div style="margin-bottom:30px;" id="searchSingerResults" class="search-results"></div>
-                </div>
-
-                <div>
-                    <label>Thể loại</label>
-                    <div style="margin-bottom:30px;" id="searchGenreResults" class="search-results"></div>
-                </div>
-                <div>
-                    <label>Tác giả</label>
+                    <label>Tìm Kiếm Tác Giả</label>
                     <div style="margin-bottom:30px;" id="searchArtistResults" class="search-results"></div>
                 </div>
+                <div>
+                    <label>Tìm Kiếm Ca Sĩ</label>
+                    <div style="margin-bottom:30px;" id="searchSingerResults" class="search-results"></div>
+                </div>
+                <div>
+                    <label>Tìm Kiếm Thể Loại</label>
+                    <div style="margin-bottom:30px;" id="searchGenreResults" class="search-results"></div>
+                </div>
             </div>
-
         </div>
-
     </div>
 
-
     <div>
-        <a asp-page="Index">Back to List</a>
+        <a asp-page="Index">Quay Trở Lại</a>
     </div>
 
     <script>
+        // Global variables to store selected values
+        let selectedArtists = new Map();
+        let selectedSingers = new Map();
+        let selectedGenres = new Map();
+
         async function liveSearchArtist() {
             const query = document.getElementById('searchBox').value;
             if (query.length < 1) {
                 document.getElementById('searchArtistResults').innerHTML = '';
                 return;
             }
-            console.log('./Create?handler=SearchArtist&query=' + query);
             const response = await fetch('./Create?handler=SearchArtist&query=' + query);
-            console.log(response);
             const data = await response.text();
             document.getElementById('searchArtistResults').innerHTML = data;
-
-            // Trigger the modal
-            $('#liveSearchModal').modal('show');
-            document.getElementById('liveSearchResults').innerHTML = data;
+            updateUI(); // Ensure selected items are still marked
         }
 
         async function liveSearchSinger() {
@@ -348,10 +162,7 @@
             const response = await fetch('./Create?handler=SearchSinger&query=' + query);
             const data = await response.text();
             document.getElementById('searchSingerResults').innerHTML = data;
-
-            // Trigger the modal
-            $('#liveSearchModal').modal('show');
-            document.getElementById('liveSearchResults').innerHTML = data;
+            updateUI(); // Ensure selected items are still marked
         }
 
         async function liveSearchGenre() {
@@ -363,38 +174,167 @@
             const response = await fetch('./Create?handler=SearchGenre&query=' + query);
             const data = await response.text();
             document.getElementById('searchGenreResults').innerHTML = data;
-
-            // Trigger the modal
-            $('#liveSearchModal').modal('show');
-            document.getElementById('liveSearchResults').innerHTML = data;
+            updateUI(); // Ensure selected items are still marked
         }
-    </script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            // Khi nhấn nút trong form
-            $('#artistSelect').on('click', 'input[type="submit"]', function (event) {
-                event.preventDefault(); // Ngăn chặn hành động submit mặc định
+        function toggleArtistSelection(artistId, artistName) {
+            if (selectedArtists.has(artistId)) {
+                selectedArtists.delete(artistId);
+            } else {
+                selectedArtists.set(artistId, artistName);
+            }
+            updateUI();
+        }
 
-                var form = $(this).closest('form'); // Lấy form chứa nút bấm
-                var actionUrl = form.attr('action') || window.location.href; // Lấy URL từ form hoặc trang hiện tại
-                var formData = form.serialize();
+        function toggleSingerSelection(singerId, singerName) {
+            if (selectedSingers.has(singerId)) {
+                selectedSingers.delete(singerId);
+            } else {
+                selectedSingers.set(singerId, singerName);
+            }
+            updateUI();
+        }
 
-                $.ajax({
-                    url: actionUrl,
-                    type: 'POST',
-                    data: formData,
-                    success: function (response) {
-                        // Cập nhật lại nội dung của artistSelect với nội dung mới từ response
-                        $('#artistSelect').html($(response).find('#artistSelect').html());
-                    },
-                    error: function (xhr, status, error) {
-                        console.log("Có lỗi xảy ra: " + error);
+        function toggleGenreSelection(genreId, genreName) {
+            if (selectedGenres.has(genreId)) {
+                selectedGenres.delete(genreId);
+            } else {
+                selectedGenres.set(genreId, genreName);
+            }
+            updateUI();
+        }
+
+        function updateUI() {
+            updateSelectedArtists();
+            updateSelectedSingers();
+            updateSelectedGenres();
+            highlightSelected();
+        }
+
+        function updateSelectedArtists() {
+            const list = document.getElementById('selectedArtists');
+            list.innerHTML = '';
+            selectedArtists.forEach((name, id) => {
+                const item = document.createElement('li');
+                item.textContent = name;
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'x';
+                removeBtn.className = 'remove-btn';
+                removeBtn.onclick = () => toggleArtistSelection(id, name);
+                item.appendChild(removeBtn);
+                list.appendChild(item);
+            });
+        }
+
+        function updateSelectedSingers() {
+            const list = document.getElementById('selectedSingers');
+            list.innerHTML = '';
+            selectedSingers.forEach((name, id) => {
+                const item = document.createElement('li');
+                item.textContent = name;
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'x';
+                removeBtn.className = 'remove-btn';
+                removeBtn.onclick = () => toggleSingerSelection(id, name);
+                item.appendChild(removeBtn);
+                list.appendChild(item);
+            });
+        }
+
+        function updateSelectedGenres() {
+            const list = document.getElementById('selectedGenres');
+            list.innerHTML = '';
+            selectedGenres.forEach((name, id) => {
+                const item = document.createElement('li');
+                item.textContent = name;
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'x';
+                removeBtn.className = 'remove-btn';
+                removeBtn.onclick = () => toggleGenreSelection(id, name);
+                item.appendChild(removeBtn);
+                list.appendChild(item);
+            });
+        }
+
+        function highlightSelected() {
+            document.querySelectorAll('#searchArtistResults .artist-result').forEach(el => {
+                const id = el.getAttribute('data-id');
+                el.style.backgroundColor = selectedArtists.has(id) ? 'lightgreen' : '';
+            });
+            document.querySelectorAll('#searchSingerResults .singer-result').forEach(el => {
+                const id = el.getAttribute('data-id');
+                el.style.backgroundColor = selectedSingers.has(id) ? 'lightgreen' : '';
+            });
+            document.querySelectorAll('#searchGenreResults .genre-result').forEach(el => {
+                const id = el.getAttribute('data-id');
+                el.style.backgroundColor = selectedGenres.has(id) ? 'lightgreen' : '';
+            });
+        }
+
+        function removeArtist(artistId) {
+            selectedArtists.delete(artistId);
+            updateSelectedArtists();
+        }
+
+        function removeSinger(singerId) {
+            selectedSingers.delete(singerId);
+            updateSelectedSingers();
+        }
+
+        function removeGenre(genreId) {
+            selectedGenres.delete(genreId);
+            updateSelectedGenres();
+        }
+
+        function updateHiddenFields() {
+            document.getElementById('selectedArtistsJson').value = JSON.stringify(Array.from(selectedArtists.entries()));
+            document.getElementById('selectedSingersJson').value = JSON.stringify(Array.from(selectedSingers.entries()));
+            document.getElementById('selectedGenresJson').value = JSON.stringify(Array.from(selectedGenres.entries()));
+        }
+
+        // Ensure hidden fields are updated before form submission
+        //document.getElementById('createSongForm').addEventListener('submit', updateHiddenFields);
+
+        document.getElementById('createSongForm').addEventListener('submit', async function (e) {
+            e.preventDefault(); // Prevent normal form submission
+            
+            // Update hidden fields before submission
+            updateHiddenFields();
+
+            // Perform the form submission via fetch
+            const form = document.getElementById('createSongForm');
+            const formData = new FormData(form);
+
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                // Show SweetAlert2 notification
+                Swal.fire({
+                    title: 'Thành Công',
+                    text: 'Bài Hát Đã Được Tạo!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirect to the Index page after the user confirms the alert
+                        window.location.href = './Index';
                     }
                 });
-            });
+            } else {
+                // Handle failure case if needed
+                Swal.fire({
+                    title: 'Lỗi',
+                    text: 'Tạo Mới Bài Hát Thất Bại!',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
         });
     </script>
-
 </body>
 </html>

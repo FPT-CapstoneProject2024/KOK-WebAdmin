@@ -21,6 +21,8 @@ namespace WebAdmin.Pages.Artist
         [BindProperty]
         public static int TotalPage { get; set; } = 1;
         [BindProperty]
+        public int TotalPage2 { get; set; }
+        [BindProperty]
         public string? search { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, IApiClient apiClient)
@@ -51,6 +53,7 @@ namespace WebAdmin.Pages.Artist
                 if (data.Results is not null)
                 {
                     TotalPage = (int)MathF.Ceiling((float)data.Metadata.Total / (float)data.Metadata.Size);
+                    TotalPage2 = TotalPage;
                 }
             }
             catch (Exception)

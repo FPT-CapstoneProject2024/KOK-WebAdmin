@@ -20,15 +20,16 @@
 </div>
 <!--End Search-->
 
-<div class="table-container">
-
-    <br/>
-
-<p>
+<div style="padding-top:10px">
+    <p>
     <button type="button" class="btn btn-success btn-icon-only" data-toggle="modal" data-target="#createArtistModal" style="border: none; background: transparent; padding: 0;">
         <i class="fa-regular fa-square-plus" style="font-size: 42px; color: #28a745;"></i>
     </button>
 </p>
+</div>
+
+<div class="table-container">
+    <br/>
 
     <table class="table table-hover">
     <thead>
@@ -65,23 +66,27 @@
 
     </tbody>
 </table>
-</div
-    <!--End Table-->
-    <!--Paging-->
-    <div class="pagination">
-        <li class="page-item"><a asp-route-number="@(Model.CurrentPage - 1)" class="page-link">&laquo;</a></li>
-        <li class="page-item active"><a asp-route-number="@Model.CurrentPage" class="page-link">@Model.CurrentPage</a></li>
-        <li class="page-item"><a asp-route-number="@(Model.CurrentPage + 1)" class="page-link">&raquo;</a></li>
+
+    <!-- Paging -->
+    <div class="pagination" style="left: 50%;">
+        <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+            <a asp-route-number="@(Model.CurrentPage - 1)" class="page-link">&laquo;</a>
+        </li>
+        <li class="page-item active">
+            <a asp-route-number="@Model.CurrentPage" class="page-link">@Model.CurrentPage/@Model.TotalPage2</a>
+        </li>
+        <li class="page-item @(Model.CurrentPage == Model.TotalPage2 ? "disabled" : "")">
+            <a asp-route-number="@(Model.CurrentPage + 1)" class="page-link">&raquo;</a>
+        </li>
     </div>
-    <!--End Paging-->
-</div>
+    <!-- End Paging -->
 
 <!-- Create Modal -->
 <div class="modal fade" id="createArtistModal" tabindex="-1" role="dialog" aria-labelledby="createArtistModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createArtistModalLabel">Tạo Mới Thông Tin Tác Giả</h5>
+                <h5 class="modal-title" id="createArtistModalLabel">Tạo Mới Tác Giả</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -99,7 +104,7 @@
     <div class="modal-dialog modal-lg-custom" role="document">
         <div class="modal-content edit-modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editArtistModalLabel">Chỉnh Sửa Thông Tin Tác Giả</h5>
+                <h5 class="modal-title" id="editArtistModalLabel">Chỉnh Sửa Tác Giả</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -117,7 +122,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content delete-modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteArtistModalLabel">Delete Artist</h5>
+                <h5 class="modal-title" id="deleteArtistModalLabel">Xóa Tác Giả</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -135,7 +140,7 @@
             <div class="modal-dialog custom-modal-width" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="detailModalLabel">Thông Tin Chi Tiết</h5>
+                        <h5 class="modal-title" id="detailModalLabel">Thông Tin Tác Giả</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -176,11 +181,16 @@ $(document).ready(function () {
             modal.find('form').on('submit', function (e) {
                 e.preventDefault(); // Prevent normal form submission
 
+                // Create a new FormData object to handle file uploads
+                var formData = new FormData(this);
+
                 // Use AJAX to submit the form data
                 $.ajax({
                     type: $(this).attr('method'),
                     url: $(this).attr('action'),
-                    data: $(this).serialize(),
+                    data: formData,
+                    contentType: false, // Important: tells jQuery not to process the data
+                    processData: false, // Important: tells jQuery not to convert the FormData into a query string
                     success: function (response) {
                         if (response.success) {
                             // Close the modal and remove the backdrop
@@ -229,76 +239,82 @@ $(document).ready(function () {
             });
         });
     });
-});
 
-//Load Edit form content into the modal
-$('#editArtistModal').on('show.bs.modal', function (e) {
-    var button = $(e.relatedTarget);
-    var artistId = button.data('id');
-    var modal = $(this);
+    // Load Edit form content into the modal
+    $('#editArtistModal').on('show.bs.modal', function (e) {
+        var button = $(e.relatedTarget);
+        var artistId = button.data('id');
+        var modal = $(this);
 
-    //Load the edit form from the Edit page
-    $.get('@Url.Page("./Edit", new { id = "__ID__" })'.replace('__ID__', artistId), function (data) {
-        var formContent = $(data).find('form');
-        modal.find('.edit-modal-body').html(formContent);
+        // Load the edit form from the Edit page
+        $.get('@Url.Page("./Edit", new { id = "__ID__" })'.replace('__ID__', artistId), function (data) {
+            var formContent = $(data).find('form');
+            modal.find('.edit-modal-body').html(formContent);
 
-        // Attach an event listener to the form submit event
-        modal.find('form').on('submit', function (e) {
-            e.preventDefault(); // Prevent normal form submission
+            // Attach an event listener to the form submit event
+            modal.find('form').on('submit', function (e) {
+                e.preventDefault(); // Prevent normal form submission
 
-            // Use AJAX to submit the form data
-            $.ajax({
-                type: $(this).attr('method'),
-                url: $(this).attr('action'),
-                data: $(this).serialize(),
-                success: function (response) {
-                    if (response.success) {
-                        // Close the modal and remove the backdrop
+                // Create FormData object to include the file input
+                var formData = new FormData(this);
+
+                // Use AJAX to submit the form data
+                $.ajax({
+                    type: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: formData,  // Pass FormData object
+                    processData: false,  // Prevent jQuery from processing the data
+                    contentType: false,  // Prevent jQuery from setting the content type
+                    success: function (response) {
+                        if (response.success) {
+                            // Close the modal and remove the backdrop
+                            modal.modal('hide');
+                            $('.modal-backdrop').remove(); // Ensure the backdrop is removed
+
+                            // Show the success popup
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'Chỉnh sửa tác giả thành công!',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // Reload the page when the user presses OK
+                                    location.reload();
+                                }
+                            });
+                        } else {
+                            // Handle the failure case
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Chỉnh sửa tác giả thất bại!',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+
+                            // Close the modal and remove the backdrop
+                            modal.modal('hide');
+                            $('.modal-backdrop').remove();
+                        }
+                    },
+                    error: function () {
+                        // Close the modal and remove the backdrop in case of an error
                         modal.modal('hide');
-                        $('.modal-backdrop').remove(); // Ensure the backdrop is removed
+                        $('.modal-backdrop').remove();
 
-                        // Show the success popup
-                        Swal.fire({
-                            title: 'Success!',
-                            text: 'Chỉnh sửa tác giả thành công!',
-                            icon: 'success',
-                            confirmButtonText: 'OK'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                // Reload the page when the user presses OK
-                                location.reload();
-                            }
-                        });
-                    } else {
-                        // Handle the failure case
                         Swal.fire({
                             title: 'Error!',
-                            text: 'Chỉnh sửa tác giả thất bại!',
+                            text: 'Xảy ra lỗi với tác vụ!',
                             icon: 'error',
                             confirmButtonText: 'OK'
                         });
-
-                        // Close the modal and remove the backdrop
-                        modal.modal('hide');
-                        $('.modal-backdrop').remove();
                     }
-                },
-                error: function () {
-                    // Close the modal and remove the backdrop in case of an error
-                    modal.modal('hide');
-                    $('.modal-backdrop').remove();
-
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Xảy ra lỗi với tác vụ!',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                }
+                });
             });
         });
     });
 });
+
 
 //Load Delete form content into the modal
 $('#deleteArtistModal').on('show.bs.modal', function (e) {

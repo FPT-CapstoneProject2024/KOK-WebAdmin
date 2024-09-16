@@ -13,22 +13,22 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Item.ItemId" />
             <div class="form-group">
-                <label asp-for="UpdateItem.ItemCode" class="control-label"></label>
+                <label asp-for="UpdateItem.ItemCode" class="control-label">Mã Vật Phẩm</label>
                 <input asp-for="UpdateItem.ItemCode" class="form-control" required />
                 <span asp-validation-for="UpdateItem.ItemCode" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UpdateItem.ItemName" class="control-label"></label>
+                <label asp-for="UpdateItem.ItemName" class="control-label">Tên Vật Phẩm</label>
                 <input asp-for="UpdateItem.ItemName" class="form-control" required />
                 <span asp-validation-for="UpdateItem.ItemName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UpdateItem.ItemDescription" class="control-label"></label>
+                <label asp-for="UpdateItem.ItemDescription" class="control-label">Mô Tả</label>
                 <input asp-for="UpdateItem.ItemDescription" class="form-control" />
                 <span asp-validation-for="UpdateItem.ItemDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UpdateItem.ItemType" class="control-label"></label>
+                <label asp-for="UpdateItem.ItemType" class="control-label">Loại Vật Phẩm</label>
                 <select asp-for="UpdateItem.ItemType" class="form-control">
                     <option value="CHARACTER">Character</option>
                     <option value="ROOM">Room</option>
@@ -37,40 +37,40 @@
                 <span asp-validation-for="UpdateItem.ItemType" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UpdateItem.ItemStatus" class="control-label"></label>
+                <label asp-for="UpdateItem.ItemStatus" class="control-label">Trạng Thái</label>
                 <select asp-for="UpdateItem.ItemStatus" class="form-control">
-                    <option value="ENABLE">Enable</option>
-                    <option value="PENDING">Pending</option>
+                    <option value="ENABLE">Kích Hoạt</option>
+                    <option value="PENDING">Chờ Duyệt</option>
                 </select>
                 <span asp-validation-for="UpdateItem.ItemType" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UpdateItem.CanExpire" class="control-label"></label>
+                <label asp-for="UpdateItem.CanExpire" class="control-label">Có Thể Hết Hạn?</label>
                 <input asp-for="UpdateItem.CanExpire" class="form-check-input" type="checkbox" />
                 <span asp-validation-for="UpdateItem.CanExpire" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UpdateItem.CanStack" class="control-label"></label>
+                <label asp-for="UpdateItem.CanStack" class="control-label">Có Thể Gộp?</label>
                 <input asp-for="UpdateItem.CanStack" class="form-check-input" type="checkbox" />
                 <span asp-validation-for="UpdateItem.CanStack" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UpdateItem.PrefabCode" class="control-label"></label>
+                <label asp-for="UpdateItem.PrefabCode" class="control-label">Mã Prefab</label>
                 <input asp-for="UpdateItem.PrefabCode" class="form-control" required />
                 <span asp-validation-for="UpdateItem.PrefabCode" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UpdateItem.ItemBuyPrice" class="control-label"></label>
+                <label asp-for="UpdateItem.ItemBuyPrice" class="control-label">Giá Mua</label>
                 <input asp-for="UpdateItem.ItemBuyPrice" class="form-control" required />
                 <span asp-validation-for="UpdateItem.ItemBuyPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UpdateItem.ItemSellPrice" class="control-label"></label>
+                <label asp-for="UpdateItem.ItemSellPrice" class="control-label">Giá Bán</label>
                 <input asp-for="UpdateItem.ItemSellPrice" class="form-control" required />
                 <span asp-validation-for="UpdateItem.ItemSellPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Chỉnh Sửa" class="btn btn-primary" />
             </div>
         </form>
     </div>

@@ -30,6 +30,8 @@ namespace WebAdmin.Pages.Item
         public ItemFilter? filter { get; set; }
         [BindProperty]
         public string? search { get; set; }
+        [BindProperty]
+        public int TotalPage2 { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, IApiClient apiClient)
         {
@@ -68,6 +70,7 @@ namespace WebAdmin.Pages.Item
                 if (data.Results is not null)
                 {
                     TotalPage = (int)MathF.Ceiling((float)data.Metadata.Total / (float)data.Metadata.Size);
+                    TotalPage2 = TotalPage;
                 }
             }
             catch (Exception)
@@ -129,6 +132,7 @@ namespace WebAdmin.Pages.Item
             if (data.Results is not null)
             {
                 TotalPage = (int)MathF.Ceiling((float)data.Metadata.Total / (float)data.Metadata.Size);
+                TotalPage2 = TotalPage;
             }
             return Page();
         }

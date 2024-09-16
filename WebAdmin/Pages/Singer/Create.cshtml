@@ -11,7 +11,7 @@
         <form method="post" enctype="multipart/form-data" asp-page="/Singer/Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Singer.SingerName" class="control-label"></label>
+                <label asp-for="Singer.SingerName" class="control-label">Tên Ca Sĩ</label>
                 <input asp-for="Singer.SingerName" class="form-control" />
                 <span asp-validation-for="Singer.SingerName" class="text-danger"></span>
             </div>
@@ -21,18 +21,19 @@
                 <span asp-validation-for="Singer.Image" class="text-danger"></span>
             </div> *@
             <div class="form-group">
-                <input type="file" asp-for="Singer.file" class="form-control" required />
+                <label for="file" class="control-label">Hình Ảnh</label>
+                <input type="file" name="file" class="form-control" />
             </div>
             <div id="result">
                 @if (ViewBag.ImageUrl != null)
                 {
-                    <p>Upload successful!</p>
+                    <p>Tải Thành Công!</p>
                     <img src="@ViewBag.ImageUrl" alt="Uploaded Image" width="200" />
                     <p>Image URL: <a href="@ViewBag.ImageUrl" target="_blank">@ViewBag.ImageUrl</a></p>
                 }
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Tạo Mới" class="btn btn-primary" />
             </div>
         </form>
     </div>
