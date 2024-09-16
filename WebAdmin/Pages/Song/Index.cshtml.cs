@@ -26,6 +26,8 @@ namespace WebAdmin.Pages.Song
         public SongFilter? filter { get; set; }
         [BindProperty]
         public static int TotalPage { get; set; } = 1;
+        [BindProperty]
+        public int TotalPage2 { get; set; }
         public static List<SongArtist> SongIds { get; set; } = new List<SongArtist>();
         public static List<SongSinger> SingerIds { get; set; } = new List<SongSinger>();
         public static List<SongGenre> GenreIds { get; set; } = new List<SongGenre>();
@@ -82,6 +84,7 @@ namespace WebAdmin.Pages.Song
             if (data.Results is not null)
             {
                 TotalPage = (int)MathF.Ceiling((float)data.Metadata.Total / (float)data.Metadata.Size);
+                TotalPage2 = TotalPage;
             }
             return Page();
         }
@@ -165,6 +168,7 @@ namespace WebAdmin.Pages.Song
             if (data.Results is not null)
             {
                 TotalPage = (int)MathF.Ceiling((float)data.Metadata.Total / (float)data.Metadata.Size);
+                TotalPage2 = TotalPage;
             }
             return Page();
         }

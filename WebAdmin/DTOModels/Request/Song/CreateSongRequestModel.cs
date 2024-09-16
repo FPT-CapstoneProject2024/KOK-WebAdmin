@@ -36,6 +36,21 @@ namespace WebAdmin.DTOModels.Request.Song
     {
         public Guid SingerId { get; set; }
     }
+    public class SongArtistRequestModelExtended
+    {
+        public Guid ArtistId { get; set; }
+        public string ArtistName { get; set; } // New field for the artist name
+    }
+    public class SongSingerRequestModelExtended
+    {
+        public Guid SingerId { get; set; }
+        public string SingerName { get; set; } // New field for the singer name
+    }
+    public class SongGenreRequestModelExtended
+    {
+        public Guid GenreId { get; set; }
+        public string GenreName { get; set; } // New field for the genre name
+    }
 
     public class CreateSongRequestModel1
     {
@@ -49,11 +64,11 @@ namespace WebAdmin.DTOModels.Request.Song
         [RegularExpression(Constraints.VALIDATE_AMOUNT, ErrorMessage = Constraints.STAR_INVALID)]
         public decimal Price { get; set; }
         [Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
-        public ICollection<SongGenreRequestModel>? SongGenres { get; set; } = new List<SongGenreRequestModel>();
+        public ICollection<SongGenreRequestModelExtended>? SongGenres { get; set; } = new List<SongGenreRequestModelExtended>();
         [Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
-        public ICollection<SongArtistRequestModel>? SongArtists { get; set; } = new List<SongArtistRequestModel>();
+        public ICollection<SongArtistRequestModelExtended>? SongArtists { get; set; } = new List<SongArtistRequestModelExtended>();
         [Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
-        public ICollection<SongSingerRequestModel>? SongSingers { get; set; } = new List<SongSingerRequestModel>();
+        public ICollection<SongSingerRequestModelExtended>? SongSingers { get; set; } = new List<SongSingerRequestModelExtended>();
 
 
     }

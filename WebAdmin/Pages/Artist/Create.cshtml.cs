@@ -40,20 +40,20 @@ namespace WebAdmin.Pages.Artist
                 //    return new JsonResult(new { success = false });
                 //}
 
-                //var dataImage = await SupportingFeature.Instance.UploadImage(_clientFactory, file, KokApiContext.ImgurClientId);
+                var dataImage = await SupportingFeature.Instance.UploadImage(_clientFactory, file, KokApiContext.ImgurClientId);
 
-                //if (!dataImage.Item1)
-                //{
-                //    ViewData["Message"] = dataImage.Item2;
-                //    return new JsonResult(new { success = false });
-                //}
-                //else
-                //{
-                //    ViewData["ImageUrl"] = dataImage.Item2;
-                //    imageUrl = dataImage.Item2;
-                //}
+                if (!dataImage.Item1)
+                {
+                    ViewData["Message"] = dataImage.Item2;
+                    return new JsonResult(new { success = false });
+                }
+                else
+                {
+                    ViewData["ImageUrl"] = dataImage.Item2;
+                    imageUrl = dataImage.Item2;
+                }
 
-                //Artist.Image = imageUrl; 
+                Artist.Image = imageUrl;
 
                 var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ArtistResource;
 

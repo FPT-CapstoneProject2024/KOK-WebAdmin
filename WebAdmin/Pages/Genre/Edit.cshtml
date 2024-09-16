@@ -11,7 +11,7 @@
         <form method="post" enctype="multipart/form-data" asp-page="./Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="UpdateGenre.GenreName" class="control-label"></label>
+                <label asp-for="UpdateGenre.GenreName" class="control-label">Tên Thể Loại</label>
                 <input asp-for="UpdateGenre.GenreName" class="form-control" />
                 <span asp-validation-for="UpdateGenre.GenreName" class="text-danger"></span>
             </div>
@@ -22,13 +22,15 @@
             </div> *@
 
             <div class="form-group">
-                <label asp-for="UpdateGenre.Image" class="control-label"></label>
+                <label asp-for="UpdateGenre.Image" class="control-label">Hình Ảnh</label>
                 <input type="file" name="file" class="form-control" />
             </div>
 
             <input type="hidden" asp-for="Genre.GenreId" />
+            <!-- Existing Image URL (hidden) -->
+            <input type="hidden" asp-for="Genre.Image" />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Chỉnh Sửa" class="btn btn-primary" />
             </div>
         </form>
     </div>

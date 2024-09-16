@@ -7,60 +7,61 @@
 <div class="details">
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Song.SongName)
+        <dt class="col-md-4 col-12">
+            Tên Bài Hát
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-md-8 col-12">
             @Html.DisplayFor(model => model.Song.SongName)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Song.SongDescription)
+        <dt class="col-md-4 col-12">
+            Mô Tả
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-md-8 col-12">
             @Html.DisplayFor(model => model.Song.SongDescription)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Song.SongUrl)
+        <dt class="col-md-4 col-12">
+            URL
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-md-8 col-12">
             <video width="320" height="240" controls>
                 <source src="@Html.DisplayFor(model => model.Song.SongUrl)" type="video/mp4" />
             </video>
+            @* @Html.DisplayFor(model => model.Song.SongUrl) *@
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Song.SongStatus)
+        <dt class="col-md-4 col-12">
+            Trạng Thái
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-md-8 col-12">
             @Html.DisplayFor(model => model.Song.SongStatus)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Song.CreatedDate)
+        <dt class="col-md-4 col-12">
+            Ngày Tạo
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-md-8 col-12">
             @Html.DisplayFor(model => model.Song.CreatedDate)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Song.UpdatedDate)
+        <dt class="col-md-4 col-12">
+            Thời Điểm Chỉnh Sửa
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-md-8 col-12">
             @Html.DisplayFor(model => model.Song.UpdatedDate)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Song.SongCode)
+        <dt class="col-md-4 col-12">
+            Mã Bài Hát
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-md-8 col-12">
             @Html.DisplayFor(model => model.Song.SongCode)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Song.PublicDate)
+        <dt class="col-md-4 col-12">
+            Ngày Ra Mắt
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-md-8 col-12">
             @Html.DisplayFor(model => model.Song.PublicDate)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Song.Price)
+        <dt class="col-md-4 col-12">
+            Giá Tiền
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-md-8 col-12">
             @Html.DisplayFor(model => model.Song.Price)
         </dd>
     </dl>

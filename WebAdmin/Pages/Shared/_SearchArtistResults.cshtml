@@ -1,4 +1,4 @@
-﻿@using WebAdmin.DTOModels.Request.Song
+﻿@* @using WebAdmin.DTOModels.Request.Song
 @model WebAdmin.Pages.Song.CreateModel
 
 @if (Model.SearchArtistResults != null && Model.SearchArtistResults.Count > 0)
@@ -34,3 +34,29 @@ else
 {
     <p>No results found.</p>
 }
+ *@
+@if (Model.SearchArtistResults != null && Model.SearchArtistResults.Count > 0)
+{
+    <div id="artistSelect" class="img-cell">
+        @foreach (var result in Model.SearchArtistResults)
+        {
+            <div class="artist-result"
+                 data-id="@result.ArtistId"
+                 data-name="@result.ArtistName"
+                 data-image="@result.Image"
+                 onclick="toggleArtistSelection('@result.ArtistId', '@result.ArtistName')">
+                <p>@result.ArtistName</p>
+                <img src="@result.Image" alt="N/A" />
+            </div>
+        }
+    </div>
+
+    <ul id="selectedArtists">
+        <!-- List of selected artists -->
+    </ul>
+}
+else
+{
+    <p>No results found.</p>
+}
+

@@ -48,7 +48,7 @@ namespace WebAdmin.Pages.Transactions
                 data.Results = data.Results.Select(r =>
                 {
                     r.Status = (new InAppTransactionStatuses()).List[(int)Enum.Parse(typeof(InAppTransactionStatus), r.Status)];
-                    r.TransactionType = (new InAppTransactionTypes()).List[(int)Enum.Parse(typeof(InAppTransactionStatus), r.TransactionType)];
+                    r.TransactionType = (new InAppTransactionTypes()).List[(int)Enum.Parse(typeof(InAppTransactionType), r.TransactionType) - 1];
 
                     return r;
                 }).ToList();

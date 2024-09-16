@@ -18372,12 +18372,13 @@ textarea[resize="horizontal"] {
 }
 
 .table thead th {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-bottom: 1px solid #e9ecef;
+    font-weight: 900;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #e9ecef;
 }
 
 .table th {

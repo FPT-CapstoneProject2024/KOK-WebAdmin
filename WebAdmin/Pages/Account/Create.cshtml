@@ -21,7 +21,6 @@
                 <input asp-for="Account.Password" type="password" placeholder="Password" required class="form-control" />
                 <span asp-validation-for="Account.Password" class="text-danger"></span>
             </div>
-            <br />
             <div class="form-group">
                 <label @* asp-for="Account.Fullname" *@ class="control-label">Họ Tên</label>
                 <input asp-for="Account.Fullname" type="Fullname" placeholder="Fullname" class="form-control" />
@@ -54,7 +53,7 @@
                 <input asp-for="Account.IdentityCardNumber" type="number" class="form-control" />
                 <span asp-validation-for="Account.IdentityCardNumber" class="text-danger"></span>
             </div>
-            <br />
+            
             <div class="form-group">
                 <label @* asp-for="Account.PhoneNumber" *@ class="control-label">Số Điện Thoại</label>
                 <input asp-for="Account.PhoneNumber" type="number" class="form-control" />
@@ -71,6 +70,7 @@
             </div>
             <div>
                 <div class="form-group">
+                    <label for="file" class="control-label">Hình Ảnh</label>
                     <input type="file" name="file" class="form-control" />
                 </div>
                 <div id="result">
@@ -81,8 +81,11 @@
                         <p>Image URL: <a href="@ViewBag.ImageUrl" target="_blank">@ViewBag.ImageUrl</a></p>
                     }
                 </div>
-                <div class="form-group">
+                @* <div class="form-group">
                     <button asp-page-handler="Create" type="submit" class="form-control-sm btn-outline-primary">Submit</button>
+                </div> *@
+                <div class="form-group">
+                    <input type="submit" value="Tạo Mới" class="btn btn-primary" />
                 </div>
         </form>
     </div>

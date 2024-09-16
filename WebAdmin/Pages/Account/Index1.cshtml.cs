@@ -24,6 +24,8 @@ namespace WebAdmin.Pages.Account
         public int CurrentPage { get; set; }
         [BindProperty]
         public static int TotalPage { get; set; } = 1;
+        [BindProperty]
+        public int TotalPage2 { get; set; }
 
         [BindProperty]
         public AccountFilter? filter { get; set; }
@@ -67,6 +69,7 @@ namespace WebAdmin.Pages.Account
             {
                 TotalData = data.Metadata.Total;
                 TotalPage = (int)MathF.Ceiling((float)data.Metadata.Total / (float)data.Metadata.Size);
+                TotalPage2 = TotalPage;
             }
             return Page();
         }
@@ -95,6 +98,7 @@ namespace WebAdmin.Pages.Account
 
             var data = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Account>>(jsonResponse);
 
+            //return Page();
             return await OnGet();
         }
 
@@ -144,6 +148,7 @@ namespace WebAdmin.Pages.Account
             {
                 TotalData = data.Metadata.Total;
                 TotalPage = (int)MathF.Ceiling((float)data.Metadata.Total / (float)data.Metadata.Size);
+                TotalPage2 = TotalPage;
             }
             return Page();
         }

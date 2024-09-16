@@ -57,27 +57,50 @@ namespace WebAdmin.Pages.Genre
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync(IFormFile file)
+        public async Task<IActionResult> OnPostAsync(IFormFile? file)
         {
-            if (!ModelState.IsValid)
-            {
-                return new JsonResult(new { success = false });
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return new JsonResult(new { success = false });
+            //}
 
-            var dataImage = await SupportingFeature.Instance.UploadImage(_clientFactory, file, KokApiContext.ImgurClientId);
-
-            if (!dataImage.Item1)
+            if (file != null)
             {
-                ViewData["Message"] = dataImage.Item2;
-                return new JsonResult(new { success = false });
+                var dataImage = await SupportingFeature.Instance.UploadImage(_clientFactory, file, KokApiContext.ImgurClientId);
+
+                if (!dataImage.Item1)
+                {
+                    ViewData["Message"] = dataImage.Item2;
+                    return new JsonResult(new { success = false });
+                }
+                else
+                {
+                    ViewData["ImageUrl"] = dataImage.Item2;
+                    imageUrl = dataImage.Item2;
+                }
+
+                // Update the image URL in the UpdateGenre model
+                UpdateGenre.Image = imageUrl;
             }
             else
             {
-                ViewData["ImageUrl"] = dataImage.Item2;
-                imageUrl = dataImage.Item2;
+                // If no file is uploaded, keep the existing image
+                UpdateGenre.Image = Genre.Image;
             }
+            //var dataImage = await SupportingFeature.Instance.UploadImage(_clientFactory, file, KokApiContext.ImgurClientId);
 
-            UpdateGenre.Image = imageUrl;
+            //if (!dataImage.Item1)
+            //{
+            //    ViewData["Message"] = dataImage.Item2;
+            //    return new JsonResult(new { success = false });
+            //}
+            //else
+            //{
+            //    ViewData["ImageUrl"] = dataImage.Item2;
+            //    imageUrl = dataImage.Item2;
+            //}
+
+            //UpdateGenre.Image = imageUrl;
 
             try
             {
