@@ -17,6 +17,26 @@ namespace WebAdmin.DTOModels
         November,
         December,
     }
+
+
+    public class Months
+    {
+        public Dictionary<string, decimal> Values = new Dictionary<string, decimal>()
+        {
+            {"Tháng 1", 0 },
+            {"Tháng 2", 0 },
+            {"Tháng 3", 0 },
+            {"Tháng 4", 0 },
+            {"Tháng 5", 0 },
+            {"Tháng 6", 0 },
+            {"Tháng 7", 0 },
+            {"Tháng 8", 0 },
+            {"Tháng 9", 0 },
+            {"Tháng 10", 0 },
+            {"Tháng 11", 0 },
+            {"Tháng 12", 0 },
+        };
+    }
     public enum SortOrder
     {
         Descending,
