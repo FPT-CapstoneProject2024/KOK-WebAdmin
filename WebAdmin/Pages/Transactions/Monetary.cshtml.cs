@@ -20,6 +20,8 @@ namespace WebAdmin.Pages.Transactions
         public int CurrentPage { get; set; }
         [BindProperty]
         public static int TotalPage { get; set; } = 1;
+        [BindProperty]
+        public int TotalPage2 { get; set; }
 
         public MonetaryModel(ILogger<MonetaryModel> logger, IApiClient apiClient)
         {
@@ -51,7 +53,8 @@ namespace WebAdmin.Pages.Transactions
                     TotalPage = (int)MathF.Ceiling((float)data.Metadata.Total / (float)data.Metadata.Size);
 
                     ViewData["TotalAmount"] = data.Results.Sum(x => x.MoneyAmount);
-                    ViewData["TotalTransaction"] = data.Metadata.Total; 
+                    ViewData["TotalTransaction"] = data.Metadata.Total;
+                    TotalPage2 = TotalPage;
                 }
             }
             catch (Exception)

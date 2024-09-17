@@ -625,14 +625,14 @@ namespace WebAdmin.DTOModels
     public static class ReportCategory
     {
         public static List<string> List = new()
-        {
-        "Nội dung này là spam",
+        {       
         "Nội dung liên quan đến tình dục",
         "Bắt nạt hoặc quấy rối",
         "Kêu gọi bạo lực, thù ghét",
         "Tự tử hoặc tự gây thương tích",
         "Bán hoặc quảng cáo mặt hàng bị cấm",
         "Lừa đảo hoặc mạo danh",
+        "Nội dung này là spam",
         "Thông tin sai sự thật",
         "Vi phạm quyền sở hữu trí tuệ",
         };
@@ -645,10 +645,10 @@ namespace WebAdmin.DTOModels
         INCITEMENT_TO_VIOLENCE_OR_HATE,
         SUICIDE_OR_SELF_HARM,
         PROHIBITED_GOODS_SALES_OR_PROMOTION,
-        FRAUD_OR_IMPERSONATION, SPAM,
+        FRAUD_OR_IMPERSONATION, 
+        SPAM,
         MISINFORMATION,
         INTELLECTUAL_PROPERTY_VIOLATION
-
     }
 
     #endregion

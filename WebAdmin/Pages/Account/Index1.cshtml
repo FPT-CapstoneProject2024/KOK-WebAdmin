@@ -33,7 +33,7 @@
     <!-- Advanced Search Panel (Initially Hidden) -->
     <div id="advancedSearchPanel" class="advanced-search-container" style="display: none; margin-top: 20px;">
         <div class="card p-3 mb-4 custom-card-width">
-            <h5 class="card-title">Tìm Kiếm Nâng Cao Tài Khoản</h5>
+            <h5 class="card-title">Tìm Kiếm Nâng Cao</h5>
             <form asp-page-handler="SearchAdvanced" method="post">
                 <div class="row">
                     <!-- First row with 3 columns -->
@@ -257,7 +257,7 @@
                         @* <td><a asp-page-handler="Inactive" asp-route-id="@e.AccountId" class="btn btn-dribbble">Ẩn</a> | <a asp-page-handler="Active" asp-route-id="@e.AccountId" class="btn btn-warning">Kích hoạt</a></td> *@
                         <td>
                             <!-- Toggle button for Activate/Deactivate -->
-                            @if (e.AccountStatus == "ACTIVE" || e.AccountStatus == "Hoạt Động")
+                            @if (e.AccountStatus == "INACTIVE" || e.AccountStatus == "Vô Hiệu Hóa")
                             {
                                 <a asp-page-handler="Inactive" asp-route-id="@e.AccountId" class="btn btn-danger">Vô Hiệu Hóa</a>
                             }
