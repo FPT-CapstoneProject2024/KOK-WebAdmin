@@ -369,8 +369,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <!-- Brand -->
-                <a class="navbar-brand pt-0" href="./index.html">
-                    <img src="/img/brand/blue.png" class="navbar-brand-img" alt="...">
+                <a class="navbar-brand pt-0" href="/Dashboard/Index">
+                    <img src="/img/logo.jpg" class="navbar-brand-img" alt="...">
                 </a>
                 <!-- User -->
                 <ul class="nav align-items-center d-md-none">
@@ -471,7 +471,7 @@
                         </li> *@
                         <li class="nav-item">
                             <a class="nav-link" href="#" id="dropdownMenuLink" aria-haspopup="true" aria-expanded="false">
-                                <i class="ni ni-tv-2 text-primary"></i> Bảng Thống Kê
+                                <i class="fa-solid fa-chart-column" style="color: #7A99FE;"></i> Bảng Thống Kê
                                 <span class="arrow" id="statsArrow">&#9662;</span> <!-- Down arrow initially -->
                             </a>
                             <div id="statsMenuCollapse" class="collapse">
@@ -503,54 +503,64 @@
 
                         <li class="nav-item">
                             <a asp-page="/Account/Index1" class="nav-link">
-                                <i class="ni ni-tv-2 text-primary"></i> Danh Sách Tài Khoản
+                                <i class="fa-solid fa-users" style="color: #7A99FE;"></i> Danh Sách Tài Khoản
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a asp-page="/Genre/Index" class="nav-link">
-                                <i class="ni ni-tv-2 text-primary"></i> Danh Sách Thể Loại
+                                <i class="fa-solid fa-guitar" style="color: #7A99FE;"></i> Danh Sách Thể Loại
                             </a>
                         </li>
 
                         <!-- Modified Dropdown Menu -->
                         <li class="nav-item">
                             <a class="nav-link" href="#" id="songMenuLink" aria-haspopup="true" aria-expanded="false">
-                                <i class="ni ni-tv-2 text-primary"></i> Bài Hát
+                                <i class="fa-solid fa-music" style="color: #7A99FE;"></i> Bài Hát
                                 <span class="arrow" id="songArrow">&#9662;</span> <!-- Down arrow initially -->
                             </a>
                             <div id="songMenuCollapse" class="collapse">
-                                <a class="nav-link ml-3" asp-page="/Song/Index">Danh Sách Bài Hát</a>
-                                <a class="nav-link ml-3" asp-page="/Singer/Index">Danh Sách Ca Sĩ</a>
-                                <a class="nav-link ml-3" asp-page="/Artist/Index">Danh Sách Tác Giả</a>
+                                <a class="nav-link ml-3" asp-page="/Song/Index">
+                                    <i class="fa-solid fa-file-audio" style="color: #7A99FE;"></i> Danh Sách Bài Hát
+                                </a>
+                                <a class="nav-link ml-3" asp-page="/Singer/Index">
+                                    <i class="fa-solid fa-microphone-lines" style="color: #7A99FE;"></i> Danh Sách Ca Sĩ
+                                </a>
+                                <a class="nav-link ml-3" asp-page="/Artist/Index">
+                                    <i class="fa-solid fa-user-pen" style="color: #7A99FE;"></i> Danh Sách Tác Giả
+                                </a>
                             </div>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link" href="#" id="transactionMenuLink" aria-haspopup="true" aria-expanded="false">
-                                <i class="ni ni-tv-2 text-primary"></i> Giao Dịch
+                                <i class="fa-solid fa-credit-card" style="color: #7A99FE;"></i> Giao Dịch
                                 <span class="arrow" id="transactionArrow">&#9662;</span> <!-- Down arrow initially -->
                             </a>
                             <div id="transactionMenuCollapse" class="collapse">
-                                <a class="nav-link ml-3" asp-page="/Transactions/Game">Trong Ứng Dụng</a>
-                                <a class="nav-link ml-3" asp-page="/Transactions/Monetary">Tiền</a>
+                                <a class="nav-link ml-3" asp-page="/Transactions/Game">
+                                    <i class="fa-solid fa-tablet-screen-button" style="color: #7A99FE;"></i>Trong Ứng Dụng
+                                </a>
+                                <a class="nav-link ml-3" asp-page="/Transactions/Monetary">
+                                    <i class="fa-solid fa-money-bill-wave" style="color: #7A99FE;"></i>Tiền
+                                </a>
                             </div>
                         </li>
 
                         <li class="nav-item">
                             <a asp-page="/Item/Index" class="nav-link">
-                                <i class="ni ni-tv-2 text-primary"></i> Danh Sách Vật Phẩm
+                                <i class="fa-solid fa-wand-magic-sparkles" style="color: #7A99FE;"></i>Danh Sách Vật Phẩm
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a asp-page="/Package/Index" class="nav-link">
-                                <i class="ni ni-tv-2 text-primary"></i> Danh Sách Gói
+                                <i class="fa-solid fa-hand-holding-dollar" style="color: #7A99FE;"></i>Danh Sách Gói
                             </a>
                         </li>
                         <li class="nav-item">
                             <a asp-page="/Report/Index" class="nav-link">
-                                <i class="ni ni-tv-2 text-primary"></i> Danh Sách Tố Cáo
+                                <i class="fa-solid fa-flag" style="color: #7A99FE;"></i>Danh Sách Tố Cáo
                             </a>
                         </li>
                     </ul>

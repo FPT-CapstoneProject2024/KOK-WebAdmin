@@ -38,8 +38,79 @@
 </div>
 
 
-<!-- Advanced Search Panel (Initially Hidden) -->
+<!-- Advanced Search Panel for Reports -->
+<div id="advancedSearchPanel" class="advanced-search-container" style="display: none; margin-top: 20px;">
+    <div class="card p-3 mb-4 custom-card-width">
+        <h5 class="card-title">Tìm Kiếm Nâng Cao</h5>
+        <form asp-page-handler="SearchAdvanced" method="post">
+            <div class="row">
+                <!-- First row with 3 columns: ReportCategory, Status, Reason -->
+                <div class="col-md-4">
+                    <label class="form-label">Loại Báo Cáo</label>
+                    <select asp-for="filter.ReportCategory" class="form-select">
+                        <option value="">Chọn Loại Báo Cáo</option>
+                        <option value="SEXUAL_CONTENT">Nội dung liên quan đến tình dục</option>
+                        <option value="BULLYING_OR_HARASSMENT">Bắt nạt hoặc quấy rối</option>
+                        <option value="INCITEMENT_TO_VIOLENCE_OR_HATE">Kêu gọi bạo lực, thù ghét</option>
+                        <option value="SUICIDE_OR_SELF_HARM">Tự tử hoặc tự gây thương tích</option>
+                        <option value="PROHIBITED_GOODS_SALES_OR_PROMOTION">Bán hoặc quảng cáo mặt hàng bị cấm</option>
+                        <option value="FRAUD_OR_IMPERSONATION">Lừa đảo hoặc mạo danh</option>
+                        <option value="SPAM">Nội dung này là spam</option>
+                        <option value="MISINFORMATION">Thông tin sai sự thật</option>
+                        <option value="INTELLECTUAL_PROPERTY_VIOLATION">Vi phạm quyền sở hữu trí tuệ</option>
+                    </select>
+                    <span asp-validation-for="filter.ReportCategory" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Trạng Thái</label>
+                    <select asp-for="filter.Status" class="form-select">
+                        <option value="">Chọn Trạng Thái</option>
+                        <option value="PROCESSING">Đang Xử Lý</option>
+                        <option value="COMPLETE">Hoàn Thành</option>
+                        <option value="CANCELED">Hủy Bỏ</option>
+                    </select>
+                    <span asp-validation-for="filter.Status" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Lý Do</label>
+                    <input asp-for="filter.Reason" class="form-control" />
+                    <span asp-validation-for="filter.Reason" class="text-danger"></span>
+                </div>
+            </div>
 
+            <div class="row mt-3">
+                <!-- Second row with 3 columns: CreateTime, ReportType, Comment -->
+                <div class="col-md-4">
+                    <label class="form-label">Ngày Tạo</label>
+                    <input asp-for="filter.CreateTime" class="form-control" type="datetime-local" />
+                    <span asp-validation-for="filter.CreateTime" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Loại Báo Cáo</label>
+                    <input asp-for="filter.ReportType" class="form-control" />
+                    <span asp-validation-for="filter.ReportType" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Bình Luận</label>
+                    <input asp-for="filter.Comment" class="form-control" />
+                    <span asp-validation-for="filter.Comment" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <!-- Third row with 1 column: PostCaption -->
+                <div class="col-md-4">
+                    <label class="form-label">Tiêu Đề Bài Đăng</label>
+                    <input asp-for="filter.PostCaption" class="form-control" />
+                    <span asp-validation-for="filter.PostCaption" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Search Button -->
+            <button type="submit" class="btn btn-success-search mt-3">Tìm Kiếm</button>
+        </form>
+    </div>
+</div>
 
 <style>
     .advanced-search-container {
@@ -114,81 +185,6 @@
     }
 </style>
 
-<div id="advancedSearchPanel" class="advanced-search-container" style="display: none; margin-top: 20px;">
-    <div class="modal-content">
-        @* <span class="close">&times;</span> *@
-        <div class="formAdvanced">
-            <form asp-page-handler="SearchAdvanced" method="post" class="input-group">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div>
-                    <label class="control-label">Loại Báo Cáo</label>
-                    <input asp-for="filter.ReportCategory" class="form-control-sm" />
-                    <span asp-validation-for="filter.ReportCategory" class="text-danger"></span>
-                </div>
-                <div>
-                    <label class="control-label">Lý Do</label>
-                    <input asp-for="filter.Reason" class="form-control-sm" />
-                    <span asp-validation-for="filter.Reason" clas="text-danger"></span>
-                </div>
-                <div>
-                    <label class="control-label">Ngày Tạo</label>
-                    <input asp-for="filter.CreateTime" class="form-control-sm" />
-                    <span asp-validation-for="filter.CreateTime" clas="text-danger"></span>
-                </div>
-                <div>
-                    <label class="control-label">Tiêu Đề</label>
-                    <input asp-for="filter.PostCaption" class="form-control-sm" />
-                    <span asp-validation-for="filter.PostCaption" clas="text-danger"></span>
-                </div>
-
-
-                <div>
-                    <label class="control-label">Trạng Thái</label>
-                    <select asp-for="filter.Status">
-                        <option value="PROCCESSING">Đang Xử Lý</option>
-                        <option value="COMPLETE">Hoàn Tất</option>
-                        <option value="CANCELED">Hủy Bỏ</option>
-                    </select>
-                </div>
-                
-                <div>
-                    <label class="control-label">Kiểu Báo Cáo</label>
-                    <select asp-for="filter.ReportType">
-@*                         <option value="INAPPROPRIATE_CONTENT">
-                            Nội Dung Không Phù Hợp
-                        </option>
-                        <option value="SPAM">
-                            Thư Rác
-                        </option>
-                        <option value="HARASSMENT">
-                            Quấy Rối
-                        </option>
-                        <option value="VIOLENCE">Bạo Lực</option>
-                        <option value="HATE_SPEECH">Phát Ngôn Thù Ghét</option>
-                        <option value="SELF_HARM">Tự Gây Hại</option>
-                        <option value="TERRORISM">Khủng Bố</option>
-                        <option value="NUDITY">Ảnh Khoả Thân</option>
-                        <option value="GRAPHIC_CONTENT">Nội Dung Rùng Rợn</option>
-                        <option value="MISINFORMATION">Thông Tin Sai Lệch</option> *@
-
-                        @for (int e = 0; e < ReportCategory.List.Count(); e++)
-                        {
-                            <option value="@e">@ReportCategory.List[e]</option>
-                        }
-                    </select>
-                </div>
-
-                <button class="btn btn-google-plus" type="submit">Lưu Thông Tin</button>
-
-
-            </form>
-        </div>
-
-    </div>
-
-</div>
-<!-- End Search -->
-
 <div class="table-container">
     <table class="table">
         <thead>
@@ -217,7 +213,7 @@
         <tbody>
             @if (Model.data.Results != null)
             {
-                int count = 1;
+                int count = 0;
                 @foreach (var item in Model.data.Results)
                 {
                     <tr>
@@ -240,12 +236,13 @@
                             @Html.DisplayFor(modelItem => item.PostCaption)
                         </td>
 
-
                         <td>
-
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editReportModal" data-id="@item.ReportId"> <i class="fa-solid fa-pen" style="font-size: 30px;color: #fff;"></i></button>
-                            <a href="javascript:void(0);" class="btn btn-dark" data-toggle="modal" data-target="#detailReportModal" data-id="@item.ReportId"><i class="fa-solid fa-file-lines" style="font-size: 30px;color: #fff;"></i></a>
-                            @* <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = item.ReportId })'"><i class="fa-regular fa-trash-can" style="font-size: 30px; color: #fff;"></i></button> *@
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editReportModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@item.ReportId">
+                                <i class="fa-solid fa-pen" style="font-size: 25px;color: #fff;"></i>
+                            </button>
+                            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#detailReportModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@item.ReportId">
+                                <i class="fa-solid fa-file-lines" style="font-size: 25px;color: #fff;"></i>
+                            </button>
                         </td>
                     </tr>
                 }
@@ -303,7 +300,7 @@
     <div class="modal-dialog modal-lg-custom" role="document">
         <div class="modal-content edit-modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editReportModalLabel">Edit Report</h5>
+                <h5 class="modal-title" id="editReportModalLabel">Chỉnh Sửa Báo Cáo</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -321,7 +318,7 @@
     <div class="modal-dialog custom-modal-width" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="detailModalLabel">Report Details</h5>
+                <h5 class="modal-title" id="detailModalLabel">Chi Tiết Báo Cáo</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
