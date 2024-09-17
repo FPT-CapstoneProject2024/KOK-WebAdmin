@@ -4,59 +4,57 @@
 }
 <h1>Details</h1>
 
-<div>
-    <h4>MonetaryTransaction</h4>
+<div class="details">
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MonetaryTransaction.PaymentType)
+        <dt class="col-md-4 col-12">
+            Tên Tài Khoản
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MonetaryTransaction.PaymentType)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MonetaryTransaction.PaymentCode)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MonetaryTransaction.PaymentCode)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MonetaryTransaction.MoneyAmount)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MonetaryTransaction.MoneyAmount)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MonetaryTransaction.Currency)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MonetaryTransaction.Currency)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MonetaryTransaction.Status)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MonetaryTransaction.Status)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MonetaryTransaction.CreatedDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MonetaryTransaction.CreatedDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MonetaryTransaction.PackageName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MonetaryTransaction.PackageName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MonetaryTransaction.Username)
-        </dt>
-        <dd class="col-sm-10">
+        <dd class="col-md-8 col-12">
             @Html.DisplayFor(model => model.MonetaryTransaction.Username)
         </dd>
-
+        <dt class="col-md-4 col-12">
+            Loại Thanh Toán
+        </dt>
+        <dd class="col-md-8 col-12">
+            @Html.DisplayFor(model => model.MonetaryTransaction.PaymentType)
+        </dd>
+        <dt class="col-md-4 col-12">
+            Mã Thanh Toán
+        </dt>
+        <dd class="col-md-8 col-12">
+            @Html.DisplayFor(model => model.MonetaryTransaction.PaymentCode)
+        </dd>
+        <dt class="col-md-4 col-12">
+            Tên Gói
+        </dt>
+        <dd class="col-md-8 col-12">
+            @Html.DisplayFor(model => model.MonetaryTransaction.PackageName)
+        </dd>
+        <dt class="col-md-4 col-12">
+            Số Tiền
+        </dt>
+        <dd class="col-md-8 col-12">
+            @Html.DisplayFor(model => model.MonetaryTransaction.MoneyAmount)
+        </dd>
+        <dt class="col-md-4 col-12">
+            Loại Tiền Tệ
+        </dt>
+        <dd class ="col-md-8 col-12">
+            @Html.DisplayFor(model => model.MonetaryTransaction.Currency)
+        </dd>
+        <dt class="col-md-4 col-12">
+            Trạng Thái
+        </dt>
+        <dd class="col-md-8 col-12">
+            @Html.DisplayFor(model => model.MonetaryTransaction.Status)
+        </dd>
+        <dt class="col-md-4 col-12">
+            Ngày Tạo
+        </dt>
+        <dd class="col-md-8 col-12">
+            @Html.DisplayFor(model => model.MonetaryTransaction.CreatedDate)
+        </dd>      
     </dl>
 </div>
 <div>
