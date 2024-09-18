@@ -77,7 +77,8 @@ namespace WebAdmin.Pages.Song
 
             data.Results = data.Results.Select(r =>
             {
-                r.SongStatus = new SongStatuses().List[(int)Enum.Parse(typeof(SongStatus), r.SongStatus)];
+                int status = (int)Enum.Parse(typeof(SongStatus), r.SongStatus);
+                r.SongStatus = new SongStatuses().List[status < 0 ? 0 : (status> 1 ? 1 : status)];
                 return r;
             }).ToList();
 

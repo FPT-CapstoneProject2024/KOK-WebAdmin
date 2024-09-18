@@ -155,14 +155,14 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Month</th>
-                        <th>Value</th>
+                        <th>Ngày</th>
+                        <th>Tổng Giao Dịch</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if(GameModel.DataDateInApp != null)
+                    @if(Model.DataDateInApp != null)
                     {
-                        @foreach (var transaction in GameModel.DataDateInApp)
+                        @foreach (var transaction in Model.DataDateInApp)
                         {
                             <tr>
                                 <td>@(count += 1)</td>

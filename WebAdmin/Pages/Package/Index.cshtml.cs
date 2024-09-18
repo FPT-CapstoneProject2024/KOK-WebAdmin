@@ -56,7 +56,8 @@ namespace WebAdmin.Pages.Package
 
                 data.Results = data.Results.Select(r =>
                 {
-                    r.Status = PackageStatuses.list[(int)Enum.Parse(typeof(PackageStatus), r.Status)];
+                    int status = (int)Enum.Parse(typeof(PackageStatus), r.Status);
+                    r.Status = PackageStatuses.list[status < 0 ? 0 : (status > 1 ? 1 : status)];
 
                     return r;
                 }).ToList();

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json;
 using System.Security.Cryptography.X509Certificates;
 using WebAdmin.Context;
+using WebAdmin.DTOModels;
 using WebAdmin.Services.Interfaces;
 
 namespace WebAdmin.Pages.Dashboard
@@ -30,14 +31,21 @@ namespace WebAdmin.Pages.Dashboard
             try
             {
                 #region Month
-                string? uri = null;
-
-                uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.DashboardResource + "/" + "get-month-transactions";
+                string? uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.DashboardResource + "/" + "get-month-transactions";
 
                 var response = await _apiClient.GetAsync(uri);
                 var jsonResponse = await response.Content.ReadAsStringAsync();
 
-                DataMonth = JsonConvert.DeserializeObject<DTOModels.Response.Helpers.DashboardResponse<string>>(jsonResponse)?.Values;
+                var dataMonthConvert = JsonConvert.DeserializeObject<DTOModels.Response.Helpers.DashboardResponse<string>>(jsonResponse)?.Values;
+
+                DataMonth = new Months().Values;
+                int index = 0;
+
+                DataMonth.ToList().ForEach(e =>
+                {
+                    DataMonth[e.Key] = dataMonthConvert.Values.ToList()[index];
+                    index += 1;
+                });
 
                 #endregion
 
@@ -52,14 +60,22 @@ namespace WebAdmin.Pages.Dashboard
 
                 #region MonthInApp
 
-                uri = null;
 
                 uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.DashboardResource + "/" + "get-month-game-transactions";
 
                 response = await _apiClient.GetAsync(uri);
                 jsonResponse = await response.Content.ReadAsStringAsync();
 
-                DataMonthInApp = JsonConvert.DeserializeObject<DTOModels.Response.Helpers.DashboardResponse<string>>(jsonResponse)?.Values;
+                dataMonthConvert = JsonConvert.DeserializeObject<DTOModels.Response.Helpers.DashboardResponse<string>>(jsonResponse)?.Values;
+
+                DataMonthInApp = new Months().Values;
+                index = 0;
+
+                DataMonth.ToList().ForEach(e =>
+                {
+                    DataMonthInApp[e.Key] = dataMonthConvert.Values.ToList()[index];
+                    index += 1;
+                });
                 #endregion
             }
             catch (Exception)

@@ -157,16 +157,16 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Month</th>
-                        <th>Value</th>
+                        <th>Ngày</th>
+                        <th>Tổng Giao Dịch</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if (MonetaryModel.DataDateInApp != null)
+                    @if (Model.DataDateInApp != null)
                     {
                         int count = 0;
 
-                        @foreach (var transaction in MonetaryModel.DataDateInApp)
+                        @foreach (var transaction in Model.DataDateInApp)
                         {
                             <tr>
                                 <td>@(count += 1)</td>

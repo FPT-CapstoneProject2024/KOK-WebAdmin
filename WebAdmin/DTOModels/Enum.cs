@@ -36,6 +36,21 @@ namespace WebAdmin.DTOModels
             {"Tháng 11", 0 },
             {"Tháng 12", 0 },
         };
+        public List<string> Month = new List<string>()
+        {
+            "Tháng 1",
+            "Tháng 2",
+            "Tháng 3",
+            "Tháng 4",
+            "Tháng 5",
+            "Tháng 6",
+            "Tháng 7",
+            "Tháng 8",
+            "Tháng 9",
+            "Tháng 10",
+            "Tháng 11",
+            "Tháng 12",
+        };
     }
     public enum SortOrder
     {

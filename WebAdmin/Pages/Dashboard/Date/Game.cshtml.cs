@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
+using NuGet.Packaging;
 using System.Globalization;
+using System.Text.RegularExpressions;
 using WebAdmin.Context;
 using WebAdmin.Services.Interfaces;
 
@@ -10,14 +13,14 @@ namespace WebAdmin.Pages.Dashboard.Date
     public class GameModel : PageModel
     {
         private readonly IApiClient _apiClient;
-        public static Dictionary<DateTime, decimal>? DataDateInApp { get; set; }
-        public static Dictionary<DateTime, decimal>? DataDate { get; set; }
+        public Dictionary<string, decimal>? DataDateInApp = new Dictionary<string, decimal>();
+        public static Dictionary<string, decimal>? DataDate { get; set; }
         [BindProperty]
         public DateTime? StartDate { get; set; }
         [BindProperty]
         public DateTime? EndDate { get; set; }
 
-        public static Dictionary<DateTime, decimal>? DataDateOrder { get; set; }
+        public static Dictionary<string, decimal>? DataDateOrder { get; set; }
 
         public GameModel(IApiClient apiClient)
         {
@@ -44,17 +47,30 @@ namespace WebAdmin.Pages.Dashboard.Date
                 var response = await _apiClient.GetAsync(uri);
                 var jsonResponse = await response.Content.ReadAsStringAsync();
 
-                if (DataDateInApp == null)
-                {
-                    DataDateInApp = JsonConvert.DeserializeObject<DTOModels.Response.Helpers.DashboardResponse<DateTime>>(jsonResponse)?.Values;
+                //if (DataDateInApp == null || DataDateInApp.Count <= 0)
+                //{
+                    var data = JsonConvert.DeserializeObject<DTOModels.Response.Helpers.DashboardResponse<string>>(jsonResponse)?.Values;
 
-                    DataDate = DataDateInApp;
+                    data?.Keys.ToList().ForEach(e =>
+                    {
+                        DataDateInApp?.Add(Regex.Match(e, @"^\d{4}-\d{2}-\d{2}").Value, data.GetValueOrDefault(e));
 
-                    DataDateOrder = DataDateInApp.OrderByDescending(x => x.Value).ToDictionary(t => t.Key, t => t.Value);
+                    });
+
+                    if(DataDate == null)
+                    {
+                        DataDate = DataDateInApp;
+                    }
 
 
-                }
-                DataDateInApp = JsonConvert.DeserializeObject<DTOModels.Response.Helpers.DashboardResponse<DateTime>>(jsonResponse)?.Values;
+                    if(DataDateOrder == null)
+                    {
+                        DataDateOrder = DataDateInApp?.OrderByDescending(x => x.Value).ToDictionary(t => t.Key, t => t.Value);
+                    }
+                   
+
+                //}
+                //DataDateInApp = JsonConvert.DeserializeObject<DTOModels.Response.Helpers.DashboardResponse<string>>(jsonResponse)?.Values;
 
 
 

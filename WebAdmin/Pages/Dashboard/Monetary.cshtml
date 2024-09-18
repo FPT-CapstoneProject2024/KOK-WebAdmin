@@ -131,10 +131,10 @@
                     const transactionChart = new Chart(ctx, {
                         type: 'bar', // Bạn có thể thay đổi thành 'line' hoặc các loại biểu đồ khác của Chart.js
                         data: {
-                            labels: @Html.Raw(Json.Serialize(MonetaryModel.DataMonth.Keys.ToList())),
+                            labels: @Html.Raw(Json.Serialize(MonetaryModel.DataChart.Keys.ToList())),
                             datasets: [{
                                 label: 'Số lượng giao dịch trong app',
-                                data: @Html.Raw(Json.Serialize(MonetaryModel.DataMonth.Values.ToList())), // Dữ liệu mẫu, bạn có thể thay thế bằng dữ liệu thực tế
+                                data: @Html.Raw(Json.Serialize(MonetaryModel.DataChart.Values.ToList())), // Dữ liệu mẫu, bạn có thể thay thế bằng dữ liệu thực tế
                                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                                 borderColor: 'rgba(54, 162, 235, 1)',
                                 borderWidth: 1
@@ -160,8 +160,8 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Month</th>
-                        <th>Value</th>
+                        <th>Tháng</th>
+                        <th>Tổng Giao Dịch</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -11,7 +11,6 @@ namespace WebAdmin.Pages.Dashboard
     public class MonetaryModel : PageModel
     {
         private readonly IApiClient _apiClient;
-        //public static Dictionary<string, decimal>? DataMonthInApp { get; set; }
         [BindProperty]
         public string? StartMonth { get; set; }
         [BindProperty]
@@ -19,6 +18,7 @@ namespace WebAdmin.Pages.Dashboard
 
         public static Dictionary<string, decimal>? DataMonth { get; set; }
         public static Dictionary<string, decimal>? DataMonthOrder { get; set; }
+        public static Dictionary<string, decimal>? DataChart { get; set; }
 
         public MonetaryModel(IApiClient apiClient)
         {
@@ -48,38 +48,41 @@ namespace WebAdmin.Pages.Dashboard
 
                 #region MonthInApp
 
-                uri = null;
-
-
                 uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.DashboardResource + "/" + "get-month-transactions?StartMonth=" + month + "&EndMonth=" + endMonth + "&StartYear=" + year + "&EndYear=" + enYear;
 
 
                 var response = await _apiClient.GetAsync(uri);
                 var jsonResponse = await response.Content.ReadAsStringAsync();
 
-                if (DataMonth == null)
-                {
                     var dataConvert = JsonConvert.DeserializeObject<DTOModels.Response.Helpers.DashboardResponse<string>>(jsonResponse)?.Values;
 
-
-
-                    if(DataMonth is null)
+                    DataMonth = new Dictionary<string, decimal>();
+                    for(int i = month.Value; i <= endMonth; i++)
                     {
-                        DataMonth = new Months().Values;
-
+                        DataMonth.Add(new Months().Month[i - 1], 0);
                     }
+
                     int index = 0;
-                    /*DataMonth = */DataMonth.ToList().ForEach(x =>
+                    DataMonth.ToList().ForEach(x =>
                     {
                         DataMonth[x.Key] = dataConvert.Values.ToList().ElementAt(index);
                         index += 1;
                     });
 
 
-                    DataMonthOrder = DataMonth?.ToList().OrderByDescending(x => x.Value).ToDictionary(t => t.Key, t => t.Value);
+                    if(DataMonthOrder == null)
+                    {
+                        DataMonthOrder = DataMonth?.ToList().OrderByDescending(x => x.Value).ToDictionary(t => t.Key, t => t.Value);
+                    }
+
+                    if(DataChart == null)
+                    {
+                        DataChart = DataMonth;
+                    }
+                    
 
 
-                }
+                
                 //DataMonth = JsonConvert.DeserializeObject<DTOModels.Response.Helpers.DashboardResponse<string>>(jsonResponse)?.Values;
 
 
