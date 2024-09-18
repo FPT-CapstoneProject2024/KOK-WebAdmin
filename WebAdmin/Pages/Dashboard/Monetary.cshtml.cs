@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
+using System;
 using System.Globalization;
 using WebAdmin.Context;
 using WebAdmin.DTOModels;
@@ -100,6 +101,14 @@ namespace WebAdmin.Pages.Dashboard
 
         public async Task<IActionResult> OnPostSearchMonth()
         {
+            if (StartMonth == null || StartMonth.Count() <= 0)
+            {
+                StartMonth = DateTime.Now.Year + "-01";
+            }
+            if (EndMonth == null || EndMonth.Count() <= 0)
+            {
+                EndMonth= DateTime.Now.Year + "-12"; 
+            }
             DateTime startMonth = DateTime.ParseExact(StartMonth, "yyyy-MM", CultureInfo.InvariantCulture);
             DateTime endMonth = DateTime.ParseExact(EndMonth, "yyyy-MM", CultureInfo.InvariantCulture);
             return await OnGet(startMonth.Month, startMonth.Year, endMonth.Month, endMonth.Year);
