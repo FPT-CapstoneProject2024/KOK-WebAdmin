@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using System.Globalization;
 using WebAdmin.Context;
+using WebAdmin.DTOModels;
 using WebAdmin.Services.Interfaces;
 
 namespace WebAdmin.Pages.Dashboard
@@ -10,7 +11,7 @@ namespace WebAdmin.Pages.Dashboard
     public class MonetaryModel : PageModel
     {
         private readonly IApiClient _apiClient;
-        public static Dictionary<string, decimal>? DataMonthInApp { get; set; }
+        //public static Dictionary<string, decimal>? DataMonthInApp { get; set; }
         [BindProperty]
         public string? StartMonth { get; set; }
         [BindProperty]
@@ -56,17 +57,30 @@ namespace WebAdmin.Pages.Dashboard
                 var response = await _apiClient.GetAsync(uri);
                 var jsonResponse = await response.Content.ReadAsStringAsync();
 
-                if (DataMonthInApp == null)
+                if (DataMonth == null)
                 {
-                    DataMonthInApp = JsonConvert.DeserializeObject<DTOModels.Response.Helpers.DashboardResponse<string>>(jsonResponse)?.Values;
+                    var dataConvert = JsonConvert.DeserializeObject<DTOModels.Response.Helpers.DashboardResponse<string>>(jsonResponse)?.Values;
 
-                    DataMonth = DataMonthInApp;
 
-                    DataMonthOrder = DataMonthInApp.OrderByDescending(x => x.Value).ToDictionary(t => t.Key, t => t.Value);
+
+                    if(DataMonth is null)
+                    {
+                        DataMonth = new Months().Values;
+
+                    }
+                    int index = 0;
+                    /*DataMonth = */DataMonth.ToList().ForEach(x =>
+                    {
+                        DataMonth[x.Key] = dataConvert.Values.ToList().ElementAt(index);
+                        index += 1;
+                    });
+
+
+                    DataMonthOrder = DataMonth?.ToList().OrderByDescending(x => x.Value).ToDictionary(t => t.Key, t => t.Value);
 
 
                 }
-                DataMonthInApp = JsonConvert.DeserializeObject<DTOModels.Response.Helpers.DashboardResponse<string>>(jsonResponse)?.Values;
+                //DataMonth = JsonConvert.DeserializeObject<DTOModels.Response.Helpers.DashboardResponse<string>>(jsonResponse)?.Values;
 
 
 
