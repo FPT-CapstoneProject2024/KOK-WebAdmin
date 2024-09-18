@@ -11,9 +11,9 @@ using WebAdmin.Services.Interfaces;
 
 namespace WebAdmin.Pages.Account
 {
-    public class Index1Model : PageModel
+    public class IndexModel : PageModel
     {
-        private readonly ILogger<Index1Model> logger;
+        private readonly ILogger<IndexModel> logger;
         private readonly IApiClient apiClient;
 
         [BindProperty]
@@ -33,7 +33,7 @@ namespace WebAdmin.Pages.Account
         [BindProperty]
         public string? search { get; set; }
 
-        public Index1Model(ILogger<Index1Model> logger, IApiClient apiClient)
+        public IndexModel(ILogger<IndexModel> logger, IApiClient apiClient)
         {
             this.logger = logger;
             this.apiClient = apiClient;

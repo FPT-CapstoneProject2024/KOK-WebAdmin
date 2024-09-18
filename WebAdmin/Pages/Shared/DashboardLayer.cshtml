@@ -444,34 +444,9 @@
 
                     <!-- Navigation -->
                     <ul class="navbar-nav">
-                        @* <li class="nav-item dropdown">
-                            <div class="dropdown">
-                                <a class="nav-link dropdown-toggle" href="" id="dropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="ni ni-tv-2 text-primary"></i> Bảng Thống Kê
-                                </a>
-
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" asp-page="/Dashboard/Index">Tổng Quan</a>
-                                    <div class="dropdown-submenu">
-                                        <a class="dropdown-item dropdown-toggle" href="#" id="monetaryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Giao dịch tiền mặt</a>
-                                        <ul class="list-group">
-                                            <li class="list-group-item"><a class="dropdown-item" asp-page="/Dashboard/Monetary">Giao dịch trong tháng</a></li>
-                                            <li class="list-group-item"><a class="dropdown-item" asp-page="/Dashboard/Date/Monetary">Giao dịch trong ngày</a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="dropdown-submenu">
-                                        <a class="dropdown-item dropdown-toggle" href="#" id="monetaryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Giao dịch ứng dụng</a>
-                                        <ul class="list-group">
-                                            <li class="list-group-item"><a class="dropdown-item" asp-page="/Dashboard/Game">Giao dịch trong tháng</a></li>
-                                            <li class="list-group-item"><a class="dropdown-item" asp-page="/Dashboard/Date/Game">Giao dịch trong ngày</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </li> *@
+                        
                         <li class="nav-item">
-                            <a class="nav-link" href="#" id="dropdownMenuLink" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link" href="#" id="dropdownMenuLink" data-bs-toggle="collapse" data-bs-target="#statsMenuCollapse" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa-solid fa-chart-column" style="color: #7A99FE;"></i> Bảng Thống Kê
                                 <span class="arrow" id="statsArrow">&#9662;</span> <!-- Down arrow initially -->
                             </a>
@@ -503,7 +478,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a asp-page="/Account/Index1" class="nav-link">
+                            <a asp-page="/Account/Index" class="nav-link">
                                 <i class="fa-solid fa-users" style="color: #7A99FE;"></i> Danh Sách Tài Khoản
                             </a>
                         </li>
@@ -779,6 +754,56 @@
                 arrow.innerHTML = '&#9662;'; // Down arrow when collapsed
             }
         });
+
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Function to save the state of the dropdown
+            function saveDropdownState(id) {
+                const element = document.getElementById(id);
+                if (element && element.classList.contains('show')) {
+                    localStorage.setItem(id, 'shown');
+                } else {
+                    localStorage.removeItem(id);
+                }
+            }
+
+            // Function to restore the state of the dropdown
+            function restoreDropdownState(id) {
+                const state = localStorage.getItem(id);
+                const element = document.getElementById(id);
+                if (element) {
+                    if (state === 'shown') {
+                        new bootstrap.Collapse(element, { toggle: true });
+                    }
+                }
+            }
+
+            // Add event listeners to dropdowns
+            document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(element => {
+                element.addEventListener('click', () => {
+                    saveDropdownState(element.getAttribute('data-bs-target').substring(1));
+                });
+            });
+
+            // Restore dropdown states on page load
+            restoreDropdownState('statsMenuCollapse');
+            restoreDropdownState('monetaryCollapse');
+            restoreDropdownState('gameCollapse');
+            restoreDropdownState('transactionMenuCollapse');
+            restoreDropdownState('songMenuCollapse');
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const path = window.location.pathname;
+
+            document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === path || href === '') {
+                    link.classList.add('active');
+                }
+            });
+        });
     </script>
 
     <!-- Add custom CSS for expanded dropdown -->
@@ -787,6 +812,15 @@
             display: block !important;
             visibility: visible !important;
         }
+
+        .navbar-nav .nav-link.active {
+            font-weight: bold;
+            background-color: #e9ecef; /* or any other color to highlight */
+        }
+
+            .navbar-nav .nav-link.active .arrow {
+                transform: rotate(180deg); /* Rotate arrow if needed */
+            }
     </style>
 
    @*  <!-- Footer -->

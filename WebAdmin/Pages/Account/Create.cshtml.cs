@@ -26,7 +26,7 @@ namespace WebAdmin.Pages.Account
         {
         }
 
-        public async Task<IActionResult> OnPostCreate(IFormFile file)
+        public async Task<IActionResult> OnPostCreate(/*IFormFile file*/)
         {
             try
             {
@@ -34,20 +34,20 @@ namespace WebAdmin.Pages.Account
                 {
                     return Page();
                 }
-                var dataImage = await SupportingFeature.Instance.UploadImage(_clientFactory, file, KokApiContext.ImgurClientId);
+                //var dataImage = await SupportingFeature.Instance.UploadImage(_clientFactory, file, KokApiContext.ImgurClientId);
 
-                if (!dataImage.Item1)
-                {
-                    ViewData["Message"] = dataImage.Item2;
-                    return Page();
-                }
-                else
-                {
-                    ViewData["ImageUrl"] = dataImage.Item2;
-                    imageUrl = dataImage.Item2;
-                }
+                //if (!dataImage.Item1)
+                //{
+                //    ViewData["Message"] = dataImage.Item2;
+                //    return Page();
+                //}
+                //else
+                //{
+                //    ViewData["ImageUrl"] = dataImage.Item2;
+                //    imageUrl = dataImage.Item2;
+                //}
 
-                Account.Image = imageUrl;
+                //Account.Image = imageUrl;
 
 
                 var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.AccountResource;
@@ -61,7 +61,7 @@ namespace WebAdmin.Pages.Account
             {
                 return RedirectToPage("/Error");
             }
-            return RedirectToPage("/Account/Index1");
+            return RedirectToPage("/Account/Index");
         }
 
     }
