@@ -87,7 +87,7 @@ namespace WebAdmin.Pages.Item
         public async Task<IActionResult> OnPostSearch()
         {
             //string? filter = Request.Form["txt_filter"];
-            string? search = Request.Form["txt_search"];
+            //string? search = Request.Form["txt_search"];
 
             ViewData["filter_search"] = search;
 
