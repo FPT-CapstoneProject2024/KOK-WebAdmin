@@ -7,20 +7,9 @@
 <div class="input-group">
     <form method="post" class="input-group">
         <input name="txt_search" type="search" class="form-control rounded" placeholder="Search" value="@ViewBag.filter_search" aria-label="Search" aria-describedby="search-addon" />
-        <span class="input-group-text border-0" id="search-addon">
-@*             <select class="form-control form-control-sm" aria-label="account filter" name="txt_filter">
-                <option value="PaymentType" selected>Payment Type</option>
-                <option value="PaymentCode">Payment Code</option>
-                <option value="MoneyAmount">Money Amount</option>
-                <option value="PackageMoneyAmount">Package Money Amount</option>
-                <option value="Currency">Currency</option>
-                <option value="Status">Status</option>
-                <option value="PackageName">Package Name</option>
-                <option value="Username">Username</option>
-            </select> *@
+        <span class="input-group-btn" style="padding-left: 20px;">
+            <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Tìm Kiếm</button>
         </span>
-        <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Tìm Kiếm</button>
-
     </form>
 </div>
 <!--End Search-->

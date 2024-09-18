@@ -3,6 +3,19 @@
 @{
 }
 
+<style>
+    .details dl.row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .details dd {
+        max-height: 150px; /* Set a fixed height, adjust as needed */
+        overflow-y: auto; /* Enable vertical scrolling */
+        word-wrap: break-word; /* Ensure long words wrap */
+    }
+</style>
+
 <div class="details">
     <hr />
     <dl class="row">

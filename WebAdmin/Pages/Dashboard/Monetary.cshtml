@@ -84,19 +84,23 @@
 
             <div class="left" style="margin-bottom:20px;">
                 <form method="post" class="input-group ml-auto">
-                    <input asp-for="StartMonth" type="month" class="form-control" />
-                    <input asp-for="EndMonth" type="month" class="form-control" />
-                    <button asp-page-handler="SearchMonth" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Tìm Kiếm</button>
+                    <span class="input-group-btn" style="padding-left: 20px;">
+                        <input asp-for="StartMonth" type="month" class="form-control" />
+                    </span>
+                    <span class="input-group-btn" style="padding-left: 20px;align-content: center;">
+                        -
+                    </span>
+                    <span class="input-group-btn" style="padding-left: 20px;">
+                        <input asp-for="EndMonth" type="month" class="form-control" />
+                    </span>
+                    <span class="input-group-btn" style="padding-left: 20px;">
+                        <button asp-page-handler="SearchMonth" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Tìm Kiếm</button>
+                    </span>    
                 </form>
             </div>
-
-
-
-
         </div>
     </nav>
 
-    <!--End Search-->
     <!--In App new Model-->
     <div class="wrapper">
         <div class="content">

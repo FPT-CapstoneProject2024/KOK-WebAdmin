@@ -79,7 +79,6 @@ namespace WebAdmin.Pages.Package
 
         public async Task<IActionResult> OnPostSearch()
         {
-
             return await OnGet(filter: "&filter" + "=" + search);
         }
 
