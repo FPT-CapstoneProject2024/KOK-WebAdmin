@@ -1,4 +1,4 @@
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +7,7 @@ using WebAdmin.Context;
 using WebAdmin.DTOModels.Request.Package;
 using WebAdmin.DTOModels.Response.Helpers;
 using WebAdmin.Pages.Authentication;
+using WebAdmin.Services.Implementation;
 using WebAdmin.Services.Interfaces;
 
 namespace WebAdmin.Pages.Package
@@ -62,6 +63,19 @@ namespace WebAdmin.Pages.Package
             {
                 UpdatePackage.CreatorId = LoginModel.AccountId;
                 var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.PackageResource + "/" + Package.PackageId;
+                var uri2 = KokApiContext.BaseApiUrl + "/" + KokApiContext.PackageResource + "/update-status/" + Package.PackageId;
+                if (UpdatePackage.Status == DTOModels.PackageStatus.INACTIVE || UpdatePackage.Status.Equals("Không Hoạt Động"))
+                {
+                    var response2 = await _apiClient.PutAsync(uri2, "INACTIVE");
+                    var responseJson2 = await response2.Content.ReadAsStringAsync();
+                    var package2 = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Package>>(responseJson2);
+                }
+                else if (UpdatePackage.Status == DTOModels.PackageStatus.ACTIVE)
+                {
+                    var response2 = await _apiClient.PutAsync(uri2, "ACTIVE");
+                    var responseJson2 = await response2.Content.ReadAsStringAsync();
+                    var package2 = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Package>>(responseJson2);
+                }
                 var response = await _apiClient.PutAsync(uri, UpdatePackage);
                 var responseJson = await response.Content.ReadAsStringAsync();
                 var package = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Package>>(responseJson);

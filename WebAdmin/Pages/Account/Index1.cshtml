@@ -50,13 +50,14 @@
                     <div class="col-md-4">
                         <label class="form-label">Giới Tính</label>
                         <select asp-for="filter.Gender" class="form-select">
-                            <option value="" disabled selected>Chọn</option>
-@*                             <option value="Male">Nam</option>
-                            <option value="Female">Nữ</option> *@
-                            @for(int i = 0; i < AccountGenres.List.Count; i++)
+                            <option value="" disabled selected>Chọn Giới Tính</option>
+                            <option value="MALE">Nam</option>
+                            <option value="FEMALE">Nữ</option>
+                            <option value="OTHERS">Khác</option>
+                            @* @for(int i = 0; i < AccountGenres.List.Count; i++)
                             {
                                 <option value="@i+1">@AccountGenres.List[i]</option>
-                            }
+                            } *@
                         </select>
                         <span asp-validation-for="filter.Gender" class="text-danger"></span>
                     </div>
@@ -66,8 +67,16 @@
                     <!-- Second row with 4 columns -->
                     <div class="col-md-4">
                         <label class="form-label">Vai Trò</label>
-                        <input asp-for="filter.Role" class="form-control" />
-                        <span asp-validation-for="filter.Role" class="text-danger"></span>
+                        <select asp-for="filter.Role" class="form-select">
+                        <option value="" disabled selected>Chọn Vai Trò</option>
+                        <option value="ADMIN">Quản Trị Viên</option>
+                        <option value="STAFF">Nhân Viên</option>
+                        <option value="MEMBER">Người Dùng</option>
+                        @* @for(int i = 0; i < AccountGenres.List.Count; i++)
+                        {
+                        <option value="@i+1">@AccountGenres.List[i]</option>
+                        } *@
+                    </select>
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">Số Dư UP</label>
@@ -77,7 +86,7 @@
                     <div class="col-md-4">
                         <label class="form-label">Trực Tuyến</label>
                         <select asp-for="filter.IsOnline" class="form-select">
-                            @* <option value="">Chọn</option> *@
+                        <option value="" disabled selected>Chọn</option>
                             <option value="true">Có</option>
                             <option value="false">Không</option>
                         </select>
