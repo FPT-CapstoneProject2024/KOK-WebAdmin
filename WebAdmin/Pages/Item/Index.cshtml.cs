@@ -60,8 +60,10 @@ namespace WebAdmin.Pages.Item
 
                 data.Results = data.Results.Select(r =>
                 {
-                    r.ItemStatus = new ItemStatuses().List[(int)Enum.Parse(typeof(ItemStatus), r.ItemStatus)];
-                    r.ItemType = new ItemTypes().List[(int)Enum.Parse(typeof(ItemType), r.ItemType)];
+                    int status = (int)Enum.Parse(typeof(ItemStatus), r.ItemStatus);
+                    int type = (int)Enum.Parse(typeof(ItemType), r.ItemType);
+                    r.ItemStatus = new ItemStatuses().List[status < 0? 0 : (status > 2 ? 2 :  status)];
+                    r.ItemType = new ItemTypes().List[type < 0 ? 0 : (type > 2 ? 2: type)];
 
                     return r;
                 }).ToList();    

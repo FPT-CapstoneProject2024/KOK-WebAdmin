@@ -59,9 +59,11 @@ namespace WebAdmin.Pages.Account
 
             data.Results = data.Results.Select(r =>
             {
+                int role = (int)Enum.Parse(typeof(AccountRole), r.Role) - 1;
+                int gender = (int)Enum.Parse(typeof(AccountGender), r.Gender) - 1;
                 r.AccountStatus = AccountStatuses.List[(int)Enum.Parse(typeof(AccountStatus), r.AccountStatus)];
-                r.Role = AccountRoles.List[(int)Enum.Parse(typeof(AccountRole), r.Role) - 1];
-                r.Gender = AccountGenres.List[(int)Enum.Parse(typeof(AccountGender), r.Gender) - 1];
+                r.Role = AccountRoles.List[role < 0? 0 : (role > 2 ? 2 : role)];
+                r.Gender = AccountGenres.List[gender < 0? 0: (gender > 2 ? 2 : gender)];
                 return r;
             }).ToList();
 

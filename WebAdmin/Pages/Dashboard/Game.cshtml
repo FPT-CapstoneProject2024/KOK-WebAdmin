@@ -127,10 +127,10 @@
                     const transactionChart = new Chart(ctx, {
                         type: 'bar', // Bạn có thể thay đổi thành 'line' hoặc các loại biểu đồ khác của Chart.js
                         data: {
-                            labels: @Html.Raw(Json.Serialize(GameModel.DataMonth.Keys.ToList())),
+                            labels: @Html.Raw(Json.Serialize(GameModel.DataChart.Keys.ToList())),
                             datasets: [{
                                 label: 'Số lượng giao dịch trong app',
-                                data: @Html.Raw(Json.Serialize(GameModel.DataMonth.Values.ToList())), // Dữ liệu mẫu, bạn có thể thay thế bằng dữ liệu thực tế
+                                data: @Html.Raw(Json.Serialize(GameModel.DataChart.Values.ToList())), // Dữ liệu mẫu, bạn có thể thay thế bằng dữ liệu thực tế
                                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                                 borderColor: 'rgba(54, 162, 235, 1)',
                                 borderWidth: 1
@@ -161,7 +161,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var transaction in GameModel.DataMonthInApp)
+                    @foreach (var transaction in GameModel.DataMonth)
                     {
                         <tr>
                             <td>@(count += 1)</td>
