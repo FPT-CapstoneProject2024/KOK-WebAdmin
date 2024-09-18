@@ -7,11 +7,10 @@
 <!--Search-->
 <div class="input-group">
     <form method="post" class="input-group">
-        <input asp-for="search" type="search" class="form-control rounded" placeholder="Tìm Kiếm..." aria-label="Tìm Kiếm..." aria-describedby="search-addon" />
-        <span class="input-group-text border-0" id="search-addon">
+        <input asp-for="search" type="search" class="form-control rounded" placeholder="Tìm Kiếm..." aria-label="Search" aria-describedby="search-addon" />
+        <span class="input-group-btn" style="padding-left: 20px;">
+            <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Tìm Kiếm</button>
         </span>
-        <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Tìm Kiếm</button>
-
     </form>
 
     <!-- Toggle Button for Advanced Search in a new row -->
@@ -170,7 +169,7 @@
             <tr>
                 <th>#</th>
                 <th>Tên Bài Hát</th>
-                <th>Song Description</th>
+                @* <th>Song Description</th> *@
                 <th>Trạng Thái</th>
                 <th>Mã Bài Hát</th>
                 <th>Giá</th>
@@ -191,9 +190,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.SongName)
                         </td>
-                        <td>
+                        @* <td>
                             @Html.DisplayFor(modelItem => item.SongDescription)
-                        </td>
+                        </td> *@
                         <td>
                             @if (item.SongStatus == "Vô Hiệu Hóa" || item.SongStatus == "DISABLE")
                             {

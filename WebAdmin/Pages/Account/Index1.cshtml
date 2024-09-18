@@ -16,19 +16,20 @@
 </head>
 
 
-    <!-- Search Bar -->
-    <div>
-        <form method="post" class="input-group">
-            <input asp-for="search" type="search" class="form-control rounded" placeholder="Tìm Kiếm..." aria-label="Search" aria-describedby="search-addon" />
-            <span class="input-group-text border-0" id="search-addon"></span>
+<!-- Search Bar -->
+<div>
+    <form method="post" class="input-group">
+        <input asp-for="search" type="search" class="form-control rounded" placeholder="Tìm Kiếm..." aria-label="Search" aria-describedby="search-addon" />
+        <span class="input-group-btn" style="padding-left: 20px;">
             <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Tìm Kiếm</button>
-        </form>
+        </span>
+    </form>
 
-        <!-- Toggle Button for Advanced Search in a new row -->
-        <div style="margin-top: 10px; text-align: left;">
-            <button class="btn btn-outline-info" id="toggleAdvancedSearch">Tìm Kiếm Nâng Cao</button>
-        </div>
+    <!-- Toggle Button for Advanced Search in a new row -->
+    <div style="margin-top: 10px; text-align: left;">
+        <button class="btn btn-outline-info" id="toggleAdvancedSearch">Tìm Kiếm Nâng Cao</button>
     </div>
+</div>
 
     <!-- Advanced Search Panel (Initially Hidden) -->
     <div id="advancedSearchPanel" class="advanced-search-container" style="display: none; margin-top: 20px;">
