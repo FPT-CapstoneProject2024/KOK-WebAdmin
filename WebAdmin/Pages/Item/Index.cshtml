@@ -55,6 +55,7 @@
                 <div class="col-md-4">
                     <label class="control-label">Loại Vật Phẩm</label>
                     <select asp-for="filter.ItemType">
+                        <option value="" disabled selected>Chọn Loại Vật Phẩm</option>
                         <option value="CHARACTER">Nhân Vật</option>
                         <option value="ROOM">Phòng</option>
                         <option value="DEFAULT">Mặc Định</option>
@@ -63,6 +64,7 @@
                 <div class="col-md-4">
                     <label class="control-label">Trạng Thái</label>
                     <select asp-for="filter.ItemStatus">
+                        <option value="" disabled selected>Chọn Trạng Thái</option>
                         <option value="DISABLE">Chưa Kích Hoạt</option>
                         <option value="ENABLE">Kích Hoạt</option>
                         <option value="PENDING">Chờ Duyệt</option>
@@ -80,6 +82,7 @@
                 <div class="col-md-4">
                     <label class="form-label">Có Thể Hết Hạn</label>
                     <select asp-for="filter.CanExpire" class="form-select">
+                        <option value="" disabled selected>Chọn</option>
                         <option value="true">Có</option>
                         <option value="false">Không</option>
                     </select>
@@ -87,6 +90,7 @@
                 <div class="col-md-4">
                     <label class="form-label">Có Thể Gộp</label>
                     <select asp-for="filter.CanStack" class="form-select">
+                        <option value="" disabled selected>Chọn</option>
                         <option value="true">Có</option>
                         <option value="false">Không</option>
                     </select>
