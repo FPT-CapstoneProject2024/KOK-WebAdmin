@@ -267,13 +267,13 @@
                         @* <td><a asp-page-handler="Inactive" asp-route-id="@e.AccountId" class="btn btn-dribbble">Ẩn</a> | <a asp-page-handler="Active" asp-route-id="@e.AccountId" class="btn btn-warning">Kích hoạt</a></td> *@
                         <td>
                             <!-- Toggle button for Activate/Deactivate -->
-                            @if (e.AccountStatus == "INACTIVE" || e.AccountStatus == "Vô Hiệu Hóa")
+                            @if (e.AccountStatus == "INACTIVE" || e.AccountStatus == "Không Hoạt Động")
                             {
-                                <a asp-page-handler="Inactive" asp-route-id="@e.AccountId" class="btn btn-danger">Vô Hiệu Hóa</a>
+                                <a asp-page-handler="Active" asp-route-id="@e.AccountId" class="btn btn-danger">Vô Hiệu Hóa</a>
                             }
                             else
                             {
-                            <a asp-page-handler="Active" asp-route-id="@e.AccountId" class="btn btn-success">&nbsp;&nbsp;Kích Hoạt&nbsp;&nbsp;</a>
+                            <a asp-page-handler="Inactive" asp-route-id="@e.AccountId" class="btn btn-success">&nbsp;&nbsp;Kích Hoạt&nbsp;&nbsp;</a>
                             }
                         </td>
                         <td>

@@ -59,9 +59,9 @@ namespace WebAdmin.Pages.Account
             }
             catch (Exception)
             {
-                return RedirectToPage("/Error");
+                return new JsonResult(new { success = false });
             }
-            return RedirectToPage("/Account/Index");
+            return new JsonResult(new { success = true });
         }
 
     }
