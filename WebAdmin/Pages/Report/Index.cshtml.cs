@@ -25,6 +25,8 @@ namespace WebAdmin.Pages.Report
         [BindProperty]
         public static int TotalPage { get; set; } = 1;
         [BindProperty]
+        public int TotalPage2 { get; set; }
+        [BindProperty]
         public ReportFilter? filter { get; set; }
         [BindProperty]
         public string? search { get; set; }
@@ -62,6 +64,7 @@ namespace WebAdmin.Pages.Report
                 if (data.Results is not null)
                 {
                     TotalPage = (int)MathF.Ceiling((float)data.Metadata.Total / (float)data.Metadata.Size);
+                    TotalPage2 = TotalPage;
                 }
             }
             catch (Exception)
@@ -114,6 +117,7 @@ namespace WebAdmin.Pages.Report
             if (data.Results is not null)
             {
                 TotalPage = (int)MathF.Ceiling((float)data.Metadata.Total / (float)data.Metadata.Size);
+                TotalPage2 = TotalPage;
             }
             return Page();
         }

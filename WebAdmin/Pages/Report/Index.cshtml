@@ -48,7 +48,7 @@
                 <div class="col-md-4">
                     <label class="form-label">Loại Báo Cáo</label>
                     <select asp-for="filter.ReportCategory" class="form-select">
-                        <option value="">Chọn Loại Báo Cáo</option>
+                        <option value="" disabled selected>Chọn Loại Báo Cáo</option>
                         <option value="SEXUAL_CONTENT">Nội dung liên quan đến tình dục</option>
                         <option value="BULLYING_OR_HARASSMENT">Bắt nạt hoặc quấy rối</option>
                         <option value="INCITEMENT_TO_VIOLENCE_OR_HATE">Kêu gọi bạo lực, thù ghét</option>
@@ -64,7 +64,7 @@
                 <div class="col-md-4">
                     <label class="form-label">Trạng Thái</label>
                     <select asp-for="filter.Status" class="form-select">
-                        <option value="">Chọn Trạng Thái</option>
+                        <option value="" disabled selected>Chọn Trạng Thái</option>
                         <option value="PROCESSING">Đang Xử Lý</option>
                         <option value="COMPLETE">Hoàn Thành</option>
                         <option value="CANCELED">Hủy Bỏ</option>
@@ -87,8 +87,16 @@
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">Loại Báo Cáo</label>
-                    <input asp-for="filter.ReportType" class="form-control" />
-                    <span asp-validation-for="filter.ReportType" class="text-danger"></span>
+                    <select asp-for="filter.ReportType" class="form-select">
+                        <option value="" disabled selected>Chọn</option>
+                        <option value="POST">Bài Viết</option>
+                        <option value="COMMENT">Bình Luận</option>
+                        <option value="ROOM">Phòng</option>
+                        @* @for(int i = 0; i < AccountGenres.List.Count; i++)
+                        {
+                        <option value="@i+1">@AccountGenres.List[i]</option>
+                        } *@
+                    </select>
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">Bình Luận</label>
@@ -251,14 +259,20 @@
         </tbody>
     </table>
 </div>
-    <!-- Paging -->
-    <div class="pagination">
-        <li class="page-item"><a asp-route-number="@(Model.CurrentPage - 1)" class="page-link">&laquo;</a></li>
-        <li class="page-item active"><a asp-route-number="@Model.CurrentPage" class="page-link">@Model.CurrentPage</a></li>
-        <li class="page-item"><a asp-route-number="@(Model.CurrentPage + 1)" class="page-link">&raquo;</a></li>
-    </div>
-    <!-- End Paging -->
+
+<!-- Paging -->
+<div class="pagination" style="left: 50%;">
+    <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+        <a asp-route-number="@(Model.CurrentPage - 1)" class="page-link">&laquo;</a>
+    </li>
+    <li class="page-item active">
+        <a asp-route-number="@Model.CurrentPage" class="page-link">@Model.CurrentPage/@Model.TotalPage2</a>
+    </li>
+    <li class="page-item @(Model.CurrentPage == Model.TotalPage2 ? "disabled" : "")">
+        <a asp-route-number="@(Model.CurrentPage + 1)" class="page-link">&raquo;</a>
+    </li>
 </div>
+<!-- End Paging -->
 
 <!-- Create Modal -->
 <div class="modal fade" id="createReportModal" tabindex="-1" role="dialog" aria-labelledby="createReportModalLabel" aria-hidden="true">

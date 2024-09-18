@@ -59,6 +59,7 @@
                 <div class="col-md-4">
                     <label class="form-label">Trạng Thái</label>
                     <select asp-for="filter.Status" class="form-select">
+                        <option value="" disabled selected>Chọn Trạng Thái</option>
                         <option value="INACTIVE">Không Hoạt Động</option>
                         <option value="ACTIVE">Hoạt Động</option>
                     </select>
@@ -162,13 +163,6 @@
 </div>
 
 <div class="table-container">
-    <br />
-    @* <p>
-        <button type="button" class="btn btn-success btn-icon-only" data-toggle="modal" data-target="#createPackageModal" style="border: none; background: transparent; padding: 0;">
-            <i class="fa-regular fa-square-plus" style="font-size: 42px; color: #28a745;"></i>
-        </button>
-    </p> *@
-
     <table class="table table-hover">
         <thead>
             <tr>
@@ -196,22 +190,18 @@
                         <td>@Html.Raw(package.MoneyAmount == 0 ? "Miễn Phí" : ((int)package.MoneyAmount + " VND"))</td>
                         <td>@Html.Raw(package.StarNumber + " UP")</td>
                         <td>
-                            <form asp-page-handler="ChangeStatus" asp-route-id="@package.PackageId" method="post">
-                                @if (package.Status == "Không Hoạt Động" || package.Status == "INACTIVE")
-                                {
-
-                                    @* <span style="color: red;">  *@<input name="submit" style="color: red;" class="btn btn-link" type="submit" value="Không Hoạt Động" />@* @Html.DisplayFor(modelItem => package.Status) *@@* </span> *@
-                                }
-                                else if (package.Status == "Hoạt Động" || package.Status == "ACTIVE")
-                                {
-                                    @* <span style="color: green;"> *@<input name="submit" style="color: green;" class="btn btn-link" type="submit" value="Hoạt Động" />@* @Html.DisplayFor(modelItem => package.Status) *@@* </span> *@
-                                }
-                                else
-                                {
-                                    @Html.DisplayFor(modelItem => package.Status)
-                                }
-                            </form>
-
+                            @if (package.Status == "Không Hoạt Động" || package.Status == "INACTIVE")
+                            {
+                                <span style="color: red;">Không Hoạt Động</span>
+                            }
+                            else if (package.Status == "Hoạt Động" || package.Status == "ACTIVE")
+                            {
+                                <span style="color: green;">Hoạt Động</span>
+                            }
+                            else
+                            {
+                                
+                            }
                         </td>
                         <td>@Html.DisplayFor(modelItem => package.CreatedDate)</td>
                         <td>
