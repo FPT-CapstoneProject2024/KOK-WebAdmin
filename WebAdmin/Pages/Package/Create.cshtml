@@ -15,25 +15,25 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Package.PackageName" class="control-label">Tên Gói</label>
-                    <input asp-for="Package.PackageName" class="form-control" required />
+                    <input asp-for="Package.PackageName" placeholder="Nhập Tên Gói" class="form-control" required />
                     <span asp-validation-for="Package.PackageName" class="text-danger"></span>
                 </div>
                 
                 <div class="form-group">
                     <label asp-for="Package.Description" class="control-label">Mô Tả</label>
-                    <input asp-for="Package.Description" class="form-control" />
+                    <input asp-for="Package.Description" placeholder="Nhập Mô Tả" class="form-control" />
                     <span asp-validation-for="Package.Description" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="Package.MoneyAmount" class="control-label">Giá Tiền</label>
-                    <input asp-for="Package.MoneyAmount" class="form-control" />
+                    <input asp-for="Package.MoneyAmount" type="number" placeholder="Nhập Giá Tiền" class="form-control" />
                     <span asp-validation-for="Package.MoneyAmount" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="Package.StarNumber" class="control-label">Số UP</label>
-                    <input asp-for="Package.StarNumber" class="form-control" />
+                    <input asp-for="Package.StarNumber" type="number" placeholder="Nhập Số UP" class="form-control" />
                     <span asp-validation-for="Package.StarNumber" class="text-danger"></span>
                 </div>
 

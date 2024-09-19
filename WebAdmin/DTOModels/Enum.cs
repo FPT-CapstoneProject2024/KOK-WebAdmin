@@ -617,7 +617,7 @@ namespace WebAdmin.DTOModels
         public static List<string> List = new()
         {
             "Đang Xử Lý",
-            "Hoàn Thành",
+            "Đã Xử Lý",
             "Hủy"
         };
     }

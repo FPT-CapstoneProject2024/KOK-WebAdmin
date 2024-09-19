@@ -81,7 +81,7 @@
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">Số Dư UP</label>
-                        <input asp-for="filter.UpBalance" class="form-control" />
+                        <input asp-for="filter.UpBalance" class="form-control" type="number"/>
                         <span asp-validation-for="filter.UpBalance" class="text-danger"></span>
                     </div>
                     <div class="col-md-4">
@@ -116,12 +116,12 @@
                     </div>
                     <div class="col-md-3">
                         <label class="form-label">Số CMND</label>
-                        <input asp-for="filter.IdentityCardNumber" class="form-control" />
+                        <input asp-for="filter.IdentityCardNumber" class="form-control" type="number"/>
                         <span asp-validation-for="filter.IdentityCardNumber" class="text-danger"></span>
                     </div>
                     <div class="col-md-3">
                         <label class="form-label">Số Điện Thoại</label>
-                        <input asp-for="filter.PhoneNumber" class="form-control" />
+                        <input asp-for="filter.PhoneNumber" class="form-control" type="number"/>
                         <span asp-validation-for="filter.PhoneNumber" class="text-danger"></span>
                     </div>
                 </div>

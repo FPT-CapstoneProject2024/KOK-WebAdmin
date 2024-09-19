@@ -10,14 +10,14 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Song.SongId" />
             <div class="form-group">
-                <label asp-for="Song.SongName" class="control-label">Tên Bài Hát</label>
-                <input asp-for="Song.SongName" class="form-control" />
-                <span asp-validation-for="Song.SongName" class="text-danger"></span>
+                <label asp-for="UpdateSong.SongName" class="control-label">Tên Bài Hát</label>
+                <input asp-for="UpdateSong.SongName" class="form-control" />
+                <span asp-validation-for="UpdateSong.SongName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Song.SongDescription" class="control-label">Mô Tả</label>
-                <input asp-for="Song.SongDescription" class="form-control" />
-                <span asp-validation-for="Song.SongDescription" class="text-danger"></span>
+                <label asp-for="UpdateSong.SongDescription" class="control-label">Mô Tả</label>
+                <input asp-for="UpdateSong.SongDescription" class="form-control" />
+                <span asp-validation-for="UpdateSong.SongDescription" class="text-danger"></span>
             </div>
             @* <div class="form-group">
                 <label asp-for="Song.SongUrl" class="control-label">URL</label>
@@ -25,25 +25,28 @@
                 <span asp-validation-for="Song.SongUrl" class="text-danger"></span>
             </div> *@
             <input type="hidden" asp-for="Song.SongUrl" />
+            <input type="hidden" asp-for="Song.Artist" />
+            <input type="hidden" asp-for="Song.SongUrl" />
+            <input type="hidden" asp-for="Song.SongUrl" />
 
             <div class="form-group">
-                <label asp-for="Song.SongCode" class="control-label">Mã Bài Hát</label>
-                <input asp-for="Song.SongCode" class="form-control" />
-                <span asp-validation-for="Song.SongCode" class="text-danger"></span>
+                <label asp-for="UpdateSong.SongCode" class="control-label">Mã Bài Hát</label>
+                <input asp-for="UpdateSong.SongCode" class="form-control" />
+                <span asp-validation-for="UpdateSong.SongCode" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Song.PublicDate" class="control-label">Ngày Ra Mắt</label>
-                <input asp-for="Song.PublicDate" class="form-control" />
-                <span asp-validation-for="Song.PublicDate" class="text-danger"></span>
+                <label asp-for="UpdateSong.PublicDate" class="control-label">Ngày Ra Mắt</label>
+                <input asp-for="UpdateSong.PublicDate" class="form-control" />
+                <span asp-validation-for="UpdateSong.PublicDate" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Song.Price" class="control-label">Giá Tiền</label>
-                <input asp-for="Song.Price" class="form-control" />
-                <span asp-validation-for="Song.Price" class="text-danger"></span>
+                <label asp-for="UpdateSong.Price" class="control-label">Giá Tiền</label>
+                <input asp-for="UpdateSong.Price" type="number" class="form-control" />
+                <span asp-validation-for="UpdateSong.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Chỉnh Sửa" class="btn btn-primary" />
+                <input type="submit" value="Cập Nhật" class="btn btn-primary" />
             </div>
         </form>
     </div>

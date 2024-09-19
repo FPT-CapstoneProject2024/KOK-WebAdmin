@@ -69,7 +69,5 @@ namespace WebAdmin.DTOModels.Request.Song
         public ICollection<SongArtistRequestModelExtended>? SongArtists { get; set; } = new List<SongArtistRequestModelExtended>();
         [Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
         public ICollection<SongSingerRequestModelExtended>? SongSingers { get; set; } = new List<SongSingerRequestModelExtended>();
-
-
     }
 }

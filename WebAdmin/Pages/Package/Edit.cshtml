@@ -27,25 +27,25 @@
 
                 <div class="form-group">
                     <label asp-for="UpdatePackage.MoneyAmount" class="control-label">Giá Tiền</label>
-                    <input asp-for="UpdatePackage.MoneyAmount" class="form-control" />
+                    <input asp-for="UpdatePackage.MoneyAmount" type="number" class="form-control" />
                     <span asp-validation-for="Package.MoneyAmount" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="UpdatePackage.StarNumber" class="control-label">Số UP</label>
-                    <input asp-for="UpdatePackage.StarNumber" class="form-control" />
+                    <input asp-for="UpdatePackage.StarNumber" type="number" class="form-control" />
                     <span asp-validation-for="Package.StarNumber" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="UpdatePackage.Status" class="control-label">Trạng Thái</label>
                     <select asp-for="UpdatePackage.Status" class="form-control">
-                        <option value="INACTIVE">Inactive</option>
-                        <option value="ACTIVE">Active</option>
+                        <option value="INACTIVE">Không Hoạt Động</option>
+                        <option value="ACTIVE">Hoạt Động</option>
                     </select>
                     
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Chỉnh Sửa" class="btn btn-primary" />
+                    <input type="submit" value="Cập Nhật" class="btn btn-primary" />
                 </div>
             </form>
         </div>

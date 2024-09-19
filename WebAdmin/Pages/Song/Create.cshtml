@@ -48,12 +48,12 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="Song.SongName" class="control-label">Tên Bài Hát</label>
-                        <input asp-for="Song.SongName" class="form-control" />
+                        <input asp-for="Song.SongName" placeholder="Nhập Tên Bài Hát" required class="form-control" />
                         <span asp-validation-for="Song.SongName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Song.SongDescription" class="control-label">Mô Tả</label>
-                        <input asp-for="Song.SongDescription" class="form-control" />
+                        <input asp-for="Song.SongDescription" placeholder="Nhập Mô Tả" class="form-control" />
                         <span asp-validation-for="Song.SongDescription" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -68,7 +68,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Song.Price" class="control-label">Giá Tiền</label>
-                        <input asp-for="Song.Price" class="form-control" />
+                        <input asp-for="Song.Price" type="number" placeholder="Nhập Giá Tiền" class="form-control" />
                         <span asp-validation-for="Song.Price" class="text-danger"></span>
                     </div>
 
