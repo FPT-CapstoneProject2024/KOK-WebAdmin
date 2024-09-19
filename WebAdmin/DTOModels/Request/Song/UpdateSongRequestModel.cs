@@ -12,7 +12,7 @@ namespace WebAdmin.DTOModels.Request.Song
         public string? SongCode { get; set; }
         public DateTime? PublicDate { get; set; }
         [Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
-        public Guid CreatorId { get; set; }
+        public Guid? CreatorId { get; set; }
         [RegularExpression(Constraints.VALIDATE_AMOUNT, ErrorMessage = Constraints.STAR_INVALID)]
         public decimal Price { get; set; }
         [Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]

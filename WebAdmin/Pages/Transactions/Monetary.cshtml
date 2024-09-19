@@ -59,15 +59,15 @@
                         <td>
                             @if (item.Status.Equals("Hủy Bỏ") || item.Status.Equals("CANCELLED"))
                             {
-                                <span style="color: red;">@* @Html.DisplayFor(modelItem => package.Status) *@Hủy Bỏ</span>
+                                <span style="color: red;">Hủy Bỏ</span>
                             }
                             else if (item.Status.Equals("Hoàn Thành") || item.Status.Equals("COMPLETE"))
                             {
-                                <span style="color: green;">@* @Html.DisplayFor(modelItem => package.Status) *@Hoàn Thành</span>
+                                <span style="color: green;">Hoàn Thành</span>
                             }
                             else
                             {
-                                <span>Chờ Xử Lý</span>
+                                <span style="color: yellow;">Chờ Xử Lý</span>
                             }
                         </td>
                         <td>

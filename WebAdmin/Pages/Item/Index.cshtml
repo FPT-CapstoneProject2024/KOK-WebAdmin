@@ -309,7 +309,7 @@
                 <th>Stack?</th>
                 <th>Trạng thái vật phẩm</th>
                 <th>Giá Mua</th>
-                <th>Giá Bán</th>
+                @* <th>Giá Bán</th> *@
                 <th></th>
             </tr>
         </thead>
@@ -359,15 +359,15 @@
                             }
                             else if (item.ItemStatus == "Chờ Duyệt" || item.ItemStatus == "PENDING")
                             {
-                                <span>Chờ Duyệt</span>
+                                <span style="color: yellow;">Chờ Duyệt</span>
                             }
                         </td>
                         <td>
                             @Html.Raw(item.ItemBuyPrice == 0 ? "Miễn Phí" : ((int)item.ItemBuyPrice + " UP"))
                         </td>
-                        <td>
+                        @* <td>
                             @Html.Raw(((int)item.ItemBuyPrice + " UP"))
-                        </td>                       
+                        </td>  *@                      
                         <td>
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editItemModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@item.ItemId">
                                 <i class="fa-solid fa-pen" style="font-size: 25px;color: #fff;"></i>

@@ -15,17 +15,17 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Item.ItemCode" class="control-label">Mã Vật Phẩm</label>
-                    <input asp-for="Item.ItemCode" class="form-control" required />
+                    <input asp-for="Item.ItemCode" placeholder="Nhập Mã Vật Phẩm" class="form-control" required />
                     <span asp-validation-for="Item.ItemCode" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Item.ItemName" class="control-label">Tên Vật Phẩm</label>
-                    <input asp-for="Item.ItemName" class="form-control" required />
+                    <input asp-for="Item.ItemName" placeholder="Nhập Tên Vật Phẩm" class="form-control" required />
                     <span asp-validation-for="Item.ItemName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Item.ItemDescription" class="control-label">Mô Tả</label>
-                    <input asp-for="Item.ItemDescription" class="form-control" />
+                    <input asp-for="Item.ItemDescription" placeholder="Nhập Mô Tả" class="form-control" />
                     <span asp-validation-for="Item.ItemDescription" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -47,20 +47,19 @@
                     <input asp-for="Item.CanStack" class="form-check-input" type="checkbox" />
                     <span asp-validation-for="Item.CanStack" class="text-danger"></span>
                 </div>
-
                 <div class="form-group">
                     <label asp-for="Item.PrefabCode" class="control-label">Mã Prefab</label>
-                    <input asp-for="Item.PrefabCode" class="form-control" />
+                    <input asp-for="Item.PrefabCode" placeholder="Nhập Mã Prefab" class="form-control" />
                     <span asp-validation-for="Item.PrefabCode" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Item.ItemBuyPrice" class="control-label">Giá Mua</label>
-                    <input asp-for="Item.ItemBuyPrice" class="form-control" />
+                    <input asp-for="Item.ItemBuyPrice" type="number" placeholder="Nhập Giá Mua" class="form-control" />
                     <span asp-validation-for="Item.ItemBuyPrice" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Item.ItemSellPrice" class="control-label">Giá Bán</label>
-                    <input asp-for="Item.ItemSellPrice" class="form-control" />
+                    <!-- Set Giá Bán to 0 and hide the input -->
+                    <input asp-for="Item.ItemSellPrice" type="hidden" value="0" />
                     <span asp-validation-for="Item.ItemSellPrice" class="text-danger"></span>
                 </div>
                 <div class="form-group">

@@ -199,6 +199,7 @@
 
         /* Thiết kế nội dung form */
         .modal-content {
+            border: 2px solid #7A99FE;
             background-color: #f9f9f9;
             padding: 20px;
             border-radius: 8px;
@@ -457,7 +458,7 @@
 
                                 <div class="ml-3">
                                     <a class="nav-link" href="#" id="monetaryDropdown" data-bs-toggle="collapse" data-bs-target="#monetaryCollapse" aria-expanded="false" aria-controls="monetaryCollapse">
-                                        <i class="fa-solid fa-circle" style="color: #7A99FE;font-size:7px"></i>Giao dịch tiền mặt
+                                        <i class="fa-solid fa-circle" style="color: #7A99FE;font-size:7px"></i>Giao Dịch Tiền Mặt
                                         <span class="arrow" id="monetaryArrow">&#9662;</span> <!-- Down arrow initially -->
                                     </a>
                                     <div id="monetaryCollapse" class="collapse">
@@ -494,8 +495,8 @@
                         </li>
 
                         <li class="nav-item">
-                            <a asp-page="/Genre/Index" class="nav-link">
-                                <i class="fa-solid fa-guitar" style="color: #7A99FE;"></i> Danh Sách Thể Loại
+                            <a asp-page="/Song/Index" class="nav-link">
+                                <i class="fa-solid fa-file-audio" style="color: #7A99FE;"></i> Danh Sách Bài Hát
                             </a>
                         </li>
 
@@ -506,8 +507,8 @@
                                 <span class="arrow" id="songArrow">&#9662;</span> <!-- Down arrow initially -->
                             </a>
                             <div id="songMenuCollapse" class="collapse">
-                                <a class="nav-link ml-3" asp-page="/Song/Index">
-                                    <i class="fa-solid fa-file-audio" style="color: #7A99FE;"></i> Danh Sách Bài Hát
+                                <a class="nav-link ml-3" asp-page="/Genre/Index">
+                                    <i class="fa-solid fa-guitar" style="color: #7A99FE;"></i> Danh Sách Thể Loại
                                 </a>
                                 <a class="nav-link ml-3" asp-page="/Singer/Index">
                                     <i class="fa-solid fa-microphone-lines" style="color: #7A99FE;"></i> Danh Sách Ca Sĩ
@@ -556,60 +557,6 @@
                 </div>
             </div>
         </nav>
-
-        <!-- Navbar -->
-       @* <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
-            <div class="container-fluid">
-                <!-- Brand -->
-                <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./index.cshtml"></a>
-                <!-- User -->
-                <ul class="navbar-nav align-items-center d-none d-md-flex">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <div class="media align-items-center">
-                                <span class="avatar avatar-sm rounded-circle">
-                                    <img alt="Image placeholder" src="/img/theme/team-4-800x800.jpg">
-                                </span>
-                                <div class="media-body ml-2 d-none d-lg-block">
-                                    <span class="mb-0 text-sm  font-weight-bold">Jessica Jones</span>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
-                            <div class=" dropdown-header noti-title">
-                                <h6 class="text-overflow m-0">Welcome!</h6>
-                            </div>
-                            <a href="./examples/profile.html" class="dropdown-item">
-                                <i class="ni ni-single-02"></i>
-                                <span>My profile</span>
-                            </a>
-                            <a href="./examples/profile.html" class="dropdown-item">
-                                <i class="ni ni-settings-gear-65"></i>
-                                <span>Settings</span>
-                            </a>
-                            <a href="./examples/profile.html" class="dropdown-item">
-                                <i class="ni ni-calendar-grid-58"></i>
-                                <span>Activity</span>
-                            </a>
-                            <a href="./examples/profile.html" class="dropdown-item">
-                                <i class="ni ni-support-16"></i>
-                                <span>Support</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a id="logoutButton" class="dropdown-item">
-                                <i class="ni ni-user-run"></i>
-                                <span>Đăng xuất</span>
-                            </a>
-
-                        </div>
-                    </li>
-                </ul>
-                <!--End Search-->
-            </div>
-        </nav>  *@
-        <!-- End Navbar -->
-        <!-- Header -->
-
     </header>
 
 
@@ -624,10 +571,10 @@
                         <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="media align-items-center">
                                 <span class="avatar avatar-sm rounded-circle">
-                                    <img alt="Image placeholder" src="/img/theme/team-4-800x800.jpg">
+                                    <img alt="Image placeholder" src="/img/logo.jpg">
                                 </span>
                                 <div class="media-body ml-2 d-none d-lg-block">
-                                    <span class="mb-0 text-sm  font-weight-bold">Jessica Jones</span>
+                                    <span class="mb-0 text-sm  font-weight-bold">KOK Admin</span>
                                 </div>
                             </div>
                         </a>

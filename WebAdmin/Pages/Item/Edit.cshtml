@@ -61,16 +61,16 @@
             </div>
             <div class="form-group">
                 <label asp-for="UpdateItem.ItemBuyPrice" class="control-label">Giá Mua</label>
-                <input asp-for="UpdateItem.ItemBuyPrice" class="form-control" required />
+                <input asp-for="UpdateItem.ItemBuyPrice" type="number" class="form-control" required />
                 <span asp-validation-for="UpdateItem.ItemBuyPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UpdateItem.ItemSellPrice" class="control-label">Giá Bán</label>
-                <input asp-for="UpdateItem.ItemSellPrice" class="form-control" required />
+                <!-- Set Giá Bán to 0 and hide the input for UpdateItem -->
+                <input asp-for="UpdateItem.ItemSellPrice" type="hidden" value="0" />
                 <span asp-validation-for="UpdateItem.ItemSellPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Chỉnh Sửa" class="btn btn-primary" />
+                <input type="submit" value="Cập Nhật" class="btn btn-primary" />
             </div>
         </form>
     </div>

@@ -8,25 +8,25 @@
 
             <div class="form-group">
                 <label asp-for="Account.UserName" class="control-label">Tên Tài Khoản</label>
-                <input asp-for="Account.UserName" type="text" placeholder="Username" required class="form-control" />
+                <input asp-for="Account.UserName" type="text" placeholder="Nhập Tên Tài Khoản" required class="form-control" />
                 <span asp-validation-for="Account.UserName" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Account.Email" class="control-label">Email</label>
-                <input asp-for="Account.Email" type="email" placeholder="Email" required class="form-control" />
+                <input asp-for="Account.Email" type="email" placeholder="Nhập Email" required class="form-control" />
                 <span asp-validation-for="Account.Email" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Account.Password" class="control-label">Mật Khẩu</label>
-                <input asp-for="Account.Password" type="password" placeholder="Password" required class="form-control" />
+                <input asp-for="Account.Password" type="password" placeholder="Nhập Mật Khẩu" required class="form-control" />
                 <span asp-validation-for="Account.Password" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Account.Fullname" class="control-label">Họ Tên</label>
-                <input asp-for="Account.Fullname" type="text" placeholder="Fullname" class="form-control" />
+                <input asp-for="Account.Fullname" type="text" placeholder="Nhập Họ Tên" class="form-control" />
                 <span asp-validation-for="Account.Fullname" class="text-danger"></span>
             </div>
 
@@ -43,8 +43,8 @@
             <input asp-for="Account.Role" value="STAFF" type="hidden" />
 
             <div class="form-group">
-                <label asp-for="Account.UpBalance" class="control-label">Tài Khoản (UP)</label>
-                <input asp-for="Account.UpBalance" type="number" required class="form-control" />
+                <label asp-for="Account.UpBalance" class="control-label">Số Dư UP</label>
+                <input asp-for="Account.UpBalance" type="number" placeholder="Nhập Số Dư UP" required class="form-control" />
                 <span asp-validation-for="Account.UpBalance" class="text-danger"></span>
             </div>
 
@@ -56,13 +56,13 @@
 
             <div class="form-group">
                 <label asp-for="Account.IdentityCardNumber" class="control-label">Số Định Danh</label>
-                <input asp-for="Account.IdentityCardNumber" type="number" class="form-control" />
+                <input asp-for="Account.IdentityCardNumber" type="number" placeholder="Nhập Số Định Danh" class="form-control" />
                 <span asp-validation-for="Account.IdentityCardNumber" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Account.PhoneNumber" class="control-label">Số Điện Thoại</label>
-                <input asp-for="Account.PhoneNumber" type="number" class="form-control" />
+                <input asp-for="Account.PhoneNumber" type="number" placeholder="Nhập Số Điện Thoại" class="form-control" />
                 <span asp-validation-for="Account.PhoneNumber" class="text-danger"></span>
             </div>
 
