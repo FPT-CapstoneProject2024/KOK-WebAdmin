@@ -250,7 +250,35 @@
                         @* <td>@e.Fullname</td> *@
                         <td>@e.Email</td>
                         <td>@e.UserName</td>
-                        <td>@e.Gender</td>
+                        <td>
+                            @if (e.Gender == "Nam" || e.Gender == "MALE")
+                            {
+                                <span>Nam</span>
+                            }
+                            else @if (e.Gender == "Nữ" || e.Gender == "FEMALE")
+                            {
+                                <span>Nữ</span>
+                            }
+                            else @if (e.Gender == "Khác" || e.Gender == "OTHERS")
+                            {
+                                <span>Khác</span>
+                            }
+                        </td>
+                        <td>
+                            @if (e.Role == "Quản Trị Viên" || e.Role == "ADMIN")
+                            {
+                                <span>Quản Trị Viên</span>
+                            }
+                            else @if (e.Role == "Nhân Viên" || e.Role == "STAFF")
+                            {
+                                <span>Nhân Viên</span>
+                            }
+                            else @if (e.Role == "Người Dùng" || e.Role == "MEMBER")
+                            {
+                                <span>Người Dùng</span>
+                            }
+                        </td>
+                        @* <td>@e.Gender</td> *@
                         <td>@e.Role</td>
                         @* <td>                          
                             @if (e.IsOnline == false)
@@ -394,7 +422,7 @@
                                         // Show the success popup
                                         Swal.fire({
                                             title: 'Success!',
-                                            text: 'The account was created successfully.',
+                                            text: 'Tạo mới nhân viên thành công!',
                                             icon: 'success',
                                             confirmButtonText: 'OK'
                                         }).then((result) => {
@@ -407,7 +435,7 @@
                                         // Handle the failure case
                                         Swal.fire({
                                             title: 'Error!',
-                                            text: 'There was a problem creating the account.',
+                                            text: 'Tạo mới nhân viên thất bại!',
                                             icon: 'error',
                                             confirmButtonText: 'OK'
                                         });

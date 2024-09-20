@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Pages\Singer\**" />
-    <Content Remove="Pages\Singer\**" />
-    <EmbeddedResource Remove="Pages\Singer\**" />
-    <None Remove="Pages\Singer\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Remove="wwwroot\js\login.js" />
   </ItemGroup>
 
@@ -47,6 +40,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Pages\Singer\Create.cshtml" />
+    <None Include="Pages\Singer\Delete.cshtml" />
+    <None Include="Pages\Singer\Details.cshtml" />
+    <None Include="Pages\Singer\Edit.cshtml" />
+    <None Include="Pages\Singer\Index.cshtml" />
     <None Include="Pages\Song\Create.cshtml" />
     <None Include="Pages\Song\Delete.cshtml" />
     <None Include="Pages\Song\Details.cshtml" />
