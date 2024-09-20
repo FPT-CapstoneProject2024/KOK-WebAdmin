@@ -79,7 +79,7 @@
 
             <div class="row mt-3">
                 <!-- Third row with 3 columns -->
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label class="form-label">Có Thể Hết Hạn</label>
                     <select asp-for="filter.CanExpire" class="form-select">
                         <option value="" disabled selected>Chọn</option>
@@ -87,7 +87,7 @@
                         <option value="false">Không</option>
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label class="form-label">Có Thể Gộp</label>
                     <select asp-for="filter.CanStack" class="form-select">
                         <option value="" disabled selected>Chọn</option>
@@ -95,25 +95,26 @@
                         <option value="false">Không</option>
                     </select>
                 </div>
-                <div class="col-md-4">
-                    <label class="form-label">Mã Prefab</label>
-                    <input asp-for="filter.PrefabCode" class="form-control" />
-                    <span asp-validation-for="filter.PrefabCode" class="text-danger"></span>
-                </div>
+               
             </div>
 
             <div class="row mt-3">
                 <!-- Fourth row with 2 columns -->
                 <div class="col-md-6">
+                    <label class="form-label">Mã Prefab</label>
+                    <input asp-for="filter.PrefabCode" class="form-control" />
+                    <span asp-validation-for="filter.PrefabCode" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
                     <label class="form-label">Giá Mua</label>
                     <input asp-for="filter.ItemBuyPrice" class="form-control" />
                     <span asp-validation-for="filter.ItemBuyPrice" class="text-danger"></span>
                 </div>
-                <div class="col-md-6">
+@*                 <div class="col-md-6">
                     <label class="form-label">Giá Bán</label>
                     <input asp-for="filter.ItemSellPrice" class="form-control" />
                     <span asp-validation-for="filter.ItemSellPrice" class="text-danger"></span>
-                </div>
+                </div> *@
             </div>
 
             <!-- Search Button -->

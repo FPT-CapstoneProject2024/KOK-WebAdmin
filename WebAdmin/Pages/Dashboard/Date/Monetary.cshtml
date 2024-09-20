@@ -76,7 +76,7 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
         <div class="container-fluid">
             <!-- Brand -->
-            <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./index.cshtml">Dashboard</a>
+            <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" @* href="./index.cshtml *@">Doanh Thu Trong Ngày</a>
 
             <div class="left" style="margin-bottom:20px;">
                 <form method="post" class="input-group ml-auto">
@@ -108,7 +108,7 @@
                     <canvas id="revenueChart"></canvas>
                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                 </div>
-                <p><h5 style="color: #c2444d;">Top 3 Doanh Thu cao nhất</h5></p>
+                <p><h4 style="color: #c2444d;">Top 3 Doanh Thu cao nhất</h4></p>
             </div>
 
             <div class="grade">
@@ -173,9 +173,7 @@
                                 <td>
                                     @Html.DisplayFor(model => transaction.Key)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(model => transaction.Value) VND
-                                </td>
+                                <td>@Html.Raw((int)transaction.Value + " VND")</td>
                             </tr>
                         }
                     }
