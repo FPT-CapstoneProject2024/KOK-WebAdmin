@@ -584,6 +584,8 @@ namespace WebAdmin.DTOModels
     {
         ACTIVE,
         DEACTIVE,
+        TEMPORARY_DISABLE
+
     }
     public enum PostType
     {

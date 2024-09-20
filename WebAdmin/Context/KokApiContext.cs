@@ -17,6 +17,7 @@
         public static readonly string AuthenticationResource = "authentication";
         public static readonly string DashboardResource = "dashboards";
         public static readonly string ImgurClientId = "c4098ee84f0f7cc";
+        public static readonly string PostResource = "posts";
 
     }
 }

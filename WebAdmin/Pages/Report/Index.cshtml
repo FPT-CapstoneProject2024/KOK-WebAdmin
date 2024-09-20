@@ -309,11 +309,24 @@
                             <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#detailReportModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@item.ReportId">
                                 <i class="fa-solid fa-file-lines" style="font-size: 25px;color: #fff;"></i>
                             </button>
-                            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#banReportModal" data-id="@item.ReportedAccountId">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-ban" viewBox="0 0 16 16">
-                                    <path d="M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0" />
-                                </svg>
-                            </button>
+                            @if (item.ReportType == "Bình Luận" || item.ReportType == "COMMENT")
+                            {
+                                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#banReportModal" data-id="@item.ReportedAccountId">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-ban" viewBox="0 0 16 16">
+                                        <path d="M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0" />
+                                    </svg>
+                                </button>
+                            }
+                            else if (item.ReportType == "Bài Viết" || item.ReportType == "POST")
+                            {
+                                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#banPostReportModal" data-id="@item.PostId">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-ban" viewBox="0 0 16 16">
+                                        <path d="M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0" />
+                                    </svg>
+                                </button>
+                            }
+
+
                         </td>
                     </tr>
                 }
@@ -370,7 +383,39 @@
     </div>
 </div>
 
+<!--Banned Account-->
+<div class="modal fade" id="banReportModal" tabindex="-1" role="dialog" aria-labelledby="banReportLabel" aria-hidden="true">
+    <div class="modal-dialog custom-card-width" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="banReportLabel">Thông Tin Chi Tiết Tài Khoản</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="ban-modal-body">
+                <!-- Nội dung chi tiết sẽ được tải vào đây  modal-body   -->
+            </div>
+        </div>
+    </div>
+</div>
 
+<!--Banned Post-->
+<div class="modal fade" id="banPostReportModal" tabindex="-1" role="dialog" aria-labelledby="banReportLabel" aria-hidden="true">
+    <div class="modal-dialog custom-card-width" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="banReportLabel">Thông Tin Chi Tiết Bài Viết</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="ban-post-modal-body">
+                <!-- Nội dung chi tiết sẽ được tải vào đây  modal-body   -->
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Edit Modal -->
 <div class="modal fade" id="editReportModal" tabindex="-1" role="dialog" aria-labelledby="editReportModalLabel" aria-hidden="true">
@@ -407,23 +452,8 @@
     </div>
 </div>
 
-<!--Banned Account-->
-<div class="modal fade" id="banReportModal" tabindex="-1" role="dialog" aria-labelledby="banReportLabel" aria-hidden="true">
-    <div class="modal-dialog custom-card-width" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="banReportLabel">Thông Tin Chi Tiết Tài Khoản</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body ban-modal-body">
-                <!-- Nội dung chi tiết sẽ được tải vào đây -->
-            </div>
-        </div>
-        </div>
-    </div>
-</div>
+
+@* </div> *@
 
 
 <script>
@@ -496,19 +526,7 @@
         });
     });
     
-    $(document).ready(function () {
-        $('#banReportModal').on('show.bs.modal', function (e) {
-            var button = $(e.relatedTarget);
-            var id = button.data('id');
-            var modal = $(this);
 
-            // Tải nội dung từ trang Details và chỉ lấy phần thân của nội dung
-            $.get('@Url.Page("/Report/Ban/Account", new { id = "__ID__" })'.replace('__ID__', id), function (data) {
-                var banContent = $(data).find('.details').html(); // Lấy phần nội dung chính
-                modal.find('.ban-modal-body').html(banContent);
-            });
-        });
-    });
 
 
 
@@ -647,6 +665,90 @@
             });
         });
     });
+
+    $(document).ready(function () {
+        $('#banReportModal').on('show.bs.modal', function (e) {
+            var button = $(e.relatedTarget);
+            var id = button.data('id');
+            var modal = $(this);
+
+            // Tải nội dung từ trang Details và chỉ lấy phần thân của nội dung
+            $.get('@Url.Page("/Report/Ban/Account", new { id = "__ID__" })'.replace('__ID__', id), function (data) {
+                var banContent = $(data).find('.details').html(); // Lấy phần nội dung chính
+                modal.find('.ban-modal-body').html(banContent);
+
+                // Attach an event listener to the form submit event
+                // modal.find('form').on('submit', function (e) {
+                //     e.preventDefault(); // Prevent normal form submission
+
+                //     // Use AJAX to submit the form data
+                //     $.ajax({
+                //         type: $(this).attr('method'),
+                //         url: $(this).attr('action'),
+                //         data: $(this).serialize(),
+                //         success: function (response) {
+                //             if (response.success) {
+                //                 // Close the modal and remove the backdrop
+                //                 modal.modal('hide');
+                //                 $('.modal-backdrop').remove(); // Ensure the backdrop is removed
+
+                //                 // Show the success popup
+                //                 Swal.fire({
+                //                     title: 'Success!',
+                //                     text: 'The report was edited successfully.',
+                //                     icon: 'success',
+                //                     confirmButtonText: 'OK'
+                //                 }).then((result) => {
+                //                     if (result.isConfirmed) {
+                //                         // Reload the page when the user presses OK
+                //                         location.reload();
+                //                     }
+                //                 });
+                //             } else {
+                //                 // Handle the failure case
+                //                 Swal.fire({
+                //                     title: 'Error!',
+                //                     text: 'There was a problem editing the report.',
+                //                     icon: 'error',
+                //                     confirmButtonText: 'OK'
+                //                 });
+
+                //                 // Close the modal and remove the backdrop
+                //                 modal.modal('hide');
+                //                 $('.modal-backdrop').remove();
+                //             }
+                //         },
+                //         error: function () {
+                //             // Close the modal and remove the backdrop in case of an error
+                //             modal.modal('hide');
+                //             $('.modal-backdrop').remove();
+
+                //             Swal.fire({
+                //                 title: 'Error!',
+                //                 text: 'There was a problem with the request.',
+                //                 icon: 'error',
+                //                 confirmButtonText: 'OK'
+                //             });
+                //         }
+                //     });
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $('#banPostReportModal').on('show.bs.modal', function (e) {
+            var button = $(e.relatedTarget);
+            var id = button.data('id');
+            var modal = $(this);
+
+            // Tải nội dung từ trang Details và chỉ lấy phần thân của nội dung
+            $.get('@Url.Page("/Report/Ban/Post", new { id = "__ID__" })'.replace('__ID__', id), function (data) {
+                var banContent = $(data).find('.details').html(); // Lấy phần nội dung chính
+                modal.find('.ban-post-modal-body').html(banContent);
+            });
+        });
+    });
+
 </script>
 
 <style>

@@ -1,0 +1,26 @@
+﻿@page
+@model WebAdmin.Pages.Report.Ban.PostModel
+@{
+}
+<div class="details">
+
+    @if (Model.data.PostStatus == "ACTIVE")
+    {
+        <div>
+
+            <form asp-page-handler="BanPost" asp-route-id="@Model.data.PostId" method="post">
+                @*             <img src="@Model.data?.Image" alt="N/A" style="width:50%" />
+            *@
+                <div style="background-color: darkslategray; height:1px;"></div>
+                <p style="text-align:center;">@Html.DisplayFor(model => model.data.Caption)</p>
+                <p style="text-align:center;">@Html.DisplayFor(model => model.data.UpdateTime)</p>
+                <input class="btn btn-outline-danger" type="submit" value="Cấm Bài Viết" />
+            </form>
+        </div>
+    }
+    else
+    {
+        <p style="color: darkred; text-align:center;">Bài viết đã được ẩn</p>
+    }
+
+</div>
