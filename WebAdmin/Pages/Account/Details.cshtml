@@ -38,12 +38,12 @@
             </dd>
 @*             <dt class="col-md-4 col-12">
                 Online?
-                @* @Html.DisplayNameFor(model => model.Account.IsOnline) *@
+                @* @Html.DisplayNameFor(model => model.Account.IsOnline) 
             </dt> *@
-            <dd class="col-md-8 col-12">
-                @* @Html.DisplayFor(model => model.Account.IsOnline) *@
+@*             <dd class="col-md-8 col-12">
+                @* @Html.DisplayFor(model => model.Account.IsOnline)
                 @(Model.Account.IsOnline.HasValue ? (Model.Account.IsOnline.Value ? "Online" : "Offline") : "Unknown")
-            </dd>
+            </dd> *@
             <dt class="col-md-4 col-12">
                 Họ Tên
                 @* @Html.DisplayNameFor(model => model.Account.Fullname) *@

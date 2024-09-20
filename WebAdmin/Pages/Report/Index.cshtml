@@ -504,8 +504,8 @@
 
             // Tải nội dung từ trang Details và chỉ lấy phần thân của nội dung
             $.get('@Url.Page("/Report/Ban/Account", new { id = "__ID__" })'.replace('__ID__', id), function (data) {
-                var banContent = $(data).find('.ban-account').html(); // Lấy phần nội dung chính
-                modal.find('.report-modal-body').html(banContent);
+                var banContent = $(data).find('.details').html(); // Lấy phần nội dung chính
+                modal.find('.ban-modal-body').html(banContent);
             });
         });
     });
