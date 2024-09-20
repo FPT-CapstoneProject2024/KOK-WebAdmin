@@ -36,10 +36,10 @@
             <dd class="col-md-8 col-12">
                 @Html.DisplayFor(model => model.Account.Role)
             </dd>
-            <dt class="col-md-4 col-12">
+@*             <dt class="col-md-4 col-12">
                 Online?
                 @* @Html.DisplayNameFor(model => model.Account.IsOnline) *@
-            </dt>
+            </dt> *@
             <dd class="col-md-8 col-12">
                 @* @Html.DisplayFor(model => model.Account.IsOnline) *@
                 @(Model.Account.IsOnline.HasValue ? (Model.Account.IsOnline.Value ? "Online" : "Offline") : "Unknown")
@@ -87,7 +87,7 @@
                 @Html.DisplayFor(model => model.Account.AccountStatus)
             </dd>
             <dt class="col-md-4 col-12">
-                Tài Khoản
+                Số dư Up
                 @* @Html.DisplayNameFor(model => model.Account.UpBalance) *@
             </dt>
             <dd class="col-md-8 col-12">

@@ -212,12 +212,10 @@
                             <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#detailPackageModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@package.PackageId">
                                 <i class="fa-solid fa-file-lines" style="font-size: 25px;color: #fff;"></i>
                             </button>
-                            @* <button type="button" class="btn btn-google-plus" onclick="location.href='@Url.Page("./Delete", new { id = package.PackageId })'">
-                                <i class="fa-regular fa-trash-can" style="font-size: 25px; color: #fff;"></i>
-                            </button> *@
                             <button type="button" class="btn btn-google-plus" data-toggle="modal" data-target="#deletePackageModal" data-id="@package.PackageId">
                                 <i class="fa-regular fa-trash-can" style="font-size: 25px; color: #fff;"></i>
                             </button>
+
                         </td>
                     </tr>
                 }

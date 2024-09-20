@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Singer\**" />
+    <Content Remove="Pages\Singer\**" />
+    <EmbeddedResource Remove="Pages\Singer\**" />
+    <None Remove="Pages\Singer\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot\js\login.js" />
   </ItemGroup>
 
@@ -40,6 +47,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Pages\Song\Create.cshtml" />
+    <None Include="Pages\Song\Delete.cshtml" />
+    <None Include="Pages\Song\Details.cshtml" />
+    <None Include="Pages\Song\Edit.cshtml" />
+    <None Include="Pages\Song\Index.cshtml" />
     <None Include="wwwroot\img\icons\common\github.svg" />
     <None Include="wwwroot\img\icons\common\google.svg" />
     <None Include="wwwroot\js\login.js" />
