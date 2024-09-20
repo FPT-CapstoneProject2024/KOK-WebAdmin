@@ -29,7 +29,7 @@ namespace WebAdmin.Pages.Singer
         {
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(IFormFile file)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace WebAdmin.Pages.Singer
                 //    return new JsonResult(new { success = false });
                 //}
 
-                var dataImage = await SupportingFeature.Instance.UploadImage(_clientFactory, Singer.file, KokApiContext.ImgurClientId);
+                var dataImage = await SupportingFeature.Instance.UploadImage(_clientFactory, file, KokApiContext.ImgurClientId);
 
                 if (!dataImage.Item1)
                 {
