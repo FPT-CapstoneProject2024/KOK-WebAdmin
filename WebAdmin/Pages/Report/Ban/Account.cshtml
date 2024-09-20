@@ -1,0 +1,25 @@
+﻿@page
+@model WebAdmin.Pages.Report.Ban.AccountModel
+@{
+
+}
+<div class="details">
+    @if(Model.data.AccountStatus == "ACTIVE")
+    {
+        <div>
+            <form asp-page-handler="BanAccount" asp-route-id="@Model.data.AccountId" method="post">
+                <img src="@Model.data?.Image" alt="N/A" style="width:50%" />
+
+                <div style="background-color: darkslategray; height:1px;"></div>
+                <p style="text-align:center;">@Html.DisplayFor(model => model.data.Email)</p>
+                <p style="text-align:center;">@Html.DisplayFor(model => model.data.UserName)</p>
+                <input class="btn btn-outline-danger" type="submit" value="Cấm Tài Khoản" />
+            </form>
+        </div>
+    }
+    else if(Model.data.AccountStatus == "INACTIVE")
+    {
+        <p style="color: darkred; text-align:center;">Tài khoản đã bị cấm</p>
+    }
+
+</div>

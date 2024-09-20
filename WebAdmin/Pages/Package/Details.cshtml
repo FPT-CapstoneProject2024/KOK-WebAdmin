@@ -32,16 +32,16 @@
             @Html.DisplayFor(model => model.Package.Description)
         </dd>
         <dt class="col-md-4 col-12">
-            Giá Tiền
+            Giá Gói
         </dt>
         <dd class="col-md-8 col-12">
-            @Html.DisplayFor(model => model.Package.MoneyAmount)
+            @Html.DisplayFor(model => (int)model.Package.MoneyAmount)
         </dd>
         <dt class="col-md-4 col-12">
             Số UP
         </dt>
         <dd class="col-md-8 col-12">
-            @Html.DisplayFor(model => model.Package.StarNumber)
+            @Html.DisplayFor(model => (int)model.Package.StarNumber)
         </dd>
         <dt class="col-md-4 col-12">
             Trạng Thái

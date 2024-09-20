@@ -40,6 +40,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Pages\Singer\Create.cshtml" />
+    <None Include="Pages\Singer\Delete.cshtml" />
+    <None Include="Pages\Singer\Details.cshtml" />
+    <None Include="Pages\Singer\Edit.cshtml" />
+    <None Include="Pages\Singer\Index.cshtml" />
+    <None Include="Pages\Song\Create.cshtml" />
+    <None Include="Pages\Song\Delete.cshtml" />
+    <None Include="Pages\Song\Details.cshtml" />
+    <None Include="Pages\Song\Edit.cshtml" />
+    <None Include="Pages\Song\Index.cshtml" />
     <None Include="wwwroot\img\icons\common\github.svg" />
     <None Include="wwwroot\img\icons\common\google.svg" />
     <None Include="wwwroot\js\login.js" />

@@ -11,7 +11,7 @@ namespace WebAdmin.DTOModels.Response
         public DateTime? UpdateTime { get; set; }
         public Guid? MemberId { get; set; }
         public Guid? RecordingId { get; set; }
-        public string? Status { get; set; }
+        public string? PostStatus { get; set; }
         public string? PostType { get; set; }
         public Guid? OriginPostId { get; set; }
 

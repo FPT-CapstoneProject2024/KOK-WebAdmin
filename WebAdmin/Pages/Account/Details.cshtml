@@ -36,14 +36,12 @@
             <dd class="col-md-8 col-12">
                 @Html.DisplayFor(model => model.Account.Role)
             </dd>
-            <dt class="col-md-4 col-12">
-                Trạng Thái Hoạt Động
-                @* @Html.DisplayNameFor(model => model.Account.IsOnline) *@
-            </dt>
-            <dd class="col-md-8 col-12">
-                @* @Html.DisplayFor(model => model.Account.IsOnline) *@
+@*             <dt class="col-md-4 col-12">
+                Online?              
+            </dt> *@
+@*             <dd class="col-md-8 col-12">               
                 @(Model.Account.IsOnline.HasValue ? (Model.Account.IsOnline.Value ? "Online" : "Offline") : "Unknown")
-            </dd>
+            </dd> *@
             <dt class="col-md-4 col-12">
                 Họ Tên
                 @* @Html.DisplayNameFor(model => model.Account.Fullname) *@
@@ -87,7 +85,7 @@
                 @Html.DisplayFor(model => model.Account.AccountStatus)
             </dd>
             <dt class="col-md-4 col-12">
-                Tài Khoản
+                Số dư Up
                 @* @Html.DisplayNameFor(model => model.Account.UpBalance) *@
             </dt>
             <dd class="col-md-8 col-12">
