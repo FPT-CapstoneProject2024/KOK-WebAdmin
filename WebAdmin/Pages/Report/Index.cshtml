@@ -214,7 +214,7 @@
                 </th>
 
                 <th>
-                    Tiêu Đề Bài Đăng
+                    Nội Dung
                 </th>
                 <th></th>
             </tr>
@@ -299,7 +299,14 @@
                         </td>
 
                         <td>
-                            @Html.DisplayFor(modelItem => item.PostCaption)
+                            @if (item.ReportType == "Bài Viết" || item.ReportType == "POST")
+                            {
+                                @Html.DisplayFor(modelItem => item.PostCaption)
+                            }
+                            else if (item.ReportType == "Bình Luận" || item.ReportType == "COMMENT")
+                            {
+                                @Html.DisplayFor(modelItem => item.Comment)
+                            }
                         </td>
 
                         <td>
@@ -311,18 +318,14 @@
                             </button>
                             @if (item.ReportType == "Bình Luận" || item.ReportType == "COMMENT")
                             {
-                                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#banReportModal" data-id="@item.ReportedAccountId">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-ban" viewBox="0 0 16 16">
-                                        <path d="M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0" />
-                                    </svg>
+                                <button type="button" class="btn btn-google-plus" data-toggle="modal" data-target="#banReportModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@item.ReportedAccountId">
+                                    <i class="fa-solid fa-ban" style="font-size: 25px; color: #fff;"></i>
                                 </button>
                             }
                             else if (item.ReportType == "Bài Viết" || item.ReportType == "POST")
                             {
-                                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#banPostReportModal" data-id="@item.PostId">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-ban" viewBox="0 0 16 16">
-                                        <path d="M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0" />
-                                    </svg>
+                                <button type="button" class="btn btn-google-plus" data-toggle="modal" data-target="#banPostReportModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@item.PostId">
+                                    <i class="fa-solid fa-ban" style="font-size: 25px; color: #fff;"></i>
                                 </button>
                             }
 
@@ -626,7 +629,7 @@
                             // Show the success popup
                             Swal.fire({
                                 title: 'Success!',
-                                text: 'The report was edited successfully.',
+                                text: 'Chỉnh sửa báo cáo thành công!',
                                 icon: 'success',
                                 confirmButtonText: 'OK'
                             }).then((result) => {
@@ -656,7 +659,7 @@
 
                         Swal.fire({
                             title: 'Error!',
-                            text: 'There was a problem with the request.',
+                            text: 'Xảy ra lỗi với tác vụ!',
                             icon: 'error',
                             confirmButtonText: 'OK'
                         });
