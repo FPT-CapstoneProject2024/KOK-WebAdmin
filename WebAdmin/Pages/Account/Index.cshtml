@@ -1,7 +1,12 @@
 ﻿@page
+@using Microsoft.AspNetCore.Http
+
+@using Newtonsoft.Json
 @using WebAdmin.DTOModels
+@inject IHttpContextAccessor HttpContextAccessor
 @model WebAdmin.Pages.Account.IndexModel
 @{
+    var userInfo = JsonConvert.DeserializeObject<DTOModels.Response.Account>(HttpContext.Request.Cookies["AccountData"]);
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -55,10 +60,7 @@
                             <option value="MALE">Nam</option>
                             <option value="FEMALE">Nữ</option>
                             <option value="OTHERS">Khác</option>
-                            @* @for(int i = 0; i < AccountGenres.List.Count; i++)
-                            {
-                                <option value="@i+1">@AccountGenres.List[i]</option>
-                            } *@
+
                         </select>
                         <span asp-validation-for="filter.Gender" class="text-danger"></span>
                     </div>
@@ -73,10 +75,7 @@
                         <option value="ADMIN">Quản Trị Viên</option>
                         <option value="STAFF">Nhân Viên</option>
                         <option value="MEMBER">Người Dùng</option>
-                        @* @for(int i = 0; i < AccountGenres.List.Count; i++)
-                        {
-                        <option value="@i+1">@AccountGenres.List[i]</option>
-                        } *@
+
                     </select>
                     </div>
                     <div class="col-md-4">
@@ -217,9 +216,13 @@
 
     <div style="padding-top:10px">
         <p>
+        @if(userInfo.Role.Equals("Quản trị viên") || userInfo.Role.Equals("ADMIN"))
+        {
             <button type="button" class="btn btn-success btn-icon-only" data-toggle="modal" data-target="#createAccountModal" style="border: none; background: transparent; padding: 0;">
                 <i class="fa-regular fa-square-plus" style="font-size: 42px; color: #28a745;"></i>
             </button>
+        }
+
         </p>
     </div>
 
@@ -227,14 +230,10 @@
         <table class="table table-hover" style="margin-top:20px;">  
             <tr>
                 <th>#</th>
-                @* <th></th> *@
-                @*                 <th>Full Name</th> *@
                 <th>Email</th>
                 <th>Tên Tài Khoản</th>
                 <th>Giới Tính</th>
                 <th>Vai Trò</th>
-                @* <th>Hoạt Động</th> *@
-                @*<th>Account Status</th> *@
                 <th>Trạng Thái</th>
                 <th></th>
                 <th></th>
@@ -246,8 +245,6 @@
                 {
                     <tr>
                         <td>@(count += 1)</td>
-                        @* <td class="img-cell"><img src="@e.Image" alt="N/A" /></td> *@
-                        @* <td>@e.Fullname</td> *@
                         <td>@e.Email</td>
                         <td>@e.UserName</td>
                         <td>
@@ -278,21 +275,8 @@
                                 <span>Người Dùng</span>
                             }
                         </td>
-                        @* <td>@e.Gender</td> *@
                         <td>@e.Role</td>
-                        @* <td>                          
-                            @if (e.IsOnline == false)
-                            {
-                                <span style="color: red;">Không Hoạt Động</span>
-                            }
-                            else
-                            {
-                            <span style="color: green;">Đang Hoạt Động</span>
-                            }
-                        </td> *@
-                        @* <td>@e.IsOnline</td> *@
-                        @* <td>@e.AccountStatus</td> *@
-                        @* <td><a asp-page-handler="Inactive" asp-route-id="@e.AccountId" class="btn btn-dribbble">Ẩn</a> | <a asp-page-handler="Active" asp-route-id="@e.AccountId" class="btn btn-warning">Kích hoạt</a></td> *@
+
                         <td>
                             <!-- Toggle button for Activate/Deactivate -->
                             @if (e.AccountStatus == "INACTIVE" || e.AccountStatus == "Không Hoạt Động")

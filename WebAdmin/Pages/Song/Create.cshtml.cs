@@ -167,7 +167,7 @@ namespace WebAdmin.Pages.Song
                 dataSong.SongSingers = songSingers;
                 dataSong.SongGenres = songGenres;
                 dataSong.SongUrl = null; // This will be set later
-                dataSong.CreatorId = Guid.Parse(HttpContext.Session.GetString("AccountId"));
+                dataSong.CreatorId = (Guid)(JsonConvert.DeserializeObject<DTOModels.Response.Account>(HttpContext.Request.Cookies["AccountData"])?.AccountId);
 
                 // Handle file upload
                 if (Song.SongFile != null)
