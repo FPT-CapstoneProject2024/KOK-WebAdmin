@@ -12,7 +12,7 @@ namespace WebAdmin.Pages.Authentication
     public class LoginModel : PageModel
     {
         private const string JwtAccessToken = "jwtAccessToken";
-        public static Guid? AccountId { get; set; } 
+        //public static Guid? AccountId { get; set; } 
 
         public class LoginCredential
         {
@@ -21,6 +21,8 @@ namespace WebAdmin.Pages.Authentication
             public string Email { get; set; } = string.Empty;
             [Required]
             public string Password { get; set; } = string.Empty;
+
+            
         }
 
         [BindProperty]
@@ -63,7 +65,12 @@ namespace WebAdmin.Pages.Authentication
                             Secure = true,
                             SameSite = SameSiteMode.Strict,
                         });
-                        AccountId = loginResult.Value.AccountId;
+                        //AccountId = loginResult.Value.AccountId;//
+
+                        HttpContext.Session.SetString("AccountId", String.Concat(loginResult.Value.AccountId));
+                        HttpContext.Session.SetString("AccountData", JsonConvert.SerializeObject(loginResult.Value));
+
+
                         // Redirect to home page
                         return RedirectToPage("/Dashboard/Index");
 

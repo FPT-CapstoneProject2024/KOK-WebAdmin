@@ -19,6 +19,8 @@
         #region Account
         public const string INFORMATION_ACCOUNT_EXISTED = "Thông tin tài khoản đã tồn tại!";
         public const string INFORMATION_ACCOUNT_NOT_EXISTED = "Thông tin tài khoản không tồn tại!";
+        public const string UPDATE_PROFILE_SUCCESS = "Cập Nhật Thông Tin Cá Nhân Thành Công!";
+        public const string UPDATE_PROFILE_ERROR = "Cập nhật Thông Tin Cá Nhân Thất Bại!";
 
         #endregion
         #region Package

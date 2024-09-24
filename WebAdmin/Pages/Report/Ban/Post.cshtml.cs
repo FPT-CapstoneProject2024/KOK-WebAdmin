@@ -22,7 +22,7 @@ namespace WebAdmin.Pages.Report.Ban
         {
             try
             {
-                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.PostResource + "?PostId=" + id;
+                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.PostResource + "/get-posts-for-admin/?PostId=" + id;
 
                 var response = await apiClient.GetAsync(uri);
 

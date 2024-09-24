@@ -1,0 +1,136 @@
+﻿@page
+@using WebAdmin.DTOModels
+@using System.Text
+@model WebAdmin.Pages.Account.Profile.ProfileModel
+@{
+}
+<style>
+    body {
+        background: rgb(122, 113, 86)
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #BA68C8
+    }
+
+    .profile-button {
+        background: rgb(44, 84, 94);
+        box-shadow: none;
+        border: none
+    }
+
+        .profile-button:hover {
+            background: #5199ab
+        }
+
+        .profile-button:focus {
+            background: #2d555f;
+            box-shadow: none
+        }
+
+        .profile-button:active {
+            background: #5199ab;
+            box-shadow: none
+        }
+
+    .back:hover {
+        color: #5199ab;
+        cursor: pointer
+    }
+
+    .labels {
+        font-size: 11px
+    }
+
+    .add-experience:hover {
+        background: #75ddf7;
+        color: #fff;
+        cursor: pointer;
+        border: solid 1px #5499b2
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        display: none;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+</style>
+
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="@Model.Profile.Image"><span class="font-weight-bold">@Model.Profile.UserName</span><span class="text-black-50">@Model.Profile.Email</span><span> </span></div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Thông Tin Cá Nhân</h4>
+                </div>
+                <form asp-page-handler="UpdateProfile" method="post" enctype="multipart/form-data">
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label class="labels">Họ Và Tên</label><input asp-for="Account.Fullname" type="text" class="form-control" placeholder="Nhập họ và tên">                
+                            
+                        </div>
+                        <div class="col-md-12"><label class="labels">Mô Tả Về Bản Thân</label><input asp-for="Account.Description" type="text" class="form-control" placeholder="Nhập mô tả về bản thân"></div>
+                        <div class="col-md-12"><label class="labels">Số Định Danh Cá Nhân</label><input asp-for="Account.IdentityCardNumber" type="text" class="form-control" placeholder="Nhập số định danh cá nhân (nếu có)"></div>
+                        <div class="col-md-12"><label class="labels">Năm Sinh</label><input asp-for="Account.Yob" type="number" min="1900" max="2100" class="form-control" placeholder="Nhập năm sinh"></div>
+                        <div class="col-md-12">
+                            <label class="labels">Giới Tính</label>
+                            <select asp-for="Account.Gender" class="form-control">
+                                @for (int i = 0; i < AccountGenres.List.Count(); i++)
+                                {
+                                    <option value="@(i+1)">@AccountGenres.List[i]</option>
+                                }
+                            </select></div>
+                        <div class="col-md-12"><label for="file" class="labels">Hình Ảnh</label><input type="file" name="file" class="form-control"></div>
+
+                        <<span class="text-danger">@ViewBag.Message</span>
+                    </div>
+                    <div class="mt-5 text-center"><input class="btn btn-primary profile-button" value="Lưu Thay Đổi" type="submit"></input></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<script>
+    $(document).ready(function () {
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <text>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công!',
+                    text: '@Html.Raw(TempData["SuccessMessage"])',
+                    showCloseButton: true,
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Chuyển hướng đến trang khác
+                        window.location.href = '/Dashboard/Index'; // Thay đổi đường dẫn theo nhu cầu
+                    }
+                });
+        </text>
+    }
+    @if(TempData["FailedMessage"] != null)
+    {
+        <text>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi!',
+                    text: '@Html.Raw(TempData["FailedMesssage"])'
+                });
+        </text>
+    }
+    });
+</script>
