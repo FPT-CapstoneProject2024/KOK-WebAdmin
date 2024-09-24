@@ -61,7 +61,7 @@ namespace WebAdmin.Pages.Package
 
             try
             {
-                UpdatePackage.CreatorId = LoginModel.AccountId;
+                UpdatePackage.CreatorId = Guid.Parse(HttpContext.Session.GetString("AccountId"));
                 var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.PackageResource + "/" + Package.PackageId;
                 var uri2 = KokApiContext.BaseApiUrl + "/" + KokApiContext.PackageResource + "/update-status/" + Package.PackageId;
                 if (UpdatePackage.Status == DTOModels.PackageStatus.INACTIVE || UpdatePackage.Status.Equals("Không Hoạt Động"))

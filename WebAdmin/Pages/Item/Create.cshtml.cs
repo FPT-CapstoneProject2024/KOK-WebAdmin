@@ -32,7 +32,7 @@ namespace WebAdmin.Pages.Item
                 {
                     return new JsonResult(new { success = false });
                 }
-                Item.CreatorId = LoginModel.AccountId;
+                Item.CreatorId = Guid.Parse(HttpContext.Session.GetString("AccountId"));
                 var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ItemResource;
 
                 var response = await apiClient.PostAsync(uri, Item);

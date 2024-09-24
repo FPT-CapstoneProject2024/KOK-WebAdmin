@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using WebAdmin.DTOModels.Request.Account;
 using WebAdmin.DTOModels.Request.Artist;
 using WebAdmin.DTOModels.Request.Genre;
 using WebAdmin.DTOModels.Request.Item;
@@ -25,6 +26,7 @@ namespace WebAdmin.Helpers
             CreateMap<SongSingerRequestModel, SongSinger>().ReverseMap();
             CreateMap<CreateSongRequestModel, CreateSongRequestModel1>().ReverseMap();
             CreateMap<Report, UpdateReportRequestModel>().ReverseMap();
+            CreateMap<Account, UpdateAccountRequestModel>().ReverseMap();
 
         }
     }

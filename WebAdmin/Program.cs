@@ -1,9 +1,12 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 using WebAdmin;
 using WebAdmin.DTOModels.Response;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
@@ -15,9 +18,7 @@ builder.Services.AddSession(options =>
 // Add services to the container.
 builder.Services.AddWebApplicationServices();
 
-builder.Services.AddRazorPages();
-
-
+builder.Services.AddRazorPages(); // Đảm bảo hỗ trợ cho các thay đổi tại runtime
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,6 +32,7 @@ if (!app.Environment.IsDevelopment())
 app.UseSession();
 
 app.UseHttpsRedirection();
+
 
 app.UseStaticFiles();
 

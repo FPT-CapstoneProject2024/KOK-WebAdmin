@@ -61,7 +61,7 @@ namespace WebAdmin.Pages.Song
             try
             {
                 //_context.Attach(Item).State = EntityState.Modified;
-                UpdateSong.CreatorId = LoginModel.AccountId;
+                UpdateSong.CreatorId = Guid.Parse(HttpContext.Session.GetString("AccountId"));
                 var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.SongResource + "/" + Song.SongId;
                 var response = await _apiClient.PutAsync(uri, UpdateSong);
                 var responeJson = await response.Content.ReadAsStringAsync();

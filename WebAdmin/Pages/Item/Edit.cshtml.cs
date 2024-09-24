@@ -64,7 +64,7 @@ namespace WebAdmin.Pages.Item
 
             try
             {
-                UpdateItem.CreatorId = LoginModel.AccountId;
+                UpdateItem.CreatorId = Guid.Parse(HttpContext.Session.GetString("AccountId"));
                 //_context.Attach(Item).State = EntityState.Modified;
                 var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ItemResource + "/" + Item.ItemId;
                 var response = await _apiClient.PutAsync(uri, UpdateItem);

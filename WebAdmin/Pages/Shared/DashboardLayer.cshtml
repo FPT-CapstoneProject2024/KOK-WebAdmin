@@ -1,4 +1,10 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var userInfo = JsonConvert.DeserializeObject<DTOModels.Response.Account>(HttpContextAccessor.HttpContext.Session.GetString("AccountData"));
+
+}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -571,10 +577,10 @@
                         <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="media align-items-center">
                                 <span class="avatar avatar-sm rounded-circle">
-                                    <img alt="Image placeholder" src="/img/avatar.jpg">
+                                    <img alt="Image placeholder" src="@userInfo.Image">
                                 </span>
                                 <div class="media-body ml-2 d-none d-lg-block">
-                                    <span class="mb-0 text-sm  font-weight-bold">KOK Admin</span>
+                                    <span class="mb-0 text-sm  font-weight-bold">@userInfo.UserName</span>
                                 </div>
                             </div>
                         </a>
@@ -582,9 +588,9 @@
                             <div class=" dropdown-header noti-title">
                                 <h6 class="text-overflow m-0">Welcome!</h6>
                             </div>
-                            <a href="./examples/profile.html" class="dropdown-item">
+                            <a href="/Account/Profile/Profile" class="dropdown-item">
                                 <i class="ni ni-single-02"></i>
-                                <span>My profile</span>
+                                <span>Thông Tin Cá Nhân</span>
                             </a>
                             <a href="./examples/profile.html" class="dropdown-item">
                                 <i class="ni ni-settings-gear-65"></i>

@@ -62,7 +62,7 @@ namespace WebAdmin.Pages.Song
                 {
                     return Page();
                 }
-                Song.CreatorId = LoginModel.AccountId.Value;                
+                Song.CreatorId = HttpContext.Session.GetString("AccountId").Value;                
                 //Song.SongArtists = _mapper.Map<ICollection<SongArtistRequestModel>>(SongIds);
                 //Song.SongSingers = _mapper.Map<ICollection<SongSingerRequestModel>>(SingerIds);
                 //Song.SongGenres = _mapper.Map<ICollection<SongGenreRequestModel>>(GenreIds);
@@ -167,7 +167,7 @@ namespace WebAdmin.Pages.Song
                 dataSong.SongSingers = songSingers;
                 dataSong.SongGenres = songGenres;
                 dataSong.SongUrl = null; // This will be set later
-                dataSong.CreatorId = LoginModel.AccountId.Value;
+                dataSong.CreatorId = Guid.Parse(HttpContext.Session.GetString("AccountId"));
 
                 // Handle file upload
                 if (Song.SongFile != null)

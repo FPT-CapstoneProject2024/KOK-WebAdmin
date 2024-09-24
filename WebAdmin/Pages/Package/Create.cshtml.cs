@@ -29,7 +29,7 @@ namespace WebAdmin.Pages.Package
             try
             {
                 var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.PackageResource;
-                Package.CreatorId = LoginModel.AccountId;
+                Package.CreatorId = HttpContext.Session.GetString("AccountId");
                 var response = await apiClient.PostAsync(uri, Package);
 
                 var jsonResponse = await response.Content.ReadAsStringAsync();
@@ -53,7 +53,7 @@ namespace WebAdmin.Pages.Package
             try
             {
                 var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.PackageResource;
-                Package.CreatorId = LoginModel.AccountId;
+                Package.CreatorId = Guid.Parse(HttpContext.Session.GetString("AccountId"));
                 var response = await apiClient.PostAsync(uri, Package);
 
                 var jsonResponse = await response.Content.ReadAsStringAsync();
