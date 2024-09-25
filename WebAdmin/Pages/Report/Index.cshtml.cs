@@ -45,6 +45,7 @@ namespace WebAdmin.Pages.Report
                 CurrentPage = (CurrentPage < 1) ? 1 : CurrentPage;
                 CurrentPage = (CurrentPage > TotalPage) ? TotalPage : CurrentPage;
 
+
                 var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ReportResource + "/" + "get-reports";
 
                 var response = await apiClient.GetAsync(uri + "?page=" + CurrentPage + filter);
@@ -79,7 +80,7 @@ namespace WebAdmin.Pages.Report
         public async Task<IActionResult> OnPostSearch()
         {
             //string? filter = Request.Form["txt_filter"];
-            string? search = Request.Form["txt_search"];
+           // string? search = Request.Form["txt_search"];
             ViewData["filter_search"] = search;
             return await OnGet(filter: "&filter" + "=" + search);
         }
@@ -95,11 +96,11 @@ namespace WebAdmin.Pages.Report
             var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ReportResource;
             var queryParams = new Dictionary<string, string>()
             {
-                {"ReportCategory", filter.ReportCategory },
-                {"Status", filter.Status },
+                {"ReportCategory", string.Concat(ReportCategory.List.IndexOf(filter.ReportCategory)) },
+                {"Status", string.Concat(ReportStatuses.List.IndexOf(filter.Status)) },
                 {"Reason" , filter.Reason },
                 {"CreateTime", string.Concat(filter.CreateTime) },
-                {"ReportType", filter.ReportType },
+                {"ReportType", string.Concat(ReportTypes.List.IndexOf(filter.ReportType)) },
                 {"Comment", filter.Comment },
                 {"PostCaption", filter.PostCaption },
 

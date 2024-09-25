@@ -26,7 +26,7 @@
 <!-- Search Bar -->
 <div>
     <form method="post" class="input-group">
-        <input asp-for="search" type="search" class="form-control rounded" placeholder="Tìm Kiếm..." aria-label="Search" aria-describedby="search-addon" />
+        <input asp-for="search" type="search" class="form-control rounded" placeholder="Tìm Kiếm Lý Do..." aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-btn" style="padding-left: 20px;">
             <button asp-page-handler="Search" type="submit" class="btn btn-outline-success" data-mdb-ripple-init>Tìm Kiếm</button>
         </span>
@@ -50,15 +50,10 @@
                     <label class="form-label">Mục Báo Cáo</label>
                     <select asp-for="filter.ReportCategory" class="form-select">
                         <option value="" disabled selected>Chọn Mục Báo Cáo</option>
-                        <option value="SEXUAL_CONTENT">Nội dung liên quan đến tình dục</option>
-                        <option value="BULLYING_OR_HARASSMENT">Bắt nạt hoặc quấy rối</option>
-                        <option value="INCITEMENT_TO_VIOLENCE_OR_HATE">Kêu gọi bạo lực, thù ghét</option>
-                        <option value="SUICIDE_OR_SELF_HARM">Tự tử hoặc tự gây thương tích</option>
-                        <option value="PROHIBITED_GOODS_SALES_OR_PROMOTION">Bán hoặc quảng cáo mặt hàng bị cấm</option>
-                        <option value="FRAUD_OR_IMPERSONATION">Lừa đảo hoặc mạo danh</option>
-                        <option value="SPAM">Nội dung này là spam</option>
-                        <option value="MISINFORMATION">Thông tin sai sự thật</option>
-                        <option value="INTELLECTUAL_PROPERTY_VIOLATION">Vi phạm quyền sở hữu trí tuệ</option>
+                        @foreach (var e in ReportCategory.List)
+                        {
+                            <option value="@e">@e</option>
+                        }
                     </select>
                     <span asp-validation-for="filter.ReportCategory" class="text-danger"></span>
                 </div>
@@ -66,9 +61,10 @@
                     <label class="form-label">Trạng Thái</label>
                     <select asp-for="filter.Status" class="form-select">
                         <option value="" disabled selected>Chọn Trạng Thái</option>
-                        <option value="PROCESSING">Đang Xử Lý</option>
-                        <option value="COMPLETE">Hoàn Thành</option>
-                        <option value="CANCELED">Hủy Bỏ</option>
+                        @foreach(var e in ReportStatuses.List)
+                        {
+                            <option value="@e">@e</option>
+                        }
                     </select>
                     <span asp-validation-for="filter.Status" class="text-danger"></span>
                 </div>
@@ -90,9 +86,10 @@
                     <label class="form-label">Loại Báo Cáo</label>
                     <select asp-for="filter.ReportType" class="form-select">
                         <option value="" disabled selected>Chọn</option>
-                        <option value="POST">Bài Viết</option>
-                        <option value="COMMENT">Bình Luận</option>
-                        <option value="ROOM">Phòng</option>
+                        @foreach(var e in ReportTypes.List)
+                        {
+                            <option value="@e">@e</option>
+                        }
                         @* @for(int i = 0; i < AccountGenres.List.Count; i++)
                         {
                         <option value="@i+1">@AccountGenres.List[i]</option>
