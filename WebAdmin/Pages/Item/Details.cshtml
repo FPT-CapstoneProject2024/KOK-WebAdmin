@@ -34,7 +34,18 @@
             Trạng Thái
         </dt>
         <dd class="col-md-8 col-12">
-            @Html.DisplayFor(model => model.Item.ItemStatus)
+            @if (Model.Item.ItemStatus == "Vô Hiệu Hóa" || Model.Item.ItemStatus == "DISABLE")
+            {
+                <span>Vô Hiệu Hóa</span>
+            }
+            else if (Model.Item.ItemStatus == "Kích Hoạt" || Model.Item.ItemStatus == "ENABLE")
+            {
+                <span>Kích Hoạt</span>
+            }
+            else if (Model.Item.ItemStatus == "Chờ Duyệt" || Model.Item.ItemStatus == "PENDING")
+            {
+                <span>Chờ Duyệt</span>
+            }
         </dd>
         <dt class="col-md-4 col-12">
             Có Thể Hết Hạn?
@@ -64,7 +75,7 @@
             Giá Up
         </dt>
         <dd class="col-md-8 col-12">
-            @Html.DisplayFor(model => model.Item.ItemBuyPrice)
+            @Html.Raw(Model.Item.ItemBuyPrice == 0 ? "Miễn Phí" : ((int)Model.Item.ItemBuyPrice + " UP"))
         </dd>
         @* <dt class="col-md-4 col-12">
             Giá Bán

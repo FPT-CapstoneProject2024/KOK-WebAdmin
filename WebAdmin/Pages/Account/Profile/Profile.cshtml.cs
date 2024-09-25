@@ -32,7 +32,7 @@ namespace WebAdmin.Pages.Account.Profile
             
             try
             {
-                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.AccountResource + "/" + HttpContext.Session.GetString("AccountId");
+                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.AccountResource + "/" + JsonConvert.DeserializeObject<DTOModels.Response.Account>(HttpContext!.Request.Cookies["AccountData"])?.AccountId;
 
                 var response = await _apiClient.GetAsync(uri);
 
@@ -69,7 +69,7 @@ namespace WebAdmin.Pages.Account.Profile
                     Account.Image = dataImage.Item2 ?? string.Empty;
                 }
 
-                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.AccountResource + "/update-account/" + HttpContext.Session.GetString("AccountId");
+                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.AccountResource + "/update-account/" + JsonConvert.DeserializeObject<DTOModels.Response.Account>(HttpContext!.Request.Cookies["AccountData"])?.AccountId;
 
                 var response = await _apiClient.PutAsync(uri, Account);
 

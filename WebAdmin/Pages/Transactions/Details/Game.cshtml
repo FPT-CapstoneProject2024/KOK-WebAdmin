@@ -11,7 +11,19 @@
             Trạng Thái
         </dt>
         <dd class="col-md-8 col-12">
-            @Html.DisplayFor(model => model.InAppTransaction.Status)
+            @* @Html.DisplayFor(model => model.InAppTransaction.Status) *@
+            @if (Model.InAppTransaction.Status == "Hủy Bỏ" || Model.InAppTransaction.Status == "CANCELED")
+            {
+                <span>Hủy Bỏ</span>
+            }
+            else if (Model.InAppTransaction.Status == "Hoàn Thành" || Model.InAppTransaction.Status == "COMPLETE")
+            {
+                <span>Hoàn Thành</span>
+            }
+            else
+            {
+                <span>Chờ Xử Lý</span>
+            }
         </dd>
         <dt class="col-md-4 col-12">
             Ngày Tạo
@@ -23,19 +35,33 @@
             Loại Giao Dịch
         </dt>
         <dd class="col-md-8 col-12">
-            @Html.DisplayFor(model => model.InAppTransaction.TransactionType)
+            @* @Html.DisplayFor(model => model.InAppTransaction.TransactionType) *@
+            @if (Model.InAppTransaction.TransactionType == "Mua Vật Phẩm" || Model.InAppTransaction.TransactionType == "BUY_ITEM")
+            {
+                <span>Mua Vật Phẩm</span>
+            }
+            else if (Model.InAppTransaction.TransactionType == "Mua Bài Hát" || Model.InAppTransaction.TransactionType == "BUY_SONG")
+            {
+                <span>Mua Bài Hát</span>
+            }
+            else if (Model.InAppTransaction.TransactionType == "Nạp Vào Tài Khoản" || Model.InAppTransaction.TransactionType == "RECHARGE_UP_BALANCE")
+            {
+                <span>Nạp Vào Tài Khoản</span>
+            }
         </dd>
         <dt class="col-md-4 col-12">
             Up Trước Giao Dịch
         </dt>
         <dd class="col-md-8 col-12">
-            @Html.DisplayFor(model => model.InAppTransaction.UpAmountBefore)
+           @*  @Html.DisplayFor(model => model.InAppTransaction.UpAmountBefore) *@
+            @Html.Raw(((int)Model.InAppTransaction.UpAmountBefore + " UP"))
         </dd>
         <dt class="col-md-4 col-12">
             Tổng UP
         </dt>
         <dd class="col-md-8 col-12">
-            @Html.DisplayFor(model => model.InAppTransaction.UpTotalAmount)
+            @* @Html.DisplayFor(model => model.InAppTransaction.UpTotalAmount) *@
+            @Html.Raw(((int)Model.InAppTransaction.UpTotalAmount + " UP"))
         </dd>
        
     </dl>

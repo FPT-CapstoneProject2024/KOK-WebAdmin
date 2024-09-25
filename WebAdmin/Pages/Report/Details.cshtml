@@ -9,13 +9,59 @@
             Mục Báo Cáo
         </dt>
         <dd class="col-md-8 col-12">
-            @Html.DisplayFor(model => model.Report.ReportCategory)
+            @if (Model.Report.ReportCategory == "Nội dung liên quan đến tình dục" || Model.Report.ReportCategory == "SEXUAL_CONTENT")
+            {
+                <span>Nội dung liên quan đến tình dục</span>
+            }
+            else if (Model.Report.ReportCategory == "Bắt nạt hoặc quấy rối" || Model.Report.ReportCategory == "BULLYING_OR_HARASSMENT")
+            {
+                <span>Bắt nạt hoặc quấy rối</span>
+            }
+            else if (Model.Report.ReportCategory == "Kêu gọi bạo lực, thù ghét" || Model.Report.ReportCategory == "INCITEMENT_TO_VIOLENCE_OR_HATE")
+            {
+                <span>Kêu gọi bạo lực, thù ghét</span>
+            }
+            else if (Model.Report.ReportCategory == "Tự tử hoặc tự gây thương tích" || Model.Report.ReportCategory == "SUICIDE_OR_SELF_HARM")
+            {
+                <span>Tự tử hoặc tự gây thương tích</span>
+            }
+            else if (Model.Report.ReportCategory == "Bán hoặc quảng cáo mặt hàng bị cấm" || Model.Report.ReportCategory == "PROHIBITED_GOODS_SALES_OR_PROMOTION")
+            {
+                <span>Bán hoặc quảng cáo mặt hàng bị cấm</span>
+            }
+            else if (Model.Report.ReportCategory == "Lừa đảo hoặc mạo danh" || Model.Report.ReportCategory == "FRAUD_OR_IMPERSONATION")
+            {
+                <span>Lừa đảo hoặc mạo danh</span>
+            }
+            else if (Model.Report.ReportCategory == "Nội dung này là spam" || Model.Report.ReportCategory == "SPAM")
+            {
+                <span>Nội dung này là spam</span>
+            }
+            else if (Model.Report.ReportCategory == "Thông tin sai sự thật" || Model.Report.ReportCategory == "MISINFORMATION")
+            {
+                <span>Thông tin sai sự thật</span>
+            }
+            else if (Model.Report.ReportCategory == "Vi phạm quyền sở hữu trí tuệ" || Model.Report.ReportCategory == "INTELLECTUAL_PROPERTY_VIOLATION")
+            {
+                <span>Vi phạm quyền sở hữu trí tuệ</span>
+            }
         </dd>
         <dt class="col-md-4 col-12">
             Trạng Thái
         </dt>
         <dd class="col-md-8 col-12">
-            @Html.DisplayFor(model => model.Report.Status)
+            @if (Model.Report.Status == "Hủy" || Model.Report.Status == "CANCELED")
+            {
+                <span>Hủy Bỏ</span>
+            }
+            else if (Model.Report.Status == "Đã Xử Lý" || Model.Report.Status == "COMPLETE")
+            {
+                <span>Đã Xử Lý</span>
+            }
+            else if (Model.Report.Status == "Đang Xử Lý" || Model.Report.Status == "PROCCESSING")
+            {
+                <span>Đang Xử Lý</span>
+            }
         </dd>
         <dt class="col-md-4 col-12">
             Lý Do
@@ -33,7 +79,18 @@
             Loại Báo Cáo
         </dt>
         <dd class="col-md-8 col-12">
-            @Html.DisplayFor(model => model.Report.ReportType)
+            @if (Model.Report.ReportType == "Bài Viết" || Model.Report.ReportType == "POST")
+            {
+                <span>Bài Viết</span>
+            }
+            else if (Model.Report.ReportType == "Bình Luận" || Model.Report.ReportType == "COMMENT")
+            {
+                <span>Bình Luận</span>
+            }
+            else if (Model.Report.ReportType == "Phòng" || Model.Report.ReportType == "ROOM")
+            {
+                <span>Phòng</span>
+            }
         </dd>
         @* <dt class="col-md-4 col-12">
             Bình Luận

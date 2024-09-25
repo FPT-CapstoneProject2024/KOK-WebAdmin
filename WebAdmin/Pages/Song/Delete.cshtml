@@ -35,7 +35,17 @@
             Trạng Thái
         </dt>
         <dd class="col-md-8 col-12">
-            @Html.DisplayFor(model => model.Song.SongStatus)
+            @if (Model.Song.SongStatus == "Vô Hiệu Hóa" || Model.Song.SongStatus == "DISABLE")
+            {
+                <span>Vô Hiệu Hóa</span>
+            }
+            else if (Model.Song.SongStatus == "Kích Hoạt" || Model.Song.SongStatus == "ENABLE")
+            {
+                <span>Kích Hoạt</span>
+            }
+            else
+            {
+            }
         </dd>
         <dt class="col-md-4 col-12">
             Ngày Tạo
@@ -65,7 +75,7 @@
             Giá Tiền
         </dt>
         <dd class="col-md-8 col-12">
-            @Html.DisplayFor(model => model.Song.Price)
+            @Html.Raw(Model.Song.Price == 0 ? "Miễn Phí" : ((int)Model.Song.Price + " UP"))
         </dd>
 
     </dl>

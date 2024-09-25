@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
@@ -65,10 +66,18 @@ namespace WebAdmin.Pages.Authentication
                             Secure = true,
                             SameSite = SameSiteMode.Strict,
                         });
+
+                        Response.Cookies.Append("AccountData", JsonConvert.SerializeObject(loginResult.Value), new CookieOptions
+                        {
+                            HttpOnly = true,
+                            Secure = true,
+                            SameSite = SameSiteMode.Strict,
+                        });
                         //AccountId = loginResult.Value.AccountId;//
 
-                        HttpContext.Session.SetString("AccountId", String.Concat(loginResult.Value.AccountId));
+                        //HttpContext.Session.SetString("AccountId", String.Concat(loginResult.Value.AccountId));
                         HttpContext.Session.SetString("AccountData", JsonConvert.SerializeObject(loginResult.Value));
+                        //HttpContext.Session.SetString("AccessToken", loginResult.AccessToken);
 
 
                         // Redirect to home page

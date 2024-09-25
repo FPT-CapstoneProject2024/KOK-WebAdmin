@@ -1,10 +1,15 @@
 ﻿@page
+@using Microsoft.AspNetCore.Http
+
 @using Newtonsoft.Json
 @using WebAdmin.DTOModels
-@model WebAdmin.Pages.Account.IndexModel
 @inject IHttpContextAccessor HttpContextAccessor
 @{
     var userInfo = JsonConvert.DeserializeObject<DTOModels.Response.Account>(HttpContextAccessor.HttpContext.Session.GetString("AccountData"));
+}
+<!
+@model WebAdmin.Pages.Account.IndexModel
+@{
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -58,10 +63,7 @@
                             <option value="MALE">Nam</option>
                             <option value="FEMALE">Nữ</option>
                             <option value="OTHERS">Khác</option>
-                            @* @for(int i = 0; i < AccountGenres.List.Count; i++)
-                            {
-                                <option value="@i+1">@AccountGenres.List[i]</option>
-                            } *@
+
                         </select>
                         <span asp-validation-for="filter.Gender" class="text-danger"></span>
                     </div>
@@ -76,10 +78,7 @@
                         <option value="ADMIN">Quản Trị Viên</option>
                         <option value="STAFF">Nhân Viên</option>
                         <option value="MEMBER">Người Dùng</option>
-                        @* @for(int i = 0; i < AccountGenres.List.Count; i++)
-                        {
-                        <option value="@i+1">@AccountGenres.List[i]</option>
-                        } *@
+
                     </select>
                     </div>
                     <div class="col-md-4">
@@ -233,14 +232,10 @@
         <table class="table table-hover" style="margin-top:20px;">  
             <tr>
                 <th>#</th>
-                @* <th></th> *@
-                @*                 <th>Full Name</th> *@
                 <th>Email</th>
                 <th>Tên Tài Khoản</th>
                 <th>Giới Tính</th>
                 <th>Vai Trò</th>
-                @* <th>Hoạt Động</th> *@
-                @*<th>Account Status</th> *@
                 <th>Trạng Thái</th>
                 <th></th>
                 <th></th>
@@ -282,7 +277,7 @@
                             {
                                 <span>Người Dùng</span>
                             }
-                        </td>
+                        </td>                        
                         <td>
                             <!-- Toggle button for Activate/Deactivate -->
                             @if (e.AccountStatus == "INACTIVE" || e.AccountStatus == "Không Hoạt Động")

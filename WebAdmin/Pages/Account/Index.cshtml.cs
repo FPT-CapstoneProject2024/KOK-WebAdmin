@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 using WebAdmin.Context;
 using WebAdmin.DTOModels;
 using WebAdmin.DTOModels.Filter;
@@ -47,7 +48,7 @@ namespace WebAdmin.Pages.Account
             CurrentPage = (CurrentPage > TotalPage) ? TotalPage : CurrentPage;
 
             var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.AccountResource + "/" + "get-accounts";
-
+            //apiClient..Authorization = new AuthenticationHeaderValue(HttpContext.Session.GetString("AccessToken"));
             var response = await apiClient.GetAsync(uri + "?page=" + CurrentPage + filter);
 
 

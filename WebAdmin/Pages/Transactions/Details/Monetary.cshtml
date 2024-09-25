@@ -35,7 +35,7 @@
             Số Tiền
         </dt>
         <dd class="col-md-8 col-12">
-            @Html.DisplayFor(model => model.MonetaryTransaction.MoneyAmount)
+            @Html.Raw(((int)Model.MonetaryTransaction.MoneyAmount))
         </dd>
         <dt class="col-md-4 col-12">
             Loại Tiền Tệ
@@ -47,7 +47,18 @@
             Trạng Thái
         </dt>
         <dd class="col-md-8 col-12">
-            @Html.DisplayFor(model => model.MonetaryTransaction.Status)
+            @if (Model.MonetaryTransaction.Status.Equals("Hủy Bỏ") || Model.MonetaryTransaction.Status.Equals("CANCELLED"))
+            {
+                <span>Hủy Bỏ</span>
+            }
+            else if (Model.MonetaryTransaction.Status.Equals("Hoàn Thành") || Model.MonetaryTransaction.Status.Equals("COMPLETE"))
+            {
+                <span>Hoàn Thành</span>
+            }
+            else
+            {
+                <span>Chờ Xử Lý</span>
+            }
         </dd>
         <dt class="col-md-4 col-12">
             Ngày Tạo
