@@ -237,7 +237,7 @@ namespace WebAdmin.Pages.Song
 
         public IActionResult OnGetSearchArtist(string query)
         {
-            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ArtistResource + "?ArtistName=" + query;
+            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ArtistResource + "?Status=ACTIVE&ArtistName=" + query;
             var response = apiClient.GetAsync(uri).Result;
             var jsonResponse = response.Content.ReadAsStringAsync().Result;
 
@@ -250,7 +250,7 @@ namespace WebAdmin.Pages.Song
         
         public IActionResult OnGetSearchSinger(string query)
         {
-            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.SingerResource + "?SingerName=" + query;
+            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.SingerResource + "?Status=ACTIVE&SingerName=" + query;
             var response = apiClient.GetAsync(uri).Result;
             var jsonResponse = response.Content.ReadAsStringAsync().Result;
 
@@ -263,7 +263,7 @@ namespace WebAdmin.Pages.Song
         
         public IActionResult OnGetSearchGenre(string query)
         {
-            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.GenreResource + "?GenreName=" + query;
+            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.GenreResource + "?Status=ACTIVE&GenreName=" + query;
             var response = apiClient.GetAsync(uri).Result;
             var jsonResponse = response.Content.ReadAsStringAsync().Result;
 

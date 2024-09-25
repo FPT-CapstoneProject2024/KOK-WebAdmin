@@ -34,6 +34,7 @@
                 Tên Thể Loại
             </th>
             <th>Hình Ảnh</th>
+            <th>Trạng Thái</th>
             <th></th>
         </tr>
     </thead>
@@ -47,6 +48,18 @@
                     @Html.DisplayFor(modelItem => item.GenreName)
                 </td>
                 <td class="img-cell"><img src="@Html.DisplayFor(modelItem => item.Image)" alt="N/A"/></td>
+                
+                    @if(item.Status.Equals("INACTIVE"))
+                    {
+                            <td>Vô Hiệu Hóa</td>
+                        }else if(item.Status.Equals("ACTIVE")){
+                            <td>Hoạt Động </td>
+                        }
+                        else
+                        {
+                            <td>N/A</td>
+                        }
+                
                 <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editGenreModal" data-id="@item.GenreId">
                         <i class="fa-solid fa-pen" style="font-size: 25px;color: #fff;"></i>

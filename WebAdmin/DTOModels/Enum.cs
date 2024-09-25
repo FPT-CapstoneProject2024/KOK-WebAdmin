@@ -630,6 +630,22 @@ namespace WebAdmin.DTOModels
         ROOM
     }
 
+    public enum GenreStatus
+    {
+        INACTIVE,
+        ACITVE,
+    }
+    public enum SingerStatus
+    {
+        INACTIVE,
+        ACITVE,
+    }
+    public enum ArtistStatus
+    {
+        INACTIVE,
+        ACITVE,
+    }
+
     public static class ReportTypes
     {
         public static List<string> List = new()

@@ -10,6 +10,8 @@ namespace WebAdmin.DTOModels.Response
         public string? SingerName { get; set; }
         public string? Image { get; set; }
 
+        public string? Status { get; set; }
+
         public ICollection<SongSinger>? SongSingers { get; set; }
     }
 }

@@ -9,6 +9,7 @@ namespace WebAdmin.DTOModels.Response
         public Guid? GenreId { get; set; }
         public string? GenreName { get; set; }
         public string? Image { get; set; }
+        public string? Status { get; set; }
 
         public ICollection<SongGenre>? SongGernes { get; set; }
     }
