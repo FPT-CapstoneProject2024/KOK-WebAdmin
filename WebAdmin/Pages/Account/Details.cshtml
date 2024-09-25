@@ -27,24 +27,40 @@
                 @* @Html.DisplayNameFor(model => model.Account.Gender) *@
             </dt>
             <dd class="col-md-8 col-12">
-                @Html.DisplayFor(model => model.Account.Gender)
+                @* @Html.DisplayFor(model => model.Account.Gender) *@
+                @if (Model.Account.Gender == "Nam" || Model.Account.Gender == "MALE")
+                {
+                    <span>Nam</span>
+                }
+                else @if (Model.Account.Gender == "Nữ" || Model.Account.Gender == "FEMALE")
+                {
+                    <span>Nữ</span>
+                }
+                else @if (Model.Account.Gender == "Khác" || Model.Account.Gender == "OTHERS")
+                {
+                    <span>Khác</span>
+                }
             </dd>
             <dt class="col-md-4 col-12">
                 Vai Trò
-                @* @Html.DisplayNameFor(model => model.Account.Role) *@
             </dt>
             <dd class="col-md-8 col-12">
-                @Html.DisplayFor(model => model.Account.Role)
+                @* @Html.DisplayFor(model => model.Account.Role) *@
+                @if (Model.Account.Role == "Quản Trị Viên" || Model.Account.Role == "ADMIN")
+                {
+                    <span>Quản Trị Viên</span>
+                }
+                else @if (Model.Account.Role == "Nhân Viên" || Model.Account.Role == "STAFF")
+                {
+                    <span>Nhân Viên</span>
+                }
+                else @if (Model.Account.Role == "Người Dùng" || Model.Account.Role == "MEMBER")
+                {
+                    <span>Người Dùng</span>
+                }
             </dd>
-@*             <dt class="col-md-4 col-12">
-                Online?              
-            </dt> *@
-@*             <dd class="col-md-8 col-12">               
-                @(Model.Account.IsOnline.HasValue ? (Model.Account.IsOnline.Value ? "Online" : "Offline") : "Unknown")
-            </dd> *@
             <dt class="col-md-4 col-12">
                 Họ Tên
-                @* @Html.DisplayNameFor(model => model.Account.Fullname) *@
             </dt>
             <dd class="col-md-8 col-12">
                 @Html.DisplayFor(model => model.Account.Fullname)
@@ -79,17 +95,23 @@
             </dd>
             <dt class="col-md-4 col-12">
                 Trạng Thái
-                @* @Html.DisplayNameFor(model => model.Account.AccountStatus) *@
             </dt>
             <dd class="col-md-8 col-12">
-                @Html.DisplayFor(model => model.Account.AccountStatus)
+                @* @Html.DisplayFor(model => model.Account.AccountStatus) *@
+                @if (Model.Account.AccountStatus == "Kích Hoạt" || Model.Account.AccountStatus == "ACTIVE")
+                {
+                    <span>Kích Hoạt</span>
+                }
+                else @if (Model.Account.AccountStatus == "Vô Hiệu Hóa" || Model.Account.AccountStatus == "INACTIVE")
+                {
+                    <span>Vô Hiệu Hóa</span>
+                }
             </dd>
             <dt class="col-md-4 col-12">
                 Số dư Up
-                @* @Html.DisplayNameFor(model => model.Account.UpBalance) *@
             </dt>
             <dd class="col-md-8 col-12">
-                @Html.DisplayFor(model => model.Account.UpBalance) UP
+                @Html.Raw((int)Model.Account.UpBalance + " UP")
             </dd>
         </dl>
     </div>

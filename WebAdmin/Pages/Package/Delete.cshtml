@@ -23,22 +23,33 @@
             @Html.DisplayFor(model => model.Package.Description)
         </dd>
         <dt class="col-md-4 col-12">
-            Giá Tiền
+            Giá Gói
         </dt>
         <dd class="col-md-8 col-12">
-            @Html.DisplayFor(model => model.Package.MoneyAmount)
+            @Html.Raw(Model.Package.MoneyAmount == 0 ? "Miễn Phí" : ((int)Model.Package.MoneyAmount + " VND"))
         </dd>
         <dt class="col-md-4 col-12">
             Số UP
         </dt>
         <dd class="col-md-8 col-12">
-            @Html.DisplayFor(model => model.Package.StarNumber)
+            @Html.Raw((int)Model.Package.StarNumber + " UP")
         </dd>
         <dt class="col-md-4 col-12">
             Trạng Thái
         </dt>
         <dd class="col-md-8 col-12">
-            @Html.DisplayFor(model => model.Package.Status)
+            @if (Model.Package.Status == "Không Hoạt Động" || Model.Package.Status == "INACTIVE")
+            {
+                <span>Không Hoạt Động</span>
+            }
+            else if (Model.Package.Status == "Hoạt Động" || Model.Package.Status == "ACTIVE")
+            {
+                <span>Hoạt Động</span>
+            }
+            else
+            {
+
+            }
         </dd>
         <dt class="col-md-4 col-12">
             Ngày Tạo

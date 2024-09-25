@@ -4,9 +4,12 @@
 @using Newtonsoft.Json
 @using WebAdmin.DTOModels
 @inject IHttpContextAccessor HttpContextAccessor
+@{
+    var userInfo = JsonConvert.DeserializeObject<DTOModels.Response.Account>(HttpContextAccessor.HttpContext.Session.GetString("AccountData"));
+}
+<!
 @model WebAdmin.Pages.Account.IndexModel
 @{
-    var userInfo = JsonConvert.DeserializeObject<DTOModels.Response.Account>(HttpContext.Request.Cookies["AccountData"]);
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -215,15 +218,14 @@
     </style>
 
     <div style="padding-top:10px">
+    @if (userInfo.Role == "Quản Trị Viên" || userInfo.Role == "ADMIN")
+    {
         <p>
-        @if(userInfo.Role.Equals("Quản trị viên") || userInfo.Role.Equals("ADMIN"))
-        {
             <button type="button" class="btn btn-success btn-icon-only" data-toggle="modal" data-target="#createAccountModal" style="border: none; background: transparent; padding: 0;">
                 <i class="fa-regular fa-square-plus" style="font-size: 42px; color: #28a745;"></i>
             </button>
-        }
-
         </p>
+    }    
     </div>
 
     <div class="table-container">
@@ -238,6 +240,7 @@
                 <th></th>
                 <th></th>
             </tr>
+
             @if (Model.data.Results is not null)
             {
                 int count = 0;
@@ -274,9 +277,7 @@
                             {
                                 <span>Người Dùng</span>
                             }
-                        </td>
-                        <td>@e.Role</td>
-
+                        </td>                        
                         <td>
                             <!-- Toggle button for Activate/Deactivate -->
                             @if (e.AccountStatus == "INACTIVE" || e.AccountStatus == "Không Hoạt Động")
@@ -285,7 +286,7 @@
                             }
                             else
                             {
-                            <a asp-page-handler="Inactive" asp-route-id="@e.AccountId" class="btn btn-success">&nbsp;&nbsp;Kích Hoạt&nbsp;&nbsp;</a>
+                                <a asp-page-handler="Inactive" asp-route-id="@e.AccountId" class="btn btn-success">&nbsp;&nbsp;Kích Hoạt&nbsp;&nbsp;</a>
                             }
                         </td>
                         <td>
@@ -294,7 +295,6 @@
                             </button>
                         </td>
                     </tr>
-
                 }
             }
         </table>
