@@ -3,7 +3,6 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @{
     var userInfo = JsonConvert.DeserializeObject<DTOModels.Response.Account>(HttpContextAccessor.HttpContext.Session.GetString("AccountData"));
-
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -453,10 +452,13 @@
                     <ul class="navbar-nav">
                         
                         <li class="nav-item">
-                            <a class="nav-link" href="#" id="dropdownMenuLink" data-bs-toggle="collapse" data-bs-target="#statsMenuCollapse" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa-solid fa-chart-column" style="color: #7A99FE;"></i>Bảng Thống Kê
-                                <span class="arrow" id="statsArrow">&#9662;</span> <!-- Down arrow initially -->
-                            </a>
+                            @if(userInfo.Role == "Quản Trị Viên" || userInfo.Role == "ADMIN")
+                            {
+                                <a class="nav-link" href="#" id="dropdownMenuLink" data-bs-toggle="collapse" data-bs-target="#statsMenuCollapse" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa-solid fa-chart-column" style="color: #7A99FE;"></i>Bảng Thống Kê
+                                    <span class="arrow" id="statsArrow">&#9662;</span> <!-- Down arrow initially -->
+                                </a>
+                            }                           
                             <div id="statsMenuCollapse" class="collapse">
                                 <a class="nav-link ml-3" asp-page="/Dashboard/Index">
                                     <i class="fa-solid fa-circle" style="color: #7A99FE;font-size:7px"></i>Tổng Quan
@@ -525,32 +527,36 @@
                             </div>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" id="transactionMenuLink" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa-solid fa-credit-card" style="color: #7A99FE;"></i> Giao Dịch
-                                <span class="arrow" id="transactionArrow">&#9662;</span> <!-- Down arrow initially -->
-                            </a>
-                            <div id="transactionMenuCollapse" class="collapse">
-                                <a class="nav-link ml-3" asp-page="/Transactions/Game">
-                                    <i class="fa-solid fa-tablet-screen-button" style="color: #7A99FE;"></i>Trong Ứng Dụng
+                        @if(userInfo.Role == "Quản Trị Viên" || userInfo.Role == "ADMIN")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" id="transactionMenuLink" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa-solid fa-credit-card" style="color: #7A99FE;"></i> Giao Dịch
+                                    <span class="arrow" id="transactionArrow">&#9662;</span> <!-- Down arrow initially -->
                                 </a>
-                                <a class="nav-link ml-3" asp-page="/Transactions/Monetary">
-                                    <i class="fa-solid fa-money-bill-wave" style="color: #7A99FE;"></i>Tiền
-                                </a>
-                            </div>
-                        </li>
-
+                                <div id="transactionMenuCollapse" class="collapse">
+                                    <a class="nav-link ml-3" asp-page="/Transactions/Game">
+                                        <i class="fa-solid fa-tablet-screen-button" style="color: #7A99FE;"></i>Trong Ứng Dụng
+                                    </a>
+                                    <a class="nav-link ml-3" asp-page="/Transactions/Monetary">
+                                        <i class="fa-solid fa-money-bill-wave" style="color: #7A99FE;"></i>Tiền
+                                    </a>
+                                </div>
+                            </li>
+                        }                      
                         <li class="nav-item">
                             <a asp-page="/Item/Index" class="nav-link">
                                 <i class="fa-solid fa-wand-magic-sparkles" style="color: #7A99FE;"></i>Danh Sách Vật Phẩm
                             </a>
                         </li>
-
-                        <li class="nav-item">
-                            <a asp-page="/Package/Index" class="nav-link">
-                                <i class="fa-solid fa-hand-holding-dollar" style="color: #7A99FE;"></i>Danh Sách Gói
-                            </a>
-                        </li>
+                        @if (userInfo.Role == "Quản Trị Viên" || userInfo.Role == "ADMIN")
+                        {
+                            <li class="nav-item">
+                                <a asp-page="/Package/Index" class="nav-link">
+                                    <i class="fa-solid fa-hand-holding-dollar" style="color: #7A99FE;"></i>Danh Sách Gói
+                                </a>
+                            </li>
+                        }                       
                         <li class="nav-item">
                             <a asp-page="/Report/Index" class="nav-link">
                                 <i class="fa-solid fa-flag" style="color: #7A99FE;"></i>Danh Sách Tố Cáo

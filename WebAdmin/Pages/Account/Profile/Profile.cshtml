@@ -5,13 +5,13 @@
 @{
 }
 <style>
-    body {
+    /* body {
         background: rgb(122, 113, 86)
-    }
+    } */
 
     .form-control:focus {
         box-shadow: none;
-        border-color: #BA68C8
+        border-color: #7A99FE
     }
 
     .profile-button {
@@ -40,7 +40,7 @@
     }
 
     .labels {
-        font-size: 11px
+        font-size: 14px
     }
 
     .add-experience:hover {
@@ -64,7 +64,14 @@
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="@Model.Profile.Image"><span class="font-weight-bold">@Model.Profile.UserName</span><span class="text-black-50">@Model.Profile.Email</span><span> </span></div>
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <img class="rounded-circle mt-5" width="150px" src="@Model.Profile.Image">
+                <span 
+                    class="font-weight-bold" style="padding-top:20px">@Model.Profile.UserName
+                </span>
+                <span class="text-black-50">@Model.Profile.Email</span>
+                <span> </span>
+            </div>
         </div>
         <div class="col-md-5 border-right">
             <div class="p-3 py-5">
@@ -90,10 +97,15 @@
                             </select></div>
                         <div class="col-md-12"><label for="file" class="labels">Hình Ảnh</label><input type="file" name="file" class="form-control"></div>
 
-                        <<span class="text-danger">@ViewBag.Message</span>
+                        <span class="text-danger">@ViewBag.Message</span>
                     </div>
-                    <div class="mt-5 text-center"><input class="btn btn-primary profile-button" value="Lưu Thay Đổi" type="submit"></input></div>
+                    <div class="mt-5 text-center"><input class="btn btn-primary" value="Lưu Thay Đổi" type="submit"></input></div>
                 </form>
+            </div>
+        </div>
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <img src="/img/logo.jpg" class="navbar-brand-img" alt="...">
             </div>
         </div>
     </div>

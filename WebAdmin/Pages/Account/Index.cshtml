@@ -1,7 +1,10 @@
 ﻿@page
+@using Newtonsoft.Json
 @using WebAdmin.DTOModels
 @model WebAdmin.Pages.Account.IndexModel
+@inject IHttpContextAccessor HttpContextAccessor
 @{
+    var userInfo = JsonConvert.DeserializeObject<DTOModels.Response.Account>(HttpContextAccessor.HttpContext.Session.GetString("AccountData"));
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -216,11 +219,14 @@
     </style>
 
     <div style="padding-top:10px">
+    @if (userInfo.Role == "Quản Trị Viên" || userInfo.Role == "ADMIN")
+    {
         <p>
             <button type="button" class="btn btn-success btn-icon-only" data-toggle="modal" data-target="#createAccountModal" style="border: none; background: transparent; padding: 0;">
                 <i class="fa-regular fa-square-plus" style="font-size: 42px; color: #28a745;"></i>
             </button>
         </p>
+    }    
     </div>
 
     <div class="table-container">
@@ -239,6 +245,7 @@
                 <th></th>
                 <th></th>
             </tr>
+
             @if (Model.data.Results is not null)
             {
                 int count = 0;
@@ -246,8 +253,6 @@
                 {
                     <tr>
                         <td>@(count += 1)</td>
-                        @* <td class="img-cell"><img src="@e.Image" alt="N/A" /></td> *@
-                        @* <td>@e.Fullname</td> *@
                         <td>@e.Email</td>
                         <td>@e.UserName</td>
                         <td>
@@ -278,21 +283,6 @@
                                 <span>Người Dùng</span>
                             }
                         </td>
-                        @* <td>@e.Gender</td> *@
-                        <td>@e.Role</td>
-                        @* <td>                          
-                            @if (e.IsOnline == false)
-                            {
-                                <span style="color: red;">Không Hoạt Động</span>
-                            }
-                            else
-                            {
-                            <span style="color: green;">Đang Hoạt Động</span>
-                            }
-                        </td> *@
-                        @* <td>@e.IsOnline</td> *@
-                        @* <td>@e.AccountStatus</td> *@
-                        @* <td><a asp-page-handler="Inactive" asp-route-id="@e.AccountId" class="btn btn-dribbble">Ẩn</a> | <a asp-page-handler="Active" asp-route-id="@e.AccountId" class="btn btn-warning">Kích hoạt</a></td> *@
                         <td>
                             <!-- Toggle button for Activate/Deactivate -->
                             @if (e.AccountStatus == "INACTIVE" || e.AccountStatus == "Không Hoạt Động")
@@ -301,7 +291,7 @@
                             }
                             else
                             {
-                            <a asp-page-handler="Inactive" asp-route-id="@e.AccountId" class="btn btn-success">&nbsp;&nbsp;Kích Hoạt&nbsp;&nbsp;</a>
+                                <a asp-page-handler="Inactive" asp-route-id="@e.AccountId" class="btn btn-success">&nbsp;&nbsp;Kích Hoạt&nbsp;&nbsp;</a>
                             }
                         </td>
                         <td>
@@ -310,7 +300,6 @@
                             </button>
                         </td>
                     </tr>
-
                 }
             }
         </table>
