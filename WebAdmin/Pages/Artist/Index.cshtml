@@ -47,20 +47,20 @@
                     @Html.DisplayFor(modelItem => item.ArtistName)
                 </td>
                 <td class="img-cell"><img src="@Html.DisplayFor(modelItem => item.Image)" alt="N/A"/></td>
-                        @if (item.Status.Equals("INACTIVE"))
+                        @if (item.Status.Equals("INACTIVE") || item.Status.Equals("Vô Hiệu Hóa"))
                         {
-                            <td>Vô Hiệu Hóa</td>
+                            <span style="color: red;">Vô Hiệu Hóa</span>
                         }
-                        else if (item.Status.Equals("ACTIVE"))
+                        else if (item.Status.Equals("ACTIVE") ||item.Status.Equals("Hoạt Động"))
                         {
-                            <td>Hoạt Động </td>
+                            <span style="color: green;">Hoạt Động</span>
                         }
                         else
                         {
                             <td>N/A</td>
                         }
-                        <td>
-                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editArtistModal" data-id="@item.ArtistId">
+                <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editArtistModal" data-id="@item.ArtistId">
                         <i class="fa-solid fa-pen" style="font-size: 25px;color: #fff;"></i>
                     </button>
                     <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#detailArtistModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@item.ArtistId">

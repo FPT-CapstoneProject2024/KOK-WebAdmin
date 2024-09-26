@@ -49,16 +49,16 @@
                 </td>
                 <td class="img-cell"><img src="@Html.DisplayFor(modelItem => item.Image)" alt="N/A"/></td>
                 
-                    @if(item.Status.Equals("INACTIVE"))
+                    @if(item.Status.Equals("INACTIVE") || item.Status.Equals("Vô Hiệu Hóa"))
                     {
-                            <td>Vô Hiệu Hóa</td>
-                        }else if(item.Status.Equals("ACTIVE")){
-                            <td>Hoạt Động </td>
-                        }
-                        else
-                        {
-                            <td>N/A</td>
-                        }
+                        <span style="color: red;">Vô Hiệu Hóa</span>
+                    }else if(item.Status.Equals("ACTIVE") || item.Status.Equals("Hoạt Động")){
+                        <span style="color: green;">Hoạt Động</span>
+                    }
+                    else
+                    {
+                        <td>N/A</td>
+                    }
                 
                 <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editGenreModal" data-id="@item.GenreId">

@@ -7,6 +7,13 @@
 
 <h3>Bạn có chắc là xóa bài hát?</h3>
 <div class="delete">
+    @if (Model.Song.SongStatus.Equals("DISABLE") || Model.Song.SongStatus.Equals("Vô Hiệu Hóa"))
+    {
+        <div style="text-align: center;">
+            <span>Bài Hát Đã Bị Vô Hiệu Hóa</span>
+        </div>
+    }
+    else{
     <h3>Bạn chắc chắn xóa thông tin?</h3>
     <hr />
     <dl class="row">
@@ -86,4 +93,5 @@
             <input type="submit" value="Xóa" class="btn btn-primary" />
         </div>
     </form>
+    }
 </div>
