@@ -180,7 +180,7 @@
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             z-index: 7;
             width: 300px;
-            height: 195px;
+            height: 135px;
         }
 
         .custom-modal-width {
@@ -585,20 +585,20 @@
                                 <span class="avatar avatar-sm rounded-circle">
                                     <img alt="Image placeholder" src="@userInfo.Image">
                                 </span>
-                                <div class="media-body ml-2 d-none d-lg-block">
+                                <div class="media-body ml-2 d-none d-lg-block" style="color: #7A99FE;">
                                     <span class="mb-0 text-sm  font-weight-bold">@userInfo.UserName</span>
                                 </div>
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
                             <div class=" dropdown-header noti-title">
-                                <h6 class="text-overflow m-0">Welcome!</h6>
+                                <h6 class="text-overflow m-0">Chào Mừng!</h6>
                             </div>
                             <a href="/Account/Profile/Profile" class="dropdown-item">
                                 <i class="ni ni-single-02"></i>
                                 <span>Thông Tin Cá Nhân</span>
                             </a>
-                            <a href="./examples/profile.html" class="dropdown-item">
+                            @* <a href="./examples/profile.html" class="dropdown-item">
                                 <i class="ni ni-settings-gear-65"></i>
                                 <span>Settings</span>
                             </a>
@@ -609,7 +609,7 @@
                             <a href="./examples/profile.html" class="dropdown-item">
                                 <i class="ni ni-support-16"></i>
                                 <span>Support</span>
-                            </a>
+                            </a> *@
                             <div class="dropdown-divider"></div>
                             <a id="logoutButton" class="dropdown-item">
                                 <i class="ni ni-user-run"></i>
@@ -627,9 +627,9 @@
             <div class="col-12">
                 <div id="confirmLogout" class="modal">
                     <div class="modal-content">
-                        <b>Xác nhận thoát?</b>
+                        <b style="align-self:center;">Xác nhận thoát?</b>
 
-                        <div class="button-container">
+                        <div class="button-container" style="align-self:center;">
                             <button class="confirm-button" id="confirmYes">Có</button>
                             <button class="confirm-button" id="confirmNo">Không</button>
                         </div>

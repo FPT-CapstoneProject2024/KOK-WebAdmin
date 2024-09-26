@@ -6,6 +6,13 @@
 
 <h3>Bạn chắc chắn xóa thông tin?</h3>
 <div class="delete">
+    @if (Model.Artist.Status.Equals("INACTIVE") || Model.Artist.Status.Equals("Vô Hiệu Hóa"))
+    {
+        <div style="text-align: center;">
+            <span>Tác Giả Đã Bị Vô Hiệu Hóa</span>
+        </div>
+    }
+    else{
     <h3>Bạn chắc chắn xóa thông tin?</h3>
     <hr />
     <dl class="row">
@@ -29,4 +36,5 @@
             <input type="submit" value="Xóa" class="btn btn-primary" />
         </div>
     </form>
+    }
 </div>

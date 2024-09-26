@@ -7,6 +7,13 @@
 <h1>Delete</h1>
 
 <div class="delete">
+    @if (Model.Package.Status.Equals("INACTIVE") || Model.Package.Status.Equals("Vô Hiệu Hóa"))
+    {
+        <div style="text-align: center;">
+            <span>Gói Đã Bị Vô Hiệu Hóa</span>
+        </div>
+    }
+    else{
     <h3>Bạn chắc chắn xóa thông tin?</h3>
     <hr />
     <dl class="row">
@@ -65,4 +72,5 @@
             <input type="submit" value="Xóa" class="btn btn-primary" />
         </div>
     </form>
+    }
 </div>

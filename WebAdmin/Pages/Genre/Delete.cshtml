@@ -5,28 +5,37 @@
 <h1>Delete</h1>
 
 <h3>Are you sure you want to delete this?</h3>
-<div class ="delete">
-    <h3>Bạn chắc chắn xóa thông tin?</h3>
-    <hr />
-    <dl class="row">
-        <dt class="col-md-4 col-12">
-            Tên Thể Loại
-        </dt>
-        <dd class="col-md-8 col-12">
-            @Html.DisplayFor(model => model.Genre.GenreName)
-        </dd>
-        <dt class="col-md-4 col-12">
-            Hình Ảnh
-        </dt>
-        <dd class="col-md-8 col-12">
-            <img class="details-img" src="@Html.DisplayFor(model => model.Genre.Image)" alt="N/A" />
-        </dd>
-    </dl>
-
-    <form method="post" asp-page="./Delete" asp-route-id="@Model.Genre.GenreId">
-        <input type="hidden" asp-for="Genre.GenreId" />
-        <div class="form-group">
-            <input type="submit" value="Xóa" class="btn btn-primary" />
+<div class ="delete"> 
+    @if (Model.Genre.Status.Equals("INACTIVE") || Model.Genre.Status.Equals("Vô Hiệu Hóa"))
+    {
+        <div style="text-align: center;">
+            <span>Thể Loại Đã Bị Vô Hiệu Hóa</span>
         </div>
-    </form>
-</divclass>
+    }
+    else
+    {
+        <h3>Bạn chắc chắn xóa thông tin?</h3>
+        <hr />
+        <dl class="row">
+            <dt class="col-md-4 col-12">
+                Tên Thể Loại
+            </dt>
+            <dd class="col-md-8 col-12">
+                @Html.DisplayFor(model => model.Genre.GenreName)
+            </dd>
+            <dt class="col-md-4 col-12">
+                Hình Ảnh
+            </dt>
+            <dd class="col-md-8 col-12">
+                <img class="details-img" src="@Html.DisplayFor(model => model.Genre.Image)" alt="N/A" />
+            </dd>
+        </dl>
+
+        <form method="post" asp-page="./Delete" asp-route-id="@Model.Genre.GenreId">
+            <input type="hidden" asp-for="Genre.GenreId" />
+            <div class="form-group">
+                <input type="submit" value="Xóa" class="btn btn-primary" />
+            </div>
+        </form>
+    }  
+</div>

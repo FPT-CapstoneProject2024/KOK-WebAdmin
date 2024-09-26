@@ -61,9 +61,12 @@
 
 </style>
 
-<div class="container rounded bg-white mt-5 mb-5">
-    <div class="row">
-        <div class="col-md-3 border-right">
+<div class="container rounded bg-white mt-5 mb-5" style="margin:0 auto; width:80%;">
+    <div class="row" style="
+    gap:2rem;
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 0.25fr;">
+        <div class="border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                 <img class="rounded-circle mt-5" width="150px" src="@Model.Profile.Image">
                 <span 
@@ -73,11 +76,9 @@
                 <span> </span>
             </div>
         </div>
-        <div class="col-md-5 border-right">
+        <div>
             <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">Thông Tin Cá Nhân</h4>
-                </div>
+                <h3 style="text-align:center;">Thông Tin Cá Nhân</h3>
                 <form asp-page-handler="UpdateProfile" method="post" enctype="multipart/form-data">
                     <div class="row mt-3">
                         <div class="col-md-12">
@@ -103,11 +104,11 @@
                 </form>
             </div>
         </div>
-        <div class="col-md-3 border-right">
+       @*  <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                 <img src="/img/logo.jpg" class="navbar-brand-img" alt="...">
             </div>
-        </div>
+        </div> *@
     </div>
 </div>
 </div>

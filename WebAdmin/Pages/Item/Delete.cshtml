@@ -8,6 +8,13 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div class="delete">
+    @if (Model.Item.ItemStatus.Equals("DISABLE") || Model.Item.ItemStatus.Equals("Vô Hiệu Hóa"))
+    {
+        <div style="text-align: center;">
+            <span>Vật Phẩm Đã Bị Vô Hiệu Hóa</span>
+        </div>
+    }
+    else{
     <h3>Bạn chắc chắn xóa thông tin?</h3>
     <hr />
     <dl class="row">
@@ -96,4 +103,5 @@
             <input type="submit" value="Xóa" class="btn btn-primary" />
         </div>
     </form>
+    }
 </div>
