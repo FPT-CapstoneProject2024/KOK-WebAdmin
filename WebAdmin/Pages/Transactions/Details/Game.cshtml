@@ -22,7 +22,7 @@
             }
             else
             {
-                <span>Chờ Xử Lý</span>
+                <span>Hoàn Thành</span>
             }
         </dd>
         <dt class="col-md-4 col-12">
@@ -57,11 +57,19 @@
             @Html.Raw(((int)Model.InAppTransaction.UpAmountBefore + " UP"))
         </dd>
         <dt class="col-md-4 col-12">
-            Tổng UP
+            Biến Động
         </dt>
         <dd class="col-md-8 col-12">
+            @if (Model.InAppTransaction.TransactionType == "Nạp Vào Tài Khoản" || Model.InAppTransaction.TransactionType == "RECHARGE_UP_BALANCE")
+            {
+                @Html.Raw("+ " + (int)Model.InAppTransaction.UpTotalAmount + " UP")
+            }
+            else
+            {
+                @Html.Raw("- " + (int)Model.InAppTransaction.UpTotalAmount + " UP")
+            }
             @* @Html.DisplayFor(model => model.InAppTransaction.UpTotalAmount) *@
-            @Html.Raw(((int)Model.InAppTransaction.UpTotalAmount + " UP"))
+            @* @Html.Raw(((int)Model.InAppTransaction.UpTotalAmount + " UP")) *@
         </dd>
        
     </dl>

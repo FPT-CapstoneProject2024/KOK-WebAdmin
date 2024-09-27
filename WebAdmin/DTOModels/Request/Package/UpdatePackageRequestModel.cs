@@ -9,7 +9,7 @@ namespace WebAdmin.DTOModels.Request.Package
         public string PackageName { get; set; } = null!;
         public string Description { get; set; } = null!;
         [RegularExpression(Constraints.VALIDATE_AMOUNT, ErrorMessage = Constraints.VALIDATE_AMOUNT)]
-        public decimal MoneyAmount { get; set; }
+        public int MoneyAmount { get; set; }
         [RegularExpression(Constraints.VALIDATE_AMOUNT, ErrorMessage = Constraints.STAR_INVALID)]
         public int StarNumber { get; set; }
         public PackageStatus Status { get; set; }

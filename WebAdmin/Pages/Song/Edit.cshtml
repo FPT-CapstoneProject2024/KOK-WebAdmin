@@ -43,6 +43,7 @@
             <div class="form-group">
                 <label asp-for="UpdateSong.Price" class="control-label">Giá Tiền</label>
                 <input asp-for="UpdateSong.Price" type="number" class="form-control" />
+                @* <input value="@((int)Model.UpdateSong.Price)" type="number" class="form-control" /> *@
                 <span asp-validation-for="UpdateSong.Price" class="text-danger"></span>
             </div>
             <div class="form-group">

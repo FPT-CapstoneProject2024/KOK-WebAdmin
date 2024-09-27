@@ -306,8 +306,8 @@
                 <th>Loại Vật Phẩm</th>
                 @* <th>Created Date</th> *@
                 @* <th>Item Description</th> *@
-                <th>Hết Hạn?</th>
-                <th>Stack?</th>
+@*                 <th>Hết Hạn?</th>
+                <th>Stack?</th> *@
                 <th>Trạng thái vật phẩm</th>
                 <th>Giá Up</th>
                 @* <th>Giá Bán</th> *@
@@ -337,12 +337,12 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.ItemType)
                         </td>
-                        <td>
+@*                         <td>
                             @Html.DisplayFor(modelItem => item.CanExpire)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.CanStack)
-                        </td>
+                        </td> *@
                         <td>
                             @if (item.ItemStatus == "Vô Hiệu Hóa" || item.ItemStatus == "DISABLE")
                             {

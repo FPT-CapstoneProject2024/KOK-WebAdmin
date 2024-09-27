@@ -14,7 +14,7 @@ namespace WebAdmin.DTOModels.Request.Song
         [Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
         public Guid? CreatorId { get; set; }
         [RegularExpression(Constraints.VALIDATE_AMOUNT, ErrorMessage = Constraints.STAR_INVALID)]
-        public decimal Price { get; set; }
+        public int Price { get; set; }
         [Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
         public string Category { get; set; } = null!;
         [Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]

@@ -128,7 +128,7 @@ namespace WebAdmin.Pages.Account
                 {"Gender", filter.Gender },
                 {"Role", filter.Role },
                 {"UpBalance", string.Concat(filter.UpBalance) },
-                {"IsOnline", string.Concat(filter.IsOnline) },
+                {"AccountStatus", string.Concat(AccountStatuses.List.IndexOf(filter.AccountStatus)) },
                 {"Fullname", filter.Fullname },
                 {"Yob", string.Concat(filter.Yob) },
                 {"IdentityCardNumber", filter.IdentityCardNumber },

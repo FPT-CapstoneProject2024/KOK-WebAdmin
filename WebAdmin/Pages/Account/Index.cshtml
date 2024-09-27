@@ -86,7 +86,7 @@
                         <input asp-for="filter.UpBalance" class="form-control" type="number"/>
                         <span asp-validation-for="filter.UpBalance" class="text-danger"></span>
                     </div>
-                    <div class="col-md-4">
+               @*      <div class="col-md-4">
                         <label class="form-label">Trực Tuyến</label>
                         <select asp-for="filter.IsOnline" class="form-select">
                         <option value="" disabled selected>Chọn</option>
@@ -94,14 +94,17 @@
                             <option value="false">Không</option>
                         </select>
                         <span asp-validation-for="filter.IsOnline" class="text-danger"></span>
-                    </div>
-                    @* <div class="col-md-3">
+                    </div> *@
+                    <div class="col-md-4">
                         <label class="form-label">Trạng Thái</label>
                         <select asp-for="filter.AccountStatus" class="form-select">
-                            <option value="INACTIVE">Không Hoạt Động</option>
-                            <option value="ACTIVE">Hoạt Động</option>
-                        </select>
-                    </div> *@
+                            <option value="" disabled selected>Chọn Trạng Thái</option>
+                        @foreach(var e in AccountStatuses.List)
+                        {
+                            <option value="@e">@e</option>
+                        }
+                    </select>
+                    </div>
                 </div>
 
                 <div class="row mt-3">
@@ -284,7 +287,7 @@
                             {
                                 <a asp-page-handler="Active" asp-route-id="@e.AccountId" class="btn btn-danger">Vô Hiệu Hóa</a>
                             }
-                            else
+                            else 
                             {
                                 <a asp-page-handler="Inactive" asp-route-id="@e.AccountId" class="btn btn-success">&nbsp;&nbsp;Kích Hoạt&nbsp;&nbsp;</a>
                             }

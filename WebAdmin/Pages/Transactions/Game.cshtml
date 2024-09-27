@@ -30,7 +30,7 @@
                 <th>Ngày Tạo</th>
                 <th>Loại Giao Dịch</th>
                 <th>UP Trước Giao Dịch</th>
-                <th>Tổng UP</th>
+                <th>Biến Động</th>
                 <th></th>
             </tr>
         </thead>
@@ -50,11 +50,11 @@
                             }
                             else if (item.Status == "Hoàn Thành" || item.Status == "COMPLETE")
                             {
-                                <span style="color: green;">@* @Html.DisplayFor(modelItem => package.Status) *@Hoàn Thành</span>
+                                <span style="color: green;">Hoàn Thành</span>
                             }
                             else
                             {
-                                <span style="color: yellow;">Chờ Xử Lý</span>
+                                <span style="color: green;">Hoàn Thành</span>
                             }
                         </td>
                         <td>
@@ -64,7 +64,13 @@
                             @Html.DisplayFor(modelItem => item.TransactionType)
                         </td>
                         <td>@Html.Raw(((int)item.UpAmountBefore + " UP"))</td>
-                        <td>@Html.Raw(((int)item.UpTotalAmount + " UP"))</td>
+                        @if (item.TransactionType == "Nạp Vào Tài Khoản" || item.TransactionType == "RECHARGE_UP_BALANCE")
+                        {
+                            <td>@Html.Raw("+ " + (int)item.UpTotalAmount + " UP")</td>
+                        }else
+                        {
+                            <td>@Html.Raw("- " + (int)item.UpTotalAmount + " UP")</td>
+                        }             
                         <td>
                             @* <a asp-page="./Details/Game" asp-route-id="@item.InAppTransactionId">Details</a> *@
                             <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#detailGameTransactionModal" style="border: none;padding: 0;width: 42px;height: 42px;align-items: center;justify-content: center;" data-id="@item.InAppTransactionId">
@@ -79,7 +85,7 @@
     </table>
 </div>
 
-<div>
+@* <div>
     <label style="color: red;">Tổng Tiền: </label>
     <p style="color:black;">@(Convert.ToInt32(ViewBag.TotalAmount)) UP</p>
 </div>
@@ -87,7 +93,7 @@
     <label style="color: red;">Tổng giao dịch: </label>
     <p>@ViewBag.TotalTransaction</p>
 
-</div>
+</div> *@
 
 <!-- Details Modal -->
 <div class="modal fade" id="detailGameTransactionModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">

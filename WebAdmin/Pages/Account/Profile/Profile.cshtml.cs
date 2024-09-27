@@ -83,6 +83,7 @@ namespace WebAdmin.Pages.Account.Profile
                     throw new Exception();
                 }
 
+                HttpContext.Session.SetString("AccountData", JsonConvert.SerializeObject(rs.Value));
                 TempData["SuccessMessage"] = Constraints.UPDATE_PROFILE_SUCCESS;
                 
 

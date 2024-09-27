@@ -42,11 +42,11 @@
 
             <input asp-for="Account.Role" value="STAFF" type="hidden" />
 
-            <div class="form-group">
+@*             <div class="form-group">
                 <label asp-for="Account.UpBalance" class="control-label">Số Dư UP</label>
                 <input asp-for="Account.UpBalance" type="number" placeholder="Nhập Số Dư UP" required class="form-control" />
                 <span asp-validation-for="Account.UpBalance" class="text-danger"></span>
-            </div>
+            </div> *@
 
             <div class="form-group">
                 <label asp-for="Account.Yob" class="control-label">Năm Sinh</label>
@@ -66,7 +66,7 @@
                 <span asp-validation-for="Account.PhoneNumber" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+@*             <div class="form-group">
                 <label asp-for="Account.AccountStatus" class="control-label">Trạng Thái</label>
                 <select asp-for="Account.AccountStatus" class="form-control" required>
                     <option value="NOT_VERIFY">Chưa xác thực</option>
@@ -74,7 +74,7 @@
                     <option value="INACTIVE">Không hoạt động</option>
                 </select>
                 <span asp-validation-for="Account.AccountStatus" class="text-danger"></span>
-            </div>
+            </div> *@
 
             <!-- Uncomment if you need file upload -->
             

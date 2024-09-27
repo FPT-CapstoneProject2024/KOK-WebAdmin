@@ -141,6 +141,8 @@ namespace WebAdmin.Pages.Package
             {
                 TotalPage = (int)MathF.Ceiling((float)data.Metadata.Total / (float)data.Metadata.Size);
                 TotalPage2 = TotalPage;
+
+                //data.Results.OrderBy(x => x.Status)
             }
             return Page();
         }
