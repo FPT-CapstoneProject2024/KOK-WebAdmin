@@ -81,7 +81,7 @@ namespace WebAdmin.Pages.Authentication
 
 
                         // Redirect to home page
-                        return RedirectToPage("/Dashboard/Index");
+                        return RedirectToPage("/Account/Index");
 
                     }
                     else
