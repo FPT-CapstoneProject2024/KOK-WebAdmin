@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using WebAdmin.Context;
+using WebAdmin.DTOModels;
+using WebAdmin.DTOModels.Response;
 using WebAdmin.DTOModels.Response.Helpers;
 using WebAdmin.Services.Interfaces;
 
@@ -10,6 +12,8 @@ namespace WebAdmin.Pages.Report.Ban
     public class PostModel : PageModel
     {
         private readonly IApiClient apiClient;
+        [BindProperty]
+        public DTOModels.Response.Report Report{ get; set; } = new DTOModels.Response.Report();
         [BindProperty]
         public DTOModels.Response.Post data { get; set; } = default!;
 
@@ -22,6 +26,7 @@ namespace WebAdmin.Pages.Report.Ban
         {
             try
             {
+
                 var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.PostResource + "/get-posts-for-admin/?PostId=" + id;
 
                 var response = await apiClient.GetAsync(uri);
@@ -30,6 +35,20 @@ namespace WebAdmin.Pages.Report.Ban
 
                 data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Post>>(jsonResponse).Results.First();
 
+                uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ReportResource + "?PostId=" + id;
+
+                response = await apiClient.GetAsync(uri);
+
+                jsonResponse = await response.Content.ReadAsStringAsync();
+
+                Report = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Report>>(jsonResponse).Results.First();
+
+
+                data.ReportId = string.Concat(Report.ReportId);
+
+                  Report.ReportCategory = ReportCategory.List[(int)Enum.Parse(typeof(ReportCatagory), Report.ReportCategory)];
+                Report.Status = ReportStatuses.List[(int)Enum.Parse(typeof(ReportStatus), Report.Status)];
+                Report.ReportType = ReportTypes.List[(int)Enum.Parse(typeof(ReportType), Report.ReportType)];
 
             }
             catch (Exception)
@@ -40,7 +59,7 @@ namespace WebAdmin.Pages.Report.Ban
             return Page();
         }
 
-        public async Task<IActionResult> OnPostBanPost(string id)
+        public async Task<IActionResult> OnPostBanPost(string id, string reportId)
         {
 
             try
@@ -50,7 +69,16 @@ namespace WebAdmin.Pages.Report.Ban
 
                 var jsonResponse = await response.Content.ReadAsStringAsync();
 
-                var data1 = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Post>>(jsonResponse);
+                //var data1 = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Post>>(jsonResponse);
+
+                uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ReportResource + "/update-status/" + reportId;
+
+                response = await apiClient.PutAsync(uri, "COMPLETE");
+                jsonResponse = await response.Content.ReadAsStringAsync();
+
+
+                var data1 = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Account>>(jsonResponse);
+
 
                 if (data1.result.HasValue)
                 {

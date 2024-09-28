@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
+using System.Numerics;
 using WebAdmin.Context;
 using WebAdmin.DTOModels.Response;
 using WebAdmin.DTOModels.Response.Helpers;
@@ -24,15 +25,24 @@ namespace WebAdmin.Pages.Report.Ban
         {
             try
             {
-                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.AccountResource + "/" + id;
+                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ReportResource + "?ReportId=" + id;
 
                 var response = await apiClient.GetAsync(uri);
 
                 var jsonResponse = await response.Content.ReadAsStringAsync();
 
+                var report = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Report>>(jsonResponse).Results.First();
+
+                uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.AccountResource + "/" + report.ReportedAccountId;
+
+                response = await apiClient.GetAsync(uri);
+
+                jsonResponse = await response.Content.ReadAsStringAsync();
+
                 data = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Account>>(jsonResponse).Value;
 
-              
+                data.CommentId = string.Concat(report.CommentId);
+                data.ReportId = string.Concat(report.ReportId);
             }
             catch (Exception)
             {
@@ -42,21 +52,39 @@ namespace WebAdmin.Pages.Report.Ban
             return Page();
         }
 
-        public async Task<IActionResult> OnPostBanAccount(string id)
+        public async Task<IActionResult> OnPostBanAccount(string id, string reportId, string commentId)
         {
 
             try
             {
-                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.AccountResource + "/" + id;
+
+                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.PostCommentResource + "/" +commentId;
+
                 var response = await apiClient.DeleteAsync(uri);
 
                 var jsonResponse = await response.Content.ReadAsStringAsync();
 
-                var data1 = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Account>>(jsonResponse);
+                //var report = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Report>>(jsonResponse).Value;
 
-                if (data1.result.HasValue)
+                uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.AccountResource + "/" + id;
+
+                response = await apiClient.DeleteAsync(uri);
+
+                jsonResponse = await response.Content.ReadAsStringAsync();
+
+
+                
+                uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ReportResource + "/update-status/" + reportId;
+
+                response = await apiClient.PutAsync(uri, "COMPLETE");
+                jsonResponse = await response.Content.ReadAsStringAsync();
+
+
+                var reported = JsonConvert.DeserializeObject<ResponseResult<DTOModels.Response.Account>>(jsonResponse);
+
+                if (reported.result.HasValue)
                 {
-                    if (!data1.result.Value)
+                    if (!reported.result.Value)
                     {
                         throw new Exception();
                     }

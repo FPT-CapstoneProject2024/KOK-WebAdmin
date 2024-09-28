@@ -3,20 +3,42 @@
 @{
 }
 <div class="details">
-
+    </hr>
     @if (Model.data.PostStatus == "ACTIVE")
-    {
-        <div>
+    {               
+            <dl class="row">
+                <dt class="col-md-4 col-12">
+                    Nội Dung
+                </dt>
+                <dd class="col-md-8 col-12">
+                     @Html.DisplayFor(model =>model.Report.PostCaption)
+                </dd>
+                <dt class="col-md-4 col-12">
+                    Loại Báo Cáo
+                </dt>
+                <dd class="col-md-8 col-12">
+                @Html.DisplayFor(model => model.Report.ReportType)
+                </dd>
+                <dt class="col-md-4 col-12">
+                    Lý Do
+                </dt>
+                <dd class="col-md-8 col-12">
+                    @Html.DisplayFor(model => model.Report.Reason)
+                </dd>
+            <dt class="col-md-4 col-12">
+                Mục Báo Cáo
+            </dt>
+            <dd class="col-md-8 col-12">
+                @Html.DisplayFor(model => model.Report.ReportCategory)
+            </dd>
+            </dl>
 
-            <form asp-page-handler="BanPost" asp-route-id="@Model.data.PostId" method="post">
+            <form asp-page-handler="BanPost" asp-route-id="@Model.data.PostId" asp-route-reportId="@Model.data.ReportId" method="post">
                 @*             <img src="@Model.data?.Image" alt="N/A" style="width:50%" />
-            *@
-                <div style="background-color: darkslategray; height:1px;"></div>
-                <p style="text-align:center;">@Html.DisplayFor(model => model.data.Caption)</p>
-                <p style="text-align:center;">@Html.DisplayFor(model => model.data.UpdateTime)</p>
+            *@    
                 <input class="btn btn-outline-danger" type="submit" value="Cấm Bài Viết" />
             </form>
-        </div>
+       
     }
     else
     {

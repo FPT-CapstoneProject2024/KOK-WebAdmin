@@ -7,7 +7,7 @@
     @if(Model.data.AccountStatus == "ACTIVE")
     {
         <div>
-            <form asp-page-handler="BanAccount" asp-route-id="@Model.data.AccountId" method="post">
+            <form asp-page-handler="BanAccount" asp-route-id="@Model.data.AccountId" asp-route-reportId="@Model.data.ReportId" asp-route-commentId="@Model.data.CommentId" method="post">
                 @* <img src="@Model.data?.Image" alt="N/A" style="width:50%" /> *@
 
                 <div style="background-color: darkslategray; height:1px;"></div>

@@ -13,7 +13,9 @@ namespace WebAdmin.DTOModels.Response
         public Guid? RecordingId { get; set; }
         public string? PostStatus { get; set; }
         public string? PostType { get; set; }
+        public string? SongUrl { get; set; }
         public Guid? OriginPostId { get; set; }
+        public string? ReportId { get; set; }
 
         public  ICollection<Post>? InverseOriginPost { get; set; }
         public  ICollection<PostRating>? PostRatings { get; set; }
