@@ -11,15 +11,15 @@ namespace WebAdmin.DTOModels.Request.Song
         public string? SongUrl { get; set; }
         public string? SongCode { get; set; }
         public DateTime? PublicDate { get; set; }
-        [Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
+        //[Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
         public Guid? CreatorId { get; set; }
         [RegularExpression(Constraints.VALIDATE_AMOUNT, ErrorMessage = Constraints.STAR_INVALID)]
         public int Price { get; set; }
-        [Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
-        public string Category { get; set; } = null!;
-        [Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
-        public string Author { get; set; } = null!;
-        [Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
-        public string Singer { get; set; } = null!;
+        //[Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
+        public string? Category { get; set; }
+        //[Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
+        public string? Author { get; set; } 
+        //[Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
+        public string? Singer { get; set; }
     }
 }

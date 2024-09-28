@@ -329,7 +329,7 @@
                 // Handle failure case if needed
                 Swal.fire({
                     title: 'Lỗi',
-                    text: 'Tạo Mới Bài Hát Thất Bại!',
+                    text: result.message || 'Tạo bài hát mới thất bại!', // Sử dụng thông điệp từ server nếu có
                     icon: 'error',
                     confirmButtonText: 'OK'
                 });

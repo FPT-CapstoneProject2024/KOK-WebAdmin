@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using WebAdmin.Context;
+using WebAdmin.DTOModels;
 using WebAdmin.DTOModels.Response.Helpers;
 using WebAdmin.Services.Interfaces;
 
@@ -48,8 +49,17 @@ namespace WebAdmin.Pages.Transactions
                 data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.MonetaryTransaction>>(jsonResponse);
 #pragma warning restore CS8601 // Possible null reference assignment.
 
+
+
+
                 if (data.Results is not null)
                 {
+                    data.Results = data.Results.Select(r =>
+                    {
+                        r.CreatedDate = r.CreatedDate.Value.AddHours(7);
+
+                        return r;
+                    }).ToList();
                     TotalPage = (int)MathF.Ceiling((float)data.Metadata.Total / (float)data.Metadata.Size);
 
                     ViewData["TotalAmount"] = data.Results.Sum(x => x.MoneyAmount);

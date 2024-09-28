@@ -47,17 +47,19 @@ namespace WebAdmin.Pages.Transactions
                 var jsonResponse = await response.Content.ReadAsStringAsync();
 #pragma warning disable CS8601 // Possible null reference assignment.
                 data = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.InAppTransaction>>(jsonResponse);
-                data.Results = data.Results.Select(r =>
-                {
-                    r.Status = (new InAppTransactionStatuses()).List[(int)Enum.Parse(typeof(InAppTransactionStatus), r.Status)];
-                    r.TransactionType = (new InAppTransactionTypes()).List[(int)Enum.Parse(typeof(InAppTransactionType), r.TransactionType) - 1];
 
-                    return r;
-                }).ToList();
 #pragma warning restore CS8601 // Possible null reference assignment.
 
                 if (data.Results is not null)
                 {
+                    data.Results = data.Results.Select(r =>
+                    {
+                        r.Status = (new InAppTransactionStatuses()).List[(int)Enum.Parse(typeof(InAppTransactionStatus), r.Status)];
+                        r.TransactionType = (new InAppTransactionTypes()).List[(int)Enum.Parse(typeof(InAppTransactionType), r.TransactionType) - 1];
+                        r.CreatedDate = r.CreatedDate.Value.AddHours(7);
+
+                        return r;
+                    }).ToList();
                     TotalPage = (int)MathF.Ceiling((float)data.Metadata.Total / (float)data.Metadata.Size);
                     ViewData["TotalAmount"] = data.Results.Sum(x => x.UpTotalAmount);
                     ViewData["TotalTransaction"] = data.Metadata.Total;

@@ -379,7 +379,7 @@
                                 // Handle the failure case
                                 Swal.fire({
                                     title: 'Error!',
-                                    text: 'Tạo mới gói thất bại!',
+                                    text: response.message || 'Tạo mới gói thất bại!',
                                     icon: 'error',
                                     confirmButtonText: 'OK'
                                 });
@@ -449,7 +449,7 @@
                             // Handle the failure case
                             Swal.fire({
                                 title: 'Error!',
-                                text: 'Chỉnh sửa gói thất bại!',
+                                text: response.message || 'Chỉnh sửa gói thất bại!',
                                 icon: 'error',
                                 confirmButtonText: 'OK'
                             });

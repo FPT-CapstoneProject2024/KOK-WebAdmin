@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using WebAdmin.Context;
+using WebAdmin.DTOModels;
 using WebAdmin.DTOModels.Response.Helpers;
 using WebAdmin.Services.Interfaces;
 
@@ -32,6 +33,8 @@ namespace WebAdmin.Pages.Transactions.Details
             var game = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.InAppTransaction>>(jsonResponse).Results.First();
 #pragma warning restore CS8601 // Possible null reference assignment.
 
+
+
             if (id == null || game == null)
             {
                 return NotFound();
@@ -43,6 +46,9 @@ namespace WebAdmin.Pages.Transactions.Details
             }
             else
             {
+                //game.Status = (new InAppTransactionStatuses()).List[(int)Enum.Parse(typeof(InAppTransactionStatus), game.Status)];
+                //game.TransactionType = (new InAppTransactionTypes()).List[(int)Enum.Parse(typeof(InAppTransactionType), game.TransactionType) - 1];
+                game.CreatedDate = game.CreatedDate.Value.AddHours(7);
                 InAppTransaction = game;
             }
 

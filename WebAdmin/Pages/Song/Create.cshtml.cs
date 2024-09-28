@@ -36,10 +36,10 @@ namespace WebAdmin.Pages.Song
 
         [BindProperty]
         public Guid SelectedArtistId { get; set; }
-        
+
         [BindProperty]
         public Guid SelectedSingerId { get; set; }
-        
+
         [BindProperty]
         public Guid SelectedGenreId { get; set; }
 
@@ -146,9 +146,20 @@ namespace WebAdmin.Pages.Song
         {
             try
             {
+
                 if (!ModelState.IsValid)
                 {
-                    return Page();
+
+                    // Lấy tất cả thông điệp lỗi từ ModelState và gộp thành một chuỗi
+                    var errorMessages = ModelState
+                        .Where(ms => ms.Value.Errors.Count > 0)
+                        .SelectMany(ms => ms.Value.Errors.Select(e => e.ErrorMessage))
+                        .ToList();
+
+                    // Gộp tất cả thông điệp thành một chuỗi, có thể sử dụng "\n" để xuống dòng
+                    var errors = string.Join("\n", errorMessages);
+                    return new JsonResult(new { success = false, message = errors });
+
                 }
 
                 // Deserialize selected items from hidden fields
@@ -172,6 +183,13 @@ namespace WebAdmin.Pages.Song
                 // Handle file upload
                 if (Song.SongFile != null)
                 {
+                    string fileExtension = Path.GetExtension(Song.SongFile.FileName).ToLower();
+                    if (fileExtension != ".mp4")
+                    {
+                        return new JsonResult(new { success = false });
+                    }
+
+
                     using (var memoryStream = new MemoryStream())
                     {
                         await Song.SongFile.CopyToAsync(memoryStream);
@@ -242,12 +260,12 @@ namespace WebAdmin.Pages.Song
             var jsonResponse = response.Content.ReadAsStringAsync().Result;
 
             SearchArtistResults = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Artist>>(jsonResponse)?.Results;
-             
+
             return Partial("_SearchArtistResults", this);
 
 
         }
-        
+
         public IActionResult OnGetSearchSinger(string query)
         {
             var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.SingerResource + "?Status=ACTIVE&SingerName=" + query;
@@ -255,12 +273,12 @@ namespace WebAdmin.Pages.Song
             var jsonResponse = response.Content.ReadAsStringAsync().Result;
 
             SearchSingerResults = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Singer>>(jsonResponse)?.Results;
-             
+
             return Partial("_SearchSingerResults", this);
 
 
         }
-        
+
         public IActionResult OnGetSearchGenre(string query)
         {
             var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.GenreResource + "?Status=ACTIVE&GenreName=" + query;
@@ -268,7 +286,7 @@ namespace WebAdmin.Pages.Song
             var jsonResponse = response.Content.ReadAsStringAsync().Result;
 
             SearchGenreResults = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Genre>>(jsonResponse)?.Results;
-             
+
             return Partial("_SearchGenreResults", this);
 
 
@@ -292,7 +310,7 @@ namespace WebAdmin.Pages.Song
         //public void OnPostAddSinger(Guid singerId, string action)
         //{
         //     Logic để thêm hoặc bỏ chọn ca sĩ
-       
+
         //    var singer = Song.SongSingers.FirstOrDefault(s => s.SingerId == singerId);
         //    if (singer != null)
         //    {

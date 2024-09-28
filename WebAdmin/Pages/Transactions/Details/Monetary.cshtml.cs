@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using WebAdmin.Context;
+using WebAdmin.DTOModels;
 using WebAdmin.DTOModels.Response.Helpers;
 using WebAdmin.Services.Interfaces;
 
@@ -43,6 +44,7 @@ namespace WebAdmin.Pages.Transactions.Details
             }
             else
             {
+                monetary.CreatedDate = monetary.CreatedDate.Value.AddHours(7);
                 MonetaryTransaction = monetary;
             }
 

@@ -59,10 +59,10 @@ namespace WebAdmin.Pages.Genre
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync(IFormFile? file)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return new JsonResult(new { success = false });
-            //}
+            if (!ModelState.IsValid)
+            {
+                return new JsonResult(new { success = false });
+            }
 
             if (file != null)
             {

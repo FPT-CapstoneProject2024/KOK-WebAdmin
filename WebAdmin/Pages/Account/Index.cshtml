@@ -422,7 +422,7 @@
                                         // Handle the failure case
                                         Swal.fire({
                                             title: 'Error!',
-                                            text: 'Tạo mới nhân viên thất bại!',
+                                            text: response.message || 'Tạo mới nhân viên thất bại!',
                                             icon: 'error',
                                             confirmButtonText: 'OK'
                                         });

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using WebAdmin.Context;
@@ -30,7 +30,16 @@ namespace WebAdmin.Pages.Item
             {
                 if (!ModelState.IsValid)
                 {
-                    return new JsonResult(new { success = false });
+                    // Lấy tất cả thông điệp lỗi từ ModelState và gộp thành một chuỗi
+                    var errorMessages = ModelState
+                        .Where(ms => ms.Value.Errors.Count > 0)
+                        .SelectMany(ms => ms.Value.Errors.Select(e => e.ErrorMessage))
+                        .ToList();
+
+                    // Gộp tất cả thông điệp thành một chuỗi, có thể sử dụng "\n" để xuống dòng
+                    var errors = string.Join("\n", errorMessages);
+                    return new JsonResult(new { success = false, message = errors });
+
                 }
                 Item.CreatorId = JsonConvert.DeserializeObject<DTOModels.Response.Account>(HttpContext.Request.Cookies["AccountData"])?.AccountId;
                 var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ItemResource;

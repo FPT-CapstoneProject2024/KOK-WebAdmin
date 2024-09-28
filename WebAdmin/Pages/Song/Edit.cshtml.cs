@@ -1,4 +1,4 @@
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -53,10 +53,18 @@ namespace WebAdmin.Pages.Song
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return new JsonResult(new { success = false });
-            //}
+            if (!ModelState.IsValid)
+            {
+                // Lấy tất cả thông điệp lỗi từ ModelState và gộp thành một chuỗi
+                var errorMessages = ModelState
+                    .Where(ms => ms.Value.Errors.Count > 0)
+                    .SelectMany(ms => ms.Value.Errors.Select(e => e.ErrorMessage))
+                    .ToList();
+
+                // Gộp tất cả thông điệp thành một chuỗi, có thể sử dụng "\n" để xuống dòng
+                var errors = string.Join("\n", errorMessages);
+                return new JsonResult(new { success = false, message = errors });
+            }
 
             try
             {

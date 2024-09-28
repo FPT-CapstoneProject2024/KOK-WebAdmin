@@ -35,10 +35,10 @@ namespace WebAdmin.Pages.Artist
         {
             try
             {
-                //if (!ModelState.IsValid)
-                //{
-                //    return new JsonResult(new { success = false });
-                //}
+                if (!ModelState.IsValid)
+                {
+                    return new JsonResult(new { success = false });
+                }
 
                 var dataImage = await SupportingFeature.Instance.UploadImage(_clientFactory, file, KokApiContext.ImgurClientId);
 

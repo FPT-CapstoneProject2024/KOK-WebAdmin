@@ -57,10 +57,10 @@ namespace WebAdmin.Pages.Artist
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync(IFormFile? file)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return new JsonResult(new { success = false });
-            //}
+            if (!ModelState.IsValid)
+            {
+                return new JsonResult(new { success = false });
+            }
             if (file != null)
             {
                 var dataImage = await SupportingFeature.Instance.UploadImage(_clientFactory, file, KokApiContext.ImgurClientId);

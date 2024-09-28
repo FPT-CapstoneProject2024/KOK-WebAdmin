@@ -46,11 +46,13 @@
         #region Validate data
         public const string EMPTY_INPUT_INFORMATION = "Vui lòng nhập thông tin!";
         public const string STAR_INVALID = "Vui lòng nhập số tiền hợp lệ!";
+        public const string UP_INVALID = "Vui lòng nhập số UP hợp lệ!";
         public const string INFORMATION_INVALID = "Vui lòng nhập thông tin hợp lệ!";
         public const string VALIDATE_NEGATIVE = @"^[0-9]+$";
         public const string VALIDATE_AMOUNT = @"^\d+(\.\d+)?$";
         public const string VALIDATE_RANGE_0_TO_100 = "Vui lòng nhập điểm từ 0 đến 100";
         public const string VALIDATE_ENDDATE = "Vui lòng nhập thời gian kết thúc lớn hơn thời gian bắt đầu!";
+        public const string VALIDATE_PUBLICDATE = "Vui lòng nhập thời gian lớn hơn hôm nay!";
         #endregion
 
         #region Authorize
@@ -89,6 +91,8 @@
         #region Purchase Item
         public const string PURCHASE_ITEM_FAILED = "Mua vật phẩm thất bại, Vui lòng thử lại!";
         public const string PURCHASE_ITEM_SUCCESS = "Mua vật phẩm thành công!";
+        public const string ITEM_CODE = "Item code không được vượt quá 10 ký tự.";
+        public const string ITEM_PRICE = "Giá Tiền Không Hợp Lệ!";
         #endregion
     }
 }

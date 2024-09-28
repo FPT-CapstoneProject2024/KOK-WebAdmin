@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using WebAdmin.Context;
@@ -32,7 +32,15 @@ namespace WebAdmin.Pages.Account
             {
                 if (!ModelState.IsValid)
                 {
-                    return Page();
+                    // Lấy tất cả thông điệp lỗi từ ModelState và gộp thành một chuỗi
+                    var errorMessages = ModelState
+                        .Where(ms => ms.Value.Errors.Count > 0)
+                        .SelectMany(ms => ms.Value.Errors.Select(e => e.ErrorMessage))
+                        .ToList();
+
+                    // Gộp tất cả thông điệp thành một chuỗi, có thể sử dụng "\n" để xuống dòng
+                    var errors = string.Join("\n", errorMessages);
+                    return new JsonResult(new { success = false, message = errors });
                 }
                 //var dataImage = await SupportingFeature.Instance.UploadImage(_clientFactory, file, KokApiContext.ImgurClientId);
 

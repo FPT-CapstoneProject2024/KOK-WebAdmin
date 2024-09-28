@@ -294,7 +294,26 @@ namespace WebAdmin.Helpers
         }
     }
     #endregion
+    public class FutureOrTodayDateAttribute : ValidationAttribute
+    {
+        public string OtherProperty { get; }
 
+        public string? OtherPropertyDisplayName { get; internal set; }
+        public override string FormatErrorMessage(string name) =>
+        string.Format(
+        CultureInfo.CurrentCulture, ErrorMessageString, name, OtherPropertyDisplayName ?? OtherProperty);
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            var publicDate = (DateTime?)value;
+
+            if (publicDate.HasValue && publicDate.Value.Date < DateTime.Today)
+            {
+                return new ValidationResult(FormatErrorMessage(validationContext.DisplayName), new[] { validationContext.MemberName });
+            }
+
+            return ValidationResult.Success;
+        }
+    }
     public class InRangeOneHundredAttribute : ValidationAttribute
     {
         public string OtherProperty { get; }

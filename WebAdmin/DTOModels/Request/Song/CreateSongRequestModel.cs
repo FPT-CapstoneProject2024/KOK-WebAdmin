@@ -9,6 +9,7 @@ namespace WebAdmin.DTOModels.Request.Song
         public string SongName { get; set; } = null!;
         public string? SongDescription { get; set; }
         public IFormFile? SongFile { get; set; }
+        [FutureOrTodayDateAttribute(ErrorMessage = Constraints.VALIDATE_PUBLICDATE)]
         public DateTime? PublicDate { get; set; }
         [Required(ErrorMessage = Constraints.EMPTY_INPUT_INFORMATION)]
         public Guid CreatorId { get; set; }
