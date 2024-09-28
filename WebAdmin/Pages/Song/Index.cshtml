@@ -431,7 +431,45 @@
         });
     });
 
-    // Load Edit form content into the modal
+
+
+
+    async function liveSearchGenre() {
+        const query = document.getElementById('searchGenreBox').value;
+
+        if (query.length < 1) {
+            document.getElementById('searchGenreResults').innerHTML = ''; // Xóa kết quả nếu không có từ khóa
+            // document.getElementById('searchGenreResults').style.display = 'none'; // Ẩn select nếu không có từ khóa
+            return;
+        }
+
+        // Gửi request đến server với query
+        const response = await fetch('./Edit?handler=SearchGenre&query=' + query);
+
+        // Chuyển đổi dữ liệu phản hồi từ server thành JSON hoặc chuỗi
+        const data = await response.json(); // Đảm bảo server trả về danh sách JSON các genre
+
+        // Lấy select box để cập nhật kết quả
+        const selectBox = document.getElementById('searchGenreResults');
+        selectBox.innerHTML = ''; // Xóa các option cũ
+
+        // Tạo các option mới dựa trên kết quả tìm kiếm
+        data.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item.value;  // Giá trị value có thể là ID hoặc tên genre
+            option.textContent = item.text; // Hiển thị text trong option, ví dụ: tên genre
+            selectBox.appendChild(option);
+        });
+
+        // Hiển thị select nếu có kết quả
+        if (data.length > 0) {
+            selectBox.style.display = 'block';
+        } else {
+            selectBox.style.display = 'none'; // Ẩn select nếu không có kết quả nào khớp
+        }
+    }
+
+
     $('#editSongModal').on('show.bs.modal', function (e) {
         var button = $(e.relatedTarget);
         var songId = button.data('id');
@@ -441,6 +479,10 @@
         $.get('@Url.Page("./Edit", new { id = "__ID__" })'.replace('__ID__', songId), function (data) {
             var formContent = $(data).find('form');
             modal.find('.edit-modal-body').html(formContent);
+            liveSearchGenre();
+            // modal.on('shown.bs.modal', function () {
+            //     liveSearchGenre(); // Gọi hàm liveSearchGenre
+            // });
 
             // Attach an event listener to the form submit event
             modal.find('form').on('submit', function (e) {
@@ -497,8 +539,12 @@
                     }
                 });
             });
+
+            // Gọi hàm JavaScript của bạn sau khi nội dung đã được nạp vào modal
         });
     });
+
+
 
     // Load Delete form content into the modal
     $('#deleteSongModal').on('show.bs.modal', function (e) {

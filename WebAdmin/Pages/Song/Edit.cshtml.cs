@@ -3,10 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System;
 using WebAdmin.Context;
 using WebAdmin.DTOModels.Request.Song;
+using WebAdmin.DTOModels.Response;
 using WebAdmin.DTOModels.Response.Helpers;
 using WebAdmin.Pages.Authentication;
+using WebAdmin.Services.Implementation;
 using WebAdmin.Services.Interfaces;
 
 namespace WebAdmin.Pages.Song
@@ -27,25 +30,55 @@ namespace WebAdmin.Pages.Song
         [BindProperty]
         public DTOModels.Request.Song.UpdateSongRequestModel UpdateSong { get; set; } = default!;
 
+        public List<DTOModels.Response.Singer> Singers { get; set; }
+        public List<DTOModels.Response.Artist> Artists { get; set; }
+        public List<DTOModels.Response.Genre> Genres { get; set; }
+
+
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
+            try
+            {
+                var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.SongResource + "?songId=" + id;
+                var response = await _apiClient.GetAsync(uri);
+                var responeJson = await response.Content.ReadAsStringAsync();
+                var song = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Song>>(responeJson);
 
+                if (song.Results == null)
+                {
+                    return NotFound();
+                }
+                Song = song.Results.First();
+
+                UpdateSong = _mapper.Map<UpdateSongRequestModel>(Song);
+
+
+                //uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.SingerResource + "?Status=ACTIVE";
+
+                //response = await _apiClient.GetAsync(uri);
+                //responeJson = await response.Content.ReadAsStringAsync();
+                //Singers = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Singer>>(responeJson).Results;
+                
+                
+                
+
+                
+                
+                //uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.ArtistResource + "?Status=ACTIVE";
+
+                //response = await _apiClient.GetAsync(uri);
+                //responeJson = await response.Content.ReadAsStringAsync();
+                //Artists = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Artist>>(responeJson).Results;
+            }
+            catch (Exception)
+            {
+                return RedirectToPage("/Error");
+            }
             if (id == null)
             {
                 return NotFound();
             }
-            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.SongResource + "?songId=" + id;
-            var response = await _apiClient.GetAsync(uri);
-            var responeJson = await response.Content.ReadAsStringAsync();
-            var song = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Song>>(responeJson);
 
-            if (song.Results == null)
-            {
-                return NotFound();
-            }
-            Song = song.Results.First();
-
-            UpdateSong = _mapper.Map<UpdateSongRequestModel>(Song);
             return Page();
         }
 
@@ -93,5 +126,18 @@ namespace WebAdmin.Pages.Song
         //{
         //    return (_context.Items?.Any(e => e.ItemId == id)).GetValueOrDefault();
         //}
+
+        public async Task<IActionResult> OnGetSearchGenre(string query)
+        {
+            var uri = KokApiContext.BaseApiUrl + "/" + KokApiContext.GenreResource + "?Status=ACTIVE";
+
+            var response = await _apiClient.GetAsync(uri);
+            var responeJson = await response.Content.ReadAsStringAsync();
+            Genres = JsonConvert.DeserializeObject<DynamicModelResponse.DynamicModelsResponse<DTOModels.Response.Genre>>(responeJson).Results;
+
+            return new JsonResult(Genres);
+
+
+        }
     }
 }

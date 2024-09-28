@@ -2,6 +2,43 @@
 @model WebAdmin.Pages.Song.EditModel
 @{
 }
+<script>
+    async function liveSearchGenre() {
+        const query = document.getElementById('searchGenreBox').value;
+
+        if (query.length < 1) {
+            document.getElementById('searchGenreResults').innerHTML = ''; // Xóa kết quả nếu không có từ khóa
+            // document.getElementById('searchGenreResults').style.display = 'none'; // Ẩn select nếu không có từ khóa
+            return;
+        }
+
+        // Gửi request đến server với query
+        const response = await fetch('./Edit?handler=SearchGenre&query=' + query);
+
+        // Chuyển đổi dữ liệu phản hồi từ server thành JSON hoặc chuỗi
+        const data = await response.json(); // Đảm bảo server trả về danh sách JSON các genre
+
+        // Lấy select box để cập nhật kết quả
+        const selectBox = document.getElementById('searchGenreResults');
+        selectBox.innerHTML = ''; // Xóa các option cũ
+
+        // Tạo các option mới dựa trên kết quả tìm kiếm
+        data.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item.value;  // Giá trị value có thể là ID hoặc tên genre
+            option.textContent = item.text; // Hiển thị text trong option, ví dụ: tên genre
+            selectBox.appendChild(option);
+        });
+
+        // Hiển thị select nếu có kết quả
+        if (data.length > 0) {
+            selectBox.style.display = 'block';
+        } else {
+            selectBox.style.display = 'none'; // Ẩn select nếu không có kết quả nào khớp
+        }
+    }
+</script>
+
 
 <hr />
 <div class="row">
@@ -20,9 +57,9 @@
                 <span asp-validation-for="UpdateSong.SongDescription" class="text-danger"></span>
             </div>
             @* <div class="form-group">
-                <label asp-for="Song.SongUrl" class="control-label">URL</label>
-                <input asp-for="Song.SongUrl" class="form-control" />
-                <span asp-validation-for="Song.SongUrl" class="text-danger"></span>
+            <label asp-for="Song.SongUrl" class="control-label">URL</label>
+            <input asp-for="Song.SongUrl" class="form-control" />
+            <span asp-validation-for="Song.SongUrl" class="text-danger"></span>
             </div> *@
             <input type="hidden" asp-for="Song.SongUrl" />
             <input type="hidden" asp-for="Song.Artist" />
@@ -46,13 +83,39 @@
                 @* <input value="@((int)Model.UpdateSong.Price)" type="number" class="form-control" /> *@
                 <span asp-validation-for="UpdateSong.Price" class="text-danger"></span>
             </div>
+
+
+            <div class="form-group">
+                <label>Thể Loại</label>
+                <input class="form-control" type="text" id="searchGenreBox" placeholder="Tìm Kiếm Thể Loại" onkeyup="liveSearchGenre()" />
+                <option>
+                    <select id="searchGenreResults">
+                        <!-- Các tùy chọn kết quả tìm kiếm sẽ được cập nhật tại đây -->
+                    </select>
+                </option>
+            </div>
+
+@*             <div>
+                <label>Tìm Kiếm Thể Loại</label>
+                <div style="margin-bottom:30px;" id="searchGenreResults" class="search-results"></div>
+            </div> *@
+
+
             <div class="form-group">
                 <input type="submit" value="Cập Nhật" class="btn btn-primary" />
             </div>
         </form>
+
     </div>
+
+
 </div>
 
 <div>
     <a asp-page="./Index">Trờ Lại Danh Sách</a>
 </div>
+
+
+
+
+
